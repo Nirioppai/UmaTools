@@ -23,8 +23,21 @@
   const autoBuildBtn = document.getElementById('auto-build-btn');
   const autoTargetInputs = document.querySelectorAll('input[name="auto-target"]');
   const autoBuilderStatus = document.getElementById('auto-builder-status');
-  const copyBuildBtn = document.getElementById('copy-build');
-  const loadBuildBtn = document.getElementById('load-build');
+  const saveBuildBtn = document.getElementById('save-build');
+  const shareBuildBtn = document.getElementById('share-build');
+  const viewBuildsBtn = document.getElementById('view-builds');
+
+  const saveBuildModal = document.getElementById('save-build-modal');
+  const saveBuildNameInput = document.getElementById('save-build-name');
+  const saveBuildDescInput = document.getElementById('save-build-description');
+  const saveModalClose = document.getElementById('save-modal-close');
+  const saveModalCancel = document.getElementById('save-modal-cancel');
+  const saveModalSave = document.getElementById('save-modal-save');
+
+  const buildsListModal = document.getElementById('builds-list-modal');
+  const buildsListContainer = document.getElementById('builds-list-container');
+  const buildsListModalClose = document.getElementById('builds-list-modal-close');
+  const buildsListModalCloseBtn = document.getElementById('builds-list-modal-close-btn');
 
   const ratingInputs = {
     speed: document.getElementById('stat-speed'),
@@ -147,13 +160,6 @@
     const ok = document.execCommand('copy');
     ta.remove();
     if (!ok) throw new Error('execCommand copy failed');
-  }
-
-  async function tryReadClipboard() {
-    if (navigator?.clipboard?.readText) {
-      return await navigator.clipboard.readText();
-    }
-    return '';
   }
 
   function getBucketForGrade(grade) {
@@ -673,6 +679,520 @@
     ensureOneEmptyRow();
     saveState();
     autoOptimizeDebounced();
+  }
+
+  // --- URL state ---
+  function encodeBuildToURL(buildString) {
+    try {
+      if (typeof LZString !== 'undefined' && LZString.compressToEncodedURIComponent) {
+        return LZString.compressToEncodedURIComponent(buildString);
+      }
+      const encoded = btoa(unescape(encodeURIComponent(buildString)))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+      return encoded;
+    } catch (err) {
+      console.error('Failed to encode build', err);
+      return '';
+    }
+  }
+
+  function decodeBuildFromURL(encoded) {
+    try {
+      if (typeof LZString !== 'undefined' && LZString.decompressFromEncodedURIComponent) {
+        const decoded = LZString.decompressFromEncodedURIComponent(encoded);
+        if (decoded) return decoded;
+      }
+      const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+      const padding = '='.repeat((4 - (base64.length % 4)) % 4);
+      const decoded = decodeURIComponent(escape(atob(base64 + padding)));
+      return decoded;
+    } catch (err) {
+      console.error('Failed to decode build', err);
+      return '';
+    }
+  }
+
+  // Minimal LZ-String (compressToEncodedURIComponent + decompressFromEncodedURIComponent)
+  // Keeps share URLs much shorter without a backend.
+  const LZString = (function() {
+    const f = String.fromCharCode;
+    const keyStrUriSafe = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$';
+    const getBaseValue = (alphabet, character) => alphabet.indexOf(character);
+    function compressToEncodedURIComponent(input) {
+      if (input == null) return '';
+      return _compress(input, 6, (a) => keyStrUriSafe.charAt(a));
+    }
+    function decompressFromEncodedURIComponent(input) {
+      if (input == null) return '';
+      if (input === '') return null;
+      return _decompress(input.length, 32, (index) => getBaseValue(keyStrUriSafe, input.charAt(index)));
+    }
+    function _compress(uncompressed, bitsPerChar, getCharFromInt) {
+      if (uncompressed == null) return '';
+      let i, value;
+      const context_dictionary = {};
+      const context_dictionaryToCreate = {};
+      let context_c = '';
+      let context_wc = '';
+      let context_w = '';
+      let context_enlargeIn = 2;
+      let context_dictSize = 3;
+      let context_numBits = 2;
+      let context_data = [];
+      let context_data_val = 0;
+      let context_data_position = 0;
+      for (let ii = 0; ii < uncompressed.length; ii += 1) {
+        context_c = uncompressed.charAt(ii);
+        if (!Object.prototype.hasOwnProperty.call(context_dictionary, context_c)) {
+          context_dictionary[context_c] = context_dictSize++;
+          context_dictionaryToCreate[context_c] = true;
+        }
+        context_wc = context_w + context_c;
+        if (Object.prototype.hasOwnProperty.call(context_dictionary, context_wc)) {
+          context_w = context_wc;
+        } else {
+          if (Object.prototype.hasOwnProperty.call(context_dictionaryToCreate, context_w)) {
+            if (context_w.charCodeAt(0) < 256) {
+              for (i = 0; i < context_numBits; i++) {
+                context_data_val = (context_data_val << 1);
+                if (context_data_position === bitsPerChar - 1) {
+                  context_data_position = 0;
+                  context_data.push(getCharFromInt(context_data_val));
+                  context_data_val = 0;
+                } else {
+                  context_data_position++;
+                }
+              }
+              value = context_w.charCodeAt(0);
+              for (i = 0; i < 8; i++) {
+                context_data_val = (context_data_val << 1) | (value & 1);
+                if (context_data_position === bitsPerChar - 1) {
+                  context_data_position = 0;
+                  context_data.push(getCharFromInt(context_data_val));
+                  context_data_val = 0;
+                } else {
+                  context_data_position++;
+                }
+                value = value >> 1;
+              }
+            } else {
+              value = 1;
+              for (i = 0; i < context_numBits; i++) {
+                context_data_val = (context_data_val << 1) | value;
+                if (context_data_position === bitsPerChar - 1) {
+                  context_data_position = 0;
+                  context_data.push(getCharFromInt(context_data_val));
+                  context_data_val = 0;
+                } else {
+                  context_data_position++;
+                }
+                value = 0;
+              }
+              value = context_w.charCodeAt(0);
+              for (i = 0; i < 16; i++) {
+                context_data_val = (context_data_val << 1) | (value & 1);
+                if (context_data_position === bitsPerChar - 1) {
+                  context_data_position = 0;
+                  context_data.push(getCharFromInt(context_data_val));
+                  context_data_val = 0;
+                } else {
+                  context_data_position++;
+                }
+                value = value >> 1;
+              }
+            }
+            context_enlargeIn--;
+            if (context_enlargeIn === 0) {
+              context_enlargeIn = Math.pow(2, context_numBits);
+              context_numBits++;
+            }
+            delete context_dictionaryToCreate[context_w];
+          } else {
+            value = context_dictionary[context_w];
+            for (i = 0; i < context_numBits; i++) {
+              context_data_val = (context_data_val << 1) | (value & 1);
+              if (context_data_position === bitsPerChar - 1) {
+                context_data_position = 0;
+                context_data.push(getCharFromInt(context_data_val));
+                context_data_val = 0;
+              } else {
+                context_data_position++;
+              }
+              value = value >> 1;
+            }
+          }
+          context_enlargeIn--;
+          if (context_enlargeIn === 0) {
+            context_enlargeIn = Math.pow(2, context_numBits);
+            context_numBits++;
+          }
+          context_dictionary[context_wc] = context_dictSize++;
+          context_w = String(context_c);
+        }
+      }
+      if (context_w !== '') {
+        if (Object.prototype.hasOwnProperty.call(context_dictionaryToCreate, context_w)) {
+          if (context_w.charCodeAt(0) < 256) {
+            for (i = 0; i < context_numBits; i++) {
+              context_data_val = (context_data_val << 1);
+              if (context_data_position === bitsPerChar - 1) {
+                context_data_position = 0;
+                context_data.push(getCharFromInt(context_data_val));
+                context_data_val = 0;
+              } else {
+                context_data_position++;
+              }
+            }
+            value = context_w.charCodeAt(0);
+            for (i = 0; i < 8; i++) {
+              context_data_val = (context_data_val << 1) | (value & 1);
+              if (context_data_position === bitsPerChar - 1) {
+                context_data_position = 0;
+                context_data.push(getCharFromInt(context_data_val));
+                context_data_val = 0;
+              } else {
+                context_data_position++;
+              }
+              value = value >> 1;
+            }
+          } else {
+            value = 1;
+            for (i = 0; i < context_numBits; i++) {
+              context_data_val = (context_data_val << 1) | value;
+              if (context_data_position === bitsPerChar - 1) {
+                context_data_position = 0;
+                context_data.push(getCharFromInt(context_data_val));
+                context_data_val = 0;
+              } else {
+                context_data_position++;
+              }
+              value = 0;
+            }
+            value = context_w.charCodeAt(0);
+            for (i = 0; i < 16; i++) {
+              context_data_val = (context_data_val << 1) | (value & 1);
+              if (context_data_position === bitsPerChar - 1) {
+                context_data_position = 0;
+                context_data.push(getCharFromInt(context_data_val));
+                context_data_val = 0;
+              } else {
+                context_data_position++;
+              }
+              value = value >> 1;
+            }
+          }
+          context_enlargeIn--;
+          if (context_enlargeIn === 0) {
+            context_enlargeIn = Math.pow(2, context_numBits);
+            context_numBits++;
+          }
+          delete context_dictionaryToCreate[context_w];
+        } else {
+          value = context_dictionary[context_w];
+          for (i = 0; i < context_numBits; i++) {
+            context_data_val = (context_data_val << 1) | (value & 1);
+            if (context_data_position === bitsPerChar - 1) {
+              context_data_position = 0;
+              context_data.push(getCharFromInt(context_data_val));
+              context_data_val = 0;
+            } else {
+              context_data_position++;
+            }
+            value = value >> 1;
+          }
+        }
+        context_enlargeIn--;
+        if (context_enlargeIn === 0) {
+          context_enlargeIn = Math.pow(2, context_numBits);
+          context_numBits++;
+        }
+      }
+      value = 2;
+      for (i = 0; i < context_numBits; i++) {
+        context_data_val = (context_data_val << 1) | (value & 1);
+        if (context_data_position === bitsPerChar - 1) {
+          context_data_position = 0;
+          context_data.push(getCharFromInt(context_data_val));
+          context_data_val = 0;
+        } else {
+          context_data_position++;
+        }
+        value = value >> 1;
+      }
+      while (true) {
+        context_data_val = (context_data_val << 1);
+        if (context_data_position === bitsPerChar - 1) {
+          context_data.push(getCharFromInt(context_data_val));
+          break;
+        } else context_data_position++;
+      }
+      return context_data.join('');
+    }
+    function _decompress(length, resetValue, getNextValue) {
+      const dictionary = [];
+      let next;
+      let enlargeIn = 4;
+      let dictSize = 4;
+      let numBits = 3;
+      let entry = '';
+      const result = [];
+      let i;
+      let w;
+      let bits, resb, maxpower, power;
+      const data = { val: getNextValue(0), position: resetValue, index: 1 };
+      for (i = 0; i < 3; i += 1) dictionary[i] = i;
+      bits = 0;
+      maxpower = Math.pow(2, 2);
+      power = 1;
+      while (power !== maxpower) {
+        resb = data.val & data.position;
+        data.position >>= 1;
+        if (data.position === 0) {
+          data.position = resetValue;
+          data.val = getNextValue(data.index++);
+        }
+        bits |= (resb > 0 ? 1 : 0) * power;
+        power <<= 1;
+      }
+      switch (next = bits) {
+        case 0:
+          bits = 0; maxpower = Math.pow(2, 8); power = 1;
+          while (power !== maxpower) {
+            resb = data.val & data.position;
+            data.position >>= 1;
+            if (data.position === 0) {
+              data.position = resetValue;
+              data.val = getNextValue(data.index++);
+            }
+            bits |= (resb > 0 ? 1 : 0) * power;
+            power <<= 1;
+          }
+          w = f(bits);
+          break;
+        case 1:
+          bits = 0; maxpower = Math.pow(2, 16); power = 1;
+          while (power !== maxpower) {
+            resb = data.val & data.position;
+            data.position >>= 1;
+            if (data.position === 0) {
+              data.position = resetValue;
+              data.val = getNextValue(data.index++);
+            }
+            bits |= (resb > 0 ? 1 : 0) * power;
+            power <<= 1;
+          }
+          w = f(bits);
+          break;
+        case 2:
+          return '';
+        default:
+          return '';
+      }
+      dictionary[3] = w;
+      result.push(w);
+      while (true) {
+        if (data.index > length) return '';
+        bits = 0; maxpower = Math.pow(2, numBits); power = 1;
+        while (power !== maxpower) {
+          resb = data.val & data.position;
+          data.position >>= 1;
+          if (data.position === 0) {
+            data.position = resetValue;
+            data.val = getNextValue(data.index++);
+          }
+          bits |= (resb > 0 ? 1 : 0) * power;
+          power <<= 1;
+        }
+        switch (next = bits) {
+          case 0:
+            bits = 0; maxpower = Math.pow(2, 8); power = 1;
+            while (power !== maxpower) {
+              resb = data.val & data.position;
+              data.position >>= 1;
+              if (data.position === 0) {
+                data.position = resetValue;
+                data.val = getNextValue(data.index++);
+              }
+              bits |= (resb > 0 ? 1 : 0) * power;
+              power <<= 1;
+            }
+            dictionary[dictSize++] = f(bits);
+            next = dictSize - 1;
+            enlargeIn--;
+            break;
+          case 1:
+            bits = 0; maxpower = Math.pow(2, 16); power = 1;
+            while (power !== maxpower) {
+              resb = data.val & data.position;
+              data.position >>= 1;
+              if (data.position === 0) {
+                data.position = resetValue;
+                data.val = getNextValue(data.index++);
+              }
+              bits |= (resb > 0 ? 1 : 0) * power;
+              power <<= 1;
+            }
+            dictionary[dictSize++] = f(bits);
+            next = dictSize - 1;
+            enlargeIn--;
+            break;
+          case 2:
+            return result.join('');
+        }
+        if (enlargeIn === 0) {
+          enlargeIn = Math.pow(2, numBits);
+          numBits++;
+        }
+        if (dictionary[next]) {
+          entry = dictionary[next];
+        } else {
+          if (next === dictSize) {
+            entry = w + w.charAt(0);
+          } else {
+            return '';
+          }
+        }
+        result.push(entry);
+        dictionary[dictSize++] = w + entry.charAt(0);
+        enlargeIn--;
+        w = entry;
+        if (enlargeIn === 0) {
+          enlargeIn = Math.pow(2, numBits);
+          numBits++;
+        }
+      }
+    }
+    return { compressToEncodedURIComponent, decompressFromEncodedURIComponent };
+  })();
+
+  function readFromURL() {
+    const hash = (location.hash || '').replace(/^#/, '');
+    const p = new URLSearchParams(hash || location.search);
+    const buildParam = p.get('b') || p.get('build');
+    if (!buildParam) return false;
+    try {
+      // Restore budget
+      const budget = p.get('k') || p.get('budget');
+      if (budget) budgetInput.value = parseInt(budget, 10) || 0;
+
+      // Restore fast learner
+      const fl = p.get('f') || p.get('fl');
+      if (fastLearnerToggle && fl !== null) {
+        fastLearnerToggle.checked = fl === '1' || fl === 'true';
+      }
+
+      // Restore optimize mode
+      const mode = p.get('m') || p.get('mode');
+      if (optimizeModeSelect && mode) {
+        optimizeModeSelect.value = mode;
+      }
+
+      // Restore race config
+      const cfgParam = p.get('c') || p.get('cfg');
+      if (cfgParam) {
+        const cfgParts = cfgParam.split(',');
+        const cfgKeys = ['turf', 'dirt', 'sprint', 'mile', 'medium', 'long', 'front', 'pace', 'late', 'end'];
+        cfgParts.forEach((val, i) => {
+          if (i < cfgKeys.length && cfg[cfgKeys[i]]) {
+            cfg[cfgKeys[i]].value = val || 'A';
+          }
+        });
+      }
+
+      // Restore rating stats
+      const ratingParam = p.get('r') || p.get('rating');
+      if (ratingParam) {
+        try {
+          const ratingData = JSON.parse(decodeURIComponent(ratingParam));
+          applyRatingState(ratingData);
+        } catch (err) {
+          console.warn('Failed to parse rating data from URL', err);
+        }
+      }
+
+      // Restore auto targets
+      const targetsParam = p.get('t') || p.get('targets');
+      if (targetsParam) {
+        const targets = targetsParam.split(',').map(t => t.trim()).filter(Boolean);
+        if (targets.length) {
+          setAutoTargetSelections(targets);
+        }
+      }
+
+      // Load skills
+      const decoded = decodeBuildFromURL(buildParam);
+      if (!decoded) return false;
+      loadRowsFromString(decoded);
+
+      // Update UI to reflect loaded state
+      updateAffinityStyles();
+      updateHintOptionLabels();
+      updateRatingDisplay();
+
+      return true;
+    } catch (err) {
+      console.error('Failed to load build from URL', err);
+      return false;
+    }
+  }
+
+  function writeToURL() {
+    const buildString = serializeRows();
+    if (!buildString) {
+      history.replaceState(null, '', location.pathname);
+      return;
+    }
+    const encoded = encodeBuildToURL(buildString);
+    if (!encoded) return;
+
+    const p = new URLSearchParams();
+    p.set('b', encoded);
+
+    // Add budget
+    const budget = parseInt(budgetInput.value, 10) || 0;
+    if (budget) p.set('k', String(budget));
+
+    // Add fast learner
+    if (fastLearnerToggle?.checked) {
+      p.set('f', '1');
+    }
+
+    // Add optimize mode
+    const mode = getOptimizeMode();
+    if (mode && mode !== 'rating') {
+      p.set('m', mode);
+    }
+
+    // Add race config (compact comma-separated)
+    const cfgKeys = ['turf', 'dirt', 'sprint', 'mile', 'medium', 'long', 'front', 'pace', 'late', 'end'];
+    const cfgValues = cfgKeys.map(k => cfg[k] ? cfg[k].value : 'A');
+    const cfgString = cfgValues.join(',');
+    if (cfgString && cfgString !== 'A,A,A,A,A,A,A,A,A,A') {
+      p.set('c', cfgString);
+    }
+
+    // Add rating stats
+    const ratingData = readRatingState();
+    if (ratingData && (
+      ratingData.stats?.speed || ratingData.stats?.stamina || ratingData.stats?.power ||
+      ratingData.stats?.guts || ratingData.stats?.wisdom || ratingData.star || ratingData.unique
+    )) {
+      p.set('r', encodeURIComponent(JSON.stringify(ratingData)));
+    }
+
+    // Add auto targets
+    if (autoTargetInputs && autoTargetInputs.length) {
+      const targets = Array.from(autoTargetInputs)
+        .filter(input => input.checked)
+        .map(input => input.value);
+      if (targets.length) {
+        p.set('t', targets.join(','));
+      }
+    }
+
+    history.replaceState(null, '', `${location.pathname}#${p.toString()}`);
   }
 
   function autoBuildIdealSkills() {
@@ -2103,49 +2623,378 @@
     renderResults(mergedResult, budget); saveState();
   });
   if (clearAllBtn) clearAllBtn.addEventListener('click', () => { clearAllRows(); });
-  if (copyBuildBtn) {
-    copyBuildBtn.addEventListener('click', async () => {
+  if (shareBuildBtn) {
+    shareBuildBtn.addEventListener('click', async () => {
       const data = serializeRows();
-      if (!data) { setAutoStatus('No rows to copy.', true); return; }
+      if (!data) { setAutoStatus('No build to share.', true); return; }
       try {
+        writeToURL();
+        const shareURL = location.href;
         let copied = false;
         try {
-          copied = await tryWriteClipboard(data);
+          copied = await tryWriteClipboard(shareURL);
         } catch (err) {
           console.warn('Clipboard API write failed', err);
         }
         if (!copied) {
-          await copyViaFallback(data);
+          await copyViaFallback(shareURL);
         }
-        setAutoStatus('Build copied to clipboard.');
+        setAutoStatus('Shareable link copied to clipboard!');
       } catch (err) {
-        console.error('Copy failed', err);
-        alert('Unable to copy build automatically. Select rows manually and copy them.');
+        console.error('Share failed', err);
+        alert('Unable to copy shareable link. Copy the URL from the address bar.');
       }
     });
   }
-  if (loadBuildBtn) {
-    loadBuildBtn.addEventListener('click', async () => {
-      let payload = '';
-      try {
-        payload = await tryReadClipboard();
-      } catch (err) {
-        console.warn('Clipboard read failed', err);
+  if (saveBuildBtn) {
+    saveBuildBtn.addEventListener('click', () => {
+      const buildData = serializeRows();
+      if (!buildData) {
+        setAutoStatus('No build to save.', true);
+        return;
       }
-      if (!payload || !payload.trim()) {
-        const manual = window.prompt('Paste build string (Skill=Cost|H# per line):', '');
-        if (!manual) return;
-        payload = manual;
+      saveBuildNameInput.value = '';
+      saveBuildDescInput.value = '';
+      saveBuildModal.style.display = 'flex';
+      saveBuildNameInput.focus();
+    });
+  }
+
+  if (viewBuildsBtn) {
+    viewBuildsBtn.addEventListener('click', () => {
+      renderBuildsList();
+      buildsListModal.style.display = 'flex';
+    });
+  }
+
+  function closeSaveBuildModal() {
+    if (saveBuildModal) saveBuildModal.style.display = 'none';
+  }
+
+  function closeBuildsListModal() {
+    if (buildsListModal) buildsListModal.style.display = 'none';
+  }
+
+  function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  function getSavedBuilds() {
+    try {
+      const stored = localStorage.getItem('umatools-saved-builds');
+      if (stored) {
+        const builds = JSON.parse(stored);
+        if (Array.isArray(builds)) {
+          const validated = builds.filter(b => {
+            return b &&
+              typeof b === 'object' &&
+              b.id &&
+              b.name &&
+              b.data &&
+              typeof b.timestamp === 'number';
+          });
+          return validated.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+        }
       }
+    } catch (err) {
+      console.error('Failed to load saved builds', err);
       try {
-        loadRowsFromString(payload);
-        setAutoStatus('Build loaded from clipboard.');
+        localStorage.removeItem('umatools-saved-builds');
+      } catch {}
+    }
+    return [];
+  }
+
+  function deleteBuild(buildId) {
+    try {
+      let builds = getSavedBuilds();
+      builds = builds.filter(b => b.id !== buildId);
+      localStorage.setItem('umatools-saved-builds', JSON.stringify(builds));
+      return true;
+    } catch (err) {
+      console.error('Failed to delete build', err);
+      return false;
+    }
+  }
+
+  function loadBuildFromSaved(build) {
+    if (!build || !build.data) {
+      alert('Invalid build data.');
+      return;
+    }
+    try {
+      loadRowsFromString(build.data);
+      if (build.budget !== undefined) budgetInput.value = build.budget;
+      if (build.fastLearner !== undefined && fastLearnerToggle) {
+        fastLearnerToggle.checked = build.fastLearner;
+      }
+      if (build.optimizeMode !== undefined && optimizeModeSelect) {
+        optimizeModeSelect.value = build.optimizeMode;
+      }
+      if (build.config) {
+        Object.entries(build.config).forEach(([k, v]) => {
+          if (cfg[k]) cfg[k].value = v;
+        });
+      }
+      if (Array.isArray(build.autoTargets)) {
+        setAutoTargetSelections(build.autoTargets);
+      }
+      if (build.rating) {
+        applyRatingState(build.rating);
+        updateRatingDisplay();
+      } else {
+        updateRatingDisplay();
+      }
+      updateAffinityStyles();
+      updateHintOptionLabels();
+      refreshAllRowCosts();
+      saveState();
+      autoOptimizeDebounced();
+      setAutoStatus(`Build "${build.name}" loaded successfully!`);
+      closeBuildsListModal();
+    } catch (err) {
+      console.error('Failed to load build', err);
+      alert('Failed to load build data.');
+    }
+  }
+
+  async function shareBuildFromSaved(build) {
+    if (!build || !build.data) {
+      alert('Invalid build data.');
+      return;
+    }
+    try {
+      const encoded = encodeBuildToURL(build.data);
+      if (!encoded) {
+        alert('Failed to encode build data.');
+        return;
+      }
+
+      const p = new URLSearchParams();
+      p.set('b', encoded);
+
+      if (build.budget) p.set('k', String(build.budget));
+      if (build.fastLearner) p.set('f', '1');
+      if (build.optimizeMode && build.optimizeMode !== 'rating') {
+        p.set('m', build.optimizeMode);
+      }
+
+      if (build.config) {
+        const cfgKeys = ['turf', 'dirt', 'sprint', 'mile', 'medium', 'long', 'front', 'pace', 'late', 'end'];
+        const cfgValues = cfgKeys.map(k => build.config[k] || 'A');
+        const cfgString = cfgValues.join(',');
+        if (cfgString && cfgString !== 'A,A,A,A,A,A,A,A,A,A') {
+          p.set('c', cfgString);
+        }
+      }
+      if (build.rating) {
+        p.set('r', encodeURIComponent(JSON.stringify(build.rating)));
+      }
+      if (Array.isArray(build.autoTargets) && build.autoTargets.length) {
+        p.set('t', build.autoTargets.join(','));
+      }
+
+      const shareURL = `${window.location.origin}${window.location.pathname}#${p.toString()}`;
+      let copied = false;
+      try {
+        copied = await tryWriteClipboard(shareURL);
       } catch (err) {
-        console.error('Failed to load build', err);
-        alert('Could not parse build string. Use lines like "Skill Name=120|H3".');
+        console.warn('Clipboard API write failed', err);
+      }
+      if (!copied) {
+        await copyViaFallback(shareURL);
+      }
+      setAutoStatus(`Link for "${build.name}" copied to clipboard!`);
+    } catch (err) {
+      console.error('Share failed', err);
+      alert('Failed to create shareable link.');
+    }
+  }
+
+  function renderBuildsList() {
+    if (!buildsListContainer) return;
+    buildsListContainer.innerHTML = '';
+    const builds = getSavedBuilds();
+    if (builds.length === 0) {
+      buildsListContainer.innerHTML = '<div class="empty-builds">No saved builds yet. Save your current build to get started!</div>';
+      return;
+    }
+    builds.forEach(build => {
+      const item = document.createElement('div');
+      item.className = 'build-item';
+      const header = document.createElement('div');
+      header.className = 'build-item-header';
+      const titleDiv = document.createElement('div');
+      const title = document.createElement('h4');
+      title.className = 'build-item-title';
+      title.textContent = build.name || 'Untitled Build';
+      const timestamp = document.createElement('div');
+      timestamp.className = 'build-item-timestamp';
+      timestamp.textContent = formatTimestamp(build.timestamp);
+      titleDiv.appendChild(title);
+      titleDiv.appendChild(timestamp);
+      header.appendChild(titleDiv);
+      item.appendChild(header);
+      if (build.description) {
+        const desc = document.createElement('div');
+        desc.className = 'build-item-description';
+        desc.textContent = build.description;
+        item.appendChild(desc);
+      }
+      const meta = document.createElement('div');
+      meta.className = 'build-item-meta';
+      const metaParts = [];
+      if (build.budget) metaParts.push(`Budget: ${build.budget}`);
+      if (build.fastLearner) metaParts.push('Fast Learner');
+      if (build.optimizeMode) {
+        const modeLabel = build.optimizeMode === 'rating' ? 'Rating' : 'Aptitude Test';
+        metaParts.push(`Mode: ${modeLabel}`);
+      }
+      meta.textContent = metaParts.join(' • ');
+      item.appendChild(meta);
+      const actions = document.createElement('div');
+      actions.className = 'build-item-actions';
+      const loadBtn = document.createElement('button');
+      loadBtn.className = 'btn btn-secondary';
+      loadBtn.textContent = 'Load';
+      loadBtn.addEventListener('click', () => loadBuildFromSaved(build));
+      const shareBtn = document.createElement('button');
+      shareBtn.className = 'btn btn-secondary';
+      shareBtn.textContent = 'Share';
+      shareBtn.addEventListener('click', () => shareBuildFromSaved(build));
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'btn btn-secondary';
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.style.color = 'var(--error-color, #d32f2f)';
+      deleteBtn.addEventListener('click', () => {
+        if (confirm(`Delete "${build.name}"? This cannot be undone.`)) {
+          if (deleteBuild(build.id)) {
+            renderBuildsList();
+            setAutoStatus(`Build "${build.name}" deleted.`);
+          } else {
+            alert('Failed to delete build.');
+          }
+        }
+      });
+      actions.appendChild(loadBtn);
+      actions.appendChild(shareBtn);
+      actions.appendChild(deleteBtn);
+      item.appendChild(actions);
+      buildsListContainer.appendChild(item);
+    });
+  }
+
+  if (saveModalClose) {
+    saveModalClose.addEventListener('click', closeSaveBuildModal);
+  }
+  if (saveModalCancel) {
+    saveModalCancel.addEventListener('click', closeSaveBuildModal);
+  }
+
+  if (saveBuildModal) {
+    saveBuildModal.addEventListener('click', (e) => {
+      if (e.target === saveBuildModal) closeSaveBuildModal();
+    });
+  }
+
+  if (buildsListModalClose) {
+    buildsListModalClose.addEventListener('click', closeBuildsListModal);
+  }
+  if (buildsListModalCloseBtn) {
+    buildsListModalCloseBtn.addEventListener('click', closeBuildsListModal);
+  }
+
+  if (buildsListModal) {
+    buildsListModal.addEventListener('click', (e) => {
+      if (e.target === buildsListModal) closeBuildsListModal();
+    });
+  }
+
+  if (saveModalSave) {
+    saveModalSave.addEventListener('click', () => {
+      const name = saveBuildNameInput?.value?.trim();
+      if (!name) {
+        alert('Please enter a build name.');
+        saveBuildNameInput.focus();
+        return;
+      }
+
+      const buildData = serializeRows();
+      if (!buildData) {
+        alert('No build data to save.');
+        return;
+      }
+
+      const description = saveBuildDescInput?.value?.trim() || '';
+      const build = {
+        id: Date.now().toString(),
+        name,
+        description,
+        data: buildData,
+        timestamp: Date.now(),
+        budget: budgetInput?.value || '0',
+        fastLearner: fastLearnerToggle?.checked || false,
+        optimizeMode: optimizeModeSelect?.value || 'rating',
+        rating: readRatingState(),
+        autoTargets: (autoTargetInputs && autoTargetInputs.length)
+          ? Array.from(autoTargetInputs).filter(input => input.checked).map(input => input.value)
+          : [],
+        config: {
+          turf: cfg.turf?.value || 'A',
+          dirt: cfg.dirt?.value || 'G',
+          sprint: cfg.sprint?.value || 'D',
+          mile: cfg.mile?.value || 'C',
+          medium: cfg.medium?.value || 'A',
+          long: cfg.long?.value || 'B',
+          front: cfg.front?.value || 'A',
+          pace: cfg.pace?.value || 'B',
+          late: cfg.late?.value || 'C',
+          end: cfg.end?.value || 'B'
+        }
+      };
+
+      try {
+        let builds = getSavedBuilds();
+        builds.push(build);
+        builds.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+        const MAX_SAVED_BUILDS = 50;
+        if (builds.length > MAX_SAVED_BUILDS) {
+          builds = builds.slice(0, MAX_SAVED_BUILDS);
+        }
+        try {
+          localStorage.setItem('umatools-saved-builds', JSON.stringify(builds));
+          setAutoStatus(`Build "${name}" saved successfully!`);
+          closeSaveBuildModal();
+        } catch (storageErr) {
+          if (storageErr.name === 'QuotaExceededError' || storageErr.code === 22) {
+            if (builds.length > 10) {
+              builds = builds.slice(0, 10);
+              try {
+                localStorage.setItem('umatools-saved-builds', JSON.stringify(builds));
+                alert(`Storage limit reached. Kept only your 10 most recent builds. Build "${name}" saved.`);
+                closeSaveBuildModal();
+                return;
+              } catch {}
+            }
+            alert('Storage quota exceeded. Please delete some saved builds to make room.');
+          } else {
+            throw storageErr;
+          }
+        }
+      } catch (err) {
+        console.error('Failed to save build', err);
+        alert('Failed to save build. Your browser may have storage disabled or limits exceeded.');
       }
     });
   }
+
   if (autoBuildBtn) autoBuildBtn.addEventListener('click', autoBuildIdealSkills);
   if (fastLearnerToggle) {
     fastLearnerToggle.addEventListener('change', () => {
@@ -2185,9 +3034,12 @@
   }
 
   function finishInit() {
-    const had = loadState();
-    if (!had) {
-      rowsEl.appendChild(makeRow());
+    const hadURL = readFromURL();
+    if (!hadURL) {
+      const had = loadState();
+      if (!had) {
+        rowsEl.appendChild(makeRow());
+      }
     }
     initRatingInputs();
     loadRatingSprite();

@@ -23,6 +23,168 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <meta name="color-scheme" content="light dark" />
+    <style>
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+      .modal-content {
+        background: var(--card-background, #fff);
+        border-radius: 8px;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--border-color, #ddd);
+      }
+      .modal-header h3 {
+        margin: 0;
+        font-size: 1.25rem;
+      }
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-color, #333);
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-close:hover {
+        opacity: 0.7;
+      }
+      .modal-body {
+        padding: 20px;
+      }
+      .modal-body label {
+        display: block;
+      }
+      .modal-body input[type="text"],
+      .modal-body textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid var(--border-color, #ddd);
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        background: var(--input-background, #fff);
+        color: var(--text-color, #333);
+      }
+      .modal-body textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 16px 20px;
+        border-top: 1px solid var(--border-color, #ddd);
+      }
+      .builds-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .build-item {
+        border: 1px solid var(--border-color, #ddd);
+        border-radius: 6px;
+        padding: 12px;
+        background: var(--input-background, #f9f9f9);
+      }
+      .build-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 8px;
+      }
+      .build-item-title {
+        font-weight: 600;
+        font-size: 1rem;
+        margin: 0 0 4px 0;
+      }
+      .build-item-timestamp {
+        font-size: 0.75rem;
+        color: var(--text-muted, #666);
+      }
+      .build-item-description {
+        font-size: 0.85rem;
+        color: var(--text-color, #333);
+        margin: 8px 0;
+        line-height: 1.4;
+      }
+      .build-item-meta {
+        font-size: 0.8rem;
+        color: var(--text-muted, #666);
+        margin: 8px 0;
+      }
+      .build-item-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .build-item-actions button {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+      }
+      .empty-builds {
+        text-align: center;
+        padding: 32px;
+        color: var(--text-muted, #666);
+      }
+      body.dark-mode .modal-content {
+        background: #1e1e1e;
+        color: #e5e7eb;
+        border: 1px solid #334155;
+      }
+      body.dark-mode .modal {
+        background: transparent;
+      }
+      body.dark-mode .modal-header,
+      body.dark-mode .modal-footer {
+        border-color: #334155;
+      }
+      body.dark-mode .modal-close {
+        color: #e5e7eb;
+      }
+      body.dark-mode .modal-body input[type="text"],
+      body.dark-mode .modal-body textarea {
+        background: #12141a;
+        color: #e5e7eb;
+        border-color: #334155;
+      }
+      body.dark-mode .build-item {
+        background: #12141a;
+        border-color: #334155;
+      }
+      body.dark-mode .build-item-description {
+        color: #e2e8f0;
+      }
+      body.dark-mode .build-item-meta,
+      body.dark-mode .build-item-timestamp,
+      body.dark-mode .empty-builds {
+        color: #94a3b8;
+      }
+    </style>
 
     <!-- No-flash dark mode (matches other pages) -->
     <script>
@@ -346,13 +508,54 @@
         <div class="toolbar" role="group" aria-label="Skill rows">
           <span class="muted">Tip: just enter the skill name and cost - its type auto-detects</span>
           <div class="spacer"></div>
-          <button id="copy-build" class="btn btn-secondary" type="button">Copy Build</button>
-          <button id="load-build" class="btn btn-secondary" type="button">Load Build</button>
+          <button id="save-build" class="btn btn-secondary" type="button">Save Build</button>
+          <button id="view-builds" class="btn btn-secondary" type="button">View Saved Builds</button>
+          <button id="share-build" class="btn btn-secondary" type="button">Share Build</button>
           <button id="clear-all" class="btn" type="button">Clear All</button>
         </div>
         <div id="rows" class="rows"></div>
       </section>
     </main>
+
+    <!-- Save Build Modal -->
+    <div id="save-build-modal" class="modal" style="display:none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Save Build</h3>
+          <button id="save-modal-close" class="modal-close" type="button" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label class="labelTitle">
+            Build Name <span style="color:var(--text-muted)">(required)</span>
+            <input id="save-build-name" type="text" placeholder="My Awesome Build" maxlength="100" required />
+          </label>
+          <label class="labelTitle" style="margin-top:12px">
+            Description <span style="color:var(--text-muted)">(optional)</span>
+            <textarea id="save-build-description" placeholder="Notes about this build..." rows="4" maxlength="500"></textarea>
+          </label>
+        </div>
+        <div class="modal-footer">
+          <button id="save-modal-cancel" class="btn btn-secondary" type="button">Cancel</button>
+          <button id="save-modal-save" class="btn" type="button">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saved Builds List Modal -->
+    <div id="builds-list-modal" class="modal" style="display:none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Saved Builds</h3>
+          <button id="builds-list-modal-close" class="modal-close" type="button" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="builds-list-container" class="builds-list"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="builds-list-modal-close-btn" class="btn btn-secondary" type="button">Close</button>
+        </div>
+      </div>
+    </div>
 
     <div id="rating-float" class="rating-float" aria-live="polite">
       <div class="rating-float-badge" aria-hidden="true">
