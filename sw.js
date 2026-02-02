@@ -1,0 +1,111 @@
+const CACHE_VERSION = "v2";
+const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
+const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
+
+const STATIC_ASSETS = [
+  "/",
+  "/index.html",
+  "/hints.html",
+  "/random.html",
+  "/optimizer.html",
+  "/calculator.html",
+  "/umadle.html",
+  "/styles.css",
+  "/nav.js",
+  "/rating-shared.js",
+  "/ocr.js",
+  "/hints.js",
+  "/random.js",
+  "/optimizer.js",
+  "/calculator.js",
+  "/umadle.js",
+  "/search.js",
+  "/recommend.js",
+  "/favicon.ico",
+  "/assets/rank_badges.png"
+];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS)).catch(() => {})
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((key) => key.startsWith("umatools-") && ![STATIC_CACHE, RUNTIME_CACHE].includes(key))
+          .map((key) => caches.delete(key))
+      )
+    )
+  );
+  self.clients.claim();
+});
+
+function cacheFirst(request) {
+  return caches.match(request).then((cached) => cached || fetch(request));
+}
+
+function staleWhileRevalidate(request) {
+  return caches.open(RUNTIME_CACHE).then((cache) =>
+    cache.match(request).then((cached) => {
+      const fetchPromise = fetch(request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            cache.put(request, response.clone());
+          }
+          return response;
+        })
+        .catch(() => cached);
+      return cached || fetchPromise;
+    })
+  );
+}
+
+function networkFirst(request) {
+  return fetch(request)
+    .then((response) => {
+      if (response && response.status === 200) {
+        const copy = response.clone();
+        caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+      }
+      return response;
+    })
+    .catch(() => caches.match(request));
+}
+
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+  if (request.method !== "GET") return;
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith("/_vercel/")) return;
+
+  if (request.mode === "navigate") {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  if (STATIC_ASSETS.includes(url.pathname)) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  if (
+    url.pathname.startsWith("/assets/") ||
+    url.pathname.endsWith(".json") ||
+    url.pathname.endsWith(".csv") ||
+    url.pathname.endsWith(".png") ||
+    url.pathname.endsWith(".jpg") ||
+    url.pathname.endsWith(".webp") ||
+    url.pathname.endsWith(".svg") ||
+    url.pathname.endsWith(".js") ||
+    url.pathname.endsWith(".css")
+  ) {
+    event.respondWith(staleWhileRevalidate(request));
+    return;
+  }
+});

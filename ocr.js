@@ -9,6 +9,7 @@ const MAX_MS_PER_SCAN = 60;
 
 const OCR_OPTS = { lang: "eng", psm: 6 }; // 6 = block of text (ribbon often has 2 lines)
 const TRIGGER_COOLDOWN_MS = 1500;
+const TESSERACT_SRC = "https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js";
 
 const captureBtn   = document.getElementById("captureBtn");
 const videoEl      = document.getElementById("captureVideo");
@@ -24,6 +25,7 @@ function getScanDelay() {
 let mediaStream = null;
 let captureTimer = null;
 let lastTriggerTs = 0;
+let tesseractReady = null;
 
 const canvas = document.createElement("canvas");
 const ctx    = canvas.getContext("2d", { willReadFrequently: true });
@@ -166,6 +168,24 @@ function matchTemplateInRegion(frameImgData, probeRect, tplObj) {
 }
 
 function setSuggestion(msg) { if (suggestions) suggestions.textContent = msg || ""; }
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const tag = document.createElement("script");
+    tag.src = src;
+    tag.async = true;
+    tag.onload = () => resolve();
+    tag.onerror = () => reject(new Error(`Failed to load ${src}`));
+    document.head.appendChild(tag);
+  });
+}
+
+async function ensureTesseract() {
+  if (window.Tesseract) return window.Tesseract;
+  if (!tesseractReady) {
+    tesseractReady = loadScript(TESSERACT_SRC).then(() => window.Tesseract);
+  }
+  return tesseractReady;
+}
 function mayTrigger() {
   const now = performance.now();
   if (now - lastTriggerTs < TRIGGER_COOLDOWN_MS) return false;
@@ -271,6 +291,8 @@ let stopBtn = null;
 
 async function startCapture() {
   try {
+    setSuggestion("Loading OCR engineâ€¦");
+    await ensureTesseract();
     await loadTemplate(PROBE_TEMPLATE_DATAURL);
 
     mediaStream = await navigator.mediaDevices.getDisplayMedia({

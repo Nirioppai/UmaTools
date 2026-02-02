@@ -77,6 +77,7 @@
 
     const RATING_SPRITE = {
       url: 'assets/rank_badges.png',
+      version: '1',
       columns: 6,
       rows: 6,
       tileWidth: 125,
@@ -174,7 +175,9 @@
 
     function loadRatingSprite() {
       if (!ratingDisplays.badgeSprite && !ratingDisplays.floatBadgeSprite) return;
-      const spriteUrl = `${RATING_SPRITE.url}?v=${Date.now()}`;
+      const spriteUrl = RATING_SPRITE.version
+        ? `${RATING_SPRITE.url}?v=${RATING_SPRITE.version}`
+        : RATING_SPRITE.url;
       const img = new Image();
       img.onload = () => {
         const sheetWidth = img.naturalWidth;

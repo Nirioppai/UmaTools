@@ -6,6 +6,7 @@
   const rowsEl = document.getElementById('rows');
   const clearAllBtn = document.getElementById('clear-all');
   const libStatus = document.getElementById('lib-status');
+  if (libStatus) libStatus.innerHTML = '<span class="loading-indicator">Loading skills...</span>';
 
   const skillCountEl = document.getElementById('skill-count');
   const totalSkillScoreEl = document.getElementById('total-skill-score');
@@ -262,7 +263,7 @@
     let lastErr = null;
     for (const url of candidates) {
       try {
-        const res = await fetch(url);
+        const res = await fetch(url, { cache: 'force-cache' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const text = await res.text();
         const ok = loadFromCSVContent(text);
@@ -665,10 +666,38 @@
     }
   }
 
+  let ratingSpriteLoaded = false;
+  function scheduleRatingSpriteLoad() {
+    if (ratingSpriteLoaded) return;
+    const load = () => {
+      if (ratingSpriteLoaded) return;
+      ratingSpriteLoaded = true;
+      ratingEngine.loadRatingSprite();
+    };
+    const card = document.getElementById('rating-card');
+    if ('IntersectionObserver' in window && card) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observer.disconnect();
+          load();
+        }
+      }, { rootMargin: '200px' });
+      observer.observe(card);
+    }
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(load, { timeout: 2000 });
+    } else {
+      setTimeout(load, 1200);
+    }
+  }
+
   // Initialize
   async function init() {
     // Load skills library
     await loadSkillsCSV();
+    if (libStatus && /loading/i.test(libStatus.textContent || "")) {
+      libStatus.textContent = "Skill library ready.";
+    }
 
     // Initialize UI
     updateAffinityStyles();
@@ -693,7 +722,7 @@
 
     // Init rating inputs
     ratingEngine.initRatingInputs();
-    ratingEngine.loadRatingSprite();
+    scheduleRatingSpriteLoad();
 
     // Clear all button
     if (clearAllBtn) {

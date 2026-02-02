@@ -1,8 +1,37 @@
 (async function () {
   const DATA_URL = "/assets/support_hints.json";
-  // Use default caching - Vercel headers control TTL
-  const res = await fetch(DATA_URL);
-  const data = await res.json();
+
+  // Elements
+  const hintInput   = document.getElementById("hintInput");
+  const addBtn      = document.getElementById("addBtn");
+  const modeSelect  = document.getElementById("modeSelect");
+  const fSSR        = document.getElementById("fSSR");
+  const fSR         = document.getElementById("fSR");
+  const fR          = document.getElementById("fR");
+  const clearBtn    = document.getElementById("clearBtn");
+  const copyLinkBtn = document.getElementById("copyLinkBtn"); // optional
+  const exportBtn   = document.getElementById("exportBtn");   // optional
+  const chips       = document.getElementById("chips");
+  const results     = document.getElementById("results");
+  const counts      = document.getElementById("counts");
+  const hintList    = document.getElementById("hintList");
+
+  if (counts) counts.innerHTML = `<span class="loading-indicator">Loading hintsâ€¦</span>`;
+  if (results) results.innerHTML = `<div class="loading-indicator">Loading supportsâ€¦</div>`;
+
+  let data = [];
+  try {
+    const res = await fetch(DATA_URL, { cache: "force-cache" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    data = await res.json();
+  } catch (err) {
+    console.error("Failed to load support hints", err);
+    if (counts) counts.textContent = "Failed to load support hints.";
+    if (results) {
+      results.innerHTML = `<div class="inline-note">Failed to load support data. Please refresh.</div>`;
+    }
+    return;
+  }
 
   // Normalizer used for fuzzy matching (unchanged behavior)
   const norm = (s) =>
@@ -66,21 +95,6 @@
   const allHints = Array.from(new Set(cards.flatMap((c) => c.hints))).sort(
     (a, b) => a.localeCompare(b)
   );
-
-  // Elements
-  const hintInput   = document.getElementById("hintInput");
-  const addBtn      = document.getElementById("addBtn");
-  const modeSelect  = document.getElementById("modeSelect");
-  const fSSR        = document.getElementById("fSSR");
-  const fSR         = document.getElementById("fSR");
-  const fR          = document.getElementById("fR");
-  const clearBtn    = document.getElementById("clearBtn");
-  const copyLinkBtn = document.getElementById("copyLinkBtn"); // optional
-  const exportBtn   = document.getElementById("exportBtn");   // optional
-  const chips       = document.getElementById("chips");
-  const results     = document.getElementById("results");
-  const counts      = document.getElementById("counts");
-  const hintList    = document.getElementById("hintList");
 
   // Fill datalist
   hintList.innerHTML = allHints.map((h) => `<option value="${h}"></option>`).join("");
@@ -175,7 +189,7 @@
     results.innerHTML = list.map((card) => {
       const rarityClass = `badge-${card.rarity}`; // badge-SSR | badge-SR | badge-R
       const thumb = card.img
-        ? `<img src="${card.img}" alt="${card.name}" loading="lazy">`
+        ? `<img src="${card.img}" alt="${card.name}" loading="lazy" decoding="async" fetchpriority="low">`
         : `<span>${initialsOf(card.name)}</span>`;
       return `
         <div class="card card-support">

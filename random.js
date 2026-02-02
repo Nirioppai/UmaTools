@@ -20,6 +20,11 @@
     speed2xUma: qs("#speed2xUma")
   };
 
+  function setLoading(target, message) {
+    if (!target) return;
+    target.innerHTML = `<div class="loading-indicator">${message}</div>`;
+  }
+
   const store = {
     getExclusions() {
       try { return JSON.parse(localStorage.getItem("exclude_support_slugs") || "[]"); }
@@ -58,12 +63,12 @@ function getSpeedFactorUma(){ return (els.speed2xUma && els.speed2xUma.checked) 
   async function fetchJSON(url, fallbackUrl){
     try{
       // Use default caching - Vercel headers control TTL
-      const r = await fetch(url);
+      const r = await fetch(url, { cache: "force-cache" });
       if (!r.ok) throw new Error(r.statusText);
       return await r.json();
     }catch(e){
       if (fallbackUrl){
-        const r2 = await fetch(fallbackUrl);
+        const r2 = await fetch(fallbackUrl, { cache: "force-cache" });
         if (!r2.ok) throw new Error(r2.statusText);
         return await r2.json();
       }
@@ -159,7 +164,7 @@ function getSpeedFactorUma(){ return (els.speed2xUma && els.speed2xUma.checked) 
 
   function cardMarkup(s, extraClass=""){
     const img = s.img
-      ? `<img src="${s.img}" alt="${s.name}" loading="lazy">`
+      ? `<img src="${s.img}" alt="${s.name}" loading="lazy" decoding="async" fetchpriority="low">`
       : `<span>${initialsOf(s.name)}</span>`;
     return `
       <div class="card card-support ${extraClass}">
@@ -233,7 +238,7 @@ for (let i = 0; i < N; i++){
         titleEl.textContent = s.name;
         badgeEl.className = `badge ${rarityClass(s.rarity)}`;
         badgeEl.textContent = s.rarity;
-        const live = s.img ? `<img src="${s.img}" alt="${s.name}" loading="lazy">` : `<span>${initialsOf(s.name)}</span>`;
+        const live = s.img ? `<img src="${s.img}" alt="${s.name}" loading="lazy" decoding="async" fetchpriority="low">` : `<span>${initialsOf(s.name)}</span>`;
         thumbEl.innerHTML = live;
       }, SPIN_MS);
       cycles.push(cycle);
@@ -417,6 +422,8 @@ const duration = Math.max(600, Math.round(durationBase * getSpeedFactorUma()));
   // Init
   (async () => {
     try{
+      setLoading(els.deckResults, "Loading support dataâ€¦");
+      setLoading(els.umaResult, "Loading Uma dataâ€¦");
       const [hints, umas] = await Promise.all([
         fetchJSON(HINTS_URL, "/support_hints.json"),
         fetchJSON(UMA_URL, "/uma_data.json")

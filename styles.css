@@ -188,6 +188,29 @@ button#search-btn:hover {
   font-style: italic;
   margin: 0.25rem 0 0.75rem;
 }
+.loading-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #555;
+  font-style: italic;
+}
+.loading-indicator::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #94a3b8;
+  border-top-color: transparent;
+  animation: spin 0.7s linear infinite;
+}
+.dark-mode .loading-indicator {
+  color: #cbd5e1;
+}
+.dark-mode .loading-indicator::before {
+  border-color: #93c5fd;
+  border-top-color: transparent;
+}
 .ocr-suggestions {
   font-style: italic;
   margin: 0.5rem 0 1rem;

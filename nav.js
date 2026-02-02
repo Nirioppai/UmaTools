@@ -123,6 +123,10 @@
       ).join("")}
     `;
     document.body.appendChild(footer);
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
   });
 
   // Close menu if switching to desktop width
