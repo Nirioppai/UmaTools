@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -26,7 +26,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/umadle.css" />
       <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
@@ -104,8 +105,8 @@
           <button class="primary" id="guess-btn" type="submit">Guess</button>
         </form>
         <div id="legend" class="status">
-          Legend: <b>✓</b> exact match, <span class="sym up">▲</span> your guess
-          is lower (go up), <span class="sym down">▼</span> your guess is higher
+          Legend: <b>&#10003;</b> exact match, <span class="sym up">&#9650;</span> your guess
+          is lower (go up), <span class="sym down">&#9660;</span> your guess is higher
           (go down)
         </div>
       </section>
@@ -122,7 +123,7 @@
         aria-modal="true"
         aria-labelledby="winTitle"
       >
-        <h3 id="winTitle">You got it! 🎉</h3>
+        <h3 id="winTitle">You got it! &#127881;</h3>
         <p id="winMsg" class="muted"></p>
         <div class="btn-row">
           <button id="winNewBtn" class="btn primary">New UMA</button>
@@ -141,8 +142,8 @@
         { label: "Calculator", path: "/calculator", file: "/calculator.html" }
       ];
     </script>
-    <script src="nav.js" defer></script>
-    <script type="module" src="umadle.js"></script>
+    <script src="/js/nav.js" defer></script>
+    <script type="module" src="/js/umadle.js"></script>
 
     <script>
     (function () {
@@ -174,3 +175,5 @@
     </script>
   </body>
 </html>
+
+

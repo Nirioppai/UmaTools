@@ -291,7 +291,7 @@ let stopBtn = null;
 
 async function startCapture() {
   try {
-    setSuggestion("Loading OCR engineâ€¦");
+    setSuggestion("Loading OCR engine\u2026");
     await ensureTesseract();
     await loadTemplate(PROBE_TEMPLATE_DATAURL);
 

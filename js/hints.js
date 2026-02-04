@@ -16,8 +16,8 @@
   const counts      = document.getElementById("counts");
   const hintList    = document.getElementById("hintList");
 
-  if (counts) counts.innerHTML = `<span class="loading-indicator">Loading hintsâ€¦</span>`;
-  if (results) results.innerHTML = `<div class="loading-indicator">Loading supportsâ€¦</div>`;
+  if (counts) counts.innerHTML = `<span class="loading-indicator">Loading hints\u2026</span>`;
+  if (results) results.innerHTML = `<div class="loading-indicator">Loading supports\u2026</div>`;
 
   let data = [];
   try {

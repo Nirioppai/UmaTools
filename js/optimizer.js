@@ -1,6 +1,6 @@
 // Skill Optimizer Page Script
 // Loads skills from JSON or CSV, lets you select purchasable skills with costs,
-// and maximizes total score under a budget with goldÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢lower mutual-exclusion.
+// and maximizes total score under a budget with gold cost and mutual-exclusion constraints.
 
 (function () {
   const rowsEl = document.getElementById('rows');
@@ -1128,7 +1128,7 @@
     categories.sort((a, b) => { const ia = preferredOrder.indexOf(a), ib = preferredOrder.indexOf(b); if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib); return a.localeCompare(b); });
     rebuildSkillCaches();
     const totalSkills = Object.values(skillsByCategory).reduce((acc, arr) => acc + arr.length, 0);
-    if (categories.length === 0 || totalSkills === 0) applyFallbackSkills('empty library'); else libStatus.textContent += ` ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¢ ${totalSkills} skills in ${categories.length} categories`;
+    if (categories.length === 0 || totalSkills === 0) applyFallbackSkills('empty library'); else libStatus.textContent += ` \u2022 ${totalSkills} skills in ${categories.length} categories`;
   }
 
   function parseCSV(text) {

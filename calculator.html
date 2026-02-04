@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -23,7 +23,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/rating.css" />
+    <link rel="stylesheet" href="/css/calculator.css" />
     <meta name="color-scheme" content="light dark" />
 
     <!-- No-flash dark mode (matches other pages) -->
@@ -203,11 +205,11 @@
               </label>
               <label>Star Level
                 <select id="star-level">
-                  <option value="1">★1</option>
-                  <option value="2">★2</option>
-                  <option value="3" selected>★3</option>
-                  <option value="4">★4</option>
-                  <option value="5">★5</option>
+                  <option value="1">&#9733;1</option>
+                  <option value="2">&#9733;2</option>
+                  <option value="3" selected>&#9733;3</option>
+                  <option value="4">&#9733;4</option>
+                  <option value="5">&#9733;5</option>
                 </select>
               </label>
               <label>Unique Skill Level
@@ -294,7 +296,7 @@
       ];
     </script>
 
-    <script src="nav.js" defer></script>
+    <script src="/js/nav.js" defer></script>
     <script>
       (function () {
         function applyTheme(dark, persist) {
@@ -315,7 +317,9 @@
         window.addEventListener("storage", function (e) { if (e.key === "umasearch-darkmode") applyTheme(e.newValue === "dark", false); });
       })();
     </script>
-    <script src="rating-shared.js" defer></script>
-    <script src="calculator.js" defer></script>
+    <script src="/js/rating-shared.js" defer></script>
+    <script src="/js/calculator.js" defer></script>
   </body>
 </html>
+
+

@@ -182,9 +182,13 @@ button#search-btn:hover {
   background-color: #2c5282;
 }
 
+.muted {
+  color: var(--muted-text);
+}
+
 .status {
   min-height: 1.2em;
-  color: #555;
+  color: var(--muted-text);
   font-style: italic;
   margin: 0.25rem 0 0.75rem;
 }
@@ -192,7 +196,7 @@ button#search-btn:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: #555;
+  color: var(--muted-text);
   font-style: italic;
 }
 .loading-indicator::before {
@@ -215,7 +219,7 @@ button#search-btn:hover {
   font-style: italic;
   margin: 0.5rem 0 1rem;
   min-height: 1.4em;
-  color: #555;
+  color: var(--muted-text);
 }
 
 #captureVideo {
@@ -505,14 +509,14 @@ body.dark-mode .recommended-badge {
 .option-score {
   margin: 4px 0 8px;
   font-size: 0.9em;
-  color: #555;
+  color: var(--muted-text);
 }
 body.dark-mode .option-score {
   color: #bbb;
 }
 
 .subtle {
-  color: #555;
+  color: var(--muted-text);
   font-style: italic;
 }
 .toolbar {
@@ -2147,6 +2151,7 @@ body.dark-mode .case-pointer::before {
   --paper-2: #f8fafc;
   --ink: #0f172a;
   --muted: #64748b;
+  --muted-text: #444;
   --border: #cbd5e1;
 }
 body.dark-mode {
@@ -2154,6 +2159,7 @@ body.dark-mode {
   --paper-2: #0f1115;
   --ink: #e5e7eb;
   --muted: #9aa4b2;
+  --muted-text: #9aa4b2;
   --border: #334155;
   --ring: rgba(99, 102, 241, 0.35);
 }
@@ -2181,7 +2187,7 @@ body.dark-mode {
   box-shadow: 0 0 0 3px var(--ring);
 }
 
-/* ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œinput + chevronÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â dropdown group */
+/* input + chevron dropdown group */
 .dropdown-wrap {
   position: relative;
   display: block;

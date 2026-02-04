@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v2";
+﻿const CACHE_VERSION = "v2";
 const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
 
@@ -10,17 +10,24 @@ const STATIC_ASSETS = [
   "/optimizer.html",
   "/calculator.html",
   "/umadle.html",
-  "/styles.css",
-  "/nav.js",
-  "/rating-shared.js",
-  "/ocr.js",
-  "/hints.js",
-  "/random.js",
-  "/optimizer.js",
-  "/calculator.js",
-  "/umadle.js",
-  "/search.js",
-  "/recommend.js",
+  "/css/base.css",
+  "/css/events.css",
+  "/css/hints.css",
+  "/css/random.css",
+  "/css/umadle.css",
+  "/css/optimizer.css",
+  "/css/rating.css",
+  "/css/calculator.css",
+  "/js/nav.js",
+  "/js/rating-shared.js",
+  "/js/ocr.js",
+  "/js/hints.js",
+  "/js/random.js",
+  "/js/optimizer.js",
+  "/js/calculator.js",
+  "/js/umadle.js",
+  "/js/search.js",
+  "/js/recommend.js",
   "/favicon.ico",
   "/assets/rank_badges.png"
 ];
@@ -109,3 +116,5 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 });
+
+

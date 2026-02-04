@@ -422,8 +422,8 @@ const duration = Math.max(600, Math.round(durationBase * getSpeedFactorUma()));
   // Init
   (async () => {
     try{
-      setLoading(els.deckResults, "Loading support dataâ€¦");
-      setLoading(els.umaResult, "Loading Uma dataâ€¦");
+      setLoading(els.deckResults, "Loading support data\u2026");
+      setLoading(els.umaResult, "Loading Uma data\u2026");
       const [hints, umas] = await Promise.all([
         fetchJSON(HINTS_URL, "/support_hints.json"),
         fetchJSON(UMA_URL, "/uma_data.json")
