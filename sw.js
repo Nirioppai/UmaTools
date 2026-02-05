@@ -1,16 +1,19 @@
-﻿const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v14";
 const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
   "/",
   "/index.html",
+  "/events.html",
   "/hints.html",
   "/random.html",
   "/optimizer.html",
   "/calculator.html",
+  "/stamina.html",
   "/umadle.html",
   "/css/base.css",
+  "/css/landing.css",
   "/css/events.css",
   "/css/hints.css",
   "/css/random.css",
@@ -18,6 +21,7 @@ const STATIC_ASSETS = [
   "/css/optimizer.css",
   "/css/rating.css",
   "/css/calculator.css",
+  "/css/stamina.css",
   "/js/nav.js",
   "/js/rating-shared.js",
   "/js/ocr.js",
@@ -25,6 +29,7 @@ const STATIC_ASSETS = [
   "/js/random.js",
   "/js/optimizer.js",
   "/js/calculator.js",
+  "/js/stamina.js",
   "/js/umadle.js",
   "/js/search.js",
   "/js/recommend.js",
@@ -116,5 +121,6 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 });
+
 
 

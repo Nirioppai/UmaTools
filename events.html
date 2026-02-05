@@ -3,18 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>UmaTools - Uma Musume Training Toolkit</title>
+    <title>UmaTools - Event OCR Helper</title>
     <meta
       name="description"
-      content="UmaTools is a fast Uma Musume toolkit with event OCR search, support hint finder, optimizer, rating calculator, randomizer, and Umadle."
+      content="Use UmaTools Event OCR to capture event screens and search outcomes instantly."
     />
-    <meta
-      property="og:title"
-      content="UmaTools - Uma Musume Training Toolkit"
-    />
+    <meta property="og:title" content="UmaTools - Event OCR Helper" />
     <meta
       property="og:description"
-      content="UmaTools is a fast Uma Musume toolkit with event OCR search, support hint finder, optimizer, rating calculator, randomizer, and Umadle."
+      content="Use UmaTools Event OCR to capture event screens and search outcomes instantly."
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="UmaTools" />
@@ -27,6 +24,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/events.css" />
     <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
@@ -44,9 +42,8 @@
         } catch (e) {}
       })();
     </script>
-
     <div class="container">
-      <h1>Most visited tools</h1>
+      <h1>Uma Event Helper</h1>
 
       <button
         id="modeToggleBtn"
@@ -93,84 +90,64 @@
         </svg>
       </button>
 
-      <p class="subtle">
-        Based on recent traffic, here are the pages players open the most.
-      </p>
+      <section class="search-panel">
+        <form id="search-form" class="search-form">
+          <input
+            id="query"
+            type="text"
+            placeholder="Search an event name..."
+            autocomplete="off"
+          />
+          <button id="search-btn" type="submit">Search</button>
+        </form>
+        <div id="status" class="status"></div>
+      </section>
 
-      <div class="grid">
-
-        <div class="card tool-card">
-          <h3>Skill Optimizer</h3>
-          <p class="muted">
-            Plan skill builds and check synergy with target races.
-          </p>
-          <div class="badges">
-            <span class="badge">Build planner</span>
-          </div>
-          <a class="btn primary" href="/optimizer.html">Open Optimizer</a>
-        </div>
-
-        <div class="card tool-card">
-          <h3>Rating Calculator</h3>
-          <p class="muted">Estimate rating points with a live stat breakdown.</p>
-          <div class="badges">
-            <span class="badge">Stats calculator</span>
-          </div>
-          <a class="btn primary" href="/calculator.html">Open Calculator</a>
-        </div>
-
-        <div class="card tool-card">
-          <h3>Stamina Check</h3>
-          <p class="muted">See if your stamina meets distance and style thresholds.</p>
-          <div class="badges">
-            <span class="badge">Stamina guide</span>
-          </div>
-          <a class="btn primary" href="/stamina.html">Open Stamina Check</a>
-        </div>
-
-        <div class="card tool-card">
-          <h3>Event OCR</h3>
-          <p class="muted">Capture event screens and search outcomes instantly.</p>
-          <div class="badges">
-            <span class="badge">OCR search</span>
-          </div>
-          <a class="btn primary" href="/events.html">Open Event OCR</a>
-        </div>
-
-        <div class="card tool-card">
-          <h3>Support Hints</h3>
-          <p class="muted">
-            Find support cards by hint keywords and rarity filters.
-          </p>
-          <div class="badges">
-            <span class="badge">Hint finder</span>
-          </div>
-          <a class="btn primary" href="/hints.html">Open Support Hints</a>
-        </div>
-
-        <div class="card tool-card">
-          <h3>Randomizer</h3>
-          <p class="muted">
-            Spin up randomized challenges or inspiration runs.
-          </p>
-          <div class="badges">
-            <span class="badge">Fun mode</span>
-          </div>
-          <a class="btn primary" href="/random.html">Open Randomizer</a>
-        </div>
-
-        <div class="card tool-card">
-          <h3>Umadle</h3>
-          <p class="muted">Daily guessing game with Uma Musume data.</p>
-          <div class="badges">
-            <span class="badge">Daily challenge</span>
-          </div>
-          <a class="btn primary" href="/umadle.html">Open Umadle</a>
+      <div class="ocr-controls">
+        <button id="captureBtn" class="capture-btn">
+          Capture Screen for OCR
+        </button>
+        <label class="scan-time-label" for="searchDelayButtons"
+          >Scan Time:</label>
+        <div
+          id="searchDelayButtons"
+          class="delay-buttons"
+          role="group"
+          aria-label="Select OCR scan time"
+        >
+          <button data-delay="3000" class="delay-btn active" type="button">
+            3s
+          </button>
+          <button data-delay="5000" class="delay-btn" type="button">5s</button>
+          <button data-delay="10000" class="delay-btn" type="button">
+            10s
+          </button>
         </div>
       </div>
+
+      <div id="suggestions" class="ocr-suggestions"></div>
+      <video id="captureVideo" autoplay muted></video>
+      <div id="result" class="result"></div>
     </div>
 
     <script>
+      window.API_BASE = "/api";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Scan-time persistence
+        const SCAN_TIME_KEY = "umasearch-scantime";
+        const delayButtons = document.querySelectorAll(".delay-btn");
+        const savedScanTime = localStorage.getItem(SCAN_TIME_KEY) || "3000";
+        delayButtons.forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.delay === savedScanTime);
+          btn.addEventListener("click", () => {
+            delayButtons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            localStorage.setItem(SCAN_TIME_KEY, btn.dataset.delay);
+          });
+        });
+      });
+
       (function () {
         function applyTheme(dark, persist) {
           document.documentElement.classList.toggle("dark-mode", dark);
@@ -228,5 +205,9 @@
     </script>
 
     <script src="/js/nav.js" defer></script>
+    <script src="/js/ocr.js" defer data-cfasync="false"></script>
+    <script type="module" src="/js/search.js"></script>
+    <script type="module" src="/js/recommend.js"></script>
   </body>
 </html>
+

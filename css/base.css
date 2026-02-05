@@ -575,8 +575,20 @@ body.dark-mode .option-score {
 }
 .card h3 {
   margin: 0.25rem 0 0.5rem;
-  color: #2c5282;
+  color: #90cdf4;
   font-size: 1.05rem;
+}
+.card.tool-card h3 {
+  font-size: 1.3rem;
+  text-align: center;
+}
+.card.tool-card .btn {
+  display: block;
+  width: fit-content;
+  margin: 0.75rem auto 0;
+}
+.card.tool-card .badges {
+  margin-bottom: 0.25rem;
 }
 /* Larger heading for key sections inside cards */
 .card h2 {
@@ -628,6 +640,12 @@ body.dark-mode .pill {
   background: #273244;
   border-color: #3b4556;
   color: #e5e7eb;
+}
+body.dark-mode .card.tool-card .badge,
+html.dark-mode .card.tool-card .badge {
+  background: #1f2937;
+  border-color: #334155;
+  color: #e2e8f0;
 }
 body.dark-mode .pill.match {
   box-shadow: inset 0 0 0 1px #63b3ed;

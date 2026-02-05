@@ -1,10 +1,12 @@
 (function () {
   const DEFAULT_ROUTES = [
-    { label: "Events", path: "/", file: "/index.html" },
-    { label: "Support Hints", path: "/hints", file: "/hints.html" },
-    { label: "Umadle", path: "/umadle", file: "/umadle.html" },
-    { label: "Randomizer", path: "/random", file: "/random.html" },
     { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
+    { label: "Calculator", path: "/calculator", file: "/calculator.html" },
+    { label: "Stamina Check", path: "/stamina", file: "/stamina.html" },
+    { label: "Event OCR", path: "/events", file: "/events.html" },
+    { label: "Support Hints", path: "/hints", file: "/hints.html" },
+    { label: "Randomizer", path: "/random", file: "/random.html" },
+    { label: "Umadle", path: "/umadle", file: "/umadle.html" },
   ];
   const ROUTES =
     Array.isArray(window.NAV_ROUTES) && window.NAV_ROUTES.length

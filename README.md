@@ -62,6 +62,12 @@ This app includes multiple pages. Use the top navigation or visit the routes dir
 3. Review projected rating and badge progress.
 4. For full rating math and skill scoring details, see `RATING_README.md`.
 
+### Stamina Check
+
+1. Set race distance, surface, condition, style, and mood.
+2. Fill in your stats and recovery skills (including unique recovery).
+3. Review the stamina needed vs. actual stamina and the recovery total.
+
 ---
 
 ## Acknowledgements
