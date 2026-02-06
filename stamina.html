@@ -3,20 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>UmaTools - Stamina Calculator</title>
+    <title>UmaTools - Stamina Check</title>
     <meta
       name="description"
-      content="Check if your Umamusume has enough stamina for a race distance and running style."
+      content="Estimate stamina needs for races using stats, recovery skills, track, and condition settings."
     />
+    <link rel="canonical" href="https://umatools-test.vercel.app/stamina" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="theme-color"
+      content="#f8fafc"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0f172a"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="UmaTools" />
     <meta property="og:title" content="UmaTools - Stamina Check" />
     <meta
       property="og:description"
-      content="Check if your Umamusume has enough stamina for a race distance and running style."
+      content="Estimate stamina needs for races using stats, recovery skills, track, and condition settings."
     />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="UmaTools" />
-    <meta name="twitter:card" content="summary" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta
+      property="og:url"
+      content="https://umatools-test.vercel.app/stamina"
+    />
+    <meta
+      property="og:image"
+      content="https://umatools-test.vercel.app/og-default.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="UmaTools - Stamina Check" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="UmaTools - Stamina Check" />
+    <meta
+      name="twitter:description"
+      content="Estimate stamina needs for races using stats, recovery skills, track, and condition settings."
+    />
+    <meta
+      name="twitter:image"
+      content="https://umatools-test.vercel.app/og-default.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="UmaTools - Stamina Check"
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -26,12 +83,66 @@
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/stamina.css" />
-    <meta name="color-scheme" content="light dark" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://umatools-test.vercel.app/#organization",
+            "name": "UmaTools",
+            "url": "https://umatools-test.vercel.app/",
+            "logo": "https://umatools-test.vercel.app/icon-512.png",
+            "sameAs": [
+              "https://github.com/daftuyda/UmaTools",
+              "https://youtube.com/@MaybeVoid"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://umatools-test.vercel.app/#website",
+            "url": "https://umatools-test.vercel.app/",
+            "name": "UmaTools",
+            "publisher": { "@id": "https://umatools-test.vercel.app/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://umatools-test.vercel.app/stamina#webpage",
+            "url": "https://umatools-test.vercel.app/stamina",
+            "name": "Stamina Check",
+            "description": "Estimate stamina needs for races using stats, recovery skills, track, and condition settings.",
+            "isPartOf": { "@id": "https://umatools-test.vercel.app/#website" },
+            "about": { "@id": "https://umatools-test.vercel.app/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://umatools-test.vercel.app/stamina#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://umatools-test.vercel.app/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Stamina Check",
+                "item": "https://umatools-test.vercel.app/stamina"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
     <!-- No-flash dark mode: pre-apply saved theme before paint -->
     
     <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <script>
       (function () {
         try {
@@ -126,7 +237,7 @@
       </svg>
     </button>
 
-    <main class="container">
+    <main id="main" class="container">
       <h1>Stamina Calculator</h1>
 
       <section class="card card-elevated race-config-container" aria-labelledby="staminaConfigTitle">
@@ -359,7 +470,7 @@
             <div class="stamina-block">
               <div class="target-group-title unique-title">
                 <span>Unique Recovery</span>
-                <span class="unique-note muted">Check <a href="https://gametora.com/umamusume/skills" target="_blank">Gametora</a> to see how much your unique recovery restores.</span>
+                <span class="unique-note muted">Check <a href="https://gametora.com/umamusume/skills" target="_blank" rel="noopener noreferrer">Gametora</a> to see how much your unique recovery restores.</span>
               </div>
               <div class="unique-controls">
                 <label>Unique Skill

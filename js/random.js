@@ -78,7 +78,8 @@ function getSpeedFactorUma(){ return (els.speed2xUma && els.speed2xUma.checked) 
 
   function renderUmaThumb(u){
     if (u?.img) {
-      return `<img src="${u.img}" alt="" loading="lazy" decoding="async" fetchpriority="low">`;
+      const alt = u?.name ? `${u.name} portrait` : "Uma Musume portrait";
+      return `<img src="${u.img}" alt="${alt}" loading="lazy" decoding="async" fetchpriority="low">`;
     }
     const init = umaInitialsOf(u?.name || "?");
     return `

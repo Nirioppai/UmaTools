@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v21";
+const CACHE_VERSION = "v22";
 const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
 
@@ -12,6 +12,10 @@ const STATIC_ASSETS = [
   "/calculator.html",
   "/stamina.html",
   "/umadle.html",
+  "/404.html",
+  "/robots.txt",
+  "/sitemap.xml",
+  "/site.webmanifest",
   "/css/base.css",
   "/css/theme-d.build.css",
   "/css/landing.css",
@@ -35,6 +39,12 @@ const STATIC_ASSETS = [
   "/js/search.js",
   "/js/recommend.js",
   "/favicon.ico",
+  "/favicon-16x16.png",
+  "/favicon-32x32.png",
+  "/apple-touch-icon.png",
+  "/icon-192.png",
+  "/icon-512.png",
+  "/og-default.png",
   "/assets/rank_badges.png"
 ];
 

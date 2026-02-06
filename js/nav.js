@@ -29,6 +29,7 @@
   // Build navbar element (not in DOM yet)
   const nav = document.createElement("nav");
   nav.className = "site-nav";
+  nav.setAttribute("aria-label", "Primary");
   nav.innerHTML = `
     <div class="nav-inner">
       <div class="nav-left">
@@ -72,7 +73,12 @@
   // Inject everything after DOM is ready
   document.addEventListener("DOMContentLoaded", () => {
     // Put navbar at top
-    document.body.prepend(nav);
+    const skipLink = document.querySelector(".skip-link");
+    if (skipLink && skipLink.parentNode) {
+      skipLink.insertAdjacentElement("afterend", nav);
+    } else {
+      document.body.prepend(nav);
+    }
 
     // Build links
     const links = ROUTES.map((route) => {

@@ -1,18 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>UmaTools - Event OCR Helper</title>
+    <title>UmaTools - Page Not Found</title>
     <meta
       name="description"
-      content="Capture event screens and search outcomes instantly with UmaTools Event OCR."
+      content="Sorry, the page you are looking for does not exist. Return to UmaTools."
     />
-    <link
-      rel="canonical"
-      href="https://umatools-test.vercel.app/events"
-    />
-    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://umatools-test.vercel.app/404" />
+    <meta name="robots" content="noindex, follow" />
     <meta
       name="theme-color"
       content="#f8fafc"
@@ -27,15 +24,12 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="UmaTools" />
-    <meta property="og:title" content="UmaTools - Event OCR Helper" />
+    <meta property="og:title" content="UmaTools - Page Not Found" />
     <meta
       property="og:description"
-      content="Capture event screens and search outcomes instantly with UmaTools Event OCR."
+      content="Sorry, the page you are looking for does not exist. Return to UmaTools."
     />
-    <meta
-      property="og:url"
-      content="https://umatools-test.vercel.app/events"
-    />
+    <meta property="og:url" content="https://umatools-test.vercel.app/404" />
     <meta
       property="og:image"
       content="https://umatools-test.vercel.app/og-default.png"
@@ -45,13 +39,13 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="UmaTools - Event OCR Helper"
+      content="UmaTools - Page Not Found"
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="UmaTools - Event OCR Helper" />
+    <meta name="twitter:title" content="UmaTools - Page Not Found" />
     <meta
       name="twitter:description"
-      content="Capture event screens and search outcomes instantly with UmaTools Event OCR."
+      content="Sorry, the page you are looking for does not exist. Return to UmaTools."
     />
     <meta
       name="twitter:image"
@@ -59,7 +53,7 @@
     />
     <meta
       name="twitter:image:alt"
-      content="UmaTools - Event OCR Helper"
+      content="UmaTools - Page Not Found"
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link
@@ -88,7 +82,6 @@
     />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
-    <link rel="stylesheet" href="/css/events.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -114,31 +107,13 @@
           },
           {
             "@type": "WebPage",
-            "@id": "https://umatools-test.vercel.app/events#webpage",
-            "url": "https://umatools-test.vercel.app/events",
-            "name": "Event OCR Helper",
-            "description": "Capture event screens and search outcomes instantly with UmaTools Event OCR.",
+            "@id": "https://umatools-test.vercel.app/404#webpage",
+            "url": "https://umatools-test.vercel.app/404",
+            "name": "Page Not Found",
+            "description": "Sorry, the page you are looking for does not exist. Return to UmaTools.",
             "isPartOf": { "@id": "https://umatools-test.vercel.app/#website" },
             "about": { "@id": "https://umatools-test.vercel.app/#organization" },
             "inLanguage": "en"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "@id": "https://umatools-test.vercel.app/events#breadcrumb",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://umatools-test.vercel.app/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Event OCR",
-                "item": "https://umatools-test.vercel.app/events"
-              }
-            ]
           }
         ]
       }
@@ -196,111 +171,25 @@
         } catch (e) {}
       })();
     </script>
-    
+
     <main id="main" class="container">
-      <h1>Uma Event Helper</h1>
-
-      <button
-        id="modeToggleBtn"
-        aria-label="Toggle dark/light mode"
-        class="mode-toggle-btn"
-        title="Toggle dark/light mode"
-      >
-        <svg
-          id="iconSun"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="feather feather-sun"
-        >
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <svg
-          id="iconMoon"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="feather feather-moon"
-          style="display: none"
-        >
-          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-        </svg>
-      </button>
-
-      <section class="search-panel">
-        <form id="search-form" class="search-form">
-          <input
-            id="query"
-            type="text"
-            placeholder="Search an event name..."
-            autocomplete="off"
-          />
-          <button id="search-btn" type="submit">Search</button>
-        </form>
-        <div id="status" class="status"></div>
-      </section>
-
-      <div class="ocr-controls">
-        <button id="captureBtn" class="capture-btn">
-          Capture Screen for OCR
-        </button>
-        <label class="scan-time-label" for="searchDelayButtons"
-          >Scan Time:</label>
-        <div
-          id="searchDelayButtons"
-          class="delay-buttons"
-          role="group"
-          aria-label="Select OCR scan time"
-        >
-          <button data-delay="3000" class="delay-btn active" type="button">
-            3s
-          </button>
-          <button data-delay="5000" class="delay-btn" type="button">5s</button>
-          <button data-delay="10000" class="delay-btn" type="button">
-            10s
-          </button>
-        </div>
-      </div>
-
-      <div id="suggestions" class="ocr-suggestions"></div>
-      <video id="captureVideo" autoplay muted></video>
-      <div id="result" class="result"></div>
+      <h1>Page Not Found</h1>
+      <p class="muted">Sorry, we could not find that page. Try one of the tools below or return home.</p>
+      <a class="btn primary" href="/">Back to home</a>
     </main>
-    <script src="/js/ocr.js" defer data-cfasync="false"></script>
-    <script type="module" src="/js/search.js"></script>
-    <script type="module" src="/js/recommend.js"></script>
-        <script>
-      window.NAV_ROUTES = [
-  { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
-  { label: "Calculator", path: "/calculator", file: "/calculator.html" },
-  { label: "Stamina Check", path: "/stamina", file: "/stamina.html" },
-  { label: "Event OCR", path: "/events", file: "/events.html" },
-  { label: "Support Hints", path: "/hints", file: "/hints.html" },
-  { label: "Randomizer", path: "/random", file: "/random.html" },
-  { label: "Umadle", path: "/umadle", file: "/umadle.html" }
-];
-    </script>
 
+    <script>
+      window.NAV_ROUTES = [
+        { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
+        { label: "Calculator", path: "/calculator", file: "/calculator.html" },
+        { label: "Stamina Check", path: "/stamina", file: "/stamina.html" },
+        { label: "Event OCR", path: "/events", file: "/events.html" },
+        { label: "Support Hints", path: "/hints", file: "/hints.html" },
+        { label: "Randomizer", path: "/random", file: "/random.html" },
+        { label: "Umadle", path: "/umadle", file: "/umadle.html" }
+      ];
+    </script>
     <script src="/js/nav.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>
-

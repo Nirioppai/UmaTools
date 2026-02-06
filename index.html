@@ -6,20 +6,80 @@
     <title>UmaTools - Uma Musume Training Toolkit</title>
     <meta
       name="description"
-      content="UmaTools is a fast Uma Musume toolkit with event OCR search, support hint finder, optimizer, rating calculator, randomizer, and Umadle."
+      content="UmaTools is a fast Uma Musume toolkit with Event OCR, support hint search, skill optimizer, rating calculator, randomizer, and Umadle."
     />
+    <link rel="canonical" href="https://umatools-test.vercel.app/" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="theme-color"
+      content="#f8fafc"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0f172a"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="UmaTools" />
     <meta
       property="og:title"
       content="UmaTools - Uma Musume Training Toolkit"
     />
     <meta
       property="og:description"
-      content="UmaTools is a fast Uma Musume toolkit with event OCR search, support hint finder, optimizer, rating calculator, randomizer, and Umadle."
+      content="UmaTools is a fast Uma Musume toolkit with Event OCR, support hint search, skill optimizer, rating calculator, randomizer, and Umadle."
     />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="UmaTools" />
-    <meta name="twitter:card" content="summary" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta property="og:url" content="https://umatools-test.vercel.app/" />
+    <meta
+      property="og:image"
+      content="https://umatools-test.vercel.app/og-default.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="UmaTools - Uma Musume Training Toolkit"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="UmaTools - Uma Musume Training Toolkit"
+    />
+    <meta
+      name="twitter:description"
+      content="UmaTools is a fast Uma Musume toolkit with Event OCR, support hint search, skill optimizer, rating calculator, randomizer, and Umadle."
+    />
+    <meta
+      name="twitter:image"
+      content="https://umatools-test.vercel.app/og-default.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="UmaTools - Uma Musume Training Toolkit"
+    />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -28,10 +88,46 @@
     />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://umatools-test.vercel.app/#organization",
+            "name": "UmaTools",
+            "url": "https://umatools-test.vercel.app/",
+            "logo": "https://umatools-test.vercel.app/icon-512.png",
+            "sameAs": [
+              "https://github.com/daftuyda/UmaTools",
+              "https://youtube.com/@MaybeVoid"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://umatools-test.vercel.app/#website",
+            "url": "https://umatools-test.vercel.app/",
+            "name": "UmaTools",
+            "publisher": { "@id": "https://umatools-test.vercel.app/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://umatools-test.vercel.app/#webpage",
+            "url": "https://umatools-test.vercel.app/",
+            "name": "UmaTools - Uma Musume Training Toolkit",
+            "description": "UmaTools is a fast Uma Musume toolkit with Event OCR, support hint search, skill optimizer, rating calculator, randomizer, and Umadle.",
+            "isPartOf": { "@id": "https://umatools-test.vercel.app/#website" },
+            "about": { "@id": "https://umatools-test.vercel.app/#organization" },
+            "inLanguage": "en"
+          }
+        ]
+      }
+    </script>
     <script defer src="/_vercel/insights/script.js"></script>
-      <meta name="color-scheme" content="light dark" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <script>
       (function () {
         try {
@@ -83,7 +179,7 @@
     </script>
     
 
-    <div class="container">
+    <main id="main" class="container">
       <h1>Most visited tools</h1>
 
       <button
@@ -145,7 +241,7 @@
           <div class="badges">
             <span class="badge">Build planner</span>
           </div>
-          <a class="btn primary" href="/optimizer.html">Open Optimizer</a>
+          <a class="btn primary" href="/optimizer">Open Optimizer</a>
         </div>
 
         <div class="card tool-card">
@@ -154,7 +250,7 @@
           <div class="badges">
             <span class="badge">Stats calculator</span>
           </div>
-          <a class="btn primary" href="/calculator.html">Open Calculator</a>
+          <a class="btn primary" href="/calculator">Open Calculator</a>
         </div>
 
         <div class="card tool-card">
@@ -163,7 +259,7 @@
           <div class="badges">
             <span class="badge">Stamina guide</span>
           </div>
-          <a class="btn primary" href="/stamina.html">Open Stamina Check</a>
+          <a class="btn primary" href="/stamina">Open Stamina Check</a>
         </div>
 
         <div class="card tool-card">
@@ -172,7 +268,7 @@
           <div class="badges">
             <span class="badge">OCR search</span>
           </div>
-          <a class="btn primary" href="/events.html">Open Event OCR</a>
+          <a class="btn primary" href="/events">Open Event OCR</a>
         </div>
 
         <div class="card tool-card">
@@ -183,7 +279,7 @@
           <div class="badges">
             <span class="badge">Hint finder</span>
           </div>
-          <a class="btn primary" href="/hints.html">Open Support Hints</a>
+          <a class="btn primary" href="/hints">Open Support Hints</a>
         </div>
 
         <div class="card tool-card">
@@ -194,7 +290,7 @@
           <div class="badges">
             <span class="badge">Fun mode</span>
           </div>
-          <a class="btn primary" href="/random.html">Open Randomizer</a>
+          <a class="btn primary" href="/random">Open Randomizer</a>
         </div>
 
         <div class="card tool-card">
@@ -203,11 +299,11 @@
           <div class="badges">
             <span class="badge">Daily challenge</span>
           </div>
-          <a class="btn primary" href="/umadle.html">Open Umadle</a>
+          <a class="btn primary" href="/umadle">Open Umadle</a>
         </div>
       </div>
-    </div>
-        <script>
+    </main>
+    <script>
       window.NAV_ROUTES = [
   { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
   { label: "Calculator", path: "/calculator", file: "/calculator.html" },
