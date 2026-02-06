@@ -135,7 +135,9 @@
     document.body.appendChild(footer);
 
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
+      navigator.serviceWorker
+        .register("/sw.js", { updateViaCache: "none" })
+        .catch(() => {});
     }
 
     // Signal that nav is ready so loaders can safely release.

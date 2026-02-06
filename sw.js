@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v22";
+const CACHE_VERSION = "v23";
 const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
 
@@ -27,8 +27,10 @@ const STATIC_ASSETS = [
   "/css/rating.css",
   "/css/calculator.css",
   "/css/stamina.css",
+  "/css/tutorial.css",
   "/js/nav.js",
   "/js/rating-shared.js",
+  "/js/tutorial.js",
   "/js/ocr.js",
   "/js/hints.js",
   "/js/random.js",
@@ -100,6 +102,10 @@ function networkFirst(request) {
     .catch(() => caches.match(request));
 }
 
+function isCodeAsset(pathname) {
+  return pathname.endsWith(".js") || pathname.endsWith(".css");
+}
+
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   if (request.method !== "GET") return;
@@ -113,7 +119,8 @@ self.addEventListener("fetch", (event) => {
   }
 
   if (STATIC_ASSETS.includes(url.pathname)) {
-    event.respondWith(cacheFirst(request));
+    // Keep code assets fresh without requiring hard refreshes after deploys.
+    event.respondWith(isCodeAsset(url.pathname) ? networkFirst(request) : cacheFirst(request));
     return;
   }
 
