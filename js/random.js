@@ -33,7 +33,19 @@
     setExclusions(arr) { localStorage.setItem("exclude_support_slugs", JSON.stringify(arr)); }
   };
 
-  const rarityClass = (r) => `badge-${r}`;
+  const renderBadge = (rarity) =>
+    window.RarityBadge
+      ? RarityBadge.render(rarity)
+      : `<span class="badge badge-${rarity}">${rarity}</span>`;
+  const applyBadge = (el, rarity) => {
+    if (!el) return;
+    if (window.RarityBadge) {
+      RarityBadge.apply(el, rarity);
+      return;
+    }
+    el.className = `badge badge-${rarity}`;
+    el.textContent = rarity || '';
+  };
 
 // Speed control: default is slower for drama; 2× toggle makes it faster
 function getSpeedFactorDeck(){ return (els.speed2x && els.speed2x.checked) ? 0.5 : 1.0; }
@@ -50,6 +62,45 @@ function getSpeedFactorUma(){ return (els.speed2xUma && els.speed2xUma.checked) 
       const t = tokens[0]; return (t.slice(0,2) || t[0] || "?").toUpperCase();
     }
     return "?";
+  }
+
+  function umaInitialsOf(name){
+    const parts = String(name || "?")
+      .replace(/\(.*?\)/g, "")
+      .trim()
+      .split(/\s+/)
+      .map(t => t.replace(/[^A-Za-z]/g, ""))
+      .filter(Boolean);
+    if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+    if (parts.length === 1) return (parts[0].slice(0,2) || parts[0][0] || "?").toUpperCase();
+    return "?";
+  }
+
+  function renderUmaThumb(u){
+    if (u?.img) {
+      return `<img src="${u.img}" alt="" loading="lazy" decoding="async" fetchpriority="low">`;
+    }
+    const init = umaInitialsOf(u?.name || "?");
+    return `
+      <span class="uma-initials">${init}</span>
+      <span class="uma-emoji" aria-hidden="true">ðŸŽ</span>
+    `;
+  }
+
+  function renderUmaWinnerCard(u, extraClass = "") {
+    const nick = u?.nick ? ` <span class="subtle">(${u.nick})</span>` : "";
+    const hasImg = !!u?.img;
+    return `
+      <div class="card reveal uma-winner ${extraClass}">
+        <div class="uma-winner-thumb${hasImg ? " has-img" : ""}" aria-hidden="true">
+          ${renderUmaThumb(u)}
+        </div>
+        <div class="uma-winner-copy">
+          <h3>${u?.name || "Unknown"}${nick}</h3>
+          <div class="subtle">Press "Pick Random Uma" to roll again.</div>
+        </div>
+      </div>
+    `;
   }
 
   function cleanCardName(full){
@@ -95,7 +146,8 @@ function getSpeedFactorUma(){ return (els.speed2xUma && els.speed2xUma.checked) 
     return (data ?? []).map(u => ({
       name: u?.UmaName || "",
       nick: u?.UmaNickname || "",
-      slug: u?.UmaSlug || null
+      slug: u?.UmaSlug || null,
+      img: u?.UmaImage || u?.UmaImageLocal || u?.UmaThumb || u?.Thumb || null
     })).filter(u => u.name);
   }
 
@@ -171,7 +223,7 @@ function getSpeedFactorUma(){ return (els.speed2xUma && els.speed2xUma.checked) 
         <div class="card-thumb">${img}</div>
         <div class="card-title">
           <h3>${s.name}</h3>
-          <span class="badge ${rarityClass(s.rarity)}">${s.rarity}</span>
+          ${renderBadge(s.rarity)}
         </div>
       </div>
     `;
@@ -210,12 +262,17 @@ function getSpeedFactorUma(){ return (els.speed2xUma && els.speed2xUma.checked) 
       return;
     }
 
+    const finalPick = pickNRandom(pool, N);
+    const reduceMotion = false;
+    if (reduceMotion) {
+      els.deckResults.innerHTML = finalPick.map((s) => cardMarkup(s, "reveal")).join("");
+      return;
+    }
+
     els.deckResults.innerHTML = Array.from({length: N}, (_,i)=> slotSkeleton(i)).join("");
     document.body.classList.add("deck-rolling");
     els.rollBtn.disabled = true;
     rolling = true;
-
-    const finalPick = pickNRandom(pool, N);
 
     const SPIN_MS_BASE = 140;   // slower default spin (was 90)
 const BASE_SETTLE_BASE = 1600; // slower default settle (was 900)
@@ -236,8 +293,7 @@ for (let i = 0; i < N; i++){
       const cycle = setInterval(() => {
         const s = pool[Math.floor(Math.random() * pool.length)];
         titleEl.textContent = s.name;
-        badgeEl.className = `badge ${rarityClass(s.rarity)}`;
-        badgeEl.textContent = s.rarity;
+        applyBadge(badgeEl, s.rarity);
         const live = s.img ? `<img src="${s.img}" alt="${s.name}" loading="lazy" decoding="async" fetchpriority="low">` : `<span>${initialsOf(s.name)}</span>`;
         thumbEl.innerHTML = live;
       }, SPIN_MS);
@@ -266,29 +322,20 @@ for (let i = 0; i < N; i++){
 
   // ------- UMA "CS:GO case" style roll (placeholder thumbs) -------
   let umaRolling = false;
-
   function umaItemMarkup(u, isWinner = false){
-    const initials = (u.name || "?")
-        .replace(/\(.*?\)/g, "")
-        .trim()
-        .split(/\s+/)
-        .map(t => t.replace(/[^A-Za-z]/g, ""))
-        .filter(Boolean);
-    const init = initials.length >= 2 ? (initials[0][0] + initials[1][0]) :
-                initials.length === 1 ? (initials[0].slice(0,2)) : "?";
     const nick = u.nick ? ` <span class="subtle">(${u.nick})</span>` : "";
+    const hasImg = !!u.img;
     return `
         <div class="case-item${isWinner ? " winner" : ""}"
             data-umaslug="${u.slug || ""}" data-win="${isWinner ? 1 : 0}"
             title="${u.name}">
-        <div class="uma-thumb" aria-hidden="true">
-            <span class="uma-initials">${init.toUpperCase()}</span>
-            <span class="uma-emoji" aria-hidden="true">🐎</span>
+        <div class="uma-thumb${hasImg ? " has-img" : ""}" aria-hidden="true">
+            ${renderUmaThumb(u)}
         </div>
         <div class="uma-title">${u.name}${nick}</div>
         </div>
     `;
-    }
+  }
 
   function startUmaCaseRoll(){
     if (!umaList.length){
@@ -298,6 +345,7 @@ for (let i = 0; i < N; i++){
     if (umaRolling) return;
     umaRolling = true;
     els.pickUmaBtn.disabled = true;
+    document.body.classList.add("uma-rolling");
 
     // Build viewport & strip
     els.umaResult.innerHTML = `
@@ -332,10 +380,21 @@ for (let i = 0; i < N; i++){
 
     const sequence = [...filler, ...tail, winner, ...placeholders];
 
+    const reduceMotion = false;
+
     // render and explicitly mark the WINNER (index is before the placeholders)
     const winnerIndex = sequence.length - placeholdersCount - 1;
     strip.innerHTML = sequence.map((u, idx) => umaItemMarkup(u, idx === winnerIndex)).join("");
 
+    if (reduceMotion) {
+      els.umaResult.innerHTML = renderUmaWinnerCard(winner);
+      els.pickUmaBtn.disabled = false;
+      umaRolling = false;
+      document.body.classList.remove("uma-rolling");
+      return;
+    }
+
+    const runCaseAnimation = () => {
     // Measure and animate to center the WINNER with a tiny random jitter
     requestAnimationFrame(() => {
         const items = Array.from(strip.querySelectorAll(".case-item"));
@@ -377,18 +436,34 @@ const duration = Math.max(600, Math.round(durationBase * getSpeedFactorUma()));
 
         const end = () => {
         strip.removeEventListener("transitionend", end);
-        const nick = winner.nick ? ` <span class="subtle">(${winner.nick})</span>` : "";
-        els.umaResult.insertAdjacentHTML("beforeend", `
-            <div class="card reveal" style="margin-top:.6rem">
-            <h3>${winner.name}${nick}</h3>
-            <div class="subtle">Press "Pick Random Uma" to roll again.</div>
-            </div>
-        `);
+        els.umaResult.insertAdjacentHTML("beforeend", renderUmaWinnerCard(winner, "uma-winner-after-roll"));
         els.pickUmaBtn.disabled = false;
         umaRolling = false;
+        document.body.classList.remove("uma-rolling");
         };
         strip.addEventListener("transitionend", end, { once: true });
     });
+    };
+
+    const preRollDuration = 600;
+    const preRollInterval = setInterval(() => {
+      const items = Array.from(strip.querySelectorAll(".case-item"));
+      items.forEach(item => {
+        const u = umaList[Math.floor(Math.random() * umaList.length)];
+        const title = item.querySelector(".uma-title");
+        const thumb = item.querySelector(".uma-thumb");
+        if (title) title.textContent = u.name || "?";
+        if (thumb) {
+          thumb.classList.toggle("has-img", !!u.img);
+          thumb.innerHTML = renderUmaThumb(u);
+        }
+      });
+    }, 120);
+
+    setTimeout(() => {
+      clearInterval(preRollInterval);
+      runCaseAnimation();
+    }, preRollDuration);
     }
 
   // ------- Events (this was missing) -------

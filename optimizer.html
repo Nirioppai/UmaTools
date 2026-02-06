@@ -22,8 +22,9 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/rating.css" />
     <link rel="stylesheet" href="/css/optimizer.css" />
     <meta name="color-scheme" content="light dark" />
@@ -41,7 +42,9 @@
         z-index: 1000;
       }
       .modal-content {
-        background: var(--card-background, #fff);
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        color: var(--text-1);
         border-radius: 8px;
         max-width: 500px;
         width: 90%;
@@ -54,7 +57,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 16px 20px;
-        border-bottom: 1px solid var(--border-color, #ddd);
+        border-bottom: 1px solid var(--border);
       }
       .modal-header h3 {
         margin: 0;
@@ -65,7 +68,7 @@
         border: none;
         font-size: 1.5rem;
         cursor: pointer;
-        color: var(--text-color, #333);
+        color: var(--text-1);
         padding: 0;
         width: 30px;
         height: 30px;
@@ -86,12 +89,12 @@
       .modal-body textarea {
         width: 100%;
         padding: 8px;
-        border: 1px solid var(--border-color, #ddd);
+        border: 1px solid var(--border);
         border-radius: 4px;
         font-family: inherit;
         font-size: 0.9rem;
-        background: var(--input-background, #fff);
-        color: var(--text-color, #333);
+        background: var(--surface-2);
+        color: var(--text-1);
       }
       .modal-body textarea {
         resize: vertical;
@@ -102,7 +105,7 @@
         justify-content: flex-end;
         gap: 8px;
         padding: 16px 20px;
-        border-top: 1px solid var(--border-color, #ddd);
+        border-top: 1px solid var(--border);
       }
       .builds-list {
         display: flex;
@@ -110,10 +113,10 @@
         gap: 12px;
       }
       .build-item {
-        border: 1px solid var(--border-color, #ddd);
+        border: 1px solid var(--border);
         border-radius: 6px;
         padding: 12px;
-        background: var(--input-background, #f9f9f9);
+        background: var(--surface-2);
       }
       .build-item-header {
         display: flex;
@@ -128,17 +131,17 @@
       }
       .build-item-timestamp {
         font-size: 0.75rem;
-        color: var(--text-muted, #666);
+        color: var(--muted);
       }
       .build-item-description {
         font-size: 0.85rem;
-        color: var(--text-color, #333);
+        color: var(--text-2);
         margin: 8px 0;
         line-height: 1.4;
       }
       .build-item-meta {
         font-size: 0.8rem;
-        color: var(--text-muted, #666);
+        color: var(--muted);
         margin: 8px 0;
       }
       .build-item-actions {
@@ -153,57 +156,12 @@
       .empty-builds {
         text-align: center;
         padding: 32px;
-        color: var(--text-muted, #666);
-      }
-      body.dark-mode .modal-content {
-        background: #1e1e1e;
-        color: #e5e7eb;
-        border: 1px solid #334155;
-      }
-      body.dark-mode .modal {
-        background: transparent;
-      }
-      body.dark-mode .modal-header,
-      body.dark-mode .modal-footer {
-        border-color: #334155;
-      }
-      body.dark-mode .modal-close {
-        color: #e5e7eb;
-      }
-      body.dark-mode .modal-body input[type="text"],
-      body.dark-mode .modal-body textarea {
-        background: #12141a;
-        color: #e5e7eb;
-        border-color: #334155;
-      }
-      body.dark-mode .build-item {
-        background: #12141a;
-        border-color: #334155;
-      }
-      body.dark-mode .build-item-description {
-        color: #e2e8f0;
-      }
-      body.dark-mode .build-item-meta,
-      body.dark-mode .build-item-timestamp,
-      body.dark-mode .empty-builds {
-        color: #94a3b8;
+        color: var(--muted);
       }
     </style>
 
     <!-- No-flash dark mode (matches other pages) -->
-    <script>
-      (function () {
-        try {
-          var pref = localStorage.getItem("umasearch-darkmode");
-          var dark = pref
-            ? pref === "dark"
-            : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-          document.documentElement.classList.toggle("dark-mode", dark);
-          document.body && document.body.classList && document.body.classList.toggle("dark-mode", dark);
-          document.documentElement.style.colorScheme = dark ? "dark" : "light";
-        } catch (e) {}
-      })();
-    </script>
+    
       <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
@@ -213,13 +171,50 @@
           var pref = localStorage.getItem("umasearch-darkmode");
           var dark = pref
             ? pref === "dark"
-            : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-          document.documentElement.classList.toggle("dark-mode", dark);
-          document.body.classList.toggle("dark-mode", dark);
-          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+            : window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var root = document.documentElement;
+          root.classList.add("is-loading");
+          root.classList.toggle("dark", dark);
+          root.style.colorScheme = dark ? "dark" : "light";
+
+          var pageLoaded = false;
+          var navReady = !document.querySelector('script[src="/js/nav.js"]');
+          var release = function () {
+            root.classList.remove("is-loading");
+          };
+          var tryRelease = function () {
+            if (!pageLoaded || !navReady) return;
+            if (document.fonts && document.fonts.ready) {
+              Promise.race([
+                document.fonts.ready,
+                new Promise(function (resolve) {
+                  setTimeout(resolve, 1200);
+                })
+              ]).then(function () {
+                requestAnimationFrame(release);
+              });
+            } else {
+              requestAnimationFrame(release);
+            }
+          };
+          window.addEventListener("load", function () {
+            pageLoaded = true;
+            tryRelease();
+          });
+          window.addEventListener("nav:ready", function () {
+            navReady = true;
+            tryRelease();
+          });
+          window.setTimeout(function () {
+            pageLoaded = true;
+            navReady = true;
+            tryRelease();
+          }, 2400);
         } catch (e) {}
       })();
     </script>
+    
     <!-- Same floating toggle button used across site; nav.js will relocate it into the navbar when present -->
     <button
       id="modeToggleBtn"
@@ -420,7 +415,8 @@
             </p>
           </div>
           <div class="spacer"></div>
-          <div class="pill rating-total-pill">
+          <div class="rating-hero">
+            <div class="pill rating-total-pill">
             <div class="label">Projected Rating</div>
             <div id="rating-total" class="value">0</div>
             <div class="rating-progress" aria-live="polite">
@@ -433,9 +429,10 @@
               </div>
             </div>
           </div>
-          <div class="rating-badge" id="rating-badge">
+            <div class="rating-badge" id="rating-badge">
             <div id="rating-badge-sprite" class="rating-badge-sprite" role="img"
                  aria-label="Projected rank badge"></div>
+          </div>
           </div>
         </div>
         <div class="rating-grid">
@@ -562,17 +559,31 @@
     </div>
 
     <div id="rating-float" class="rating-float" aria-live="polite">
-      <div class="rating-float-badge" aria-hidden="true">
-        <div id="rating-float-badge-sprite" class="rating-float-badge-sprite"></div>
+      <div class="rating-float-main">
+        <div class="rating-float-badge" aria-hidden="true">
+          <div id="rating-float-badge-sprite" class="rating-float-badge-sprite"></div>
+        </div>
+        <div class="rating-float-meta">
+          <div class="label">Projected</div>
+          <div id="rating-float-total" class="value">0</div>
+        </div>
       </div>
-      <div class="rating-float-meta">
-        <div class="label">Projected</div>
-        <div id="rating-float-total" class="value">0</div>
+      <div class="rating-float-progress">
+        <div class="rating-progress-label">
+          <span id="rating-float-next-label">Next: G+ at 300</span>
+          <span id="rating-float-next-needed">+0</span>
+        </div>
+        <div id="rating-float-progress-bar" class="rating-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="rating-float-progress-fill" class="rating-progress-fill"></div>
+        </div>
       </div>
     </div>
 
     <!-- Declare routes so nav.js can render the shared navbar (like other pages) -->
-    <script>
+    
+    <script src="/js/rating-shared.js" defer></script>
+    <script src="/js/optimizer.js" defer></script>
+        <script>
       window.NAV_ROUTES = [
   { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
   { label: "Calculator", path: "/calculator", file: "/calculator.html" },
@@ -585,28 +596,7 @@
     </script>
 
     <script src="/js/nav.js" defer></script>
-    <script>
-      (function () {
-        function applyTheme(dark, persist) {
-          document.documentElement.classList.toggle("dark-mode", dark);
-          document.body.classList.toggle("dark-mode", dark);
-          document.documentElement.style.colorScheme = dark ? "dark" : "light";
-          try { if (persist) localStorage.setItem("umasearch-darkmode", dark ? "dark" : "light"); } catch (e) {}
-          var sun = document.getElementById("iconSun");
-          var moon = document.getElementById("iconMoon");
-          if (sun && moon) { sun.style.display = dark ? "none" : "inline"; moon.style.display = dark ? "inline" : "none"; }
-        }
-        // init based on class set by no-flash block
-        applyTheme(document.documentElement.classList.contains("dark-mode"), false);
-        var btn = document.getElementById("modeToggleBtn");
-        if (btn) btn.addEventListener("click", function(){
-          applyTheme(!document.documentElement.classList.contains("dark-mode"), true);
-        });
-        window.addEventListener("storage", function (e) { if (e.key === "umasearch-darkmode") applyTheme(e.newValue === "dark", false); });
-      })();
-    </script>
-    <script src="/js/rating-shared.js" defer></script>
-    <script src="/js/optimizer.js" defer></script>
+    <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>
 

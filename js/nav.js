@@ -32,7 +32,9 @@
   nav.innerHTML = `
     <div class="nav-inner">
       <div class="nav-left">
-        <a class="brand" href="/" aria-label="Uma Tools Home">UmaTools</a>
+        <a class="brand" href="/" aria-label="Uma Tools Home">
+          <span class="brand-text">UmaTools</span>
+        </a>
         <button class="menu-btn" aria-label="Menu" aria-expanded="false">
           <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"
               fill="none" stroke="currentColor" stroke-width="2"
@@ -129,6 +131,9 @@
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sw.js").catch(() => {});
     }
+
+    // Signal that nav is ready so loaders can safely release.
+    window.dispatchEvent(new Event("nav:ready"));
   });
 
   // Close menu if switching to desktop width

@@ -8742,5 +8742,137 @@
         "HintLevel": null
       }
     ]
+  },
+  {
+    "SupportSlug": "30080-sasami-anshinzawa",
+    "SupportId": "30080",
+    "SupportName": "Sasami Anshinzawa (SSR) Support Card",
+    "SupportRarity": "SSR",
+    "SupportImage": "/assets/support_thumbs/30080-sasami-anshinzawa.png",
+    "SupportHints": [
+      {
+        "SkillId": "",
+        "Name": "Wallflower",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Corner Recovery ×",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Risky Business",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Running Idle",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Nothing Ventured",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Uma Stan",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "20022-tamamo-cross",
+    "SupportId": "20022",
+    "SupportName": "Tamamo Cross (SR) Support Card",
+    "SupportRarity": "SR",
+    "SupportImage": "/assets/support_thumbs/20022-tamamo-cross.png",
+    "SupportHints": [
+      {
+        "SkillId": "200712",
+        "Name": "Rosy Outlook",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201142",
+        "Name": "Soft Step",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201112",
+        "Name": "Medium Corners ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201412",
+        "Name": "1,500,000 CC",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201132",
+        "Name": "Thunderbolt Step",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200811",
+        "Name": "Frenzied Late Surgers",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200901",
+        "Name": "Flustered Late Surgers",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Pace Chaser Corners ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Late Surger Corners ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Calm in a Crowd",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "10074-sasami-anshinzawa",
+    "SupportId": "10074",
+    "SupportName": "Sasami Anshinzawa (R) Support Card",
+    "SupportRarity": "R",
+    "SupportImage": "/assets/support_thumbs/10074-sasami-anshinzawa.png",
+    "SupportHints": [
+      {
+        "SkillId": "",
+        "Name": "Wallflower",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Corner Recovery ×",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Risky Business",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Running Idle",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Uma Stan",
+        "HintLevel": null
+      }
+    ]
   }
 ]

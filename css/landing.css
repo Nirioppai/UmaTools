@@ -310,8 +310,8 @@ body.landing-page .tool-meta {
   opacity: 0.9;
 }
 
-body.landing-page.dark-mode,
-html.dark-mode body.landing-page {
+body.landing-page.dark,
+html.dark body.landing-page {
   --landing-muted: #cbd5e1;
   --landing-border: #444;
   --landing-card: #1e1e1e;
@@ -320,41 +320,41 @@ html.dark-mode body.landing-page {
   color: #ddd;
 }
 
-body.landing-page.dark-mode .hero-title {
+body.landing-page.dark .hero-title {
   color: #90cdf4;
 }
 
-body.landing-page.dark-mode .cta-secondary {
+body.landing-page.dark .cta-secondary {
   background: #2b2f36;
   color: #e5e7eb;
   border-color: #3b4556;
 }
 
-body.landing-page.dark-mode .hero-badge {
+body.landing-page.dark .hero-badge {
   background: #333844;
   border-color: #444;
 }
 
-body.landing-page.dark-mode .hero-chip {
+body.landing-page.dark .hero-chip {
   background: #38a169;
   color: #e6fffa;
 }
 
-body.landing-page.dark-mode .hero-card-option {
+body.landing-page.dark .hero-card-option {
   background: #232634;
   border-color: #444;
 }
 
-body.landing-page.dark-mode .hero-card-pill {
+body.landing-page.dark .hero-card-pill {
   border-color: #63b3ed;
   color: #63b3ed;
 }
 
-body.landing-page.dark-mode .tool-meta {
+body.landing-page.dark .tool-meta {
   color: #cbd5e1;
 }
 
-body.landing-page.dark-mode .tool-card {
+body.landing-page.dark .tool-card {
   box-shadow: none;
 }
 
@@ -363,3 +363,4 @@ body.landing-page.dark-mode .tool-card {
     margin-top: 0;
   }
 }
+

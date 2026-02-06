@@ -185,9 +185,13 @@
     return (parts[0]?.[0] || "") + (parts[1]?.[0] || "");
   }
 
+  const renderBadge = (rarity) =>
+    window.RarityBadge
+      ? RarityBadge.render(rarity)
+      : `<span class="badge badge-${rarity}">${rarity}</span>`;
+
   function renderResults(list) {
     results.innerHTML = list.map((card) => {
-      const rarityClass = `badge-${card.rarity}`; // badge-SSR | badge-SR | badge-R
       const thumb = card.img
         ? `<img src="${card.img}" alt="${card.name}" loading="lazy" decoding="async" fetchpriority="low">`
         : `<span>${initialsOf(card.name)}</span>`;
@@ -196,7 +200,7 @@
           <div class="card-thumb">${thumb}</div>
           <div class="card-title">
             <h3>${card.name}</h3>
-            <span class="badge ${rarityClass}">${card.rarity}</span>
+            ${renderBadge(card.rarity)}
           </div>
           <div style="grid-column: 1 / -1;">
             ${card.hints.map(highlightMatches).join("")}

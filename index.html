@@ -23,11 +23,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/theme-d.build.css" />
     <script defer src="/_vercel/insights/script.js"></script>
+      <meta name="color-scheme" content="light dark" />
   </head>
   <body>
     <script>
@@ -38,12 +40,48 @@
             ? pref === "dark"
             : window.matchMedia &&
               window.matchMedia("(prefers-color-scheme: dark)").matches;
-          document.documentElement.classList.toggle("dark-mode", dark);
-          document.body.classList.toggle("dark-mode", dark);
-          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+          var root = document.documentElement;
+          root.classList.add("is-loading");
+          root.classList.toggle("dark", dark);
+          root.style.colorScheme = dark ? "dark" : "light";
+
+          var pageLoaded = false;
+          var navReady = !document.querySelector('script[src="/js/nav.js"]');
+          var release = function () {
+            root.classList.remove("is-loading");
+          };
+          var tryRelease = function () {
+            if (!pageLoaded || !navReady) return;
+            if (document.fonts && document.fonts.ready) {
+              Promise.race([
+                document.fonts.ready,
+                new Promise(function (resolve) {
+                  setTimeout(resolve, 1200);
+                })
+              ]).then(function () {
+                requestAnimationFrame(release);
+              });
+            } else {
+              requestAnimationFrame(release);
+            }
+          };
+          window.addEventListener("load", function () {
+            pageLoaded = true;
+            tryRelease();
+          });
+          window.addEventListener("nav:ready", function () {
+            navReady = true;
+            tryRelease();
+          });
+          window.setTimeout(function () {
+            pageLoaded = true;
+            navReady = true;
+            tryRelease();
+          }, 2400);
         } catch (e) {}
       })();
     </script>
+    
 
     <div class="container">
       <h1>Most visited tools</h1>
@@ -169,53 +207,7 @@
         </div>
       </div>
     </div>
-
-    <script>
-      (function () {
-        function applyTheme(dark, persist) {
-          document.documentElement.classList.toggle("dark-mode", dark);
-          document.body.classList.toggle("dark-mode", dark);
-          document.documentElement.style.colorScheme = dark ? "dark" : "light";
-          if (persist) {
-            try {
-              localStorage.setItem(
-                "umasearch-darkmode",
-                dark ? "dark" : "light"
-              );
-            } catch (e) {}
-          }
-          var sun = document.getElementById("iconSun");
-          var moon = document.getElementById("iconMoon");
-          if (sun && moon) {
-            sun.style.display = dark ? "none" : "inline";
-            moon.style.display = dark ? "inline" : "none";
-          }
-        }
-
-        // On load: reflect the class set by the no-flash script (no write)
-        applyTheme(
-          document.documentElement.classList.contains("dark-mode"),
-          false
-        );
-
-        // Toggle: apply + persist
-        var btn = document.getElementById("modeToggleBtn");
-        if (btn)
-          btn.addEventListener("click", function () {
-            applyTheme(
-              !document.documentElement.classList.contains("dark-mode"),
-              true
-            );
-          });
-
-        // Optional: keep tabs/windows in sync
-        window.addEventListener("storage", function (e) {
-          if (e.key === "umasearch-darkmode") {
-            applyTheme(e.newValue === "dark", false);
-          }
-        });
-      })();
-
+        <script>
       window.NAV_ROUTES = [
   { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
   { label: "Calculator", path: "/calculator", file: "/calculator.html" },
@@ -228,5 +220,6 @@
     </script>
 
     <script src="/js/nav.js" defer></script>
+    <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>

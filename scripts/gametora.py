@@ -1,6 +1,6 @@
 import argparse, json, os, sys, time, re, requests, random, threading, queue
 from typing import Any, Dict, List, Optional, Tuple
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 from urllib3.exceptions import ReadTimeoutError
 from pathlib import Path
 
@@ -157,10 +157,24 @@ def _load_skill_name_map() -> Dict[str, str]:
 
 def _atomic_write(path: str, data: List[Any]) -> None:
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-    tmp = path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    os.replace(tmp, path)
+    tmp = f"{path}.{os.getpid()}.{threading.get_ident()}.{time.time_ns()}.tmp"
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        for attempt in range(8):
+            try:
+                os.replace(tmp, path)
+                return
+            except PermissionError:
+                if attempt == 7:
+                    raise
+                time.sleep(0.05 * (2 ** attempt))
+    finally:
+        if os.path.exists(tmp):
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
 
 def append_json_item(path_or_store: str | JsonListStore, item: Dict[str, Any],
                      dedup_key: Optional[Tuple[str, ...]] = None) -> bool:
@@ -395,6 +409,144 @@ def _save_thumb(url: str, thumbs_dir: str, slug: Optional[str], sup_id: Optional
     # normalize to your site’s assets folder form:
     rel = rel.replace("//", "/")
     return rel
+
+def _slugify_name(name: str) -> str:
+    base = (name or "").strip().lower()
+    base = re.sub(r"[^a-z0-9]+", "-", base)
+    return base.strip("-") or "unknown"
+
+def _normalize_image_url(driver, src: str) -> str:
+    if not src:
+        return ""
+    abs_url = _abs_url(driver, src)
+    if "/_next/image" in abs_url:
+        try:
+            q = parse_qs(urlparse(abs_url).query).get("url")
+            if q:
+                return _abs_url(driver, unquote(q[0]))
+        except Exception:
+            pass
+    return abs_url
+
+def _get_img_src(img) -> str:
+    if not img:
+        return ""
+    for attr in ("src", "data-src", "data-lazy-src", "data-original"):
+        v = (img.get_attribute(attr) or "").strip()
+        if v:
+            return v
+    srcset = (img.get_attribute("srcset") or "").strip()
+    if srcset:
+        first = srcset.split(",")[0].strip().split(" ")[0]
+        return first
+    return ""
+
+def _extract_bg_image_url(el) -> str:
+    if not el:
+        return ""
+    style = (el.get_attribute("style") or "").strip()
+    if not style:
+        return ""
+    m = re.search(r"url\([\"']?([^\"')]+)[\"']?\)", style)
+    return m.group(1) if m else ""
+
+def _find_character_image_url(d, item_data: Dict[str, Any]) -> str:
+    for key in ("image", "image_url", "imageUrl", "img", "icon", "thumbnail", "thumb", "portrait", "card", "full"):
+        v = item_data.get(key)
+        if isinstance(v, str) and v:
+            return _normalize_image_url(d, v)
+    for key in ("images", "imageData", "image_data", "imgs"):
+        v = item_data.get(key)
+        if isinstance(v, dict):
+            for sub in ("full", "large", "medium", "small", "thumb", "icon", "portrait", "character"):
+                s = v.get(sub)
+                if isinstance(s, str) and s:
+                    return _normalize_image_url(d, s)
+        elif isinstance(v, list):
+            for s in v:
+                if isinstance(s, str) and s:
+                    return _normalize_image_url(d, s)
+    for v in item_data.values():
+        if isinstance(v, str) and "/images/umamusume/character" in v:
+            return _normalize_image_url(d, v)
+
+    for img in safe_find_all(d, By.CSS_SELECTOR, "img"):
+        if not is_visible(d, img):
+            continue
+        raw = _get_img_src(img)
+        if not raw:
+            continue
+        if "/images/umamusume/character" in raw or "/images/umamusume/chara" in raw:
+            return _normalize_image_url(d, raw)
+    return ""
+
+def _save_character_image(url: str, thumbs_dir: str, uma_id: Optional[str], name: str) -> str:
+    if not url:
+        return ""
+    _ensure_dir(thumbs_dir)
+    ext = Path(urlparse(url).path).suffix or ".png"
+    safe_name = _slugify_name(name)
+    safe_id = re.sub(r"[^0-9]", "", str(uma_id or "")) or "unknown"
+    fname = f"{safe_id}-{safe_name}{ext}"
+    dest = Path(thumbs_dir) / fname
+    with THUMB_LOCK:
+        if not dest.exists() or dest.stat().st_size == 0:
+            last_err: Optional[Exception] = None
+            for attempt in range(RETRIES + 1):
+                try:
+                    r = requests.get(url, timeout=20, headers={"User-Agent": USER_AGENT})
+                    r.raise_for_status()
+                    dest.write_bytes(r.content)
+                    time.sleep(0.05)
+                    last_err = None
+                    break
+                except Exception as e:
+                    last_err = e
+                    time.sleep(0.4 * (2 ** attempt))
+            if last_err:
+                print(f"[character image] failed {url}: {last_err}")
+                return ""
+    rel = "/" + str(dest.as_posix()).lstrip("/")
+    rel = rel.replace("//", "/")
+    return rel
+
+def collect_character_previews(driver, thumbs_dir: str) -> dict[str, dict]:
+    previews: dict[str, dict] = {}
+    anchors = safe_find_all(driver, By.CSS_SELECTOR, "a[href*='/umamusume/characters/']")
+    anchors = filter_visible(driver, anchors)
+    for a in anchors:
+        href = a.get_attribute("href") or ""
+        if not href or "/umamusume/characters/" not in href:
+            continue
+        if href.rstrip("/").endswith("/characters"):
+            continue
+        if _is_character_profile_url(href):
+            continue
+        slug, uma_id = _slug_and_id_from_url(href)
+        img_url = ""
+        img = safe_find(a, By.CSS_SELECTOR, "img")
+        if img:
+            img_url = _normalize_image_url(driver, _get_img_src(img))
+        if not img_url:
+            for node in a.find_elements(By.CSS_SELECTOR, "*[style*='background-image']"):
+                raw = _extract_bg_image_url(node)
+                if raw:
+                    img_url = _normalize_image_url(driver, raw)
+                    break
+        if not img_url:
+            continue
+        name = ""
+        if img:
+            name = (img.get_attribute("alt") or "").strip()
+        if not name:
+            name = txt(a)
+        local = _save_character_image(img_url, thumbs_dir, uma_id, name or slug or "")
+        payload = {"UmaImage": local or img_url, "UmaId": uma_id, "UmaSlug": slug}
+        if slug:
+            previews[str(slug)] = payload
+        if uma_id:
+            previews[str(uma_id)] = payload
+    return previews
 
 def collect_support_previews_from_items(items: List[Any], thumbs_dir: str) -> dict[str, dict]:
     previews: dict[str, dict] = {}
@@ -1572,6 +1724,10 @@ def scrape_characters(save_path: str, server: str, headless: bool = True,
         with_retries(nav, d, "https://gametora.com/umamusume/characters", "body")
         ensure_server(d, server=server, keep_raw_en=True)
         time.sleep(1)  # Wait for page to fully load
+        thumbs_dir = os.path.join("assets", "character_thumbs")
+        _scroll_page_until_stable(d)
+        time.sleep(0.5)
+        previews = collect_character_previews(d, thumbs_dir)
 
         page_props = safe_get_page_props(d)
         items = _extract_items_by_keys(page_props, ("items", "characters", "umas", "charas", "list"))
@@ -1616,6 +1772,8 @@ def scrape_characters(save_path: str, server: str, headless: bool = True,
                     if not ok: raise TimeoutException("no body")
 
                     time.sleep(0.5)  # Wait for JS to load
+                    preview = previews.get(slug) if slug in previews else (previews.get(str(uma_id)) if uma_id else None)
+                    preview_img = preview.get("UmaImage") if preview else ""
 
                     # Try to get data from __NEXT_DATA__ JSON first
                     page_props = safe_get_page_props(d)
@@ -1685,6 +1843,12 @@ def scrape_characters(save_path: str, server: str, headless: bool = True,
                         else:
                             events = events_json or events_dom
 
+                        img_url = _find_character_image_url(d, item_data)
+                        if preview_img:
+                            img_local = preview_img
+                        else:
+                            img_local = _save_character_image(img_url, thumbs_dir, uma_id, name) if img_url else ""
+
                     else:
                         # Fallback to old DOM-based parsing (may not work with new UI)
                         print(f"  [warn] No __NEXT_DATA__ found for {url}, trying DOM fallback...")
@@ -1709,6 +1873,11 @@ def scrape_characters(save_path: str, server: str, headless: bool = True,
                             _open_events_tab(d)
                             events_dom = _parse_event_helper_events_from_page(d)
                         events = events_dom or events_json
+                        img_url = _find_character_image_url(d, {})
+                        if preview_img:
+                            img_local = preview_img
+                        else:
+                            img_local = _save_character_image(img_url, thumbs_dir, uma_id, name) if img_url else ""
 
                     # --- Upsert record ---
                     upsert_json_item(store, "UmaKey", uma_key, {
@@ -1724,7 +1893,8 @@ def scrape_characters(save_path: str, server: str, headless: bool = True,
                         "UmaHeightCm": height_cm,
                         "UmaThreeSizes": sizes,
                         "UmaObjectives": objectives,
-                        "UmaEvents": events
+                        "UmaEvents": events,
+                        "UmaImage": img_local or img_url or None
                     })
 
                     print(f"[{i}/{total}] UMA ✓ {name} ({nickname or slug or 'default'})  "
@@ -2441,11 +2611,11 @@ def _summarize_races(store: JsonListStore) -> None:
 
 def main():
     ap = argparse.ArgumentParser(description="GameTora scraper (robust + accurate Support hints; UMA skills removed)")
-    ap.add_argument("--out-uma", default="Assets/uma_data.json", help="Output JSON for characters (objectives/events only)")
-    ap.add_argument("--out-supports", default="Assets/support_card.json", help="Output JSON for support events")
-    ap.add_argument("--out-support-hints", default="Assets/support_hints.json", help="Output JSON for support hint skills")
-    ap.add_argument("--out-career", default="Assets/career.json", help="Output JSON for career events")
-    ap.add_argument("--out-races", default="Assets/races.json", help="Output JSON for races")
+    ap.add_argument("--out-uma", default="assets/uma_data.json", help="Output JSON for characters (objectives/events only)")
+    ap.add_argument("--out-supports", default="assets/support_card.json", help="Output JSON for support events")
+    ap.add_argument("--out-support-hints", default="assets/support_hints.json", help="Output JSON for support hint skills")
+    ap.add_argument("--out-career", default="assets/career.json", help="Output JSON for career events")
+    ap.add_argument("--out-races", default="assets/races.json", help="Output JSON for races")
     ap.add_argument("--thumb-dir", default="assets/support_thumbs", help="Where to save support thumbnails")
     ap.add_argument("--what", choices=["uma","supports","career","races","all"], default="all")
     ap.add_argument("--server", choices=["global","japan"], default="global")

@@ -32,7 +32,11 @@
     nextLabel: document.getElementById('rating-next-label'),
     nextNeeded: document.getElementById('rating-next-needed'),
     progressFill: document.getElementById('rating-progress-fill'),
-    progressBar: document.querySelector('.rating-progress-bar')
+    progressBar: document.getElementById('rating-progress-bar'),
+    floatNextLabel: document.getElementById('rating-float-next-label'),
+    floatNextNeeded: document.getElementById('rating-float-next-needed'),
+    floatProgressFill: document.getElementById('rating-float-progress-fill'),
+    floatProgressBar: document.getElementById('rating-float-progress-bar')
   };
 
   // Race config selects
@@ -402,7 +406,7 @@
       </div>
       <div class="skill-cell">
         <label>Skill</label>
-        <input type="text" class="skill-name" list="skills-datalist-shared" placeholder="Start typing..." />
+        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="Start typing..." />
         <div class="dup-warning" role="status" aria-live="polite"></div>
       </div>
       <div class="score-cell">
@@ -691,6 +695,60 @@
     }
   }
 
+  function initRatingFloat() {
+    const floatRoot = document.getElementById('rating-float');
+    const ratingHero = document.querySelector('.rating-hero');
+    if (!floatRoot || !ratingHero) return;
+
+    let heroState = 'visible';
+
+    if (floatRoot.parentElement !== document.body) {
+      document.body.appendChild(floatRoot);
+    }
+
+    const getHeroState = (rect) => {
+      if (!rect) return 'visible';
+      if (rect.bottom < 0) return 'above';
+      if (rect.top > window.innerHeight) return 'below';
+      return 'visible';
+    };
+
+    const updateVisibility = () => {
+      const shouldShow = heroState === 'above';
+      floatRoot.classList.toggle('is-visible', shouldShow);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.target === ratingHero) {
+              if (entry.isIntersecting) {
+                heroState = 'visible';
+              } else {
+                heroState = entry.boundingClientRect.top < 0 ? 'above' : 'below';
+              }
+              updateVisibility();
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(ratingHero);
+    } else {
+      const check = () => {
+        heroState = getHeroState(ratingHero.getBoundingClientRect());
+        updateVisibility();
+      };
+      check();
+      window.addEventListener('scroll', check, { passive: true });
+      window.addEventListener('resize', check);
+    }
+
+    heroState = getHeroState(ratingHero.getBoundingClientRect());
+    updateVisibility();
+  }
+
   // Initialize
   async function init() {
     // Load skills library
@@ -723,6 +781,7 @@
     // Init rating inputs
     ratingEngine.initRatingInputs();
     scheduleRatingSpriteLoad();
+    initRatingFloat();
 
     // Clear all button
     if (clearAllBtn) {

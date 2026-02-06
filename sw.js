@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v14";
+const CACHE_VERSION = "v21";
 const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
 
@@ -13,6 +13,7 @@ const STATIC_ASSETS = [
   "/stamina.html",
   "/umadle.html",
   "/css/base.css",
+  "/css/theme-d.build.css",
   "/css/landing.css",
   "/css/events.css",
   "/css/hints.css",

@@ -60,7 +60,11 @@
     nextLabel: document.getElementById('rating-next-label'),
     nextNeeded: document.getElementById('rating-next-needed'),
     progressFill: document.getElementById('rating-progress-fill'),
-    progressBar: document.querySelector('.rating-progress-bar')
+    progressBar: document.getElementById('rating-progress-bar'),
+    floatNextLabel: document.getElementById('rating-float-next-label'),
+    floatNextNeeded: document.getElementById('rating-float-next-needed'),
+    floatProgressFill: document.getElementById('rating-float-progress-fill'),
+    floatProgressBar: document.getElementById('rating-float-progress-bar')
   };
 
   // Race config selects (mirroring main page)
@@ -1259,6 +1263,48 @@
     return v;
   }
 
+  function getBaseCategoryFromSkill(skill) {
+    if (!skill || !isGoldCategory(skill.category)) return '';
+    const candidateId =
+      skill.lowerSkillId ||
+      (Array.isArray(skill.parentIds) && skill.parentIds.length
+        ? skill.parentIds[0]
+        : '');
+    if (!candidateId) return '';
+    const lower = skillIdIndex.get(String(candidateId));
+    if (!lower) return '';
+    const base = canonicalCategory(lower.category);
+    return base && base !== 'gold' ? base : '';
+  }
+
+  function setBaseCategory(row, skill) {
+    if (!row) return;
+    delete row.dataset.baseCategory;
+    const base = getBaseCategoryFromSkill(skill);
+    if (base) row.dataset.baseCategory = base;
+  }
+
+  function getBaseCategoryForResult(item) {
+    if (!item || !isGoldCategory(item.category)) return '';
+    const candidateId =
+      item.lowerSkillId ||
+      (Array.isArray(item.parentIds) && item.parentIds.length
+        ? item.parentIds[0]
+        : '');
+    if (candidateId) {
+      const lower = skillIdIndex.get(String(candidateId));
+      if (lower) {
+        const base = canonicalCategory(lower.category);
+        return base && base !== 'gold' ? base : '';
+      }
+    }
+    if (item.skillId !== undefined && item.skillId !== null) {
+      const skill = skillIdIndex.get(String(item.skillId));
+      return getBaseCategoryFromSkill(skill);
+    }
+    return '';
+  }
+
   function applyCategoryAccent(row, category) {
     const cls = ['cat-gold','cat-yellow','cat-blue','cat-green','cat-red','cat-ius','cat-orange'];
     row.classList.remove(...cls);
@@ -1369,13 +1415,13 @@
       </div>
       <div class="skill-cell">
         <label>Skill</label>
-        <input type="text" class="skill-name" list="skills-datalist-shared" placeholder="Start typing..." />
+        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="Start typing..." />
         <div class="dup-warning" role="status" aria-live="polite"></div>
       </div>
       <div class="hint-cell">
         <label>Hint Discount</label>
         <div class="hint-controls">
-          <select class="hint-level">
+          <select class="hint-level field-control">
             ${HINT_LEVELS.map(lvl => `<option value="${lvl}">Lv${lvl} (${getTotalHintDiscountPct(lvl)}% off)</option>`).join('')}
           </select>
           <div class="base-cost" data-empty="true">Base ?</div>
@@ -1383,7 +1429,7 @@
       </div>
       <div class="cost-cell">
         <label>Cost</label>
-        <input type="number" min="0" step="1" class="cost" placeholder="Cost" />
+        <input type="number" min="0" step="1" class="cost field-control" placeholder="Cost" />
       </div>
       <div class="actions-cell">
         <div class="required-cell">
@@ -1702,6 +1748,7 @@
       clearDupWarning();
       const category = skill ? skill.category : '';
       setCategoryDisplay(category);
+      setBaseCategory(row, skill);
       updateBaseCostDisplay(skill);
       ensureLinkedLowerForGold(category, { allowCreate: allowLinking });
       ensureLinkedLowerForParent(skill, { allowCreate: allowLinking });
@@ -2255,15 +2302,17 @@
       if (bg && bg.id === a.id) return -1;
       return (indexMap.get(a.id) || 0) - (indexMap.get(b.id) || 0);
     });
-    ordered.forEach(it => {
-      const li = document.createElement('li');
-      li.className = 'result-item';
-      const cat = it.category || 'unknown';
-      const canon = (function(v){ v=(v||'').toLowerCase(); if(v.includes('gold')) return 'gold'; if(v==='ius'||v.includes('ius')) return 'ius'; return v; })(cat);
-      if (canon) li.classList.add(`cat-${canon}`);
-      const includedWith = it.comboComponent
-        ? it.comboParentName
-        : (lowerToGold.has(it.id) ? lowerToGold.get(it.id)?.name : '');
+      ordered.forEach(it => {
+        const li = document.createElement('li');
+        li.className = 'result-item';
+        const cat = it.category || 'unknown';
+        const canon = (function(v){ v=(v||'').toLowerCase(); if(v.includes('gold')) return 'gold'; if(v==='ius'||v.includes('ius')) return 'ius'; return v; })(cat);
+        if (canon) li.classList.add(`cat-${canon}`);
+        const baseCategory = getBaseCategoryForResult(it);
+        if (baseCategory) li.dataset.baseCategory = baseCategory;
+        const includedWith = it.comboComponent
+          ? it.comboParentName
+          : (lowerToGold.has(it.id) ? lowerToGold.get(it.id)?.name : '');
       // Show rating score in the meta, not the combined optimization score
       const displayScore = it.ratingScore !== undefined ? it.ratingScore : it.score;
       const meta = includedWith
@@ -2439,24 +2488,121 @@
       }
       saveBuildNameInput.value = '';
       saveBuildDescInput.value = '';
-      saveBuildModal.style.display = 'flex';
-      saveBuildNameInput.focus();
+      openModal(saveBuildModal);
+      if (saveBuildNameInput && saveBuildNameInput.focus) {
+        saveBuildNameInput.focus({ preventScroll: true });
+      }
     });
   }
 
   if (viewBuildsBtn) {
     viewBuildsBtn.addEventListener('click', () => {
       renderBuildsList();
-      buildsListModal.style.display = 'flex';
+      openModal(buildsListModal);
     });
   }
 
+  let activeModal = null;
+  let lastFocusedEl = null;
+  let modalRoot = null;
+  let scrollLockY = 0;
+
+  function getModalRoot() {
+    if (modalRoot && document.body.contains(modalRoot)) return modalRoot;
+    modalRoot = document.getElementById('modal-root');
+    if (!modalRoot) {
+      modalRoot = document.createElement('div');
+      modalRoot.id = 'modal-root';
+      document.body.appendChild(modalRoot);
+    }
+    return modalRoot;
+  }
+
+  function getFocusableWithin(root) {
+    if (!root) return [];
+    const nodes = root.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    );
+    return Array.from(nodes).filter((el) => !el.hasAttribute('disabled') && el.offsetParent !== null);
+  }
+
+  function handleModalKeydown(e) {
+    if (!activeModal) return;
+    if (e.key === 'Escape') {
+      closeModal(activeModal);
+      return;
+    }
+    if (e.key !== 'Tab') return;
+    const focusable = getFocusableWithin(activeModal);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
+  function attachModalToRoot(modalEl) {
+    const root = getModalRoot();
+    if (modalEl && modalEl.parentElement !== root) {
+      root.appendChild(modalEl);
+    }
+  }
+
+  function openModal(modalEl) {
+    if (!modalEl) return;
+    attachModalToRoot(modalEl);
+    lastFocusedEl = document.activeElement;
+    activeModal = modalEl;
+    modalEl.style.display = 'flex';
+    modalEl.classList.add('open');
+    modalEl.setAttribute('aria-hidden', 'false');
+    if (!document.body.classList.contains('modal-open')) {
+      scrollLockY = window.scrollY || window.pageYOffset || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollLockY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    }
+    document.body.classList.add('modal-open');
+    document.addEventListener('keydown', handleModalKeydown);
+    const focusable = getFocusableWithin(modalEl);
+    if (focusable.length) {
+      focusable[0].focus({ preventScroll: true });
+    }
+  }
+
+  function closeModal(modalEl) {
+    if (!modalEl) return;
+    modalEl.classList.remove('open');
+    modalEl.setAttribute('aria-hidden', 'true');
+    modalEl.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, scrollLockY);
+    document.removeEventListener('keydown', handleModalKeydown);
+    activeModal = null;
+    if (lastFocusedEl && lastFocusedEl.focus) {
+      lastFocusedEl.focus({ preventScroll: true });
+    }
+    lastFocusedEl = null;
+  }
+
   function closeSaveBuildModal() {
-    if (saveBuildModal) saveBuildModal.style.display = 'none';
+    closeModal(saveBuildModal);
   }
 
   function closeBuildsListModal() {
-    if (buildsListModal) buildsListModal.style.display = 'none';
+    closeModal(buildsListModal);
   }
 
   function formatTimestamp(timestamp) {
@@ -2706,7 +2852,9 @@
       const name = saveBuildNameInput?.value?.trim();
       if (!name) {
         alert('Please enter a build name.');
-        saveBuildNameInput.focus();
+        if (saveBuildNameInput && saveBuildNameInput.focus) {
+          saveBuildNameInput.focus({ preventScroll: true });
+        }
         return;
       }
 
@@ -2805,16 +2953,56 @@
 
   function initRatingFloat() {
     const floatRoot = document.getElementById('rating-float');
-    const ratingCard = document.getElementById('rating-card');
-    if (!floatRoot || !ratingCard) return;
+    const ratingHero = document.querySelector('.rating-hero');
+    if (!floatRoot || !ratingHero) return;
+
+    let heroState = 'visible';
+
+    if (floatRoot.parentElement !== document.body) {
+      document.body.appendChild(floatRoot);
+    }
+
+    const getHeroState = (rect) => {
+      if (!rect) return 'visible';
+      if (rect.bottom < 0) return 'above';
+      if (rect.top > window.innerHeight) return 'below';
+      return 'visible';
+    };
+
     const updateVisibility = () => {
-      const rect = ratingCard.getBoundingClientRect();
-      const shouldShow = rect.bottom < 0;
+      const shouldShow = heroState === 'above';
       floatRoot.classList.toggle('is-visible', shouldShow);
     };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.target === ratingHero) {
+              if (entry.isIntersecting) {
+                heroState = 'visible';
+              } else {
+                heroState = entry.boundingClientRect.top < 0 ? 'above' : 'below';
+              }
+              updateVisibility();
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(ratingHero);
+    } else {
+      const check = () => {
+        heroState = getHeroState(ratingHero.getBoundingClientRect());
+        updateVisibility();
+      };
+      check();
+      window.addEventListener('scroll', check, { passive: true });
+      window.addEventListener('resize', check);
+    }
+
+    heroState = getHeroState(ratingHero.getBoundingClientRect());
     updateVisibility();
-    window.addEventListener('scroll', updateVisibility, { passive: true });
-    window.addEventListener('resize', updateVisibility);
   }
 
   let ratingSpriteLoaded = false;

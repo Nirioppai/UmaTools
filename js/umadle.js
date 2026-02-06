@@ -34,7 +34,39 @@ function buildLabel(u) {
   return u.UmaNickname ? `${u.UmaName} — ${u.UmaNickname}` : u.UmaName;
 }
 
+
+function umaInitialsOf(name){
+  const parts = String(name || "?")
+    .replace(/\(.*?\)/g, "")
+    .trim()
+    .split(/\s+/)
+    .map(t => t.replace(/[^A-Za-z]/g, ""))
+    .filter(Boolean);
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+  if (parts.length === 1) return (parts[0].slice(0,2) || parts[0][0] || "?").toUpperCase();
+  return "?";
+}
+
+function buildGuessThumb(uma) {
+  const wrap = el("div", "guess-thumb");
+  const imgUrl = uma?.UmaImage || uma?.UmaImageLocal || uma?.UmaThumb || uma?.Thumb || "";
+  if (imgUrl) {
+    const img = el("img");
+    img.src = imgUrl;
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    wrap.append(img);
+    wrap.classList.add("has-img");
+  } else {
+    wrap.append(el("span", "guess-initials", umaInitialsOf(uma?.UmaName || "?")));
+  }
+  return wrap;
+}
+
+
 function fillDatalist(listEl, labels) {
+  if (!listEl) return;
   listEl.innerHTML = labels.map(n => `<option value="${n}"></option>`).join("\n");
 }
 
@@ -48,10 +80,27 @@ function cellLine(labelText, valueText, cmpVal){
 
 function renderGuess(rowsWrap, g, target) {
   const card = el("div","row card");
+  const details = document.createElement("details");
+  details.className = "guess-details";
+  const summary = document.createElement("summary");
+  summary.className = "guess-summary";
 
-  // Name
-  card.append(el("div","uma-name", g.UmaName || "Unknown"));
-  if (g.UmaNickname) card.append(el("div","uma-nick muted", `(${g.UmaNickname})`));
+  const titleWrap = el("div", "guess-summary-title");
+  const textWrap = el("div", "guess-summary-text");
+  textWrap.append(el("div","uma-name", g.UmaName || "Unknown"));
+  if (g.UmaNickname) textWrap.append(el("div","uma-nick muted", `(${g.UmaNickname})`));
+  titleWrap.append(buildGuessThumb(g), textWrap);
+  const meta = el("div", "guess-summary-meta", "View details");
+  summary.append(titleWrap, meta);
+  details.append(summary);
+
+  details.addEventListener("toggle", () => {
+    if (details.dataset.autoToggle === "true") {
+      delete details.dataset.autoToggle;
+      return;
+    }
+    details.dataset.pinned = details.open ? "true" : "";
+  });
 
   // Base Stats
   const baseG = pickBaseStats(g) || {};
@@ -102,7 +151,8 @@ function renderGuess(rowsWrap, g, target) {
   addAptRow("Distance", ["Short","Mile","Medium","Long"], "Distance");
   addAptRow("Strategy", ["Front","Pace","Late","End"], "Strategy");
 
-  card.append(aptWrap);
+  details.append(baseWrap, bonusWrap, aptWrap);
+  card.append(details);
 
   // PREPEND so newest guess is first
   rowsWrap.prepend(card);
@@ -117,6 +167,8 @@ function renderGuess(rowsWrap, g, target) {
       const labels = data.map(u => buildLabel(u)).sort((a,b)=>a.localeCompare(b));
       data.forEach(u => { byLabel[buildLabel(u).toLowerCase()] = u; });
       fillDatalist(document.getElementById("umaList"), labels);
+      const allLabels = labels.slice();
+      let availableLabels = new Set(labels);
 
       const params = new URLSearchParams(location.search);
       const targetParam = (params.get("target") || "").toLowerCase();
@@ -161,6 +213,8 @@ function renderGuess(rowsWrap, g, target) {
         rows.innerHTML = "";
         footer.textContent = "";
         input.value = "";
+        availableLabels = new Set(allLabels);
+        fillDatalist(document.getElementById("umaList"), allLabels);
         input.focus();
       }
 
@@ -179,7 +233,27 @@ function renderGuess(rowsWrap, g, target) {
         const g = byLabel[val.toLowerCase()];
         if (!g) { footer.textContent = "No such UMA. Pick from suggestions."; return; }
         footer.textContent = "";
+
+        // collapse previous guesses unless manually pinned
+        rows.querySelectorAll(".guess-details").forEach((details) => {
+          if (details.dataset.pinned !== "true") {
+            details.open = false;
+          }
+        });
+
         renderGuess(rows, g, target);
+        const newest = rows.querySelector(".guess-details");
+        if (newest) {
+          newest.dataset.autoToggle = "true";
+          newest.open = true;
+        }
+
+        // remove guessed entry from suggestions
+        const label = buildLabel(g);
+        if (availableLabels.has(label)) {
+          availableLabels.delete(label);
+          fillDatalist(document.getElementById("umaList"), Array.from(availableLabels));
+        }
 
         // victory check
         const baseEq  = STAT_KEYS.every(k => (pickBaseStats(g)?.[k] ?? null) === (pickBaseStats(target)?.[k] ?? null));

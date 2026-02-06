@@ -265,7 +265,22 @@
       const badge = getRatingBadge(breakdown.total);
       updateBadgeSprite(ratingDisplays.badgeSprite, badge);
       updateBadgeSprite(ratingDisplays.floatBadgeSprite, badge);
-      if (ratingDisplays.progressFill && ratingDisplays.nextLabel && ratingDisplays.nextNeeded) {
+      const progressTargets = [
+        {
+          label: ratingDisplays.nextLabel,
+          needed: ratingDisplays.nextNeeded,
+          fill: ratingDisplays.progressFill,
+          bar: ratingDisplays.progressBar
+        },
+        {
+          label: ratingDisplays.floatNextLabel,
+          needed: ratingDisplays.floatNextNeeded,
+          fill: ratingDisplays.floatProgressFill,
+          bar: ratingDisplays.floatProgressBar
+        }
+      ];
+      const hasProgressTarget = progressTargets.some((t) => t.fill && t.label && t.needed);
+      if (hasProgressTarget) {
         const idx = getRatingBadgeIndex(breakdown.total);
         const current = RATING_BADGES[idx];
         const prevThreshold = idx === 0 ? 0 : RATING_BADGES[idx - 1].threshold;
@@ -278,14 +293,19 @@
           : 1;
         const nextBadge = hasNext ? RATING_BADGES[idx + 1] : current;
         const needed = hasNext ? Math.max(0, nextThreshold - breakdown.total) : 0;
-        ratingDisplays.progressFill.style.width = `${Math.round(progress * 100)}%`;
-        ratingDisplays.nextLabel.textContent = hasNext
+        const labelText = hasNext
           ? `Next: ${nextBadge?.label || current.label} at ${nextThreshold}`
           : 'Max rank reached';
-        ratingDisplays.nextNeeded.textContent = hasNext ? `+${needed}` : '';
-        if (ratingDisplays.progressBar) {
-          ratingDisplays.progressBar.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
-        }
+        const neededText = hasNext ? `+${needed}` : '';
+        const width = `${Math.round(progress * 100)}%`;
+        progressTargets.forEach((target) => {
+          if (target.fill) target.fill.style.width = width;
+          if (target.label) target.label.textContent = labelText;
+          if (target.needed) target.needed.textContent = neededText;
+          if (target.bar) {
+            target.bar.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
+          }
+        });
       }
     }
 

@@ -1,22 +1,23 @@
-.umadle-grid {
+﻿.umadle-grid {
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
 }
+
 .tips {
   margin-top: 0.35rem;
   font-size: 0.95rem;
-  color: #4b5563;
+  color: var(--muted);
 }
-body.dark-mode .tips {
-  color: #cbd5e1;
-}
+
+/* Input styling handled globally; no select-specific styling needed here. */
+
 .umadle-grid .row.card {
-  background: #ffffff;
-  border: 1px solid #cbd5e0;
-  border-radius: 10px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   padding: 0.8rem 0.9rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 24px -20px rgb(var(--shadow-rgb) / 0.3);
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
@@ -24,45 +25,135 @@ body.dark-mode .tips {
   overflow: hidden;
   box-sizing: border-box;
 }
-body.dark-mode .umadle-grid .row.card {
-  background: #1e1e1e;
-  border-color: #334155;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+
+.guess-details {
+  width: 100%;
 }
+
+.guess-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.5rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.guess-summary::-webkit-details-marker {
+  display: none;
+}
+
+.guess-summary::marker {
+  content: "";
+}
+
+.guess-summary-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.guess-summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.guess-thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.guess-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.guess-thumb .guess-initials {
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: var(--text-1);
+}
+
+.guess-summary-meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  position: relative;
+  padding-right: 1.1rem;
+}
+
+.guess-summary-meta::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: translateY(-50%) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.guess-details[open] .guess-summary-meta::after {
+  transform: translateY(-50%) rotate(-135deg);
+}
+
+.guess-details > .section {
+  margin-top: 0.5rem;
+}
+
 .umadle-grid .uma-name {
   font-weight: 700;
   font-size: 1.05rem;
 }
+
 .umadle-grid .uma-nick {
   font-size: 0.95rem;
   opacity: 0.85;
 }
+
 .section {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
 }
+
 .section-title {
   font-weight: 600;
   font-size: 0.95rem;
-  color: #1f2937;
+  color: var(--text-1);
 }
-body.dark-mode .section-title {
-  color: #e5e7eb;
-}
+
 .section,
 .group {
   min-width: 0;
 }
+
 .group-title {
   font-weight: 500;
   font-size: 0.9rem;
-  color: #374151;
+  color: var(--text-2);
   margin-top: 0.2rem;
 }
-body.dark-mode .group-title {
-  color: #cbd5e1;
-}
+
 .group {
   display: flex;
   flex-wrap: nowrap;
@@ -71,13 +162,14 @@ body.dark-mode .group-title {
   -webkit-overflow-scrolling: touch;
   padding-bottom: 0.1rem;
 }
+
 .cell {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  background: #f7fafc;
-  border: 1px solid #cbd5e0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.35rem 0.55rem;
   font-size: 0.95rem;
@@ -85,79 +177,68 @@ body.dark-mode .group-title {
   flex: 0 0 auto;
   min-width: 110px;
 }
+
 .cell .k {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .cell .sym {
   flex: 0 0 auto;
   font-weight: 700;
 }
+
 .cell.match {
-  background: #d1fae5;
-  border-color: #16a34a;
-  color: #065f46;
-}
-.cell.up {
-  background: #fff7ed;
-  border-color: #fb923c;
-  color: #9a3412;
-}
-.cell.down {
-  background: #eef2ff;
-  border-color: #818cf8;
-  color: #3730a3;
-}
-body.dark-mode .cell {
-  background: #232634;
-  border-color: #3b4556;
-  color: #ddd;
-}
-body.dark-mode .cell.up {
-  background: #3b2f24;
-  border-color: #eab308;
-  color: #fbbf24;
-}
-body.dark-mode .cell.down {
-  background: #2a2f4a;
-  border-color: #6b7280;
-  color: #c7d2fe;
-}
-body.dark-mode .cell.match {
-  background: #14532d;
-  border-color: #16a34a;
-  color: #d1fae5;
+  background: rgb(var(--success-rgb) / 0.16);
+  border-color: rgb(var(--success-rgb) / 0.5);
+  color: var(--success);
 }
 
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: 80;
-  padding: 1rem;
+.cell.up {
+  background: rgb(var(--warning-rgb) / 0.16);
+  border-color: rgb(var(--warning-rgb) / 0.5);
+  color: var(--warning);
 }
-.modal-backdrop.open {
-  display: flex;
+
+.cell.down {
+  background: rgb(var(--info-rgb) / 0.16);
+  border-color: rgb(var(--info-rgb) / 0.5);
+  color: var(--info);
 }
 
 @media (max-width: 700px) {
   .tips {
     display: none;
   }
+
   .umadle-grid .row.card {
     padding: 0.5rem 0.55rem;
     gap: 0.4rem;
     align-items: center;
   }
+
+  .guess-summary {
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .guess-summary-meta {
+    display: none;
+  }
+
   .umadle-grid .uma-name,
   .umadle-grid .uma-nick,
   .group-title,
   .section-title {
     width: 100%;
-    text-align: center;
+    text-align: left;
+  }
+
+  .guess-thumb {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
   }
 
   .group {
@@ -169,6 +250,7 @@ body.dark-mode .cell.match {
     overflow-x: visible;
     min-width: 0;
   }
+
   .cell {
     display: inline-flex;
     align-items: center;
@@ -184,10 +266,12 @@ body.dark-mode .cell.match {
     white-space: nowrap;
     max-width: 100%;
   }
+
   .cell .k {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   .cell .sym {
     flex: 0 0 auto;
     font-size: 0.85rem;

@@ -109,7 +109,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/106101-king-halo.png"
   },
   {
     "UmaKey": "Nice Nature :: Poinsettia Ribbon",
@@ -221,7 +222,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/106001-nice-nature.png"
   },
   {
     "UmaKey": "Matikanefukukitaru :: Rising Luck ☆ Flood of Happiness",
@@ -327,7 +329,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/105601-matikane-fukukitaru.png"
   },
   {
     "UmaKey": "Haru Urara :: Uraran First Prize ♪",
@@ -439,7 +442,8 @@
         "ObjectiveCondition": "1: 0"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/105201-haru-urara.png"
   },
   {
     "UmaKey": "Sakura Bakushin O :: Sakura, Forward!",
@@ -563,7 +567,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/104101-sakura-bakushin-o.png"
   },
   {
     "UmaKey": "Winning Ticket :: Go To Winning!",
@@ -675,7 +680,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/103501-winning-ticket.png"
   },
   {
     "UmaKey": "Agnes Tachyon :: Tach-nology",
@@ -787,7 +793,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/103201-agnes-tachyon.png"
   },
   {
     "UmaKey": "Mejiro Ryan :: Straight Line",
@@ -899,7 +906,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102701-mejiro-ryan.png"
   },
   {
     "UmaKey": "Super Creek :: Murmuring Stream",
@@ -1005,7 +1013,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/104501-super-creek.png"
   },
   {
     "UmaKey": "Mayano Top Gun :: Scramble ☆ Zone",
@@ -1117,7 +1126,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102401-mayano-top-gun.png"
   },
   {
     "UmaKey": "Air Groove :: Empress Road",
@@ -1229,7 +1239,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101801-air-groove.png"
   },
   {
     "UmaKey": "El Condor Pasa :: El ☆ Numero 1",
@@ -1335,7 +1346,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101401-el-condor-pasa.png"
   },
   {
     "UmaKey": "Grass Wonder :: Rock-piercing Blue",
@@ -1441,7 +1453,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101101-grass-wonder.png"
   },
   {
     "UmaKey": "Daiwa Scarlet :: Top of Blue",
@@ -1553,7 +1566,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100901-daiwa-scarlet.png"
   },
   {
     "UmaKey": "Vodka :: Wild Top Gear",
@@ -1671,7 +1685,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100801-vodka.png"
   },
   {
     "UmaKey": "Gold Ship :: Red Strife",
@@ -1783,7 +1798,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100701-gold-ship.png"
   },
   {
     "UmaKey": "Rice Shower :: Rose Dream",
@@ -1889,7 +1905,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/103001-rice-shower.png"
   },
   {
     "UmaKey": "Symboli Rudolf :: Road of Emperor",
@@ -2001,7 +2018,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101701-symboli-rudolf.png"
   },
   {
     "UmaKey": "Mejiro McQueen :: Elegance Line",
@@ -2101,7 +2119,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101301-mejiro-mcqueen.png"
   },
   {
     "UmaKey": "Taiki Shuttle :: Wild Frontier",
@@ -2207,7 +2226,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101001-taiki-shuttle.png"
   },
   {
     "UmaKey": "Oguri Cap :: Starlight Beat",
@@ -2313,7 +2333,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100601-oguri-cap.png"
   },
   {
     "UmaKey": "Maruzensky :: Rouge Formula",
@@ -2425,7 +2446,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100401-maruzensky.png"
   },
   {
     "UmaKey": "Tokai Teio :: Top of Joyful",
@@ -2531,7 +2553,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100301-tokai-teio.png"
   },
   {
     "UmaKey": "Silence Suzuka :: Silent Innocence",
@@ -2637,7 +2660,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100201-silence-suzuka.png"
   },
   {
     "UmaKey": "Special Week :: Special Dreamer",
@@ -2737,7 +2761,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100101-special-week.png"
   },
   {
     "UmaKey": "TM Opera O :: O Sole So",
@@ -2849,7 +2874,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101501-tm-opera-o.png"
   },
   {
     "UmaKey": "Mihono Bourbon :: MB-19890425",
@@ -2961,7 +2987,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102601-mihono-bourbon.png"
   },
   {
     "UmaKey": "Biwa Hayahide :: pf.Victory Formula...",
@@ -3073,7 +3100,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102301-biwa-hayahide.png"
   },
   {
     "UmaKey": "Mejiro McQueen :: End of Sky",
@@ -3173,7 +3201,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101302-mejiro-mcqueen-anime-collab.png"
   },
   {
     "UmaKey": "Tokai Teio :: Beyond the Horizon",
@@ -3279,7 +3308,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100302-tokai-teio-anime-collab.png"
   },
   {
     "UmaKey": "Curren Chan :: Fille Éclair",
@@ -3391,7 +3421,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/103801-curren-chan.png"
   },
   {
     "UmaKey": "Narita Taishin :: Nevertheless",
@@ -3503,7 +3534,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/105001-narita-taishin.png"
   },
   {
     "UmaKey": "Smart Falcon :: Absolute ☆ LOVE",
@@ -3627,7 +3659,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/104601-smart-falcon.png"
   },
   {
     "UmaKey": "Narita Brian :: Maverick",
@@ -3751,7 +3784,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101601-narita-brian.png"
   },
   {
     "UmaKey": "Mayano Top Gun :: Sunlight Bouquet",
@@ -3863,7 +3897,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102402-mayano-top-gun-wedding.png"
   },
   {
     "UmaKey": "Air Groove :: Quercus Civilis",
@@ -3975,7 +4010,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101802-air-groove-wedding.png"
   },
   {
     "UmaKey": "Seiun Sky :: Blue Cloud Thumbing",
@@ -4093,7 +4129,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102001-seiun-sky.png"
   },
   {
     "UmaKey": "Hishi Amazon :: Amazoness Lapis",
@@ -4211,7 +4248,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101201-hishi-amazon.png"
   },
   {
     "UmaKey": "El Condor Pasa :: Kukulkan Monk",
@@ -4317,7 +4355,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101402-el-condor-pasa-fantasy.png"
   },
   {
     "UmaKey": "Grass Wonder :: Saint Jade Healer",
@@ -4423,7 +4462,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101102-grass-wonder-fantasy.png"
   },
   {
     "UmaKey": "Fuji Kiseki :: Shooting Star Revue",
@@ -4541,7 +4581,8 @@
         "ObjectiveCondition": "1: 0"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100501-fuji-kiseki.png"
   },
   {
     "UmaKey": "Gold City :: Authentic 1928",
@@ -4659,7 +4700,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/104001-gold-city.png"
   },
   {
     "UmaKey": "Maruzensky :: Blasting Off ☆ Summer Night",
@@ -4771,7 +4813,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100402-maruzensky-summer.png"
   },
   {
     "UmaKey": "Special Week :: Hopping ♪ Vitamin Heart",
@@ -4871,7 +4914,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100102-special-week-summer.png"
   },
   {
     "UmaKey": "Meisho Doto :: Blue/Raging",
@@ -4983,7 +5027,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/105801-meisho-doto.png"
   },
   {
     "UmaKey": "Eishin Flash :: Meisterschaft",
@@ -5101,7 +5146,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/103701-eishin-flash.png"
   },
   {
     "UmaKey": "Matikanefukukitaru :: Good Omen・First Storm",
@@ -5207,7 +5253,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/105602-matikane-fukukitaru-full-armor.png"
   },
   {
     "UmaKey": "Hishi Akebono :: Bono ☆ Alla Moda",
@@ -5325,7 +5372,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102801-hishi-akebono.png"
   },
   {
     "UmaKey": "Agnes Digital :: Super Express! Full Color Special",
@@ -5425,7 +5473,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101901-agnes-digital.png"
   },
   {
     "UmaKey": "Super Creek :: Chiffon Ribbon Mummy",
@@ -5531,7 +5580,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/104502-super-creek-halloween.png"
   },
   {
     "UmaKey": "Rice Shower :: Make up Vampire!",
@@ -5637,7 +5687,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/103002-rice-shower-halloween.png"
   },
   {
     "UmaKey": "Kawakami Princess :: Princess of Pink",
@@ -5749,7 +5800,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/103901-kawakami-princess.png"
   },
   {
     "UmaKey": "Manhattan Cafe :: Creeping Black",
@@ -5867,7 +5919,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102501-manhattan-cafe.png"
   },
   {
     "UmaKey": "Gold City :: Akizakura Danzatrice",
@@ -5985,7 +6038,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/104002-gold-city-festival.png"
   },
   {
     "UmaKey": "Symboli Rudolf :: Archer of the White Moon",
@@ -6097,7 +6151,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101702-symboli-rudolf-festival.png"
   },
   {
     "UmaKey": "Tosen Jordan :: Pop ☆ Joker",
@@ -6209,7 +6264,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/104801-tosen-jordan.png"
   },
   {
     "UmaKey": "Mejiro Dober :: Twisted Line",
@@ -6327,7 +6383,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/105901-mejiro-dober.png"
   },
   {
     "UmaKey": "Biwa Hayahide :: Noel Rouge Carol",
@@ -6439,7 +6496,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102302-biwa-hayahide-christmas.png"
   },
   {
     "UmaKey": "Oguri Cap :: Miraculous White Star",
@@ -6545,7 +6603,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100602-oguri-cap-christmas.png"
   },
   {
     "UmaKey": "Fine Motion :: Noble Seamair",
@@ -6663,7 +6722,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102201-fine-motion.png"
   },
   {
     "UmaKey": "Tamamo Cross :: With Lightning Speed",
@@ -6769,7 +6829,8 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102101-tamamo-cross.png"
   },
   {
     "UmaKey": "Haru Urara :: First Urara ♪ Saku Sakura",
@@ -6881,7 +6942,8 @@
         "ObjectiveCondition": "1: 0"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/105202-haru-urara-new-year.png"
   },
   {
     "UmaKey": "TM Opera O :: Blue Dazzle",
@@ -6993,6 +7055,7 @@
         "ObjectiveCondition": "1: 1"
       }
     ],
-    "UmaEvents": []
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/101502-tm-opera-o-new-year.png"
   }
 ]
