@@ -449,6 +449,7 @@ const duration = Math.max(600, Math.round(durationBase * getSpeedFactorUma()));
     const preRollInterval = setInterval(() => {
       const items = Array.from(strip.querySelectorAll(".case-item"));
       items.forEach(item => {
+        if (item.dataset.win === "1") return;
         const u = umaList[Math.floor(Math.random() * umaList.length)];
         const title = item.querySelector(".uma-title");
         const thumb = item.querySelector(".uma-thumb");

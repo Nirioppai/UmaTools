@@ -31,6 +31,7 @@
 
 .calculator-top-grid .stats-rating-pane .rating-grid {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 10px;
   margin-top: 0;
 }
@@ -44,6 +45,10 @@
 .calculator-top-grid .stats-rating-pane .rating-grid select {
   font-size: 0.95rem;
   margin-top: 4px;
+}
+
+.calculator-top-grid .stats-rating-pane .rating-grid input[type="number"] {
+  padding-right: 2rem;
 }
 
 .calculator-top-grid .stats-rating-pane .rating-summary {
