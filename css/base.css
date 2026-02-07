@@ -110,11 +110,37 @@ h1 {
   border-color: #cbd5e0;
   color: #1e40af;
 }
+.site-nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 .site-nav .mode-toggle-btn.in-nav {
   position: static;
   top: auto;
   right: auto;
   margin: 0;
+}
+.site-nav .beta-btn {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: #3182ce;
+  color: #fff;
+  letter-spacing: 0.03em;
+  transition: background 0.2s;
+}
+.site-nav .beta-btn:hover {
+  background: #2563eb;
+}
+body.dark-mode .site-nav .beta-btn {
+  background: #63b3ed;
+  color: #121212;
+}
+body.dark-mode .site-nav .beta-btn:hover {
+  background: #90cdf4;
 }
 .site-nav + .container {
   margin-top: 0.5rem;

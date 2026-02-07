@@ -43,6 +43,7 @@
         <div class="nav-links" role="navigation" aria-label="Primary"></div>
       </div>
       <div class="nav-right">
+        <a id="navBetaBtn" class="beta-btn" aria-label="Try the beta version">Try The Beta</a>
         <div id="navModeToggleSlot"></div>
       </div>
     </div>
@@ -112,6 +113,14 @@
     if (toggle && slot) {
       slot.appendChild(toggle);
       toggle.classList.add("in-nav");
+    }
+
+    // Set beta link href based on current domain
+    var betaBtn = document.getElementById("navBetaBtn");
+    if (betaBtn) {
+      var loc = window.location;
+      var betaHost = "beta." + loc.host;
+      betaBtn.href = loc.protocol + "//" + betaHost + loc.pathname + loc.search + loc.hash;
     }
 
     // Footer at bottom
