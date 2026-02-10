@@ -5,7 +5,14 @@ This module provides the primary API for extracting skill information from
 Umamusume Learn screen screenshots and video frames. It orchestrates all
 OCR sub-modules to produce structured skill data.
 
-Usage:
+The extraction pipeline:
+    1. Layout Detection - Identifies mobile/PC layout and skill list region
+    2. Row Segmentation - Splits the list into individual skill rows
+    3. Field OCR - Extracts cost, name, hint badge, and obtained status per row
+    4. Skill Matching - Matches OCR names against the skill database
+
+Basic Usage
+-----------
     from ocr.extractor import extract_visible_skills
     import cv2
 
@@ -19,6 +26,100 @@ Usage:
         print(f"{skill.canonical_name or skill.name_raw}: {skill.cost} pts")
 
     print(f"Platform: {result.meta['source']}")
+
+Advanced Examples
+-----------------
+    # Example 1: Full extraction with all metadata
+    result = extract_visible_skills(frame)
+
+    # Access skill points from top bar
+    if result.skill_points_available:
+        print(f"Points: {result.skill_points_available}")
+
+    # Check extraction metadata
+    print(f"Platform: {result.meta.get('source')}")
+    print(f"Rows found: {result.meta.get('rows_detected')}")
+    print(f"Process time: {result.meta.get('timing'):.3f}s")
+
+    # Example 2: Process skills with confidence filtering
+    for skill in result.skills:
+        name_conf = skill.confidence.get("name", 0)
+        cost_conf = skill.confidence.get("cost", 0)
+
+        if name_conf < 0.5:
+            print(f"Low confidence name: {skill.name_raw}")
+
+        if skill.skill_id:
+            print(f"Matched: {skill.canonical_name} (ID: {skill.skill_id})")
+        else:
+            print(f"Unmatched: {skill.name_raw}")
+
+    # Example 3: Debug mode for troubleshooting OCR issues
+    result = extract_visible_skills(frame, debug=True)
+
+    if result.meta.get("debug_paths"):
+        paths = result.meta["debug_paths"]
+        print(f"Annotated frame: {paths.get('annotated')}")
+        print(f"Summary: {paths.get('summary')}")
+        print(f"Row crops dir: {paths.get('row_crops_dir')}")
+
+    # Example 4: Batch processing video frames
+    cap = cv2.VideoCapture("gameplay.mp4")
+    all_skills = []
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        result = extract_visible_skills(frame, source="auto")
+        if result.skills and "error" not in result.meta:
+            all_skills.extend(result.skills)
+
+    cap.release()
+
+    # Example 5: Integration with optimizer/calculator
+    result = extract_visible_skills(frame)
+
+    optimizer_input = {
+        "available_points": result.skill_points_available,
+        "skills": [
+            {
+                "id": s.skill_id,
+                "name": s.canonical_name or s.name_raw,
+                "cost": s.cost,
+                "discount": s.discount_percent or 0,
+                "owned": s.obtained,
+            }
+            for s in result.skills
+            if s.cost is not None
+        ]
+    }
+
+Error Handling
+--------------
+    result = extract_visible_skills(frame)
+
+    # Check for errors
+    if "error" in result.meta:
+        error = result.meta["error"]
+        if "Invalid frame" in error:
+            # Handle invalid input
+            pass
+        elif "Layout detection failed" in error:
+            # Handle unrecognized screen layout
+            pass
+
+    # Check for warnings (partial extraction)
+    if "warning" in result.meta:
+        print(f"Warning: {result.meta['warning']}")
+
+Notes
+-----
+    - Tesseract must be installed and configured for pytesseract
+    - Japanese language data (jpn) is required for skill name recognition
+    - The extractor is resolution-independent (auto-scales internally)
+    - Debug mode creates temporary files; clean up output_dir if needed
 """
 
 import os
