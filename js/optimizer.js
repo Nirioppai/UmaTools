@@ -3148,4 +3148,59 @@
   };
   document.addEventListener('change', persistIfRelevant);
   document.addEventListener('input', persistIfRelevant);
+
+  // OCR Integration: Apply detected skills to optimizer rows
+  function applyOCRSkills(skills) {
+    if (!skills || !Array.isArray(skills) || skills.length === 0) {
+      return;
+    }
+
+    const existingRows = Array.from(rowsEl.querySelectorAll('.optimizer-row')).filter(isTopLevelRow);
+    const lastRow = existingRows[existingRows.length - 1];
+    const lastRowEmpty = lastRow && !isRowFilled(lastRow);
+
+    skills.forEach((skill, index) => {
+      if (!skill || !skill.name) return;
+
+      let targetRow = null;
+      if (index === 0 && lastRowEmpty) {
+        targetRow = lastRow;
+      } else {
+        targetRow = makeRow();
+        rowsEl.appendChild(targetRow);
+      }
+
+      const nameInput = targetRow.querySelector('.skill-name');
+      if (nameInput) {
+        nameInput.value = skill.name;
+      }
+
+      const hintSelect = targetRow.querySelector('.hint-level');
+      if (hintSelect && typeof skill.hint === 'number' && skill.hint >= 0 && skill.hint <= 5) {
+        hintSelect.value = skill.hint;
+      }
+
+      if (typeof targetRow.syncSkillCategory === 'function') {
+        targetRow.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
+      }
+    });
+
+    ensureOneEmptyRow();
+    saveState();
+    autoOptimizeDebounced();
+  }
+
+  // Expose as window.applyOCRSkills (matches what ocr.js expects)
+  if (typeof window !== 'undefined') {
+    window.applyOCRSkills = applyOCRSkills;
+  }
+
+  // OCR Results Panel: Close button handler
+  const ocrResultsCloseBtn = document.getElementById('ocr-results-close');
+  if (ocrResultsCloseBtn) {
+    ocrResultsCloseBtn.addEventListener('click', () => {
+      const panel = document.getElementById('ocr-results-panel');
+      if (panel) panel.style.display = 'none';
+    });
+  }
 })();

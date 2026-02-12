@@ -937,6 +937,47 @@ body.dark .modal {
 body.dark .modal .muted {
   color: #cbd5e1;
 }
+
+/* Button loading and success states */
+.btn.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+.btn.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+.btn.loading.btn-secondary::after {
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top-color: #374151;
+}
+.btn.success {
+  background: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #fff !important;
+}
+.btn.success::before {
+  content: "✓ ";
+}
+body.dark .btn.loading::after {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+}
+body.dark .btn.loading.btn-secondary::after {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: #e5e7eb;
+}
 body.dark .btn {
   background: #2b2f36;
   color: #e5e7eb;

@@ -142,7 +142,6 @@
         ]
       }
     </script>
-
     <!-- No-flash dark mode (matches other pages) -->
     
       <script defer src="/_vercel/insights/script.js"></script>
@@ -353,6 +352,8 @@
               <label>Wisdom
                 <input id="stat-wisdom" type="number" min="0" max="1600" step="1" value="0" inputmode="numeric" />
               </label>
+            </div>
+            <div class="rating-grid" style="grid-template-columns: repeat(2, minmax(120px, 1fr)); margin-top:0.4rem">
               <label>Star Level
                 <select id="star-level">
                   <option value="1">&#9733;1</option>
@@ -414,15 +415,19 @@
 
       <!-- Skill Rows (simplified - no cost, hint, or must buy) -->
       <section class="card card-elevated">
-        <div class="toolbar" role="group" aria-label="Skill rows">
+        <div class="toolbar" role="group" aria-label="Skill rows" style="justify-content:flex-end">
           <span class="muted">Add skills to calculate your build's rating</span>
           <div class="spacer"></div>
           <div id="lib-status" class="status" aria-live="polite"></div>
-          <button id="clear-all" class="btn" type="button">Clear All</button>
         </div>
+        <div class="toolbar" style="justify-content:flex-end">
+          <button id="clear-all" class="btn" type="button">Clear All Skills</button>
+        </div>
+
         <div id="rows" class="rows calculator-rows"></div>
       </section>
     </main>
+
 
     <div id="rating-float" class="rating-float" aria-live="polite">
       <div class="rating-float-main">

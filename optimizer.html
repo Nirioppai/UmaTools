@@ -94,6 +94,8 @@
     <link rel="stylesheet" href="/css/rating.css" />
     <link rel="stylesheet" href="/css/optimizer.css" />
     <link rel="stylesheet" href="/css/tutorial.css" />
+    <!-- Tesseract.js v5 for OCR skill detection -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -206,6 +208,7 @@
         display: block;
       }
       .modal-body input[type="text"],
+      .modal-body input[type="number"],
       .modal-body textarea {
         width: 100%;
         padding: 8px;
@@ -215,6 +218,7 @@
         font-size: 0.9rem;
         background: var(--surface-2);
         color: var(--text-1);
+        box-sizing: border-box;
       }
       .modal-body textarea {
         resize: vertical;
@@ -581,6 +585,8 @@
           <label>Wisdom
             <input id="stat-wisdom" type="number" min="0" max="1600" step="1" value="0" inputmode="numeric" />
           </label>
+        </div>
+        <div class="rating-grid" style="grid-template-columns: repeat(2, minmax(150px, 1fr)); margin-top:0.4rem">
           <label>Star Level
             <select id="star-level">
               <option value="1">&#9733;1</option>
@@ -636,14 +642,51 @@
 
       <!-- Rows builder (auto-add; live optimize) -->
       <section class="card card-elevated">
-        <div class="toolbar" role="group" aria-label="Skill rows">
+        <div class="toolbar" role="group" aria-label="Skill rows" style="justify-content:flex-end">
           <span class="muted">Tip: just enter the skill name and cost - its type auto-detects</span>
           <div class="spacer"></div>
+          <input
+            type="file"
+            id="screenshot-upload-input"
+            accept="image/png,image/jpeg,image/jpg"
+            style="display: none;"
+            aria-label="Upload screenshot"
+          />
+          <button id="screenshot-upload-btn" class="btn btn-secondary" type="button">
+            📸 Upload Screenshot
+          </button>
+          <button id="captureBtn" class="btn btn-secondary" type="button">
+            🖥 Screen Capture
+          </button>
+        </div>
+        <div class="toolbar" style="justify-content:flex-end">
           <button id="save-build" class="btn btn-secondary" type="button">Save Build</button>
           <button id="view-builds" class="btn btn-secondary" type="button">View Saved Builds</button>
           <button id="share-build" class="btn btn-secondary" type="button">Share Build</button>
-          <button id="clear-all" class="btn" type="button">Clear All</button>
         </div>
+        <div class="toolbar" style="justify-content:flex-end">
+          <button id="clear-all" class="btn" type="button">Clear All Skills</button>
+        </div>
+        <div id="camera-capture-container" class="camera-capture-container" style="display: none;">
+          <video id="captureVideo" class="capture-video" autoplay playsinline muted></video>
+          <div id="suggestions" class="capture-suggestions"></div>
+        </div>
+
+        <!-- OCR Detected Skills Display Panel -->
+        <div id="ocr-results-panel" class="ocr-results-panel" style="display: none;">
+          <div class="ocr-results-header">
+            <h3>🔍 Detected Skills</h3>
+            <button id="ocr-results-close" class="btn btn-secondary" type="button">Close</button>
+          </div>
+          <div class="ocr-results-body">
+            <div id="ocr-results-list" class="ocr-results-list"></div>
+          </div>
+          <div class="ocr-results-footer">
+            <button id="ocr-add-all" class="btn" type="button">Add All to Optimizer</button>
+            <button id="ocr-add-selected" class="btn btn-secondary" type="button">Add Selected</button>
+          </div>
+        </div>
+
         <div id="rows" class="rows"></div>
       </section>
     </main>
@@ -688,6 +731,37 @@
       </div>
     </div>
 
+    <!-- Skill Correction Modal -->
+    <div id="skill-correction-modal" class="modal" style="display:none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Detected Skill</h3>
+          <button id="correction-modal-close" class="modal-close" type="button" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label class="labelTitle">
+            Skill Name <span style="color:var(--text-muted)">(required)</span>
+            <input id="correction-skill-name" type="text" placeholder="Start typing skill name..." maxlength="200" list="correction-skills-datalist" autocomplete="off" required />
+          </label>
+          <label class="labelTitle" style="margin-top:12px">
+            Cost <span style="color:var(--text-muted)">(optional)</span>
+            <input id="correction-skill-cost" type="number" min="0" step="1" placeholder="Skill points cost" />
+          </label>
+          <label class="labelTitle" style="margin-top:12px">
+            Hint Level <span style="color:var(--text-muted)">(1-5)</span>
+            <input id="correction-skill-hint" type="number" min="0" max="5" step="1" placeholder="0-5" />
+          </label>
+        </div>
+        <div class="modal-footer">
+          <button id="correction-modal-cancel" class="btn btn-secondary" type="button">Cancel</button>
+          <button id="correction-modal-save" class="btn" type="button">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Datalist for skill correction dropdown -->
+    <datalist id="correction-skills-datalist"></datalist>
+
     <div id="rating-float" class="rating-float" aria-live="polite">
       <div class="rating-float-main">
         <div class="rating-float-badge" aria-hidden="true">
@@ -714,6 +788,19 @@
     <script src="/js/rating-shared.js" defer></script>
     <script src="/js/tutorial.js" defer></script>
     <script src="/js/optimizer.js" defer></script>
+    <script src="/js/ocr.js" defer></script>
+    <script>
+      // Connect screenshot upload button to file input
+      document.addEventListener('DOMContentLoaded', function() {
+        var uploadBtn = document.getElementById('screenshot-upload-btn');
+        var uploadInput = document.getElementById('screenshot-upload-input');
+        if (uploadBtn && uploadInput) {
+          uploadBtn.addEventListener('click', function() {
+            uploadInput.click();
+          });
+        }
+      });
+    </script>
         <script>
       window.NAV_ROUTES = [
   { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
