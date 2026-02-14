@@ -9,23 +9,27 @@
   function getBucketForGrade(grade) {
     switch ((grade || '').toUpperCase()) {
       case 'S':
-      case 'A': return 'good';
+      case 'A':
+        return 'good';
       case 'B':
-      case 'C': return 'average';
+      case 'C':
+        return 'average';
       case 'D':
       case 'E':
-      case 'F': return 'bad';
-      default: return 'terrible';
+      case 'F':
+        return 'bad';
+      default:
+        return 'terrible';
     }
   }
 
   function createAffinityHelpers(cfg) {
     function updateAffinityStyles() {
       const grades = ['good', 'average', 'bad', 'terrible'];
-      Object.values(cfg).forEach(sel => {
+      Object.values(cfg).forEach((sel) => {
         if (!sel) return;
         const bucket = getBucketForGrade(sel.value);
-        grades.forEach(g => sel.classList.remove(`aff-grade-${g}`));
+        grades.forEach((g) => sel.classList.remove(`aff-grade-${g}`));
         sel.classList.add(`aff-grade-${bucket}`);
       });
     }
@@ -33,16 +37,16 @@
     function getBucketForSkill(checkType) {
       const ct = normalize(checkType);
       const map = {
-        'turf': cfg.turf,
-        'dirt': cfg.dirt,
-        'sprint': cfg.sprint,
-        'mile': cfg.mile,
-        'medium': cfg.medium,
-        'long': cfg.long,
-        'front': cfg.front,
-        'pace': cfg.pace,
-        'late': cfg.late,
-        'end': cfg.end,
+        turf: cfg.turf,
+        dirt: cfg.dirt,
+        sprint: cfg.sprint,
+        mile: cfg.mile,
+        medium: cfg.medium,
+        long: cfg.long,
+        front: cfg.front,
+        pace: cfg.pace,
+        late: cfg.late,
+        end: cfg.end,
       };
       const sel = map[ct];
       if (!sel) return 'base';
@@ -62,7 +66,7 @@
       getBucketForGrade,
       updateAffinityStyles,
       getBucketForSkill,
-      evaluateSkillScore
+      evaluateSkillScore,
     };
   }
 
@@ -71,11 +75,9 @@
     const STAT_BLOCK_SIZE = 50;
     // Stat score at each 50-point boundary (stat 0, 50, 100, ..., 2000)
     const STAT_BOUNDARY_SCORES = [
-      0, 25, 66, 116, 181, 261, 352, 457, 577, 707, 847,
-      993, 1143, 1298, 1463, 1633, 1808, 2004, 2209, 2419,
-      2635, 2895, 3171, 3501, 3841,
-      4249, 4688, 5160, 5665, 6203, 6773, 7377, 8013, 8682, 9384,
-      10117, 10885, 11684, 12516, 13383, 14280
+      0, 25, 66, 116, 181, 261, 352, 457, 577, 707, 847, 993, 1143, 1298, 1463, 1633, 1808, 2004,
+      2209, 2419, 2635, 2895, 3171, 3501, 3841, 4249, 4688, 5160, 5665, 6203, 6773, 7377, 8013,
+      8682, 9384, 10117, 10885, 11684, 12516, 13383, 14280,
     ];
     let lastSkillScore = 0;
 
@@ -85,108 +87,108 @@
       sheetWidth: 0,
       sheetHeight: 0,
       activeUrl: '',
-      loaded: false
+      loaded: false,
     };
 
     const GAME_RANK_SPRITE_MAP = {
-      'A': { x: 4, y: 22, w: 150, h: 151 },
-      'UF8': { x: 159, y: 22, w: 151, h: 154 },
-      'UC': { x: 315, y: 22, w: 151, h: 154 },
-      'UA': { x: 471, y: 22, w: 151, h: 154 },
-      'US8': { x: 627, y: 22, w: 151, h: 154 },
+      A: { x: 4, y: 22, w: 150, h: 151 },
+      UF8: { x: 159, y: 22, w: 151, h: 154 },
+      UC: { x: 315, y: 22, w: 151, h: 154 },
+      UA: { x: 471, y: 22, w: 151, h: 154 },
+      US8: { x: 627, y: 22, w: 151, h: 154 },
       'B+': { x: 4, y: 178, w: 150, h: 151 },
-      'UF7': { x: 159, y: 178, w: 151, h: 154 },
-      'UD9': { x: 315, y: 178, w: 151, h: 154 },
-      'UB9': { x: 471, y: 178, w: 151, h: 154 },
-      'US7': { x: 627, y: 178, w: 151, h: 154 },
-      'B': { x: 4, y: 334, w: 150, h: 151 },
-      'UF6': { x: 159, y: 334, w: 151, h: 154 },
-      'UD8': { x: 315, y: 334, w: 151, h: 154 },
-      'UB8': { x: 471, y: 334, w: 151, h: 154 },
-      'US6': { x: 627, y: 334, w: 151, h: 154 },
+      UF7: { x: 159, y: 178, w: 151, h: 154 },
+      UD9: { x: 315, y: 178, w: 151, h: 154 },
+      UB9: { x: 471, y: 178, w: 151, h: 154 },
+      US7: { x: 627, y: 178, w: 151, h: 154 },
+      B: { x: 4, y: 334, w: 150, h: 151 },
+      UF6: { x: 159, y: 334, w: 151, h: 154 },
+      UD8: { x: 315, y: 334, w: 151, h: 154 },
+      UB8: { x: 471, y: 334, w: 151, h: 154 },
+      US6: { x: 627, y: 334, w: 151, h: 154 },
       'C+': { x: 4, y: 490, w: 150, h: 151 },
-      'UF5': { x: 159, y: 490, w: 151, h: 154 },
-      'UD7': { x: 315, y: 490, w: 151, h: 154 },
-      'UB7': { x: 471, y: 490, w: 151, h: 154 },
-      'US5': { x: 627, y: 490, w: 151, h: 154 },
-      'C': { x: 4, y: 646, w: 150, h: 151 },
-      'UF4': { x: 159, y: 646, w: 151, h: 154 },
-      'UD6': { x: 315, y: 646, w: 151, h: 154 },
-      'UB6': { x: 471, y: 646, w: 151, h: 154 },
-      'US4': { x: 627, y: 646, w: 151, h: 154 },
+      UF5: { x: 159, y: 490, w: 151, h: 154 },
+      UD7: { x: 315, y: 490, w: 151, h: 154 },
+      UB7: { x: 471, y: 490, w: 151, h: 154 },
+      US5: { x: 627, y: 490, w: 151, h: 154 },
+      C: { x: 4, y: 646, w: 150, h: 151 },
+      UF4: { x: 159, y: 646, w: 151, h: 154 },
+      UD6: { x: 315, y: 646, w: 151, h: 154 },
+      UB6: { x: 471, y: 646, w: 151, h: 154 },
+      US4: { x: 627, y: 646, w: 151, h: 154 },
       'D+': { x: 4, y: 802, w: 150, h: 151 },
-      'UF3': { x: 159, y: 802, w: 151, h: 154 },
-      'UD5': { x: 315, y: 802, w: 151, h: 154 },
-      'UB5': { x: 471, y: 802, w: 151, h: 154 },
-      'US3': { x: 627, y: 802, w: 151, h: 154 },
-      'D': { x: 4, y: 958, w: 150, h: 151 },
-      'UF2': { x: 159, y: 958, w: 151, h: 154 },
-      'UD4': { x: 315, y: 958, w: 151, h: 154 },
-      'UB4': { x: 471, y: 958, w: 151, h: 154 },
-      'US2': { x: 627, y: 958, w: 151, h: 154 },
+      UF3: { x: 159, y: 802, w: 151, h: 154 },
+      UD5: { x: 315, y: 802, w: 151, h: 154 },
+      UB5: { x: 471, y: 802, w: 151, h: 154 },
+      US3: { x: 627, y: 802, w: 151, h: 154 },
+      D: { x: 4, y: 958, w: 150, h: 151 },
+      UF2: { x: 159, y: 958, w: 151, h: 154 },
+      UD4: { x: 315, y: 958, w: 151, h: 154 },
+      UB4: { x: 471, y: 958, w: 151, h: 154 },
+      US2: { x: 627, y: 958, w: 151, h: 154 },
       'E+': { x: 4, y: 1114, w: 150, h: 151 },
-      'UF1': { x: 159, y: 1114, w: 151, h: 154 },
-      'UD3': { x: 315, y: 1114, w: 151, h: 154 },
-      'UB3': { x: 471, y: 1114, w: 151, h: 154 },
-      'US1': { x: 627, y: 1114, w: 151, h: 154 },
-      'E': { x: 4, y: 1270, w: 150, h: 151 },
-      'UF': { x: 159, y: 1270, w: 151, h: 154 },
-      'UD2': { x: 315, y: 1270, w: 151, h: 154 },
-      'UB2': { x: 471, y: 1270, w: 151, h: 154 },
-      'US': { x: 627, y: 1270, w: 151, h: 154 },
-      'US9': { x: 783, y: 1270, w: 151, h: 154 },
+      UF1: { x: 159, y: 1114, w: 151, h: 154 },
+      UD3: { x: 315, y: 1114, w: 151, h: 154 },
+      UB3: { x: 471, y: 1114, w: 151, h: 154 },
+      US1: { x: 627, y: 1114, w: 151, h: 154 },
+      E: { x: 4, y: 1270, w: 150, h: 151 },
+      UF: { x: 159, y: 1270, w: 151, h: 154 },
+      UD2: { x: 315, y: 1270, w: 151, h: 154 },
+      UB2: { x: 471, y: 1270, w: 151, h: 154 },
+      US: { x: 627, y: 1270, w: 151, h: 154 },
+      US9: { x: 783, y: 1270, w: 151, h: 154 },
       'F+': { x: 4, y: 1426, w: 150, h: 151 },
-      'UG9': { x: 159, y: 1426, w: 151, h: 154 },
-      'UD1': { x: 315, y: 1426, w: 151, h: 154 },
-      'UB1': { x: 471, y: 1426, w: 151, h: 154 },
-      'UA1': { x: 627, y: 1426, w: 151, h: 154 },
-      'UA2': { x: 783, y: 1426, w: 151, h: 154 },
-      'UA3': { x: 939, y: 1426, w: 151, h: 154 },
-      'UA4': { x: 1095, y: 1426, w: 151, h: 154 },
-      'UA5': { x: 1251, y: 1426, w: 151, h: 154 },
-      'UA6': { x: 1407, y: 1426, w: 151, h: 154 },
-      'UA7': { x: 1563, y: 1426, w: 151, h: 154 },
-      'UA8': { x: 1719, y: 1426, w: 151, h: 154 },
-      'UA9': { x: 1875, y: 1426, w: 151, h: 154 },
-      'F': { x: 4, y: 1582, w: 150, h: 151 },
-      'UG8': { x: 159, y: 1582, w: 151, h: 154 },
-      'UD': { x: 315, y: 1582, w: 151, h: 154 },
-      'UC1': { x: 471, y: 1582, w: 151, h: 154 },
-      'UC2': { x: 627, y: 1582, w: 151, h: 154 },
-      'UC3': { x: 783, y: 1582, w: 151, h: 154 },
-      'UC4': { x: 939, y: 1582, w: 151, h: 154 },
-      'UC5': { x: 1095, y: 1582, w: 151, h: 154 },
-      'UC6': { x: 1251, y: 1582, w: 151, h: 154 },
-      'UC7': { x: 1407, y: 1582, w: 151, h: 154 },
-      'UC8': { x: 1563, y: 1582, w: 151, h: 154 },
-      'UC9': { x: 1719, y: 1582, w: 151, h: 154 },
-      'UB': { x: 1875, y: 1582, w: 151, h: 154 },
+      UG9: { x: 159, y: 1426, w: 151, h: 154 },
+      UD1: { x: 315, y: 1426, w: 151, h: 154 },
+      UB1: { x: 471, y: 1426, w: 151, h: 154 },
+      UA1: { x: 627, y: 1426, w: 151, h: 154 },
+      UA2: { x: 783, y: 1426, w: 151, h: 154 },
+      UA3: { x: 939, y: 1426, w: 151, h: 154 },
+      UA4: { x: 1095, y: 1426, w: 151, h: 154 },
+      UA5: { x: 1251, y: 1426, w: 151, h: 154 },
+      UA6: { x: 1407, y: 1426, w: 151, h: 154 },
+      UA7: { x: 1563, y: 1426, w: 151, h: 154 },
+      UA8: { x: 1719, y: 1426, w: 151, h: 154 },
+      UA9: { x: 1875, y: 1426, w: 151, h: 154 },
+      F: { x: 4, y: 1582, w: 150, h: 151 },
+      UG8: { x: 159, y: 1582, w: 151, h: 154 },
+      UD: { x: 315, y: 1582, w: 151, h: 154 },
+      UC1: { x: 471, y: 1582, w: 151, h: 154 },
+      UC2: { x: 627, y: 1582, w: 151, h: 154 },
+      UC3: { x: 783, y: 1582, w: 151, h: 154 },
+      UC4: { x: 939, y: 1582, w: 151, h: 154 },
+      UC5: { x: 1095, y: 1582, w: 151, h: 154 },
+      UC6: { x: 1251, y: 1582, w: 151, h: 154 },
+      UC7: { x: 1407, y: 1582, w: 151, h: 154 },
+      UC8: { x: 1563, y: 1582, w: 151, h: 154 },
+      UC9: { x: 1719, y: 1582, w: 151, h: 154 },
+      UB: { x: 1875, y: 1582, w: 151, h: 154 },
       'G+': { x: 4, y: 1738, w: 150, h: 151 },
-      'UG7': { x: 159, y: 1738, w: 151, h: 154 },
-      'UF9': { x: 315, y: 1738, w: 151, h: 154 },
-      'UE': { x: 471, y: 1738, w: 151, h: 154 },
-      'UE1': { x: 627, y: 1738, w: 151, h: 154 },
-      'UE2': { x: 783, y: 1738, w: 151, h: 154 },
-      'UE3': { x: 939, y: 1738, w: 151, h: 154 },
-      'UE4': { x: 1095, y: 1738, w: 151, h: 154 },
-      'UE5': { x: 1251, y: 1738, w: 151, h: 154 },
-      'UE6': { x: 1407, y: 1738, w: 151, h: 154 },
-      'UE7': { x: 1563, y: 1738, w: 151, h: 154 },
-      'UE8': { x: 1719, y: 1738, w: 151, h: 154 },
-      'UE9': { x: 1875, y: 1738, w: 151, h: 154 },
-      'G': { x: 4, y: 1894, w: 150, h: 151 },
+      UG7: { x: 159, y: 1738, w: 151, h: 154 },
+      UF9: { x: 315, y: 1738, w: 151, h: 154 },
+      UE: { x: 471, y: 1738, w: 151, h: 154 },
+      UE1: { x: 627, y: 1738, w: 151, h: 154 },
+      UE2: { x: 783, y: 1738, w: 151, h: 154 },
+      UE3: { x: 939, y: 1738, w: 151, h: 154 },
+      UE4: { x: 1095, y: 1738, w: 151, h: 154 },
+      UE5: { x: 1251, y: 1738, w: 151, h: 154 },
+      UE6: { x: 1407, y: 1738, w: 151, h: 154 },
+      UE7: { x: 1563, y: 1738, w: 151, h: 154 },
+      UE8: { x: 1719, y: 1738, w: 151, h: 154 },
+      UE9: { x: 1875, y: 1738, w: 151, h: 154 },
+      G: { x: 4, y: 1894, w: 150, h: 151 },
       'A+': { x: 160, y: 1894, w: 150, h: 151 },
-      'S': { x: 316, y: 1894, w: 150, h: 154 },
+      S: { x: 316, y: 1894, w: 150, h: 154 },
       'S+': { x: 472, y: 1894, w: 150, h: 154 },
-      'SS': { x: 627, y: 1894, w: 151, h: 154 },
+      SS: { x: 627, y: 1894, w: 151, h: 154 },
       'SS+': { x: 783, y: 1894, w: 151, h: 154 },
-      'UG': { x: 939, y: 1894, w: 151, h: 154 },
-      'UG1': { x: 1095, y: 1894, w: 151, h: 154 },
-      'UG2': { x: 1251, y: 1894, w: 151, h: 154 },
-      'UG3': { x: 1407, y: 1894, w: 151, h: 154 },
-      'UG4': { x: 1563, y: 1894, w: 151, h: 154 },
-      'UG5': { x: 1719, y: 1894, w: 151, h: 154 },
-      'UG6': { x: 1875, y: 1894, w: 151, h: 154 },
+      UG: { x: 939, y: 1894, w: 151, h: 154 },
+      UG1: { x: 1095, y: 1894, w: 151, h: 154 },
+      UG2: { x: 1251, y: 1894, w: 151, h: 154 },
+      UG3: { x: 1407, y: 1894, w: 151, h: 154 },
+      UG4: { x: 1563, y: 1894, w: 151, h: 154 },
+      UG5: { x: 1719, y: 1894, w: 151, h: 154 },
+      UG6: { x: 1875, y: 1894, w: 151, h: 154 },
     };
 
     const RATING_BADGE_MINIMA = [
@@ -287,7 +289,7 @@
       { min: 68600, label: 'US6' },
       { min: 69500, label: 'US7' },
       { min: 70400, label: 'US8' },
-      { min: 71400, label: 'US9' }
+      { min: 71400, label: 'US9' },
     ];
 
     const RATING_BADGES = RATING_BADGE_MINIMA.map((badge, idx) => {
@@ -296,23 +298,47 @@
       return {
         threshold: next ? next.min : Infinity,
         label: badge.label,
-        ...(sprite ? { sprite } : {})
+        ...(sprite ? { sprite } : {}),
       };
     });
+
+    const progressTargets = [
+      {
+        label: ratingDisplays.nextLabel,
+        needed: ratingDisplays.nextNeeded,
+        fill: ratingDisplays.progressFill,
+        bar: ratingDisplays.progressBar,
+      },
+      {
+        label: ratingDisplays.floatNextLabel,
+        needed: ratingDisplays.floatNextNeeded,
+        fill: ratingDisplays.floatProgressFill,
+        bar: ratingDisplays.floatProgressBar,
+      },
+    ];
 
     function clampStatValue(value) {
       if (typeof value !== 'number' || isNaN(value)) return 0;
       return Math.max(0, Math.min(MAX_STAT_VALUE, value));
     }
 
-    function getCurrentStarLevel() {
-      const raw = ratingInputs.star ? parseInt(ratingInputs.star.value, 10) : 0;
+    function readIntInput(input) {
+      if (!input) return 0;
+      const raw = parseInt(input.value, 10);
       return isNaN(raw) ? 0 : raw;
     }
 
+    function setInputValue(input, value) {
+      if (!input || typeof value !== 'number') return;
+      input.value = String(value);
+    }
+
+    function getCurrentStarLevel() {
+      return readIntInput(ratingInputs.star);
+    }
+
     function getCurrentUniqueLevel() {
-      const raw = ratingInputs.unique ? parseInt(ratingInputs.unique.value, 10) : 0;
-      return isNaN(raw) ? 0 : raw;
+      return readIntInput(ratingInputs.unique);
     }
 
     function calcUniqueBonus(starLevel, uniqueLevel) {
@@ -322,18 +348,19 @@
       return lvl * multiplier;
     }
 
-    function getRatingBadge(totalScore) {
-      for (const badge of RATING_BADGES) {
-        if (totalScore < badge.threshold) return badge;
-      }
-      return RATING_BADGES[RATING_BADGES.length - 1];
-    }
-
-    function getRatingBadgeIndex(totalScore) {
+    function resolveRatingBadgeIndex(totalScore) {
       for (let i = 0; i < RATING_BADGES.length; i++) {
         if (totalScore < RATING_BADGES[i].threshold) return i;
       }
       return RATING_BADGES.length - 1;
+    }
+
+    function getRatingBadgeIndex(totalScore) {
+      return resolveRatingBadgeIndex(totalScore);
+    }
+
+    function getRatingBadge(totalScore) {
+      return RATING_BADGES[resolveRatingBadgeIndex(totalScore)];
     }
 
     function syncBadgeSpriteMetrics(target) {
@@ -379,11 +406,11 @@
 
     function readRatingStats() {
       return {
-        speed: clampStatValue(parseInt(ratingInputs.speed?.value, 10)),
-        stamina: clampStatValue(parseInt(ratingInputs.stamina?.value, 10)),
-        power: clampStatValue(parseInt(ratingInputs.power?.value, 10)),
-        guts: clampStatValue(parseInt(ratingInputs.guts?.value, 10)),
-        wisdom: clampStatValue(parseInt(ratingInputs.wisdom?.value, 10))
+        speed: clampStatValue(readIntInput(ratingInputs.speed)),
+        stamina: clampStatValue(readIntInput(ratingInputs.stamina)),
+        power: clampStatValue(readIntInput(ratingInputs.power)),
+        guts: clampStatValue(readIntInput(ratingInputs.guts)),
+        wisdom: clampStatValue(readIntInput(ratingInputs.wisdom)),
       };
     }
 
@@ -396,7 +423,7 @@
       const base = STAT_BOUNDARY_SCORES[idx];
       if (rem === 0) return base;
       const blockDiff = STAT_BOUNDARY_SCORES[idx + 1] - base;
-      return base + Math.round(blockDiff * rem / STAT_BLOCK_SIZE);
+      return base + Math.round((blockDiff * rem) / STAT_BLOCK_SIZE);
     }
 
     function calculateRatingBreakdown(skillScoreOverride) {
@@ -414,7 +441,12 @@
 
     function updateBadgeSprite(target, badge) {
       if (!target) return;
-      if (RATING_SPRITE.loaded && badge.sprite && RATING_SPRITE.sheetWidth && RATING_SPRITE.sheetHeight) {
+      if (
+        RATING_SPRITE.loaded &&
+        badge.sprite &&
+        RATING_SPRITE.sheetWidth &&
+        RATING_SPRITE.sheetHeight
+      ) {
         const rect = badge.sprite;
         const { badgeWidth, badgeHeight } = syncBadgeSpriteMetrics(target);
         const renderWidth = badgeWidth || rect.w;
@@ -426,7 +458,9 @@
         const scaledRectHeight = rect.h * scale;
         const offsetX = (renderWidth - scaledRectWidth) / 2 - rect.x * scale;
         const offsetY = (renderHeight - scaledRectHeight) / 2 - rect.y * scale;
-        target.style.backgroundImage = RATING_SPRITE.activeUrl ? `url(${RATING_SPRITE.activeUrl})` : '';
+        target.style.backgroundImage = RATING_SPRITE.activeUrl
+          ? `url(${RATING_SPRITE.activeUrl})`
+          : '';
         target.style.backgroundRepeat = 'no-repeat';
         target.style.backgroundSize = `${scaledSpriteWidth}px ${scaledSpriteHeight}px`;
         target.style.backgroundPosition = `${offsetX}px ${offsetY}px`;
@@ -442,27 +476,16 @@
     function updateRatingDisplay(skillScoreOverride) {
       const breakdown = calculateRatingBreakdown(skillScoreOverride);
       if (ratingDisplays.stats) ratingDisplays.stats.textContent = breakdown.statsScore.toString();
-      if (ratingDisplays.skills) ratingDisplays.skills.textContent = breakdown.skillScore.toString();
-      if (ratingDisplays.unique) ratingDisplays.unique.textContent = breakdown.uniqueBonus.toString();
+      if (ratingDisplays.skills)
+        ratingDisplays.skills.textContent = breakdown.skillScore.toString();
+      if (ratingDisplays.unique)
+        ratingDisplays.unique.textContent = breakdown.uniqueBonus.toString();
       if (ratingDisplays.total) ratingDisplays.total.textContent = breakdown.total.toString();
-      if (ratingDisplays.floatTotal) ratingDisplays.floatTotal.textContent = breakdown.total.toString();
+      if (ratingDisplays.floatTotal)
+        ratingDisplays.floatTotal.textContent = breakdown.total.toString();
       const badge = getRatingBadge(breakdown.total);
       updateBadgeSprite(ratingDisplays.badgeSprite, badge);
       updateBadgeSprite(ratingDisplays.floatBadgeSprite, badge);
-      const progressTargets = [
-        {
-          label: ratingDisplays.nextLabel,
-          needed: ratingDisplays.nextNeeded,
-          fill: ratingDisplays.progressFill,
-          bar: ratingDisplays.progressBar
-        },
-        {
-          label: ratingDisplays.floatNextLabel,
-          needed: ratingDisplays.floatNextNeeded,
-          fill: ratingDisplays.floatProgressFill,
-          bar: ratingDisplays.floatProgressBar
-        }
-      ];
       const hasProgressTarget = progressTargets.some((t) => t.fill && t.label && t.needed);
       if (hasProgressTarget) {
         const idx = getRatingBadgeIndex(breakdown.total);
@@ -498,20 +521,20 @@
       return {
         stats,
         star: getCurrentStarLevel(),
-        unique: getCurrentUniqueLevel()
+        unique: getCurrentUniqueLevel(),
       };
     }
 
     function applyRatingState(data) {
       if (!data || typeof data !== 'object') return;
       const stats = data.stats || {};
-      if (ratingInputs.speed && typeof stats.speed === 'number') ratingInputs.speed.value = stats.speed;
-      if (ratingInputs.stamina && typeof stats.stamina === 'number') ratingInputs.stamina.value = stats.stamina;
-      if (ratingInputs.power && typeof stats.power === 'number') ratingInputs.power.value = stats.power;
-      if (ratingInputs.guts && typeof stats.guts === 'number') ratingInputs.guts.value = stats.guts;
-      if (ratingInputs.wisdom && typeof stats.wisdom === 'number') ratingInputs.wisdom.value = stats.wisdom;
-      if (ratingInputs.star && typeof data.star === 'number') ratingInputs.star.value = String(data.star);
-      if (ratingInputs.unique && typeof data.unique === 'number') ratingInputs.unique.value = String(data.unique);
+      setInputValue(ratingInputs.speed, stats.speed);
+      setInputValue(ratingInputs.stamina, stats.stamina);
+      setInputValue(ratingInputs.power, stats.power);
+      setInputValue(ratingInputs.guts, stats.guts);
+      setInputValue(ratingInputs.wisdom, stats.wisdom);
+      setInputValue(ratingInputs.star, data.star);
+      setInputValue(ratingInputs.unique, data.unique);
     }
 
     function handleRatingInputChange() {
@@ -520,7 +543,7 @@
     }
 
     function initRatingInputs() {
-      Object.values(ratingInputs).forEach(input => {
+      Object.values(ratingInputs).forEach((input) => {
         if (!input) return;
         input.addEventListener('input', handleRatingInputChange);
         input.addEventListener('change', handleRatingInputChange);
@@ -533,12 +556,12 @@
       readRatingState,
       applyRatingState,
       initRatingInputs,
-      loadRatingSprite
+      loadRatingSprite,
     };
   }
 
   global.RatingShared = {
     createAffinityHelpers,
-    createRatingEngine
+    createRatingEngine,
   };
 })(window);

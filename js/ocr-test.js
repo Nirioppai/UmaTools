@@ -31,11 +31,19 @@
 
   function testExactMatching() {
     const M = window.OCRMatcher;
-    if (!M) { assert(false, 'OCRMatcher loaded'); return; }
+    if (!M) {
+      assert(false, 'OCRMatcher loaded');
+      return;
+    }
 
     const exactCases = [
-      'Concentration', 'Stealth Mode', 'Focus', 'Iron Will',
-      'Smart Falcon', 'Shadow Break', 'Rising Tide',
+      'Concentration',
+      'Stealth Mode',
+      'Focus',
+      'Iron Will',
+      'Smart Falcon',
+      'Shadow Break',
+      'Rising Tide',
     ];
 
     for (const name of exactCases) {
@@ -170,7 +178,10 @@
     const M = window.OCRMatcher;
     if (!M) return;
 
-    assert(M.normalizeForMatch('  Hello  World  ') === 'hello world', 'Normalize: trim + collapse spaces');
+    assert(
+      M.normalizeForMatch('  Hello  World  ') === 'hello world',
+      'Normalize: trim + collapse spaces'
+    );
     assert(M.normalizeForMatch('\u2018test\u2019') === "'test'", 'Normalize: unicode quotes');
     assert(M.normalizeForMatch('A\u2014B') === 'a-b', 'Normalize: em-dash to hyphen');
 
@@ -217,10 +228,13 @@ Focus 100`;
 
     assert(detected.length >= 3, `E2E: detected >= 3 skills`, `got ${detected.length}`);
 
-    const names = detected.map(d => d.name);
+    const names = detected.map((d) => d.name);
     assert(names.includes('Concentration'), 'E2E: found Concentration');
-    assert(names.includes('Stealth Mode') || names.includes('Focus') || names.includes('Iron Will'),
-      'E2E: found at least one other skill', `names: ${names.join(', ')}`);
+    assert(
+      names.includes('Stealth Mode') || names.includes('Focus') || names.includes('Iron Will'),
+      'E2E: found at least one other skill',
+      `names: ${names.join(', ')}`
+    );
 
     // Check that confidences are reasonable
     for (const d of detected) {
@@ -287,7 +301,8 @@ Focus 100`;
 
     // PC layout: landscape
     const pcCanvas = document.createElement('canvas');
-    pcCanvas.width = 960; pcCanvas.height = 540;
+    pcCanvas.width = 960;
+    pcCanvas.height = 540;
     const pcLayout = P.detectLayout(pcCanvas);
     assert(pcLayout === 'pc', 'Layout: landscape -> pc', `got ${pcLayout}`);
 
@@ -298,7 +313,8 @@ Focus 100`;
 
     // Mobile layout: portrait
     const mobileCanvas = document.createElement('canvas');
-    mobileCanvas.width = 270; mobileCanvas.height = 480;
+    mobileCanvas.width = 270;
+    mobileCanvas.height = 480;
     const mobileLayout = P.detectLayout(mobileCanvas);
     assert(mobileLayout === 'mobile', 'Layout: portrait -> mobile', `got ${mobileLayout}`);
 
@@ -390,13 +406,13 @@ Focus 100`;
         top1Correct++;
         top3Correct++;
       } else if (result?.suggestions) {
-        const inTop3 = result.suggestions.some(s => s.name === tc.expected);
+        const inTop3 = result.suggestions.some((s) => s.name === tc.expected);
         if (inTop3) top3Correct++;
       }
     }
 
-    const top1Acc = (top1Correct / total * 100).toFixed(1);
-    const top3Acc = (top3Correct / total * 100).toFixed(1);
+    const top1Acc = ((top1Correct / total) * 100).toFixed(1);
+    const top3Acc = ((top3Correct / total) * 100).toFixed(1);
 
     console.log(`\n--- Accuracy Benchmark ---`);
     console.log(`Top-1 Accuracy: ${top1Acc}% (${top1Correct}/${total})`);
@@ -433,13 +449,15 @@ Focus 100`;
 
     const benchmark = runAccuracyBenchmark();
 
-    console.log(`\n=== Results: ${results.passed}/${results.total} passed, ${results.failed} failed ===`);
+    console.log(
+      `\n=== Results: ${results.passed}/${results.total} passed, ${results.failed} failed ===`
+    );
 
     if (results.failed > 0) {
       console.log('\nFailed tests:');
       results.details
-        .filter(d => d.status === 'FAIL')
-        .forEach(d => console.log(`  - ${d.test}: ${d.detail || ''}`));
+        .filter((d) => d.status === 'FAIL')
+        .forEach((d) => console.log(`  - ${d.test}: ${d.detail || ''}`));
     }
 
     return {
@@ -565,7 +583,7 @@ Focus 100`;
       image: './reference/pc2.png',
       layout: 'pc',
       expected: [
-        { name: "No Stopping Me!", hint: 1 },
+        { name: 'No Stopping Me!', hint: 1 },
         { name: 'Nimble Navigator', hint: null },
         { name: 'Go with the Flow', hint: 4 },
       ],
@@ -687,7 +705,7 @@ Focus 100`;
     }
 
     const tests = filter
-      ? REFERENCE_TESTS.filter(t => t.image.includes(filter))
+      ? REFERENCE_TESTS.filter((t) => t.image.includes(filter))
       : REFERENCE_TESTS;
 
     console.log(`\n${'='.repeat(60)}`);
@@ -713,7 +731,9 @@ Focus 100`;
 
         console.log(`   Cards detected: ${cards.length} | Skills matched: ${detected.length}`);
         if (result.rawOCRText) {
-          console.log(`   Raw OCR (first 150): "${result.rawOCRText.substring(0, 150).replace(/\n/g, ' | ')}"`);
+          console.log(
+            `   Raw OCR (first 150): "${result.rawOCRText.substring(0, 150).replace(/\n/g, ' | ')}"`
+          );
         }
 
         // Compare each expected skill against detected
@@ -725,9 +745,8 @@ Focus 100`;
 
         for (const exp of test.expected) {
           const expNorm = norm(exp.name);
-          const match = detected.find((d, i) =>
-            !matchedDetected.has(i) &&
-            norm(d.name) === expNorm
+          const match = detected.find(
+            (d, i) => !matchedDetected.has(i) && norm(d.name) === expNorm
           );
 
           if (match) {
@@ -741,7 +760,9 @@ Focus 100`;
 
             const hintStr = exp.hint === null ? 'any' : exp.hint;
             const status = hintOk ? 'PASS' : `HINT_MISS(got ${match.hint})`;
-            console.log(`   ✓ ${exp.name} — ${status} (conf: ${Math.round(match.confidence * 100)}%, hint: ${match.hint}/${hintStr})`);
+            console.log(
+              `   ✓ ${exp.name} — ${status} (conf: ${Math.round(match.confidence * 100)}%, hint: ${match.hint}/${hintStr})`
+            );
           } else {
             console.log(`   ✗ ${exp.name} — NOT FOUND`);
           }
@@ -750,7 +771,9 @@ Focus 100`;
         // Count false positives (detected skills not in expected list)
         const falsePositives = detected.filter((d, i) => !matchedDetected.has(i));
         for (const fp of falsePositives) {
-          console.log(`   ⚠ FALSE POSITIVE: "${fp.name}" (conf: ${Math.round(fp.confidence * 100)}%, raw: "${fp.rawText}")`);
+          console.log(
+            `   ⚠ FALSE POSITIVE: "${fp.name}" (conf: ${Math.round(fp.confidence * 100)}%, raw: "${fp.rawText}")`
+          );
         }
 
         totalExpected += test.expected.length;
@@ -785,8 +808,10 @@ Focus 100`;
     }
 
     // Summary
-    const nameAcc = totalExpected > 0 ? (totalNameCorrect / totalExpected * 100).toFixed(1) : '0.0';
-    const hintAcc = totalExpected > 0 ? (totalHintCorrect / totalExpected * 100).toFixed(1) : '0.0';
+    const nameAcc =
+      totalExpected > 0 ? ((totalNameCorrect / totalExpected) * 100).toFixed(1) : '0.0';
+    const hintAcc =
+      totalExpected > 0 ? ((totalHintCorrect / totalExpected) * 100).toFixed(1) : '0.0';
 
     console.log(`\n${'='.repeat(60)}`);
     console.log(`  SUMMARY`);
@@ -798,15 +823,17 @@ Focus 100`;
     console.log(`${'='.repeat(60)}\n`);
 
     // Per-image table
-    console.table(imageResults.map(r => ({
-      Image: r.image,
-      Cards: r.cards,
-      'Expected': r.expected,
-      'Found': r.found,
-      'Hint OK': r.hintCorrect,
-      'False+': r.falsePositives,
-      'Error': r.error || '',
-    })));
+    console.table(
+      imageResults.map((r) => ({
+        Image: r.image,
+        Cards: r.cards,
+        Expected: r.expected,
+        Found: r.found,
+        'Hint OK': r.hintCorrect,
+        'False+': r.falsePositives,
+        Error: r.error || '',
+      }))
+    );
 
     return {
       nameAccuracy: parseFloat(nameAcc),

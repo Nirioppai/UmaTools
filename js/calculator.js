@@ -19,7 +19,7 @@
     guts: document.getElementById('stat-guts'),
     wisdom: document.getElementById('stat-wisdom'),
     star: document.getElementById('star-level'),
-    unique: document.getElementById('unique-level')
+    unique: document.getElementById('unique-level'),
   };
   const ratingDisplays = {
     stats: document.getElementById('rating-stats-score'),
@@ -36,7 +36,7 @@
     floatNextLabel: document.getElementById('rating-float-next-label'),
     floatNextNeeded: document.getElementById('rating-float-next-needed'),
     floatProgressFill: document.getElementById('rating-float-progress-fill'),
-    floatProgressBar: document.getElementById('rating-float-progress-bar')
+    floatProgressBar: document.getElementById('rating-float-progress-bar'),
   };
 
   // Race config selects
@@ -53,11 +53,12 @@
     end: document.getElementById('cfg-end'),
   };
 
-  const { normalize, updateAffinityStyles, evaluateSkillScore } = RatingShared.createAffinityHelpers(cfg);
+  const { normalize, updateAffinityStyles, evaluateSkillScore } =
+    RatingShared.createAffinityHelpers(cfg);
   const ratingEngine = RatingShared.createRatingEngine({
     ratingInputs,
     ratingDisplays,
-    onChange: () => saveState()
+    onChange: () => saveState(),
   });
 
   let skillsByCategory = {};
@@ -72,8 +73,6 @@
   // Shared datalist for all skill inputs
   let sharedSkillDatalist = null;
 
-
-
   // Debounce helper
   function debounce(fn, ms) {
     let t;
@@ -87,7 +86,7 @@
   function collectSkills() {
     const skills = [];
     const rows = rowsEl.querySelectorAll('.calculator-row');
-    rows.forEach(row => {
+    rows.forEach((row) => {
       const nameInput = row.querySelector('.skill-name');
       if (!nameInput) return;
       const name = (nameInput.value || '').trim();
@@ -99,7 +98,7 @@
         name: skill.name,
         score,
         category: skill.category || '',
-        checkType: skill.checkType || ''
+        checkType: skill.checkType || '',
       });
     });
     return skills;
@@ -116,10 +115,12 @@
       if (!skills.length) {
         selectedListEl.innerHTML = '<span class="muted">No skills selected yet.</span>';
       } else {
-        selectedListEl.innerHTML = skills.map(s => {
-          const catClass = getCategoryClass(s.category);
-          return `<span class="skill-chip ${catClass}">${s.name} <small>(+${s.score})</small></span>`;
-        }).join(' ');
+        selectedListEl.innerHTML = skills
+          .map((s) => {
+            const catClass = getCategoryClass(s.category);
+            return `<span class="skill-chip ${catClass}">${s.name} <small>(+${s.score})</small></span>`;
+          })
+          .join(' ');
       }
     }
 
@@ -144,7 +145,7 @@
     const nextIndex = new Map();
     const names = [];
     Object.entries(skillsByCategory).forEach(([category, list = []]) => {
-      list.forEach(skill => {
+      list.forEach((skill) => {
         if (!skill || !skill.name) return;
         const key = normalize(skill.name);
         const enriched = { ...skill, category };
@@ -178,14 +179,36 @@
   function applyFallbackSkills(reason) {
     skillsByCategory = {
       golden: [
-        { name: 'Concentration', score: { base: 508, good: 508, average: 415, bad: 369, terrible: 323 }, checkType: 'End' },
-        { name: 'Professor of Curvature', score: { base: 508, good: 508, average: 415, bad: 369, terrible: 323 }, checkType: 'Medium' }
+        {
+          name: 'Concentration',
+          score: { base: 508, good: 508, average: 415, bad: 369, terrible: 323 },
+          checkType: 'End',
+        },
+        {
+          name: 'Professor of Curvature',
+          score: { base: 508, good: 508, average: 415, bad: 369, terrible: 323 },
+          checkType: 'Medium',
+        },
       ],
       yellow: [
-        { name: 'Groundwork', score: { base: 217, good: 217, average: 177, bad: 158, terrible: 138 }, checkType: 'Front' },
-        { name: 'Corner Recovery', score: { base: 217, good: 217, average: 177, bad: 158, terrible: 138 }, checkType: 'Late' }
+        {
+          name: 'Groundwork',
+          score: { base: 217, good: 217, average: 177, bad: 158, terrible: 138 },
+          checkType: 'Front',
+        },
+        {
+          name: 'Corner Recovery',
+          score: { base: 217, good: 217, average: 177, bad: 158, terrible: 138 },
+          checkType: 'Late',
+        },
       ],
-      blue: [{ name: 'Stealth Mode', score: { base: 195, good: 195, average: 159, bad: 142, terrible: 124 }, checkType: 'Late' }]
+      blue: [
+        {
+          name: 'Stealth Mode',
+          score: { base: 195, good: 195, average: 159, bad: 142, terrible: 124 },
+          checkType: 'Late',
+        },
+      ],
     };
     categories = Object.keys(skillsByCategory);
     rebuildSkillCaches();
@@ -193,20 +216,52 @@
   }
 
   function parseCSV(text) {
-    const rows = []; let i = 0, field = '', row = [], inQuotes = false;
+    const rows = [];
+    let i = 0,
+      field = '',
+      row = [],
+      inQuotes = false;
     while (i < text.length) {
       const c = text[i];
-      if (inQuotes) { if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else { inQuotes = false; } } else { field += c; } }
-      else { if (c === '"') inQuotes = true; else if (c === ',') { row.push(field); field = ''; } else if (c === '\r') { } else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; } else { field += c; } }
+      if (inQuotes) {
+        if (c === '"') {
+          if (text[i + 1] === '"') {
+            field += '"';
+            i++;
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          field += c;
+        }
+      } else {
+        if (c === '"') inQuotes = true;
+        else if (c === ',') {
+          row.push(field);
+          field = '';
+        } else if (c === '\r') {
+        } else if (c === '\n') {
+          row.push(field);
+          rows.push(row);
+          row = [];
+          field = '';
+        } else {
+          field += c;
+        }
+      }
       i++;
     }
-    if (field.length || row.length) { row.push(field); rows.push(row); }
+    if (field.length || row.length) {
+      row.push(field);
+      rows.push(row);
+    }
     return rows;
   }
 
   function loadFromCSVContent(csvText) {
-    const rows = parseCSV(csvText); if (!rows.length) return false;
-    const header = rows[0].map(h => (h || '').toString().trim().toLowerCase());
+    const rows = parseCSV(csvText);
+    if (!rows.length) return false;
+    const header = rows[0].map((h) => (h || '').toString().trim().toLowerCase());
     const idx = {
       type: header.indexOf('skill_type'),
       name: header.indexOf('name'),
@@ -220,13 +275,15 @@
       apt3: header.indexOf('apt_3'),
       apt4: header.indexOf('apt_4'),
       check: header.indexOf('affinity_role'),
-      checkAlt: header.indexOf('affinity')
+      checkAlt: header.indexOf('affinity'),
     };
     if (idx.name === -1) return false;
     const catMap = {};
     for (let r = 1; r < rows.length; r++) {
-      const cols = rows[r]; if (!cols || !cols.length) continue;
-      const name = (cols[idx.name] || '').trim(); if (!name) continue;
+      const cols = rows[r];
+      if (!cols || !cols.length) continue;
+      const name = (cols[idx.name] || '').trim();
+      if (!name) continue;
       const type = idx.type !== -1 ? (cols[idx.type] || '').trim().toLowerCase() : 'misc';
       const base = idx.base !== -1 ? parseInt(cols[idx.base] || '', 10) : NaN;
       const sa = idx.sa !== -1 ? parseInt(cols[idx.sa] || '', 10) : NaN;
@@ -237,13 +294,18 @@
       const apt2 = idx.apt2 !== -1 ? parseInt(cols[idx.apt2] || '', 10) : NaN;
       const apt3 = idx.apt3 !== -1 ? parseInt(cols[idx.apt3] || '', 10) : NaN;
       const apt4 = idx.apt4 !== -1 ? parseInt(cols[idx.apt4] || '', 10) : NaN;
-      const checkTypeRaw = idx.check !== -1 ? (cols[idx.check] || '').trim() : (idx.checkAlt !== -1 ? (cols[idx.checkAlt] || '').trim() : '');
+      const checkTypeRaw =
+        idx.check !== -1
+          ? (cols[idx.check] || '').trim()
+          : idx.checkAlt !== -1
+            ? (cols[idx.checkAlt] || '').trim()
+            : '';
       const score = {};
       const baseBucket = !isNaN(base) ? base : NaN;
-      const goodVal = !isNaN(sa) ? sa : (!isNaN(apt1) ? apt1 : baseBucket);
-      const avgVal = !isNaN(bc) ? bc : (!isNaN(apt2) ? apt2 : goodVal);
-      const badVal = !isNaN(def) ? def : (!isNaN(apt3) ? apt3 : avgVal);
-      const terrVal = !isNaN(g) ? g : (!isNaN(apt4) ? apt4 : badVal);
+      const goodVal = !isNaN(sa) ? sa : !isNaN(apt1) ? apt1 : baseBucket;
+      const avgVal = !isNaN(bc) ? bc : !isNaN(apt2) ? apt2 : goodVal;
+      const badVal = !isNaN(def) ? def : !isNaN(apt3) ? apt3 : avgVal;
+      const terrVal = !isNaN(g) ? g : !isNaN(apt4) ? apt4 : badVal;
       if (!isNaN(baseBucket)) score.base = baseBucket;
       if (!isNaN(goodVal)) score.good = goodVal;
       if (!isNaN(avgVal)) score.average = avgVal;
@@ -254,7 +316,8 @@
     }
     skillsByCategory = catMap;
     categories = Object.keys(catMap).sort((a, b) => {
-      const ia = preferredOrder.indexOf(a), ib = preferredOrder.indexOf(b);
+      const ia = preferredOrder.indexOf(a),
+        ib = preferredOrder.indexOf(b);
       if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
       return a.localeCompare(b);
     });
@@ -272,7 +335,10 @@
         const text = await res.text();
         const ok = loadFromCSVContent(text);
         if (ok) {
-          const totalSkills = Object.values(skillsByCategory).reduce((acc, arr) => acc + arr.length, 0);
+          const totalSkills = Object.values(skillsByCategory).reduce(
+            (acc, arr) => acc + arr.length,
+            0
+          );
           libStatus.textContent = `Loaded ${totalSkills} skills`;
           return true;
         }
@@ -301,7 +367,15 @@
   }
 
   function applyCategoryAccent(row, category) {
-    const cls = ['cat-gold', 'cat-yellow', 'cat-blue', 'cat-green', 'cat-red', 'cat-ius', 'cat-orange'];
+    const cls = [
+      'cat-gold',
+      'cat-yellow',
+      'cat-blue',
+      'cat-green',
+      'cat-red',
+      'cat-ius',
+      'cat-orange',
+    ];
     row.classList.remove(...cls);
     const c = canonicalCategory(category);
     if (!c) return;
@@ -326,7 +400,7 @@
     if (!sharedSkillDatalist) return;
     sharedSkillDatalist.innerHTML = '';
     const frag = document.createDocumentFragment();
-    allSkillNames.forEach(name => {
+    allSkillNames.forEach((name) => {
       const opt = document.createElement('option');
       opt.value = name;
       frag.appendChild(opt);
@@ -336,7 +410,7 @@
 
   function refreshAllRows() {
     const dataRows = rowsEl.querySelectorAll('.calculator-row');
-    dataRows.forEach(row => {
+    dataRows.forEach((row) => {
       if (typeof row.syncSkillCategory === 'function') {
         row.syncSkillCategory({ triggerUpdate: false });
       }
@@ -364,7 +438,10 @@
 
   function ensureOneEmptyRow() {
     const rows = Array.from(rowsEl.querySelectorAll('.calculator-row'));
-    if (!rows.length) { rowsEl.appendChild(makeRow()); return; }
+    if (!rows.length) {
+      rowsEl.appendChild(makeRow());
+      return;
+    }
     const last = rows[rows.length - 1];
     const lastFilled = isRowFilled(last);
     if (lastFilled) {
@@ -374,14 +451,15 @@
     } else {
       // Remove extra trailing empty rows, keep exactly one empty
       for (let i = rows.length - 2; i >= 0; i--) {
-        if (!isRowFilled(rows[i])) { rows[i].remove(); }
-        else break;
+        if (!isRowFilled(rows[i])) {
+          rows[i].remove();
+        } else break;
       }
     }
   }
 
   function clearAllRows() {
-    Array.from(rowsEl.querySelectorAll('.calculator-row')).forEach(n => {
+    Array.from(rowsEl.querySelectorAll('.calculator-row')).forEach((n) => {
       if (typeof n.cleanupSkillTracking === 'function') {
         n.cleanupSkillTracking();
       }
@@ -618,7 +696,7 @@
   function saveState() {
     try {
       const skills = [];
-      rowsEl.querySelectorAll('.calculator-row').forEach(row => {
+      rowsEl.querySelectorAll('.calculator-row').forEach((row) => {
         const name = row.querySelector('.skill-name')?.value?.trim();
         if (name) skills.push(name);
       });
@@ -629,7 +707,7 @@
       const state = {
         skills,
         raceConfig,
-        rating: ratingEngine.readRatingState()
+        rating: ratingEngine.readRatingState(),
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {
@@ -652,8 +730,8 @@
         ratingEngine.applyRatingState(state.rating);
       }
       if (Array.isArray(state.skills) && state.skills.length) {
-        Array.from(rowsEl.querySelectorAll('.calculator-row')).forEach(n => n.remove());
-        state.skills.forEach(skillName => {
+        Array.from(rowsEl.querySelectorAll('.calculator-row')).forEach((n) => n.remove());
+        state.skills.forEach((skillName) => {
           const row = makeRow();
           rowsEl.appendChild(row);
           const nameInput = row.querySelector('.skill-name');
@@ -680,12 +758,15 @@
     };
     const card = document.getElementById('rating-card');
     if ('IntersectionObserver' in window && card) {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          observer.disconnect();
-          load();
-        }
-      }, { rootMargin: '200px' });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            observer.disconnect();
+            load();
+          }
+        },
+        { rootMargin: '200px' }
+      );
       observer.observe(card);
     }
     if ('requestIdleCallback' in window) {
@@ -760,33 +841,33 @@
           title: 'Quick walkthrough',
           shortTitle: 'Quick walkthrough',
           text: 'This tutorial is non-blocking and skippable. Re-open it any time from Help / Tutorial.',
-          target: '#tutorial-open'
+          target: '#tutorial-open',
         },
         {
           title: 'Match race configuration',
           shortTitle: 'Race configuration',
           text: 'Set track, distance, and strategy affinities to match your Uma so category scoring is accurate.',
-          target: '.race-config-pane'
+          target: '.race-config-pane',
         },
         {
           title: 'Enter stats and star level',
           shortTitle: 'Stats and stars',
           text: 'Fill final stats, star rarity, and unique skill level to project your true rating.',
-          target: '#rating-card'
+          target: '#rating-card',
         },
         {
           title: 'Add skills to the calculator',
           shortTitle: 'Add skills',
           text: 'Type skills into these rows to include them in the rating calculation.',
-          target: '#rows'
+          target: '#rows',
         },
         {
           title: 'Review selected skills and totals',
           shortTitle: 'Selected skills',
           text: 'See your selected skills, count, and score summary here.',
-          target: '#selected-skills-section'
-        }
-      ]
+          target: '#selected-skills-section',
+        },
+      ],
     });
     tutorial.init();
   }
@@ -795,13 +876,13 @@
   async function init() {
     // Load skills library
     await loadSkillsCSV();
-    if (libStatus && /loading/i.test(libStatus.textContent || "")) {
-      libStatus.textContent = "Skill library ready.";
+    if (libStatus && /loading/i.test(libStatus.textContent || '')) {
+      libStatus.textContent = 'Skill library ready.';
     }
 
     // Initialize UI
     updateAffinityStyles();
-    Object.values(cfg).forEach(sel => {
+    Object.values(cfg).forEach((sel) => {
       if (sel) {
         sel.addEventListener('change', () => {
           updateAffinityStyles();

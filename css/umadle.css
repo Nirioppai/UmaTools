@@ -48,7 +48,7 @@
 }
 
 .guess-summary::marker {
-  content: "";
+  content: '';
 }
 
 .guess-summary-title {
@@ -100,7 +100,7 @@
 }
 
 .guess-summary-meta::after {
-  content: "";
+  content: '';
   position: absolute;
   right: 0;
   top: 50%;

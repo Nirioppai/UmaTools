@@ -33,15 +33,15 @@ Each skill receives a consistency score in the range **[0.05, 0.99]** based on a
 
 How reliably the skill activates based on its timing window. Skills that fire predictably in well-defined race phases score highest.
 
-| Timing Pattern | Score | Notes |
-|----------------|-------|-------|
-| `always == 1` (passive/constant) | **0.98** | Highest reliability -- always active |
-| Last spurt / final corner / last straight | **0.88** | 0.76 if random variant |
-| Distance rate within 20% window | **0.82** | Narrow positional trigger |
-| Specific phase (phase 1-4) | **0.76** | Predictable but phase-dependent |
-| Distance rate outside 20% window | **0.72** | Wider positional trigger |
-| Default (unrecognized) | **0.68** | Unknown timing pattern |
-| Random timing (phase/corner/straight random) | **0.62** | Lowest -- unpredictable activation |
+| Timing Pattern                               | Score    | Notes                                |
+| -------------------------------------------- | -------- | ------------------------------------ |
+| `always == 1` (passive/constant)             | **0.98** | Highest reliability -- always active |
+| Last spurt / final corner / last straight    | **0.88** | 0.76 if random variant               |
+| Distance rate within 20% window              | **0.82** | Narrow positional trigger            |
+| Specific phase (phase 1-4)                   | **0.76** | Predictable but phase-dependent      |
+| Distance rate outside 20% window             | **0.72** | Wider positional trigger             |
+| Default (unrecognized)                       | **0.68** | Unknown timing pattern               |
+| Random timing (phase/corner/straight random) | **0.62** | Lowest -- unpredictable activation   |
 
 ### 3.2 Condition Breadth (weight: 30%)
 
@@ -59,15 +59,15 @@ The breadth score rewards skills that can fire in a wide range of race states. A
 
 Penalty for situational triggers that may not occur in a given race. The base score starts at **0.95** and is reduced by applicable penalties.
 
-| Condition | Penalty |
-|-----------|---------|
+| Condition                        | Penalty   |
+| -------------------------------- | --------- |
 | `blocked_front` / `blocked_side` | **-0.22** |
-| `is_overtake` | **-0.18** |
-| `is_surrounded` / `temptation` | **-0.20** |
-| `change_order_onetime` | **-0.14** |
-| `popularity` / `post_number` | **-0.12** |
+| `is_overtake`                    | **-0.18** |
+| `is_surrounded` / `temptation`   | **-0.20** |
+| `change_order_onetime`           | **-0.14** |
+| `popularity` / `post_number`     | **-0.12** |
 | `is_activate_other_skill_detail` | **-0.09** |
-| `always == 1` bonus | **+0.04** |
+| `always == 1` bonus              | **+0.04** |
 
 Skills that depend on being blocked, overtaking, or other race-state events take significant hits because those events are not guaranteed to happen.
 
@@ -93,13 +93,13 @@ The fallback bonus reflects the reality that having multiple trigger paths incre
 
 Tags from `assets/skill_tiers.csv` can override the computed consistency:
 
-| Tag | Effect |
-|-----|--------|
-| `inconsistent` | Cap at **0.45** |
-| `consistent` | **+0.10** bonus |
+| Tag                     | Effect                             |
+| ----------------------- | ---------------------------------- |
+| `inconsistent`          | Cap at **0.45**                    |
+| `consistent`            | **+0.10** bonus                    |
 | `team_trials` or `core` | **+0.12** bonus, floor at **0.65** |
-| Marker `x` (cross) | Cap at **0.24** |
-| Marker `◎` or `○` | Floor at **0.62** |
+| Marker `x` (cross)      | Cap at **0.24**                    |
+| Marker `◎` or `○`       | Floor at **0.62**                  |
 
 These manual overrides let curators correct for edge cases the algorithm cannot detect from condition data alone.
 
@@ -144,11 +144,11 @@ Where:
 
 Certain skill profiles receive expected value bonuses to ensure late-game coverage:
 
-| Profile | Bonus | Conditions |
-|---------|-------|------------|
-| Consistent gold | **+0.14** | consistency >= 0.58, not volatile |
-| Reliable late acceleration | **+0.28** | acceleration effect + late timing window + consistency >= 0.58 |
-| Reliable late speed trigger | **+0.20** | speed effect + late timing window |
+| Profile                     | Bonus     | Conditions                                                     |
+| --------------------------- | --------- | -------------------------------------------------------------- |
+| Consistent gold             | **+0.14** | consistency >= 0.58, not volatile                              |
+| Reliable late acceleration  | **+0.28** | acceleration effect + late timing window + consistency >= 0.58 |
+| Reliable late speed trigger | **+0.20** | speed effect + late timing window                              |
 
 These bonuses nudge the optimizer toward loadouts with strong endgame skills, which are critical in Team Trials where late-race performance often decides the outcome.
 
@@ -203,10 +203,10 @@ At each step, the solver only moves to the next criterion if the previous one is
 
 The solver also tracks **core masks** to ensure late-game skill coverage:
 
-| Mask | Value | Meaning |
-|------|-------|---------|
-| `CORE_MASK_ACCEL` | 1 | Reliable late acceleration skill is present |
-| `CORE_MASK_SPEED` | 2 | Reliable late speed skill is present |
+| Mask              | Value | Meaning                                     |
+| ----------------- | ----- | ------------------------------------------- |
+| `CORE_MASK_ACCEL` | 1     | Reliable late acceleration skill is present |
+| `CORE_MASK_SPEED` | 2     | Reliable late speed skill is present        |
 
 When comparing two otherwise-equal solutions, the solver prefers the one with better core mask coverage. This prevents loadouts that are consistent overall but lack critical endgame tools.
 
@@ -216,16 +216,16 @@ When comparing two otherwise-equal solutions, the solver prefers the one with be
 
 Each selected skill in the output includes detailed metadata explaining why it was chosen:
 
-| Field | Meaning |
-|-------|---------|
-| `consistencyScore` | Final reliability score (0-1, displayed as percentage) |
-| `ratingScore` | Base rating contribution |
-| `scorePerSP` | Rating per skill point (cost efficiency) |
-| `tierBonus` | Bonus from tier list tags |
-| `expectedValue` | Consistency-aware composite value metric |
-| `reasons` | Up to 4 human-readable explanation strings |
-| `isRisky` | `true` if consistency < 0.42 |
-| `consistentGoldPriority` | `true` if gold + consistent + not volatile |
+| Field                    | Meaning                                                |
+| ------------------------ | ------------------------------------------------------ |
+| `consistencyScore`       | Final reliability score (0-1, displayed as percentage) |
+| `ratingScore`            | Base rating contribution                               |
+| `scorePerSP`             | Rating per skill point (cost efficiency)               |
+| `tierBonus`              | Bonus from tier list tags                              |
+| `expectedValue`          | Consistency-aware composite value metric               |
+| `reasons`                | Up to 4 human-readable explanation strings             |
+| `isRisky`                | `true` if consistency < 0.42                           |
+| `consistentGoldPriority` | `true` if gold + consistent + not volatile             |
 
 The `reasons` array provides plain-language explanations like "High consistency (82%)" or "Late acceleration bonus applied", making it easy for users to understand the selection logic without reading code.
 
@@ -237,34 +237,34 @@ All weights are configurable via `DEFAULT_WEIGHTS` in `js/team-trials-optimizer.
 
 ### Weight Reference
 
-| Weight | Default | Description |
-|--------|---------|-------------|
-| `consistency` | 0.68 | Weight of consistency in expected value calculation |
-| `tier` | 0.32 | Weight of tier bonus in expected value calculation |
-| `efficiency` | 0.58 | Weight of cost efficiency in expected value |
-| `rating` | 0.42 | Weight of raw rating in expected value |
-| `coreAccelBonus` | 0.28 | Expected value bonus for late acceleration skills |
-| `coreSpeedBonus` | 0.20 | Expected value bonus for late speed skills |
-| `consistentGoldMinConsistency` | 0.58 | Minimum consistency for gold priority treatment |
-| `consistentGoldConsistencyBonus` | 0.06 | Consistency bonus for qualifying gold skills |
-| `consistentGoldExpectedBonus` | 0.14 | Expected value bonus for qualifying gold skills |
-| `greenSkillConsistencyPenalty` | 0.18 | Consistency reduction for green-category skills |
-| `greenSkillExpectedPenalty` | 0.12 | Expected value reduction for green-category skills |
-| `volatileRaceConditionConsistencyPenalty` | 0.22 | Consistency reduction for volatile race conditions |
-| `volatileRaceConditionExpectedPenalty` | 0.20 | Expected value reduction for volatile race conditions |
-| `tierCorePenaltyReduction` | 0.50 | Penalty reduction multiplier for team_trials-tagged skills |
+| Weight                                    | Default | Description                                                |
+| ----------------------------------------- | ------- | ---------------------------------------------------------- |
+| `consistency`                             | 0.68    | Weight of consistency in expected value calculation        |
+| `tier`                                    | 0.32    | Weight of tier bonus in expected value calculation         |
+| `efficiency`                              | 0.58    | Weight of cost efficiency in expected value                |
+| `rating`                                  | 0.42    | Weight of raw rating in expected value                     |
+| `coreAccelBonus`                          | 0.28    | Expected value bonus for late acceleration skills          |
+| `coreSpeedBonus`                          | 0.20    | Expected value bonus for late speed skills                 |
+| `consistentGoldMinConsistency`            | 0.58    | Minimum consistency for gold priority treatment            |
+| `consistentGoldConsistencyBonus`          | 0.06    | Consistency bonus for qualifying gold skills               |
+| `consistentGoldExpectedBonus`             | 0.14    | Expected value bonus for qualifying gold skills            |
+| `greenSkillConsistencyPenalty`            | 0.18    | Consistency reduction for green-category skills            |
+| `greenSkillExpectedPenalty`               | 0.12    | Expected value reduction for green-category skills         |
+| `volatileRaceConditionConsistencyPenalty` | 0.22    | Consistency reduction for volatile race conditions         |
+| `volatileRaceConditionExpectedPenalty`    | 0.20    | Expected value reduction for volatile race conditions      |
+| `tierCorePenaltyReduction`                | 0.50    | Penalty reduction multiplier for team_trials-tagged skills |
 
 ### Tuning Directions
 
-| Goal | What to adjust |
-|------|----------------|
-| **Stricter reliability** | Raise `consistency`, lower `rating` |
-| **More late-game focus** | Raise `coreAccelBonus` and `coreSpeedBonus` |
-| **Stronger gold preference** | Raise `consistentGoldMinConsistency`, `consistentGoldConsistencyBonus`, and `consistentGoldExpectedBonus` |
-| **Avoid green skills more aggressively** | Raise both `greenSkillConsistencyPenalty` and `greenSkillExpectedPenalty` |
-| **Avoid volatile conditions** | Raise both `volatileRaceConditionConsistencyPenalty` and `volatileRaceConditionExpectedPenalty` |
-| **Looser reliability (allow riskier picks)** | Lower `consistency`, raise `rating` |
-| **Trust tier tags more** | Raise `tier`, lower `consistency` |
+| Goal                                         | What to adjust                                                                                            |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Stricter reliability**                     | Raise `consistency`, lower `rating`                                                                       |
+| **More late-game focus**                     | Raise `coreAccelBonus` and `coreSpeedBonus`                                                               |
+| **Stronger gold preference**                 | Raise `consistentGoldMinConsistency`, `consistentGoldConsistencyBonus`, and `consistentGoldExpectedBonus` |
+| **Avoid green skills more aggressively**     | Raise both `greenSkillConsistencyPenalty` and `greenSkillExpectedPenalty`                                 |
+| **Avoid volatile conditions**                | Raise both `volatileRaceConditionConsistencyPenalty` and `volatileRaceConditionExpectedPenalty`           |
+| **Looser reliability (allow riskier picks)** | Lower `consistency`, raise `rating`                                                                       |
+| **Trust tier tags more**                     | Raise `tier`, lower `consistency`                                                                         |
 
 Note that `consistency` + `tier` should sum to 1.0, and `efficiency` + `rating` should sum to 1.0, since they represent complementary shares of the same calculation.
 
@@ -272,26 +272,26 @@ Note that `consistency` + `tier` should sum to 1.0, and `efficiency` + `rating` 
 
 ## 10. Rating Mode vs Team Trials -- Comparison Table
 
-| Aspect | Rating Mode | Team Trials |
-|--------|-------------|-------------|
-| **Primary goal** | Maximize rating score | Maximize consistency |
-| **DP priority** | Single criterion: score | Multi-criterion: consistency > gold count > expected value > rating |
-| **Green skills** | Normal weight | -18% consistency, -12% expected value |
-| **Volatile conditions** | Normal weight | -22% consistency, -20% expected value |
-| **Skill filtering** | All available skills | Strict: must match distance/track/strategy |
-| **Tier tags** | Not used | Used: team_trials / core / consistent / inconsistent |
-| **Late-game tracking** | Not tracked | Core masks for acceleration + speed coverage |
-| **Explanations** | Rating breakdown | Consistency breakdown + strengths/risks |
-| **Comparison function** | Higher score wins | 4-level priority chain |
-| **Result metadata** | Rating, SP cost | Rating, SP cost, consistency %, expected value, risk flags, reasons |
+| Aspect                  | Rating Mode             | Team Trials                                                         |
+| ----------------------- | ----------------------- | ------------------------------------------------------------------- |
+| **Primary goal**        | Maximize rating score   | Maximize consistency                                                |
+| **DP priority**         | Single criterion: score | Multi-criterion: consistency > gold count > expected value > rating |
+| **Green skills**        | Normal weight           | -18% consistency, -12% expected value                               |
+| **Volatile conditions** | Normal weight           | -22% consistency, -20% expected value                               |
+| **Skill filtering**     | All available skills    | Strict: must match distance/track/strategy                          |
+| **Tier tags**           | Not used                | Used: team_trials / core / consistent / inconsistent                |
+| **Late-game tracking**  | Not tracked             | Core masks for acceleration + speed coverage                        |
+| **Explanations**        | Rating breakdown        | Consistency breakdown + strengths/risks                             |
+| **Comparison function** | Higher score wins       | 4-level priority chain                                              |
+| **Result metadata**     | Rating, SP cost         | Rating, SP cost, consistency %, expected value, risk flags, reasons |
 
 ---
 
 ## 11. Source Files
 
-| File | Responsibility |
-|------|----------------|
+| File                          | Responsibility                                                                        |
+| ----------------------------- | ------------------------------------------------------------------------------------- |
 | `js/team-trials-optimizer.js` | Full Team Trials algorithm: consistency scoring, expected value, filtering, DP solver |
-| `js/optimizer.js` | Integration with the UI, dependency group construction, mode switching |
-| `assets/skill_tiers.csv` | Tier notes and tags (team_trials, core, consistent, inconsistent, markers) |
-| `assets/skills_all.json` | Skill metadata including trigger conditions, effects, and timing data |
+| `js/optimizer.js`             | Integration with the UI, dependency group construction, mode switching                |
+| `assets/skill_tiers.csv`      | Tier notes and tags (team_trials, core, consistent, inconsistent, markers)            |
+| `assets/skills_all.json`      | Skill metadata including trigger conditions, effects, and timing data                 |

@@ -11,7 +11,8 @@
   const fastLearnerToggle = document.getElementById('fast-learner');
   const optimizeModeSelect = document.getElementById('optimize-mode');
   const libStatus = document.getElementById('lib-status');
-  if (libStatus) libStatus.innerHTML = '<span class="loading-indicator">Loading skill library...</span>';
+  if (libStatus)
+    libStatus.innerHTML = '<span class="loading-indicator">Loading skill library...</span>';
 
   const resultsEl = document.getElementById('results');
   const bestScoreEl = document.getElementById('best-score');
@@ -55,7 +56,7 @@
     guts: document.getElementById('stat-guts'),
     wisdom: document.getElementById('stat-wisdom'),
     star: document.getElementById('star-level'),
-    unique: document.getElementById('unique-level')
+    unique: document.getElementById('unique-level'),
   };
   const ratingDisplays = {
     stats: document.getElementById('rating-stats-score'),
@@ -72,7 +73,7 @@
     floatNextLabel: document.getElementById('rating-float-next-label'),
     floatNextNeeded: document.getElementById('rating-float-next-needed'),
     floatProgressFill: document.getElementById('rating-float-progress-fill'),
-    floatProgressBar: document.getElementById('rating-float-progress-bar')
+    floatProgressBar: document.getElementById('rating-float-progress-bar'),
   };
 
   // Race config selects (mirroring main page)
@@ -89,17 +90,18 @@
     end: document.getElementById('cfg-end'),
   };
 
-  const { normalize, updateAffinityStyles, getBucketForSkill, evaluateSkillScore } = RatingShared.createAffinityHelpers(cfg);
+  const { normalize, updateAffinityStyles, getBucketForSkill, evaluateSkillScore } =
+    RatingShared.createAffinityHelpers(cfg);
   const ratingEngine = RatingShared.createRatingEngine({
     ratingInputs,
     ratingDisplays,
-    onChange: () => saveState()
+    onChange: () => saveState(),
   });
 
-  let skillsByCategory = {};    // category -> [{ name, score, checkType }]
+  let skillsByCategory = {}; // category -> [{ name, score, checkType }]
   let categories = [];
-  const preferredOrder = ['golden','yellow','blue','green','red','purple','ius'];
-  let skillIndex = new Map();   // normalized name -> { name, score, checkType, category }
+  const preferredOrder = ['golden', 'yellow', 'blue', 'green', 'red', 'purple', 'ius'];
+  let skillIndex = new Map(); // normalized name -> { name, score, checkType, category }
   let skillIdIndex = new Map(); // id string -> skill object
   let allSkillNames = [];
 
@@ -108,12 +110,12 @@
 
   // Performance optimization: shared datalist for all skill inputs
   let sharedSkillDatalist = null;
-  const HINT_DISCOUNT_STEP = 0.10;
-  const HINT_DISCOUNTS = { 0: 0.0, 1: 0.10, 2: 0.20, 3: 0.30, 4: 0.35, 5: 0.40 };
+  const HINT_DISCOUNT_STEP = 0.1;
+  const HINT_DISCOUNTS = { 0: 0.0, 1: 0.1, 2: 0.2, 3: 0.3, 4: 0.35, 5: 0.4 };
   const HINT_LEVELS = [0, 1, 2, 3, 4, 5];
 
   function getFastLearnerDiscount() {
-    return fastLearnerToggle && fastLearnerToggle.checked ? 0.10 : 0;
+    return fastLearnerToggle && fastLearnerToggle.checked ? 0.1 : 0;
   }
 
   function getOptimizeMode() {
@@ -147,14 +149,14 @@
   function getHintDiscountPct(lvl) {
     const discount = Object.prototype.hasOwnProperty.call(HINT_DISCOUNTS, lvl)
       ? HINT_DISCOUNTS[lvl]
-      : (HINT_DISCOUNT_STEP * lvl);
+      : HINT_DISCOUNT_STEP * lvl;
     return Math.round(discount * 100);
   }
 
   function getTotalHintDiscountPct(lvl) {
     const base = Object.prototype.hasOwnProperty.call(HINT_DISCOUNTS, lvl)
       ? HINT_DISCOUNTS[lvl]
-      : (HINT_DISCOUNT_STEP * lvl);
+      : HINT_DISCOUNT_STEP * lvl;
     return Math.round((base + getFastLearnerDiscount()) * 100);
   }
   const skillCostMapNormalized = new Map(); // punctuation-stripped key -> meta
@@ -168,7 +170,10 @@
   const teamTrialsTierByName = new Map();
 
   function normalizeCostKey(str) {
-    return normalize(str).replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+    return normalize(str)
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   async function tryWriteClipboard(text) {
@@ -198,7 +203,7 @@
     const lvl = Math.max(0, Math.min(5, parseInt(hintLevel, 10) || 0));
     const discount = Object.prototype.hasOwnProperty.call(HINT_DISCOUNTS, lvl)
       ? HINT_DISCOUNTS[lvl]
-      : (HINT_DISCOUNT_STEP * lvl);
+      : HINT_DISCOUNT_STEP * lvl;
     const multiplier = Math.max(0, 1 - discount - getFastLearnerDiscount());
     const rawCost = baseCost * multiplier;
     const epsilon = 1e-9;
@@ -207,8 +212,8 @@
 
   function updateHintOptionLabels() {
     const selects = rowsEl ? rowsEl.querySelectorAll('.hint-level') : [];
-    selects.forEach(select => {
-      Array.from(select.options).forEach(opt => {
+    selects.forEach((select) => {
+      Array.from(select.options).forEach((opt) => {
         const lvl = parseInt(opt.value, 10);
         if (isNaN(lvl)) return;
         opt.textContent = `Lv${lvl} (${getTotalHintDiscountPct(lvl)}% off)`;
@@ -218,7 +223,7 @@
 
   function refreshAllRowCosts() {
     const dataRows = rowsEl ? rowsEl.querySelectorAll('.optimizer-row') : [];
-    dataRows.forEach(row => {
+    dataRows.forEach((row) => {
       if (typeof row.syncSkillCategory === 'function') {
         row.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
       }
@@ -234,19 +239,22 @@
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const list = await res.json();
         if (!Array.isArray(list) || !list.length) continue;
-        list.forEach(entry => {
+        list.forEach((entry) => {
           const name = entry?.name_en || entry?.enname;
           if (!name) return;
           const exactKey = normalize(name);
           const key = normalizeCostKey(name);
           const cost = (() => {
-            if (entry?.gene_version && typeof entry.gene_version.cost === 'number') return entry.gene_version.cost;
+            if (entry?.gene_version && typeof entry.gene_version.cost === 'number')
+              return entry.gene_version.cost;
             if (typeof entry?.cost === 'number') return entry.cost;
             return null;
           })();
           const parents = Array.isArray(entry?.gene_version?.parent_skills)
             ? entry.gene_version.parent_skills
-            : (Array.isArray(entry?.parent_skills) ? entry.parent_skills : []);
+            : Array.isArray(entry?.parent_skills)
+              ? entry.parent_skills
+              : [];
           const versions = Array.isArray(entry?.versions) ? entry.versions : [];
           const id = entry?.id;
           if (cost !== null) {
@@ -271,7 +279,9 @@
             teamIndex.byName.forEach((v, k) => teamTrialsSkillMetaByName.set(String(k), v));
           }
         }
-        console.log(`Loaded skill costs from ${url}: ${skillCostMapExact.size} exact, ${skillCostMapNormalized.size} normalized`);
+        console.log(
+          `Loaded skill costs from ${url}: ${skillCostMapExact.size} exact, ${skillCostMapNormalized.size} normalized`
+        );
         return true;
       } catch (err) {
         console.warn('Failed loading skill costs', url, err);
@@ -290,7 +300,7 @@
         const text = await res.text();
         const rows = window.TeamTrialsOptimizer.parseTierlistCSV(text, {
           byId: teamTrialsSkillMetaById,
-          byName: teamTrialsSkillMetaByName
+          byName: teamTrialsSkillMetaByName,
         });
         const lookup = window.TeamTrialsOptimizer.buildTierLookup(rows);
         teamTrialsTierById.clear();
@@ -309,7 +319,6 @@
     return false;
   }
 
-
   function setAutoStatus(message, isError = false) {
     if (!autoBuilderStatus) return;
     autoBuilderStatus.textContent = message || '';
@@ -319,15 +328,15 @@
   function getSelectedAutoTargets() {
     if (!autoTargetInputs || !autoTargetInputs.length) return [];
     return Array.from(autoTargetInputs)
-      .filter(input => input.checked)
-      .map(input => normalize(input.value))
+      .filter((input) => input.checked)
+      .map((input) => normalize(input.value))
       .filter(Boolean);
   }
 
   function setAutoTargetSelections(list) {
     if (!autoTargetInputs || !autoTargetInputs.length) return;
-    const normalized = Array.isArray(list) ? new Set(list.map(v => normalize(v))) : null;
-    autoTargetInputs.forEach(input => {
+    const normalized = Array.isArray(list) ? new Set(list.map((v) => normalize(v))) : null;
+    autoTargetInputs.forEach((input) => {
       if (!normalized || !normalized.size) {
         input.checked = true;
       } else {
@@ -348,8 +357,8 @@
   function replaceRowsWithItems(items) {
     if (!rowsEl) return;
     clearAutoHighlights();
-    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach(n => n.remove());
-    items.forEach(it => {
+    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((n) => n.remove());
+    items.forEach((it) => {
       const row = makeRow();
       rowsEl.appendChild(row);
       const nameInput = row.querySelector('.skill-name');
@@ -374,7 +383,7 @@
       autoHighlightTimer = null;
     }
     if (!rowsEl) return;
-    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach(row => {
+    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((row) => {
       row.classList.remove('auto-picked');
       row.classList.remove('auto-excluded');
     });
@@ -384,7 +393,7 @@
     clearTimeout(autoHighlightTimer);
     const selected = new Set(selectedIds);
     const candidates = new Set(candidateIds);
-    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach(row => {
+    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((row) => {
       const id = row.dataset.rowId;
       if (!id) return;
       row.classList.remove('auto-picked', 'auto-excluded');
@@ -397,7 +406,7 @@
 
   function serializeRows() {
     const rows = [];
-    rowsEl.querySelectorAll('.optimizer-row').forEach(row => {
+    rowsEl.querySelectorAll('.optimizer-row').forEach((row) => {
       const name = row.querySelector('.skill-name')?.value?.trim();
       const costVal = row.querySelector('.cost')?.value;
       const cost = typeof costVal === 'string' && costVal.length ? parseInt(costVal, 10) : NaN;
@@ -414,11 +423,14 @@
 
   function loadRowsFromString(str) {
     const normalized = (str || '').replace(/\r\n?/g, '\n');
-    const entries = normalized.split(/\n+/).map(line => line.trim()).filter(Boolean);
+    const entries = normalized
+      .split(/\n+/)
+      .map((line) => line.trim())
+      .filter(Boolean);
     if (!entries.length) throw new Error('No rows detected.');
-    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach(n => n.remove());
+    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((n) => n.remove());
     clearAutoHighlights();
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       const [nameRaw, costRaw] = entry.split('=');
       const name = (nameRaw || '').trim();
       let costText = (costRaw || '').trim();
@@ -426,7 +438,7 @@
       let required = false;
       if (/\|R\b/i.test(costText)) {
         required = true;
-        costText = costText.replace(/\|R\b/ig, '').trim();
+        costText = costText.replace(/\|R\b/gi, '').trim();
       }
       const hintMatch = costText.match(/\|H?\s*([0-5])\s*$/i);
       if (hintMatch) {
@@ -457,14 +469,14 @@
     // After all rows are created, link gold skills to existing or auto-created lower rows.
     const allRows = Array.from(rowsEl.querySelectorAll('.optimizer-row'));
     const rowsBySkillId = new Map();
-    allRows.forEach(row => {
+    allRows.forEach((row) => {
       const name = (row.querySelector('.skill-name')?.value || '').trim();
       const skill = findSkillByName(name);
       if (skill?.skillId !== undefined && skill?.skillId !== null) {
         rowsBySkillId.set(String(skill.skillId), row);
       }
     });
-    allRows.forEach(row => {
+    allRows.forEach((row) => {
       if (row.dataset.parentGoldId) return;
       const name = (row.querySelector('.skill-name')?.value || '').trim();
       const skill = findSkillByName(name);
@@ -477,7 +489,7 @@
         candidateIds.push(...skill.parentIds);
       }
       let linkedRow = null;
-      candidateIds.some(cid => {
+      candidateIds.some((cid) => {
         const found = rowsBySkillId.get(String(cid));
         if (found && found !== row) {
           linkedRow = found;
@@ -500,7 +512,11 @@
           linkedRemove.style.opacity = '0.4';
         }
         if (typeof linkedRow.syncSkillCategory === 'function') {
-          linkedRow.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
+          linkedRow.syncSkillCategory({
+            triggerOptimize: false,
+            allowLinking: false,
+            updateCost: true,
+          });
         }
         if (typeof row.syncSkillCategory === 'function') {
           row.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
@@ -549,7 +565,7 @@
 
   // Minimal LZ-String (compressToEncodedURIComponent + decompressFromEncodedURIComponent)
   // Keeps share URLs much shorter without a backend.
-  const LZString = (function() {
+  const LZString = (function () {
     const f = String.fromCharCode;
     const keyStrUriSafe = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$';
     const getBaseValue = (alphabet, character) => alphabet.indexOf(character);
@@ -560,7 +576,9 @@
     function decompressFromEncodedURIComponent(input) {
       if (input == null) return '';
       if (input === '') return null;
-      return _decompress(input.length, 32, (index) => getBaseValue(keyStrUriSafe, input.charAt(index)));
+      return _decompress(input.length, 32, (index) =>
+        getBaseValue(keyStrUriSafe, input.charAt(index))
+      );
     }
     function _compress(uncompressed, bitsPerChar, getCharFromInt) {
       if (uncompressed == null) return '';
@@ -589,7 +607,7 @@
           if (Object.prototype.hasOwnProperty.call(context_dictionaryToCreate, context_w)) {
             if (context_w.charCodeAt(0) < 256) {
               for (i = 0; i < context_numBits; i++) {
-                context_data_val = (context_data_val << 1);
+                context_data_val = context_data_val << 1;
                 if (context_data_position === bitsPerChar - 1) {
                   context_data_position = 0;
                   context_data.push(getCharFromInt(context_data_val));
@@ -669,7 +687,7 @@
         if (Object.prototype.hasOwnProperty.call(context_dictionaryToCreate, context_w)) {
           if (context_w.charCodeAt(0) < 256) {
             for (i = 0; i < context_numBits; i++) {
-              context_data_val = (context_data_val << 1);
+              context_data_val = context_data_val << 1;
               if (context_data_position === bitsPerChar - 1) {
                 context_data_position = 0;
                 context_data.push(getCharFromInt(context_data_val));
@@ -755,7 +773,7 @@
         value = value >> 1;
       }
       while (true) {
-        context_data_val = (context_data_val << 1);
+        context_data_val = context_data_val << 1;
         if (context_data_position === bitsPerChar - 1) {
           context_data.push(getCharFromInt(context_data_val));
           break;
@@ -789,9 +807,11 @@
         bits |= (resb > 0 ? 1 : 0) * power;
         power <<= 1;
       }
-      switch (next = bits) {
+      switch ((next = bits)) {
         case 0:
-          bits = 0; maxpower = Math.pow(2, 8); power = 1;
+          bits = 0;
+          maxpower = Math.pow(2, 8);
+          power = 1;
           while (power !== maxpower) {
             resb = data.val & data.position;
             data.position >>= 1;
@@ -805,7 +825,9 @@
           w = f(bits);
           break;
         case 1:
-          bits = 0; maxpower = Math.pow(2, 16); power = 1;
+          bits = 0;
+          maxpower = Math.pow(2, 16);
+          power = 1;
           while (power !== maxpower) {
             resb = data.val & data.position;
             data.position >>= 1;
@@ -827,7 +849,9 @@
       result.push(w);
       while (true) {
         if (data.index > length) return '';
-        bits = 0; maxpower = Math.pow(2, numBits); power = 1;
+        bits = 0;
+        maxpower = Math.pow(2, numBits);
+        power = 1;
         while (power !== maxpower) {
           resb = data.val & data.position;
           data.position >>= 1;
@@ -838,9 +862,11 @@
           bits |= (resb > 0 ? 1 : 0) * power;
           power <<= 1;
         }
-        switch (next = bits) {
+        switch ((next = bits)) {
           case 0:
-            bits = 0; maxpower = Math.pow(2, 8); power = 1;
+            bits = 0;
+            maxpower = Math.pow(2, 8);
+            power = 1;
             while (power !== maxpower) {
               resb = data.val & data.position;
               data.position >>= 1;
@@ -856,7 +882,9 @@
             enlargeIn--;
             break;
           case 1:
-            bits = 0; maxpower = Math.pow(2, 16); power = 1;
+            bits = 0;
+            maxpower = Math.pow(2, 16);
+            power = 1;
             while (power !== maxpower) {
               resb = data.val & data.position;
               data.position >>= 1;
@@ -926,7 +954,18 @@
       const cfgParam = p.get('c') || p.get('cfg');
       if (cfgParam) {
         const cfgParts = cfgParam.split(',');
-        const cfgKeys = ['turf', 'dirt', 'sprint', 'mile', 'medium', 'long', 'front', 'pace', 'late', 'end'];
+        const cfgKeys = [
+          'turf',
+          'dirt',
+          'sprint',
+          'mile',
+          'medium',
+          'long',
+          'front',
+          'pace',
+          'late',
+          'end',
+        ];
         cfgParts.forEach((val, i) => {
           if (i < cfgKeys.length && cfg[cfgKeys[i]]) {
             cfg[cfgKeys[i]].value = val || 'A';
@@ -948,7 +987,10 @@
       // Restore auto targets
       const targetsParam = p.get('t') || p.get('targets');
       if (targetsParam) {
-        const targets = targetsParam.split(',').map(t => t.trim()).filter(Boolean);
+        const targets = targetsParam
+          .split(',')
+          .map((t) => t.trim())
+          .filter(Boolean);
         if (targets.length) {
           setAutoTargetSelections(targets);
         }
@@ -999,8 +1041,19 @@
     }
 
     // Add race config (compact comma-separated)
-    const cfgKeys = ['turf', 'dirt', 'sprint', 'mile', 'medium', 'long', 'front', 'pace', 'late', 'end'];
-    const cfgValues = cfgKeys.map(k => cfg[k] ? cfg[k].value : 'A');
+    const cfgKeys = [
+      'turf',
+      'dirt',
+      'sprint',
+      'mile',
+      'medium',
+      'long',
+      'front',
+      'pace',
+      'late',
+      'end',
+    ];
+    const cfgValues = cfgKeys.map((k) => (cfg[k] ? cfg[k].value : 'A'));
     const cfgString = cfgValues.join(',');
     if (cfgString && cfgString !== 'A,A,A,A,A,A,A,A,A,A') {
       p.set('c', cfgString);
@@ -1008,18 +1061,24 @@
 
     // Add rating stats
     const ratingData = ratingEngine.readRatingState();
-    if (ratingData && (
-      ratingData.stats?.speed || ratingData.stats?.stamina || ratingData.stats?.power ||
-      ratingData.stats?.guts || ratingData.stats?.wisdom || ratingData.star || ratingData.unique
-    )) {
+    if (
+      ratingData &&
+      (ratingData.stats?.speed ||
+        ratingData.stats?.stamina ||
+        ratingData.stats?.power ||
+        ratingData.stats?.guts ||
+        ratingData.stats?.wisdom ||
+        ratingData.star ||
+        ratingData.unique)
+    ) {
       p.set('r', encodeURIComponent(JSON.stringify(ratingData)));
     }
 
     // Add auto targets
     if (autoTargetInputs && autoTargetInputs.length) {
       const targets = Array.from(autoTargetInputs)
-        .filter(input => input.checked)
-        .map(input => input.value);
+        .filter((input) => input.checked)
+        .map((input) => input.value);
       if (targets.length) {
         p.set('t', targets.join(','));
       }
@@ -1046,7 +1105,10 @@
     }
     const { items, rowsMeta } = collectItems();
     if (!items.length) {
-      setAutoStatus('Add at least one recognized skill with a cost before generating a build.', true);
+      setAutoStatus(
+        'Add at least one recognized skill with a cost before generating a build.',
+        true
+      );
       return;
     }
     const requiredSummary = expandRequired(items);
@@ -1056,12 +1118,15 @@
       return;
     }
     const includeGeneral = targets.includes('general');
-    const targetSet = new Set(targets.filter(t => t !== 'general'));
-    let optionalCandidates = items.filter(it => !requiredSummary.requiredIds.has(it.id) && matchesAutoTargets(it, targetSet, includeGeneral));
+    const targetSet = new Set(targets.filter((t) => t !== 'general'));
+    let optionalCandidates = items.filter(
+      (it) =>
+        !requiredSummary.requiredIds.has(it.id) && matchesAutoTargets(it, targetSet, includeGeneral)
+    );
     // Include linked counterparts (gold lower, circle upgrade) so buildGroups can
     // form proper combo groups — otherwise the optimizer treats them standalone.
-    const candidateIds = new Set(optionalCandidates.map(it => it.id));
-    const itemById = new Map(items.map(it => [it.id, it]));
+    const candidateIds = new Set(optionalCandidates.map((it) => it.id));
+    const itemById = new Map(items.map((it) => [it.id, it]));
     for (const it of optionalCandidates) {
       // Pull in gold linked lower
       if (it.lowerRowId && !candidateIds.has(it.lowerRowId) && itemById.has(it.lowerRowId)) {
@@ -1080,7 +1145,7 @@
       if (it.lowerRowId && candidateIds.has(it.lowerRowId)) candidateIds.add(it.id);
       if (it.circleRowId && candidateIds.has(it.circleRowId)) candidateIds.add(it.id);
     }
-    optionalCandidates = items.filter(it => candidateIds.has(it.id));
+    optionalCandidates = items.filter((it) => candidateIds.has(it.id));
     const candidates = optionalCandidates.concat(requiredSummary.requiredItems);
     if (!candidates.length) {
       setAutoStatus('No existing rows match the selected targets with S-A affinity.', true);
@@ -1098,13 +1163,22 @@
         renderResults(teamResult, budget);
         return;
       }
-      applyAutoHighlights(teamResult.chosen.map(it => it.id), candidates.map(it => it.id));
+      applyAutoHighlights(
+        teamResult.chosen.map((it) => it.id),
+        candidates.map((it) => it.id)
+      );
       renderResults(teamResult, budget);
-      setAutoStatus(`Highlighted ${teamResult.chosen.length}/${candidates.length} matching skills (cost ${teamResult.used}/${budget}).`);
+      setAutoStatus(
+        `Highlighted ${teamResult.chosen.length}/${candidates.length} matching skills (cost ${teamResult.used}/${budget}).`
+      );
       return;
     }
     const groups = buildGroups(optionalCandidates, rowsMeta);
-    const result = optimizeGrouped(groups, optionalCandidates, budget - requiredSummary.requiredCost);
+    const result = optimizeGrouped(
+      groups,
+      optionalCandidates,
+      budget - requiredSummary.requiredCost
+    );
     if (result.error === 'required_unreachable') {
       setAutoStatus('Required skills exceed the current budget.', true);
       renderResults(result, budget);
@@ -1118,18 +1192,24 @@
       ...result,
       chosen: requiredSummary.requiredItems.concat(result.chosen),
       used: result.used + requiredSummary.requiredCost,
-      best: result.best + requiredSummary.requiredScore
+      best: result.best + requiredSummary.requiredScore,
     };
-    applyAutoHighlights(mergedResult.chosen.map(it => it.id), candidates.map(it => it.id));
+    applyAutoHighlights(
+      mergedResult.chosen.map((it) => it.id),
+      candidates.map((it) => it.id)
+    );
     renderResults(mergedResult, budget);
-    setAutoStatus(`Highlighted ${mergedResult.chosen.length}/${candidates.length} matching skills (cost ${mergedResult.used}/${budget}).`);
+    setAutoStatus(
+      `Highlighted ${mergedResult.chosen.length}/${candidates.length} matching skills (cost ${mergedResult.used}/${budget}).`
+    );
   }
 
   function clearResults() {
     if (resultsEl) resultsEl.hidden = true;
     if (bestScoreEl) bestScoreEl.textContent = '0';
     if (usedPointsEl) usedPointsEl.textContent = '0';
-    if (totalPointsEl) totalPointsEl.textContent = String(parseInt(budgetInput.value || '0', 10) || 0);
+    if (totalPointsEl)
+      totalPointsEl.textContent = String(parseInt(budgetInput.value || '0', 10) || 0);
     if (remainingPointsEl) remainingPointsEl.textContent = totalPointsEl.textContent;
     if (selectedListEl) selectedListEl.innerHTML = '';
     if (aptitudeScorePill) aptitudeScorePill.style.display = 'none';
@@ -1141,7 +1221,13 @@
   }
 
   // ---------- Live optimize helpers ----------
-  function debounce(fn, ms) { let t; return function(...args){ clearTimeout(t); t = setTimeout(() => fn.apply(this, args), ms); }; }
+  function debounce(fn, ms) {
+    let t;
+    return function (...args) {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, args), ms);
+    };
+  }
 
   function tryAutoOptimize() {
     const budget = parseInt(budgetInput.value, 10);
@@ -1158,14 +1244,14 @@
       renderResults({ best: 0, chosen: [], used: 0, error: 'required_unreachable' }, budget);
       return;
     }
-    const optionalItems = items.filter(it => !requiredSummary.requiredIds.has(it.id));
+    const optionalItems = items.filter((it) => !requiredSummary.requiredIds.has(it.id));
     const groups = buildGroups(optionalItems, rowsMeta);
     const result = optimizeGrouped(groups, optionalItems, budget - requiredSummary.requiredCost);
     const mergedResult = {
       ...result,
       chosen: requiredSummary.requiredItems.concat(result.chosen),
       used: result.used + requiredSummary.requiredCost,
-      best: result.best + requiredSummary.requiredScore
+      best: result.best + requiredSummary.requiredScore,
     };
     renderResults(mergedResult, budget);
   }
@@ -1176,7 +1262,7 @@
     const nextIdIndex = new Map();
     const names = [];
     Object.entries(skillsByCategory).forEach(([category, list = []]) => {
-      list.forEach(skill => {
+      list.forEach((skill) => {
         if (!skill || !skill.name) return;
         const key = normalize(skill.name);
         const enriched = { ...skill, category };
@@ -1184,7 +1270,7 @@
         // ◎ skills with a paired ○: index under full name but skip from datalist
         // ○ skills with a paired ◎: also index under base name, show base name in datalist
         const isDoubleCircle = !!skill.circleUpgradeOf; // ◎ with paired ○
-        const isPairedSingle = !!skill.circleUpgrade;   // ○ with paired ◎
+        const isPairedSingle = !!skill.circleUpgrade; // ○ with paired ◎
 
         nextIndex.set(key, enriched);
         if (isPairedSingle && skill.circleBaseName) {
@@ -1230,14 +1316,41 @@
   function applyFallbackSkills(reason) {
     skillsByCategory = {
       golden: [
-        { name: 'Concentration', score: { base: 508, good: 508, average: 415, bad: 369, terrible: 323 }, baseCost: 508, checkType: 'End' },
-        { name: 'Professor of Curvature', score: { base: 508, good: 508, average: 415, bad: 369, terrible: 323 }, baseCost: 508, checkType: 'Medium' }
+        {
+          name: 'Concentration',
+          score: { base: 508, good: 508, average: 415, bad: 369, terrible: 323 },
+          baseCost: 508,
+          checkType: 'End',
+        },
+        {
+          name: 'Professor of Curvature',
+          score: { base: 508, good: 508, average: 415, bad: 369, terrible: 323 },
+          baseCost: 508,
+          checkType: 'Medium',
+        },
       ],
       yellow: [
-        { name: 'Groundwork', score: { base: 217, good: 217, average: 177, bad: 158, terrible: 138 }, baseCost: 217, checkType: 'Front' },
-        { name: 'Corner Recovery', score: { base: 217, good: 217, average: 177, bad: 158, terrible: 138 }, baseCost: 217, checkType: 'Late' }
+        {
+          name: 'Groundwork',
+          score: { base: 217, good: 217, average: 177, bad: 158, terrible: 138 },
+          baseCost: 217,
+          checkType: 'Front',
+        },
+        {
+          name: 'Corner Recovery',
+          score: { base: 217, good: 217, average: 177, bad: 158, terrible: 138 },
+          baseCost: 217,
+          checkType: 'Late',
+        },
       ],
-      blue: [ { name: 'Stealth Mode', score: { base: 195, good: 195, average: 159, bad: 142, terrible: 124 }, baseCost: 195, checkType: 'Late' } ]
+      blue: [
+        {
+          name: 'Stealth Mode',
+          score: { base: 195, good: 195, average: 159, bad: 142, terrible: 124 },
+          baseCost: 195,
+          checkType: 'Late',
+        },
+      ],
     };
     categories = Object.keys(skillsByCategory);
     rebuildSkillCaches();
@@ -1245,49 +1358,107 @@
   }
 
   async function loadSkillsLib() {
-    const candidates = [ '../../libs/skills_lib.json', '../libs/skills_lib.json', './libs/skills_lib.json', '/libs/skills_lib.json' ];
-    let lib = null; let lastErr = null;
+    const candidates = [
+      '../../libs/skills_lib.json',
+      '../libs/skills_lib.json',
+      './libs/skills_lib.json',
+      '/libs/skills_lib.json',
+    ];
+    let lib = null;
+    let lastErr = null;
     for (const url of candidates) {
-      try { const res = await fetch(url, { cache: 'force-cache' }); if (!res.ok) throw new Error(`HTTP ${res.status}`); lib = await res.json(); libStatus.textContent = `Loaded skills from ${url}`; break; } catch (e) { lastErr = e; }
+      try {
+        const res = await fetch(url, { cache: 'force-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        lib = await res.json();
+        libStatus.textContent = `Loaded skills from ${url}`;
+        break;
+      } catch (e) {
+        lastErr = e;
+      }
     }
-    if (!lib) { console.error('Failed to load skills_lib.json from all candidates', lastErr); applyFallbackSkills('not found / blocked'); return; }
-    skillsByCategory = {}; categories = [];
+    if (!lib) {
+      console.error('Failed to load skills_lib.json from all candidates', lastErr);
+      applyFallbackSkills('not found / blocked');
+      return;
+    }
+    skillsByCategory = {};
+    categories = [];
     for (const [color, list] of Object.entries(lib)) {
       if (!Array.isArray(list)) continue;
       categories.push(color);
-      skillsByCategory[color] = list.map(item => ({
+      skillsByCategory[color] = list.map((item) => ({
         name: item.name,
         score: item.score,
         baseCost: item.baseCost || item.base || item.cost,
-        checkType: item['check-type'] || ''
+        checkType: item['check-type'] || '',
       }));
     }
-    categories.sort((a, b) => { const ia = preferredOrder.indexOf(a), ib = preferredOrder.indexOf(b); if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib); return a.localeCompare(b); });
+    categories.sort((a, b) => {
+      const ia = preferredOrder.indexOf(a),
+        ib = preferredOrder.indexOf(b);
+      if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+      return a.localeCompare(b);
+    });
     rebuildSkillCaches();
     const totalSkills = Object.values(skillsByCategory).reduce((acc, arr) => acc + arr.length, 0);
-    if (categories.length === 0 || totalSkills === 0) applyFallbackSkills('empty library'); else libStatus.textContent += ` \u2022 ${totalSkills} skills in ${categories.length} categories`;
+    if (categories.length === 0 || totalSkills === 0) applyFallbackSkills('empty library');
+    else
+      libStatus.textContent += ` \u2022 ${totalSkills} skills in ${categories.length} categories`;
   }
 
   function parseCSV(text) {
-    const rows = []; let i = 0, field = '', row = [], inQuotes = false;
+    const rows = [];
+    let i = 0,
+      field = '',
+      row = [],
+      inQuotes = false;
     while (i < text.length) {
       const c = text[i];
-      if (inQuotes) { if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else { inQuotes = false; } } else { field += c; } }
-      else { if (c === '"') inQuotes = true; else if (c === ',') { row.push(field); field = ''; } else if (c === '\r') { } else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; } else { field += c; } }
+      if (inQuotes) {
+        if (c === '"') {
+          if (text[i + 1] === '"') {
+            field += '"';
+            i++;
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          field += c;
+        }
+      } else {
+        if (c === '"') inQuotes = true;
+        else if (c === ',') {
+          row.push(field);
+          field = '';
+        } else if (c === '\r') {
+        } else if (c === '\n') {
+          row.push(field);
+          rows.push(row);
+          row = [];
+          field = '';
+        } else {
+          field += c;
+        }
+      }
       i++;
     }
-    if (field.length || row.length) { row.push(field); rows.push(row); }
+    if (field.length || row.length) {
+      row.push(field);
+      rows.push(row);
+    }
     return rows;
   }
 
   function loadFromCSVContent(csvText) {
-    const rows = parseCSV(csvText); if (!rows.length) return false;
-    const header = rows[0].map(h => (h || '').toString().trim().toLowerCase());
+    const rows = parseCSV(csvText);
+    if (!rows.length) return false;
+    const header = rows[0].map((h) => (h || '').toString().trim().toLowerCase());
     const idx = {
       type: header.indexOf('skill_type'),
       name: header.indexOf('name'),
       base: header.indexOf('base_value'),
-      baseCost: header.indexOf('base'),        // new CSV uses `base` for raw cost
+      baseCost: header.indexOf('base'), // new CSV uses `base` for raw cost
       sa: header.indexOf('s_a'),
       bc: header.indexOf('b_c'),
       def: header.indexOf('d_e_f'),
@@ -1297,13 +1468,15 @@
       apt3: header.indexOf('apt_3'),
       apt4: header.indexOf('apt_4'),
       check: header.indexOf('affinity_role'),
-      checkAlt: header.indexOf('affinity')
+      checkAlt: header.indexOf('affinity'),
     };
     if (idx.name === -1) return false;
     const catMap = {};
     for (let r = 1; r < rows.length; r++) {
-      const cols = rows[r]; if (!cols || !cols.length) continue;
-      const name = (cols[idx.name] || '').trim(); if (!name) continue;
+      const cols = rows[r];
+      if (!cols || !cols.length) continue;
+      const name = (cols[idx.name] || '').trim();
+      if (!name) continue;
       const type = idx.type !== -1 ? (cols[idx.type] || '').trim().toLowerCase() : 'misc';
       const baseCost = idx.baseCost !== -1 ? parseInt(cols[idx.baseCost] || '', 10) : NaN;
       const base = idx.base !== -1 ? parseInt(cols[idx.base] || '', 10) : NaN;
@@ -1316,13 +1489,18 @@
       const apt2 = idx.apt2 !== -1 ? parseInt(cols[idx.apt2] || '', 10) : NaN;
       const apt3 = idx.apt3 !== -1 ? parseInt(cols[idx.apt3] || '', 10) : NaN;
       const apt4 = idx.apt4 !== -1 ? parseInt(cols[idx.apt4] || '', 10) : NaN;
-      const checkTypeRaw = idx.check !== -1 ? (cols[idx.check] || '').trim() : (idx.checkAlt !== -1 ? (cols[idx.checkAlt] || '').trim() : '');
+      const checkTypeRaw =
+        idx.check !== -1
+          ? (cols[idx.check] || '').trim()
+          : idx.checkAlt !== -1
+            ? (cols[idx.checkAlt] || '').trim()
+            : '';
       const score = {};
-      const baseBucket = !isNaN(base) ? base : (!isNaN(baseCost) ? baseCost : NaN);
-      const goodVal = !isNaN(sa) ? sa : (!isNaN(apt1) ? apt1 : baseBucket);
-      const avgVal = !isNaN(bc) ? bc : (!isNaN(apt2) ? apt2 : goodVal);
-      const badVal = !isNaN(def) ? def : (!isNaN(apt3) ? apt3 : avgVal);
-      const terrVal = !isNaN(g) ? g : (!isNaN(apt4) ? apt4 : badVal);
+      const baseBucket = !isNaN(base) ? base : !isNaN(baseCost) ? baseCost : NaN;
+      const goodVal = !isNaN(sa) ? sa : !isNaN(apt1) ? apt1 : baseBucket;
+      const avgVal = !isNaN(bc) ? bc : !isNaN(apt2) ? apt2 : goodVal;
+      const badVal = !isNaN(def) ? def : !isNaN(apt3) ? apt3 : avgVal;
+      const terrVal = !isNaN(g) ? g : !isNaN(apt4) ? apt4 : badVal;
       if (!isNaN(baseBucket)) score.base = baseBucket;
       if (!isNaN(goodVal)) score.good = goodVal;
       if (!isNaN(avgVal)) score.average = avgVal;
@@ -1331,12 +1509,14 @@
       const exactKey = normalize(name);
       const lookupKey = normalizeCostKey(name);
       const meta = skillCostMapExact.get(exactKey) || skillCostMapNormalized.get(lookupKey) || null;
-      const resolvedCost = (meta && typeof meta.cost === 'number')
-        ? meta.cost
-        : (isNaN(baseCost) ? undefined : baseCost);
+      const resolvedCost =
+        meta && typeof meta.cost === 'number' ? meta.cost : isNaN(baseCost) ? undefined : baseCost;
       const isUnique = type === 'ius' || type.includes('ius');
       const parents = !isUnique && Array.isArray(meta?.parents) ? meta.parents : [];
-      const lowerSkillId = !isUnique && Array.isArray(meta?.versions) && meta.versions.length ? String(meta.versions[0]) : '';
+      const lowerSkillId =
+        !isUnique && Array.isArray(meta?.versions) && meta.versions.length
+          ? String(meta.versions[0])
+          : '';
       const skillId = meta?.id;
       if (!catMap[type]) catMap[type] = [];
       catMap[type].push({
@@ -1346,7 +1526,7 @@
         checkType: checkTypeRaw,
         parentIds: parents,
         skillId,
-        lowerSkillId
+        lowerSkillId,
       });
     }
     // ── Link ◎/○ circle skill pairs ──
@@ -1377,7 +1557,13 @@
       }
     }
 
-    skillsByCategory = catMap; categories = Object.keys(catMap).sort((a,b)=>{const ia=preferredOrder.indexOf(a), ib=preferredOrder.indexOf(b); if(ia!==-1||ib!==-1) return (ia===-1?999:ia) - (ib===-1?999:ib); return a.localeCompare(b)});
+    skillsByCategory = catMap;
+    categories = Object.keys(catMap).sort((a, b) => {
+      const ia = preferredOrder.indexOf(a),
+        ib = preferredOrder.indexOf(b);
+      if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+      return a.localeCompare(b);
+    });
     const totalSkills = Object.values(skillsByCategory).reduce((acc, arr) => acc + arr.length, 0);
     rebuildSkillCaches();
     return true;
@@ -1428,9 +1614,7 @@
     if (!skill || !isGoldCategory(skill.category)) return '';
     const candidateId =
       skill.lowerSkillId ||
-      (Array.isArray(skill.parentIds) && skill.parentIds.length
-        ? skill.parentIds[0]
-        : '');
+      (Array.isArray(skill.parentIds) && skill.parentIds.length ? skill.parentIds[0] : '');
     if (!candidateId) return '';
     const lower = skillIdIndex.get(String(candidateId));
     if (!lower) return '';
@@ -1449,9 +1633,7 @@
     if (!item || !isGoldCategory(item.category)) return '';
     const candidateId =
       item.lowerSkillId ||
-      (Array.isArray(item.parentIds) && item.parentIds.length
-        ? item.parentIds[0]
-        : '');
+      (Array.isArray(item.parentIds) && item.parentIds.length ? item.parentIds[0] : '');
     if (candidateId) {
       const lower = skillIdIndex.get(String(candidateId));
       if (lower) {
@@ -1467,7 +1649,15 @@
   }
 
   function applyCategoryAccent(row, category) {
-    const cls = ['cat-gold','cat-yellow','cat-blue','cat-green','cat-red','cat-ius','cat-orange'];
+    const cls = [
+      'cat-gold',
+      'cat-yellow',
+      'cat-blue',
+      'cat-green',
+      'cat-red',
+      'cat-ius',
+      'cat-orange',
+    ];
     row.classList.remove(...cls);
     const c = canonicalCategory(category);
     if (!c) return;
@@ -1493,7 +1683,7 @@
     if (!sharedSkillDatalist) return;
     sharedSkillDatalist.innerHTML = '';
     const frag = document.createDocumentFragment();
-    allSkillNames.forEach(name => {
+    allSkillNames.forEach((name) => {
       const opt = document.createElement('option');
       opt.value = name;
       frag.appendChild(opt);
@@ -1503,14 +1693,16 @@
 
   function refreshAllRows() {
     const dataRows = rowsEl.querySelectorAll('.optimizer-row');
-    dataRows.forEach(row => {
+    dataRows.forEach((row) => {
       if (typeof row.syncSkillCategory === 'function') {
         row.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: false });
       }
     });
   }
 
-  function isTopLevelRow(row) { return !row.dataset.parentGoldId && !row.dataset.parentCircleId; }
+  function isTopLevelRow(row) {
+    return !row.dataset.parentGoldId && !row.dataset.parentCircleId;
+  }
   function isRowFilled(row) {
     const name = (row.querySelector('.skill-name')?.value || '').trim();
     const costVal = row.querySelector('.cost')?.value;
@@ -1531,9 +1723,11 @@
     return rowsEl && rowsEl.contains(document.activeElement);
   }
   function ensureOneEmptyRow() {
-    const rows = Array.from(rowsEl.querySelectorAll('.optimizer-row'))
-      .filter(isTopLevelRow);
-    if (!rows.length) { rowsEl.appendChild(makeRow()); return; }
+    const rows = Array.from(rowsEl.querySelectorAll('.optimizer-row')).filter(isTopLevelRow);
+    if (!rows.length) {
+      rowsEl.appendChild(makeRow());
+      return;
+    }
     const last = rows[rows.length - 1];
     const lastFilled = isRowFilled(last);
     if (lastFilled) {
@@ -1543,15 +1737,16 @@
     } else {
       // Remove extra trailing empty top-level rows, keep exactly one empty
       for (let i = rows.length - 2; i >= 0; i--) {
-        if (!isRowFilled(rows[i])) { rows[i].remove(); }
-        else break;
+        if (!isRowFilled(rows[i])) {
+          rows[i].remove();
+        } else break;
       }
     }
   }
 
   function clearAllRows() {
     // Clean up skill key tracking and remove all rows
-    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach(n => {
+    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((n) => {
       if (typeof n.cleanupSkillTracking === 'function') {
         n.cleanupSkillTracking();
       }
@@ -1566,7 +1761,8 @@
 
   function makeRow() {
     getOrCreateSharedDatalist(); // Ensure shared datalist exists
-    const row = document.createElement('div'); row.className = 'optimizer-row';
+    const row = document.createElement('div');
+    row.className = 'optimizer-row';
     const id = Math.random().toString(36).slice(2);
     row.dataset.rowId = id;
     row.innerHTML = `
@@ -1583,7 +1779,7 @@
         <label>Hint Discount</label>
         <div class="hint-controls">
           <select class="hint-level field-control">
-            ${HINT_LEVELS.map(lvl => `<option value="${lvl}">Lv${lvl} (${getTotalHintDiscountPct(lvl)}% off)</option>`).join('')}
+            ${HINT_LEVELS.map((lvl) => `<option value="${lvl}">Lv${lvl} (${getTotalHintDiscountPct(lvl)}% off)</option>`).join('')}
           </select>
           <div class="base-cost" data-empty="true">Base ?</div>
         </div>
@@ -1614,7 +1810,9 @@
           row.cleanupSkillTracking();
         }
         if (row.dataset.lowerRowId) {
-          const linked = rowsEl.querySelector(`.optimizer-row[data-row-id="${row.dataset.lowerRowId}"]`);
+          const linked = rowsEl.querySelector(
+            `.optimizer-row[data-row-id="${row.dataset.lowerRowId}"]`
+          );
           if (linked) {
             if (typeof linked.cleanupSkillTracking === 'function') {
               linked.cleanupSkillTracking();
@@ -1624,7 +1822,9 @@
           delete row.dataset.lowerRowId;
         }
         if (row.dataset.circleRowId) {
-          const linked = rowsEl.querySelector(`.optimizer-row[data-row-id="${row.dataset.circleRowId}"]`);
+          const linked = rowsEl.querySelector(
+            `.optimizer-row[data-row-id="${row.dataset.circleRowId}"]`
+          );
           if (linked) {
             if (typeof linked.cleanupSkillTracking === 'function') {
               linked.cleanupSkillTracking();
@@ -1656,9 +1856,14 @@
 
     function updateBaseCostDisplay(skill) {
       if (!baseCostDisplay) return;
-      const baseCost = skill && typeof skill.baseCost === 'number' && !isNaN(skill.baseCost) ? skill.baseCost : NaN;
-      const baseScore = skill && skill.score && typeof skill.score === 'object' ? skill.score.base : NaN;
-      if (!isNaN(baseCost)) row.dataset.baseCost = String(baseCost); else delete row.dataset.baseCost;
+      const baseCost =
+        skill && typeof skill.baseCost === 'number' && !isNaN(skill.baseCost)
+          ? skill.baseCost
+          : NaN;
+      const baseScore =
+        skill && skill.score && typeof skill.score === 'object' ? skill.score.base : NaN;
+      if (!isNaN(baseCost)) row.dataset.baseCost = String(baseCost);
+      else delete row.dataset.baseCost;
       const displayScore = !isNaN(baseScore) ? baseScore : evaluateSkillScore(skill || {});
       if (!isNaN(displayScore)) {
         baseCostDisplay.textContent = `Score ${displayScore}`;
@@ -1673,7 +1878,9 @@
       let lowerBaseCost = NaN;
       let lowerHintLevel = 0;
       if (row.dataset.lowerRowId) {
-        const linked = rowsEl.querySelector(`.optimizer-row[data-row-id="${row.dataset.lowerRowId}"]`);
+        const linked = rowsEl.querySelector(
+          `.optimizer-row[data-row-id="${row.dataset.lowerRowId}"]`
+        );
         if (linked) {
           const linkedCostEl = linked.querySelector('.cost');
           const linkedCostVal = parseInt(linkedCostEl?.value || '', 10);
@@ -1688,7 +1895,8 @@
         }
       }
       if (isNaN(lowerBaseCost)) {
-        const candidateId = skill.lowerSkillId || (Array.isArray(skill.parentIds) ? skill.parentIds[0] : '');
+        const candidateId =
+          skill.lowerSkillId || (Array.isArray(skill.parentIds) ? skill.parentIds[0] : '');
         if (candidateId) {
           const lower = skillIdIndex.get(String(candidateId));
           if (lower && typeof lower.baseCost === 'number') lowerBaseCost = lower.baseCost;
@@ -1705,7 +1913,8 @@
     function applyHintedCost(skill) {
       if (!costInput) return;
       const baseCost = (() => {
-        if (skill && typeof skill.baseCost === 'number' && !isNaN(skill.baseCost)) return skill.baseCost;
+        if (skill && typeof skill.baseCost === 'number' && !isNaN(skill.baseCost))
+          return skill.baseCost;
         if (row.dataset.baseCost) {
           const parsed = parseInt(row.dataset.baseCost, 10);
           return isNaN(parsed) ? NaN : parsed;
@@ -1827,11 +2036,11 @@
       dupWarning.classList.remove('visible');
     }
 
-  function ensureLinkedLowerForGold(category, { allowCreate = true } = {}) {
-    if (row.dataset.parentGoldId) return;
-    const isGold = isGoldCategory(category);
-    const currentLinkedId = row.dataset.lowerRowId;
-    if (!isGold) {
+    function ensureLinkedLowerForGold(category, { allowCreate = true } = {}) {
+      if (row.dataset.parentGoldId) return;
+      const isGold = isGoldCategory(category);
+      const currentLinkedId = row.dataset.lowerRowId;
+      if (!isGold) {
         if (currentLinkedId) {
           const linked = rowsEl.querySelector(`.optimizer-row[data-row-id="${currentLinkedId}"]`);
           if (linked) linked.remove();
@@ -1842,35 +2051,41 @@
         }
         return;
       }
-    if (!allowCreate || currentLinkedId) return;
-    const linked = makeRow();
-    linked.classList.add('linked-lower');
-    linked.dataset.parentGoldId = id;
-    const lid = linked.dataset.rowId;
-    const linkedInput = linked.querySelector('.skill-name');
-    if (linkedInput) linkedInput.placeholder = 'Lower skill...';
-    const linkedRemove = linked.querySelector('.remove');
-    if (linkedRemove) {
-      linkedRemove.disabled = true;
-      linkedRemove.title = 'Remove the gold row to unlink';
-      linkedRemove.style.pointerEvents = 'none';
-      linkedRemove.style.opacity = '0.4';
+      if (!allowCreate || currentLinkedId) return;
+      const linked = makeRow();
+      linked.classList.add('linked-lower');
+      linked.dataset.parentGoldId = id;
+      const lid = linked.dataset.rowId;
+      const linkedInput = linked.querySelector('.skill-name');
+      if (linkedInput) linkedInput.placeholder = 'Lower skill...';
+      const linkedRemove = linked.querySelector('.remove');
+      if (linkedRemove) {
+        linkedRemove.disabled = true;
+        linkedRemove.title = 'Remove the gold row to unlink';
+        linkedRemove.style.pointerEvents = 'none';
+        linkedRemove.style.opacity = '0.4';
+      }
+      rowsEl.insertBefore(linked, row.nextSibling);
+      row.dataset.lowerRowId = lid;
+      if (typeof linked.syncSkillCategory === 'function') {
+        linked.syncSkillCategory({
+          triggerOptimize: false,
+          allowLinking: false,
+          updateCost: false,
+        });
+      }
+      autofillLinkedLower(linked);
+      saveState();
+      ensureOneEmptyRow();
+      autoOptimizeDebounced();
     }
-    rowsEl.insertBefore(linked, row.nextSibling);
-    row.dataset.lowerRowId = lid;
-    if (typeof linked.syncSkillCategory === 'function') {
-      linked.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: false });
-    }
-    autofillLinkedLower(linked);
-    saveState();
-    ensureOneEmptyRow();
-    autoOptimizeDebounced();
-  }
 
     function ensureLinkedLowerForParent(skill, { allowCreate = true } = {}) {
       if (!skill || !Array.isArray(skill.parentIds) || !skill.parentIds.length) return;
       if (row.dataset.lowerRowId) {
-        const linked = rowsEl.querySelector(`.optimizer-row[data-row-id="${row.dataset.lowerRowId}"]`);
+        const linked = rowsEl.querySelector(
+          `.optimizer-row[data-row-id="${row.dataset.lowerRowId}"]`
+        );
         autofillLinkedLower(linked);
         return;
       }
@@ -1956,7 +2171,11 @@
       autoOptimizeDebounced();
     }
 
-    function syncSkillCategory({ triggerOptimize = false, allowLinking = true, updateCost = false } = {}) {
+    function syncSkillCategory({
+      triggerOptimize = false,
+      allowLinking = true,
+      updateCost = false,
+    } = {}) {
       if (!skillInput) return;
       const rawName = (skillInput.value || '').trim();
       if (!rawName) {
@@ -1971,13 +2190,17 @@
       const identity = isCircleSubRow ? null : getSkillIdentity(rawName);
       const skill = isCircleSubRow ? findSkillByName(rawName) : identity?.skill;
       if (rawName) {
-        const canonical = isCircleSubRow ? rawName : (identity?.name || rawName);
+        const canonical = isCircleSubRow ? rawName : identity?.name || rawName;
         // Rewrite input to base name for circle skills (strip ○/◎ suffixes)
         // But NOT for circle sub-rows — they must keep their ◎ name for correct scoring
         if (!isCircleSubRow && skill?.circleBaseName && rawName !== canonical) {
           skillInput.value = canonical;
         }
-        const isLinkedChild = !!(row.dataset.parentGoldId || row.dataset.parentCircleId || row.dataset.parentSkillLink);
+        const isLinkedChild = !!(
+          row.dataset.parentGoldId ||
+          row.dataset.parentCircleId ||
+          row.dataset.parentSkillLink
+        );
         if (!isLinkedChild && isDuplicateSkill(identity)) {
           showDupWarning('This skill has already been added.');
           const fallback = row.dataset.lastSkillName || '';
@@ -2021,7 +2244,8 @@
       const skill = findSkillByName(skillInput.value);
       if (!skill) return;
       // Prefer explicit lowerSkillId; otherwise, try parentIds (common for gold -> lower)
-      const candidateId = skill.lowerSkillId || (Array.isArray(skill.parentIds) ? skill.parentIds[0] : '');
+      const candidateId =
+        skill.lowerSkillId || (Array.isArray(skill.parentIds) ? skill.parentIds[0] : '');
       if (!candidateId) return;
       const lower = skillIdIndex.get(String(candidateId));
       if (!lower) return;
@@ -2029,15 +2253,26 @@
       const lowerCostInput = linkedRow.querySelector('.cost');
       const lowerHint = linkedRow.querySelector('.hint-level');
       if (lowerInput && !lowerInput.value) lowerInput.value = lower.name;
-      const baseCost = typeof lower.baseCost === 'number' ? lower.baseCost : skillCostById.get(String(candidateId));
+      const baseCost =
+        typeof lower.baseCost === 'number'
+          ? lower.baseCost
+          : skillCostById.get(String(candidateId));
       if (lowerCostInput && typeof baseCost === 'number') {
         linkedRow.dataset.baseCost = String(baseCost);
-        const hintLevel = lowerHint ? parseInt(lowerHint.value || '0', 10) || 0 : (hintSelect ? parseInt(hintSelect.value || '0', 10) || 0 : 0);
+        const hintLevel = lowerHint
+          ? parseInt(lowerHint.value || '0', 10) || 0
+          : hintSelect
+            ? parseInt(hintSelect.value || '0', 10) || 0
+            : 0;
         const discounted = calculateDiscountedCost(baseCost, hintLevel);
         if (!isNaN(discounted)) lowerCostInput.value = discounted;
       }
       if (typeof linkedRow.syncSkillCategory === 'function') {
-        linkedRow.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
+        linkedRow.syncSkillCategory({
+          triggerOptimize: false,
+          allowLinking: false,
+          updateCost: true,
+        });
       }
     }
 
@@ -2077,20 +2312,30 @@
         const skill = skillInput ? findSkillByName(skillInput.value) : null;
         applyHintedCost(skill);
         if (row.dataset.parentGoldId) {
-          const parent = rowsEl.querySelector(`.optimizer-row[data-row-id="${row.dataset.parentGoldId}"]`);
+          const parent = rowsEl.querySelector(
+            `.optimizer-row[data-row-id="${row.dataset.parentGoldId}"]`
+          );
           if (parent && typeof parent.syncSkillCategory === 'function') {
-            parent.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
+            parent.syncSkillCategory({
+              triggerOptimize: false,
+              allowLinking: false,
+              updateCost: true,
+            });
           }
         }
         // Mirror hint level to linked ◎ upgrade row
         if (row.dataset.circleRowId) {
-          const circleRow = rowsEl.querySelector(`.optimizer-row[data-row-id="${row.dataset.circleRowId}"]`);
+          const circleRow = rowsEl.querySelector(
+            `.optimizer-row[data-row-id="${row.dataset.circleRowId}"]`
+          );
           if (circleRow) {
             const cHint = circleRow.querySelector('.hint-level');
             const cCost = circleRow.querySelector('.cost');
             const newHint = parseInt(hintSelect.value || '0', 10) || 0;
             if (cHint) cHint.value = newHint;
-            const cBaseCost = circleRow.dataset.baseCost ? parseInt(circleRow.dataset.baseCost, 10) : NaN;
+            const cBaseCost = circleRow.dataset.baseCost
+              ? parseInt(circleRow.dataset.baseCost, 10)
+              : NaN;
             if (!isNaN(cBaseCost) && cCost) {
               cCost.value = calculateDiscountedCost(cBaseCost, newHint);
             }
@@ -2109,7 +2354,9 @@
           if (isGoldRow) {
             let linked = null;
             if (row.dataset.lowerRowId) {
-              linked = rowsEl.querySelector(`.optimizer-row[data-row-id="${row.dataset.lowerRowId}"]`);
+              linked = rowsEl.querySelector(
+                `.optimizer-row[data-row-id="${row.dataset.lowerRowId}"]`
+              );
             }
             if (!linked) {
               linked = rowsEl.querySelector(`.optimizer-row[data-parent-gold-id="${id}"]`);
@@ -2132,10 +2379,11 @@
   }
 
   function collectItems() {
-    const items = []; const rowsMeta = [];
+    const items = [];
+    const rowsMeta = [];
     const rows = rowsEl.querySelectorAll('.optimizer-row');
     const mode = getOptimizeMode();
-    rows.forEach(row => {
+    rows.forEach((row) => {
       const nameInput = row.querySelector('.skill-name');
       const costEl = row.querySelector('.cost');
       const hintEl = row.querySelector('.hint-level');
@@ -2148,7 +2396,9 @@
       const baseCostStored = row.dataset.baseCost ? parseInt(row.dataset.baseCost, 10) : NaN;
       const cost = !isNaN(rawCost)
         ? rawCost
-        : (!isNaN(baseCostStored) ? calculateDiscountedCost(baseCostStored, hintLevel) : NaN);
+        : !isNaN(baseCostStored)
+          ? calculateDiscountedCost(baseCostStored, hintLevel)
+          : NaN;
       if (!name || isNaN(cost)) return;
       const skill = findSkillByName(name);
       if (!skill) return;
@@ -2163,21 +2413,37 @@
 
       // For optimization: in aptitude mode, use combined score (aptitude * large multiplier + rating as tiebreaker)
       // This ensures aptitude is maximized first, then rating among equal aptitude options
-      const score = mode === 'aptitude-test'
-        ? (aptitudeScore * 100000) + ratingScore  // Aptitude primary, rating secondary
-        : ratingScore;
+      const score =
+        mode === 'aptitude-test'
+          ? aptitudeScore * 100000 + ratingScore // Aptitude primary, rating secondary
+          : ratingScore;
 
       const rowId = row.dataset.rowId || Math.random().toString(36).slice(2);
       const lowerRowId = row.dataset.lowerRowId || '';
       const circleRowId = row.dataset.circleRowId || '';
-      const parentSkillIds = Array.isArray(skill.parentIds) && skill.parentIds.length ? skill.parentIds : [];
+      const parentSkillIds =
+        Array.isArray(skill.parentIds) && skill.parentIds.length ? skill.parentIds : [];
       const lowerSkillId = skill.lowerSkillId || '';
       const skillId = skill.skillId || skill.id || '';
       items.push({
-        id: rowId, name: skill.name, cost, score,
-        ratingScore, aptitudeScore, // Track both scores
-        baseCost: baseCostStored, category, parentGoldId, parentCircleId, lowerRowId, circleRowId,
-        checkType: skill.checkType || '', parentSkillIds, lowerSkillId, skillId, hintLevel, required
+        id: rowId,
+        name: skill.name,
+        cost,
+        score,
+        ratingScore,
+        aptitudeScore, // Track both scores
+        baseCost: baseCostStored,
+        category,
+        parentGoldId,
+        parentCircleId,
+        lowerRowId,
+        circleRowId,
+        checkType: skill.checkType || '',
+        parentSkillIds,
+        lowerSkillId,
+        skillId,
+        hintLevel,
+        required,
       });
       rowsMeta.push({ id: rowId, category, parentGoldId, parentCircleId, lowerRowId, circleRowId });
     });
@@ -2200,9 +2466,10 @@
 
       // Dependency: if item has a parent (single-circle) present, offer choices (none, parent only, parent+child).
       const parentCandidates = [];
-      if (Array.isArray(it.parentSkillIds) && it.parentSkillIds.length) parentCandidates.push(...it.parentSkillIds);
+      if (Array.isArray(it.parentSkillIds) && it.parentSkillIds.length)
+        parentCandidates.push(...it.parentSkillIds);
       if (it.lowerSkillId) parentCandidates.push(it.lowerSkillId);
-      const pid = parentCandidates.find(pid => skillIdToIndex.has(String(pid)));
+      const pid = parentCandidates.find((pid) => skillIdToIndex.has(String(pid)));
       if (pid !== undefined) {
         const j = skillIdToIndex.get(String(pid));
         if (!used[j]) {
@@ -2210,15 +2477,27 @@
           const childIsGold = isGoldCategory(it.category);
           const parentId = parent.id;
           const parentMatchesLower = it.lowerRowId && it.lowerRowId === parentId;
-          const comboCost = (childIsGold && parentMatchesLower) ? it.cost : parent.cost + it.cost;
+          const comboCost = childIsGold && parentMatchesLower ? it.cost : parent.cost + it.cost;
           groups.push([
             { none: true, items: [] },
-            { pick: j, cost: parent.cost, score: parent.score,
-              ratingScore: parent.ratingScore || 0, aptitudeScore: parent.aptitudeScore || 0, items: [j] },
+            {
+              pick: j,
+              cost: parent.cost,
+              score: parent.score,
+              ratingScore: parent.ratingScore || 0,
+              aptitudeScore: parent.aptitudeScore || 0,
+              items: [j],
+            },
             // Upgraded (double-circle): pay both costs, only upgraded score counts.
             // For aptitude: gold skill gets full aptitude, lower doesn't count
-            { combo: [j, i], cost: comboCost, score: it.score,
-              ratingScore: it.ratingScore || 0, aptitudeScore: it.aptitudeScore || 0, items: [j, i] }
+            {
+              combo: [j, i],
+              cost: comboCost,
+              score: it.score,
+              ratingScore: it.ratingScore || 0,
+              aptitudeScore: it.aptitudeScore || 0,
+              items: [j, i],
+            },
           ]);
           used[j] = used[i] = true;
           handled = true;
@@ -2234,10 +2513,22 @@
           // For aptitude: lower skill alone counts, gold combo only counts the gold
           groups.push([
             { none: true, items: [] },
-            { pick: j, cost: items[j].cost, score: items[j].score,
-              ratingScore: items[j].ratingScore || 0, aptitudeScore: items[j].aptitudeScore || 0, items: [j] },
-            { combo: [j, i], cost: it.cost, score: it.score,
-              ratingScore: it.ratingScore || 0, aptitudeScore: it.aptitudeScore || 0, items: [j, i] }
+            {
+              pick: j,
+              cost: items[j].cost,
+              score: items[j].score,
+              ratingScore: items[j].ratingScore || 0,
+              aptitudeScore: items[j].aptitudeScore || 0,
+              items: [j],
+            },
+            {
+              combo: [j, i],
+              cost: it.cost,
+              score: it.score,
+              ratingScore: it.ratingScore || 0,
+              aptitudeScore: it.aptitudeScore || 0,
+              items: [j, i],
+            },
           ]);
           used[i] = used[j] = true;
           continue;
@@ -2250,10 +2541,22 @@
           const upgrade = items[j];
           groups.push([
             { none: true, items: [] },
-            { pick: i, cost: it.cost, score: it.score,
-              ratingScore: it.ratingScore || 0, aptitudeScore: it.aptitudeScore || 0, items: [i] },
-            { combo: [i, j], cost: it.cost + upgrade.cost, score: upgrade.score,
-              ratingScore: upgrade.ratingScore || 0, aptitudeScore: upgrade.aptitudeScore || 0, items: [i, j] }
+            {
+              pick: i,
+              cost: it.cost,
+              score: it.score,
+              ratingScore: it.ratingScore || 0,
+              aptitudeScore: it.aptitudeScore || 0,
+              items: [i],
+            },
+            {
+              combo: [i, j],
+              cost: it.cost + upgrade.cost,
+              score: upgrade.score,
+              ratingScore: upgrade.ratingScore || 0,
+              aptitudeScore: upgrade.aptitudeScore || 0,
+              items: [i, j],
+            },
           ]);
           used[i] = used[j] = true;
           continue;
@@ -2262,8 +2565,14 @@
       // If this is a linked sub-row (circle or gold), its parent will group it.
       groups.push([
         { none: true, items: [] },
-        { pick: i, cost: it.cost, score: it.score,
-          ratingScore: it.ratingScore || 0, aptitudeScore: it.aptitudeScore || 0, items: [i] }
+        {
+          pick: i,
+          cost: it.cost,
+          score: it.score,
+          ratingScore: it.ratingScore || 0,
+          aptitudeScore: it.aptitudeScore || 0,
+          items: [i],
+        },
       ]);
       used[i] = true;
     }
@@ -2273,16 +2582,18 @@
   function optimizeGrouped(groups, items, budget) {
     const B = Math.max(0, Math.floor(budget));
     const requiredSet = new Set();
-    items.forEach((it, idx) => { if (it.required) requiredSet.add(idx); });
-    const filteredGroups = groups.map(opts => {
+    items.forEach((it, idx) => {
+      if (it.required) requiredSet.add(idx);
+    });
+    const filteredGroups = groups.map((opts) => {
       const reqInGroup = new Set();
-      opts.forEach(o => {
-        (o.items || []).forEach(idx => {
+      opts.forEach((o) => {
+        (o.items || []).forEach((idx) => {
           if (requiredSet.has(idx)) reqInGroup.add(idx);
         });
       });
       if (!reqInGroup.size) return opts;
-      return opts.filter(o => {
+      return opts.filter((o) => {
         const present = o.items || [];
         for (const reqIdx of reqInGroup) {
           if (!present.includes(reqIdx)) return false;
@@ -2290,7 +2601,7 @@
         return true;
       });
     });
-    if (filteredGroups.some(opts => !opts.length)) {
+    if (filteredGroups.some((opts) => !opts.length)) {
       return { best: 0, chosen: [], used: 0, error: 'required_unreachable' };
     }
     const G = filteredGroups.length;
@@ -2303,7 +2614,7 @@
     const choice = Array.from({ length: G + 1 }, () => new Array(B + 1).fill(-1));
     for (let g = 1; g <= G; g++) {
       const opts = filteredGroups[g - 1];
-      const hasNone = opts.some(o => o.none);
+      const hasNone = opts.some((o) => o.none);
       for (let b = 0; b <= B; b++) {
         if (hasNone) {
           dpCurr[b] = dpPrev[b];
@@ -2313,11 +2624,16 @@
           choice[g][b] = -1;
         }
         for (let k = 0; k < opts.length; k++) {
-          const o = opts[k]; if (o.none) continue;
-          const w = Math.max(0, Math.floor(o.cost)); const v = Math.max(0, Math.floor(o.score));
+          const o = opts[k];
+          if (o.none) continue;
+          const w = Math.max(0, Math.floor(o.cost));
+          const v = Math.max(0, Math.floor(o.score));
           if (w <= b && dpPrev[b - w] > NEG / 2) {
             const cand = dpPrev[b - w] + v;
-            if (cand > dpCurr[b]) { dpCurr[b] = cand; choice[g][b] = k; }
+            if (cand > dpCurr[b]) {
+              dpCurr[b] = cand;
+              choice[g][b] = k;
+            }
           }
         }
       }
@@ -2332,7 +2648,8 @@
       return { best: 0, chosen: [], used: 0, error: 'required_unreachable' };
     }
     // reconstruct
-    let b = B; const chosen = [];
+    let b = B;
+    const chosen = [];
     for (let g = G; g >= 1; g--) {
       const opts = filteredGroups[g - 1];
       const k = choice[g][b];
@@ -2348,10 +2665,10 @@
             cost: o.cost,
             score: o.score,
             combo: true,
-            components: picks.map(idx => items[idx]?.id).filter(Boolean)
+            components: picks.map((idx) => items[idx]?.id).filter(Boolean),
           });
           const comboParentName = baseItem.name;
-          picks.slice(0, -1).forEach(idx => {
+          picks.slice(0, -1).forEach((idx) => {
             const comp = items[idx];
             if (!comp) return;
             chosen.push({
@@ -2359,21 +2676,21 @@
               cost: 0,
               score: 0,
               comboComponent: true,
-              comboParentName
+              comboParentName,
             });
           });
         } else {
-          picks.forEach(idx => chosen.push(items[idx]));
+          picks.forEach((idx) => chosen.push(items[idx]));
         }
         b -= Math.max(0, Math.floor(o.cost));
       }
     }
     chosen.reverse();
     const idToIndex = new Map(items.map((it, idx) => [it.id, idx]));
-    const chosenIds = new Set(chosen.map(it => it.id));
+    const chosenIds = new Set(chosen.map((it) => it.id));
     let addedScore = 0;
     let addedCost = 0;
-    requiredSet.forEach(idx => {
+    requiredSet.forEach((idx) => {
       const it = items[idx];
       if (!it || chosenIds.has(it.id)) return;
       chosen.push({ ...it, forced: true });
@@ -2390,7 +2707,10 @@
         }
       }
     });
-    const used = chosen.reduce((sum, it) => it.comboComponent ? sum : sum + Math.max(0, Math.floor(it.cost)), 0);
+    const used = chosen.reduce(
+      (sum, it) => (it.comboComponent ? sum : sum + Math.max(0, Math.floor(it.cost))),
+      0
+    );
     const best = dpPrev[B] + addedScore;
     if (used > B) {
       return { best: 0, chosen: [], used: 0, error: 'required_unreachable' };
@@ -2410,11 +2730,11 @@
         parentGoldToChild.set(it.parentGoldId, idx);
       }
     });
-    const requiredIds = new Set(items.filter(it => it.required).map(it => it.id));
+    const requiredIds = new Set(items.filter((it) => it.required).map((it) => it.id));
     let changed = true;
     while (changed) {
       changed = false;
-      Array.from(requiredIds).forEach(id => {
+      Array.from(requiredIds).forEach((id) => {
         const idx = idToIndex.get(id);
         if (idx === undefined) return;
         const it = items[idx];
@@ -2433,7 +2753,7 @@
           }
         }
         const parents = Array.isArray(it.parentSkillIds) ? it.parentSkillIds : [];
-        parents.forEach(pid => {
+        parents.forEach((pid) => {
           const pidx = skillIdToIndex.get(String(pid));
           if (pidx === undefined) return;
           const pidId = items[pidx]?.id;
@@ -2452,10 +2772,12 @@
         }
       });
     }
-    const requiredItems = items.filter(it => requiredIds.has(it.id));
-    const requiredGoldIds = new Set(requiredItems.filter(it => isGoldCategory(it.category)).map(it => it.id));
+    const requiredItems = items.filter((it) => requiredIds.has(it.id));
+    const requiredGoldIds = new Set(
+      requiredItems.filter((it) => isGoldCategory(it.category)).map((it) => it.id)
+    );
     const lowerIncludedIds = new Set();
-    requiredItems.forEach(it => {
+    requiredItems.forEach((it) => {
       if (!requiredGoldIds.has(it.id)) return;
       if (it.lowerRowId && requiredIds.has(it.lowerRowId)) lowerIncludedIds.add(it.lowerRowId);
       if (it.lowerSkillId !== undefined && it.lowerSkillId !== null) {
@@ -2490,28 +2812,31 @@
         chosen: [],
         used: 0,
         best: 0,
-        warnings: ['Team Trials optimizer module is unavailable.']
+        warnings: ['Team Trials optimizer module is unavailable.'],
       };
     }
-    const result = api.optimizeTeamTrialsBuild({
-      budget,
-      items,
-      raceConfig: getRaceConfigSnapshot(),
-      autoTargets: getSelectedAutoTargets(),
-      skillMetaById: teamTrialsSkillMetaById,
-      skillMetaByName: teamTrialsSkillMetaByName,
-      tierById: teamTrialsTierById,
-      tierByName: teamTrialsTierByName
-    }, {
-      weights: api.DEFAULT_WEIGHTS || undefined
-    });
+    const result = api.optimizeTeamTrialsBuild(
+      {
+        budget,
+        items,
+        raceConfig: getRaceConfigSnapshot(),
+        autoTargets: getSelectedAutoTargets(),
+        skillMetaById: teamTrialsSkillMetaById,
+        skillMetaByName: teamTrialsSkillMetaByName,
+        tierById: teamTrialsTierById,
+        tierByName: teamTrialsTierByName,
+      },
+      {
+        weights: api.DEFAULT_WEIGHTS || undefined,
+      }
+    );
     if (!result || typeof result !== 'object') {
       return {
         error: 'team_trials_failed',
         chosen: [],
         used: 0,
         best: 0,
-        warnings: ['Team Trials optimizer did not return a valid result.']
+        warnings: ['Team Trials optimizer did not return a valid result.'],
       };
     }
     return result;
@@ -2528,7 +2853,7 @@
     const chosen = Array.isArray(result.chosen) ? result.chosen : [];
     const teamBreakdownMap = new Map(
       Array.isArray(result.perSkillBreakdown)
-        ? result.perSkillBreakdown.map(entry => [entry.id, entry])
+        ? result.perSkillBreakdown.map((entry) => [entry.id, entry])
         : []
     );
 
@@ -2537,16 +2862,16 @@
     let totalRatingScore = 0;
     let totalAptitudeScore = 0;
     const lowerIdsInGoldCombos = new Set();
-    const chosenById = new Map(chosen.map(it => [it.id, it]));
+    const chosenById = new Map(chosen.map((it) => [it.id, it]));
     const chosenBySkillId = new Map();
-    chosen.forEach(it => {
+    chosen.forEach((it) => {
       if (it.skillId !== undefined && it.skillId !== null) {
         chosenBySkillId.set(String(it.skillId), it);
       }
     });
 
     // First pass: identify lower skills that are part of gold combos
-    chosen.forEach(it => {
+    chosen.forEach((it) => {
       if (!isGoldCategory(it.category)) return;
       if (it.lowerRowId && chosenById.has(it.lowerRowId)) {
         lowerIdsInGoldCombos.add(it.lowerRowId);
@@ -2556,7 +2881,7 @@
         if (lower) lowerIdsInGoldCombos.add(lower.id);
       }
     });
-    chosen.forEach(it => {
+    chosen.forEach((it) => {
       if (it.parentGoldId && chosenById.has(it.parentGoldId)) {
         lowerIdsInGoldCombos.add(it.id);
       }
@@ -2564,7 +2889,7 @@
 
     // Second pass: calculate scores
     // Lower skills in gold combos don't count (gold score includes the upgrade)
-    chosen.forEach(it => {
+    chosen.forEach((it) => {
       if (!it.comboComponent && !lowerIdsInGoldCombos.has(it.id)) {
         totalRatingScore += it.ratingScore || 0;
         totalAptitudeScore += it.aptitudeScore || 0;
@@ -2628,7 +2953,7 @@
           li.textContent = 'No additional strengths were generated.';
           teamExplainStrengthsEl.appendChild(li);
         } else {
-          strengths.forEach(text => {
+          strengths.forEach((text) => {
             const li = document.createElement('li');
             li.textContent = text;
             teamExplainStrengthsEl.appendChild(li);
@@ -2639,7 +2964,7 @@
           li.textContent = 'No major risks detected.';
           teamExplainRisksEl.appendChild(li);
         } else {
-          risks.forEach(text => {
+          risks.forEach((text) => {
             const li = document.createElement('li');
             li.textContent = text;
             teamExplainRisksEl.appendChild(li);
@@ -2650,7 +2975,7 @@
           li.textContent = 'No optimizer warnings.';
           teamWarningsEl.appendChild(li);
         } else {
-          warnings.forEach(text => {
+          warnings.forEach((text) => {
             const li = document.createElement('li');
             li.textContent = text;
             teamWarningsEl.appendChild(li);
@@ -2663,11 +2988,15 @@
 
     if (result.error) {
       let message = 'Required skills cannot fit within the current budget.';
-      if (result.error === 'team_trials_unavailable') message = 'Team Trials optimizer module is unavailable.';
-      else if (result.error === 'team_trials_failed') message = 'Team Trials optimizer failed to produce a result.';
+      if (result.error === 'team_trials_unavailable')
+        message = 'Team Trials optimizer module is unavailable.';
+      else if (result.error === 'team_trials_failed')
+        message = 'Team Trials optimizer failed to produce a result.';
       else if (result.error === 'no_items') message = 'No candidate skills were provided.';
-      else if (result.error === 'no_applicable_skills') message = 'No skills match the selected Team Trials targets/aptitudes.';
-      else if (result.error !== 'required_unreachable') message = 'Optimization failed for the current constraints.';
+      else if (result.error === 'no_applicable_skills')
+        message = 'No skills match the selected Team Trials targets/aptitudes.';
+      else if (result.error !== 'required_unreachable')
+        message = 'Optimization failed for the current constraints.';
       const li = document.createElement('li');
       li.className = 'result-item';
       li.textContent = message;
@@ -2684,16 +3013,16 @@
         if (rowId && !inputOrderMap.has(rowId)) inputOrderMap.set(rowId, idx);
       });
     }
-    const byId = new Map(ordered.map(it => [it.id, it]));
+    const byId = new Map(ordered.map((it) => [it.id, it]));
     const bySkillId = new Map();
-    ordered.forEach(it => {
+    ordered.forEach((it) => {
       if (it.skillId !== undefined && it.skillId !== null) {
         bySkillId.set(String(it.skillId), it);
       }
     });
     const lowerToGold = new Map();
     const goldToLower = new Map();
-    ordered.forEach(it => {
+    ordered.forEach((it) => {
       if (!isGoldCategory(it.category)) return;
       if (it.lowerRowId && byId.has(it.lowerRowId)) {
         lowerToGold.set(it.lowerRowId, it);
@@ -2712,13 +3041,13 @@
     // In combos, ◎ is the base item (combo: true), ○ is the component (comboComponent: true)
     const circleComboBaseIds = new Set(); // ◎ items that are circle combo bases
     const circleComponentIds = new Set(); // ○ items that are circle combo components
-    ordered.forEach(it => {
+    ordered.forEach((it) => {
       if (!it.combo) return;
       const skill = findSkillByName(it.name);
       if (skill?.circleUpgradeOf) {
         // This is a ◎ base item in a circle combo
         circleComboBaseIds.add(it.id);
-        (it.components || []).forEach(cid => {
+        (it.components || []).forEach((cid) => {
           const comp = byId.get(cid);
           const compSkill = comp ? findSkillByName(comp.name) : null;
           if (compSkill?.circleUpgrade) circleComponentIds.add(cid);
@@ -2726,8 +3055,12 @@
       }
     });
     ordered.sort((a, b) => {
-      const aInputOrder = inputOrderMap.has(a.id) ? inputOrderMap.get(a.id) : Number.MAX_SAFE_INTEGER;
-      const bInputOrder = inputOrderMap.has(b.id) ? inputOrderMap.get(b.id) : Number.MAX_SAFE_INTEGER;
+      const aInputOrder = inputOrderMap.has(a.id)
+        ? inputOrderMap.get(a.id)
+        : Number.MAX_SAFE_INTEGER;
+      const bInputOrder = inputOrderMap.has(b.id)
+        ? inputOrderMap.get(b.id)
+        : Number.MAX_SAFE_INTEGER;
       if (aInputOrder !== bInputOrder) return aInputOrder - bInputOrder;
       const ag = lowerToGold.get(a.id);
       const bg = lowerToGold.get(b.id);
@@ -2735,95 +3068,100 @@
       if (bg && bg.id === a.id) return -1;
       return (indexMap.get(a.id) || 0) - (indexMap.get(b.id) || 0);
     });
-      ordered.forEach(it => {
-        // Skip ○ components of circle combos — the ◎ base shows the combined result
-        if (circleComponentIds.has(it.id)) return;
-        const li = document.createElement('li');
-        li.className = 'result-item';
-        // Mark standalone/parent items vs "included with" children for visual grouping
-        const isChild = it.comboComponent || lowerToGold.has(it.id);
-        if (isChild) li.classList.add('result-child');
-        else li.classList.add('result-primary');
-        if (mode === TEAM_TRIALS_MODE) li.classList.add('team-trials');
-        const cat = it.category || 'unknown';
-        const canon = (function(v){ v=(v||'').toLowerCase(); if(v.includes('gold')) return 'gold'; if(v==='ius'||v.includes('ius')) return 'ius'; return v; })(cat);
-        if (canon) li.classList.add(`cat-${canon}`);
-        const baseCategory = getBaseCategoryForResult(it);
-        if (baseCategory) li.dataset.baseCategory = baseCategory;
-        const includedWith = it.comboComponent
-          ? it.comboParentName
-          : (lowerToGold.has(it.id) ? lowerToGold.get(it.id)?.name : '');
-        if (mode === TEAM_TRIALS_MODE) {
-          const breakdown = teamBreakdownMap.get(it.id) || {};
-          if (includedWith) {
-            li.innerHTML = `<span class="res-name">${it.name}</span> <span class="res-meta">- included with ${includedWith}</span>`;
-          } else {
-            const rating = Number.isFinite(breakdown.ratingScore) ? breakdown.ratingScore : (it.ratingScore || 0);
-            const cost = Number.isFinite(breakdown.cost) ? breakdown.cost : (it.cost || 0);
-            const ratio = Number.isFinite(breakdown.scorePerSP) ? breakdown.scorePerSP : 0;
-            const consistency = Number.isFinite(breakdown.consistencyScore)
-              ? Math.round(Math.max(0, Math.min(1, breakdown.consistencyScore)) * 100)
-              : 0;
-            const metrics = `cost ${cost}, rating ${rating}, score/SP ${ratio.toFixed(2)}, consistency ${consistency}%`;
-            const nameEl = document.createElement('span');
-            nameEl.className = 'res-name';
-            nameEl.textContent = it.name;
-            const metricsEl = document.createElement('span');
-            metricsEl.className = 'res-metrics';
-            metricsEl.textContent = metrics;
-            li.appendChild(nameEl);
-            li.appendChild(metricsEl);
-
-            const tierNote = typeof breakdown.tierNote === 'string'
-              ? breakdown.tierNote.trim()
-              : '';
-            const reasons = Array.isArray(breakdown.reasons)
-              ? breakdown.reasons.filter(Boolean)
-              : [];
-            if (tierNote || reasons.length) {
-              const detailsEl = document.createElement('details');
-              detailsEl.className = 'res-explain';
-              const summaryEl = document.createElement('summary');
-              summaryEl.textContent = 'View explanation';
-              detailsEl.appendChild(summaryEl);
-
-              if (tierNote) {
-                const noteEl = document.createElement('p');
-                noteEl.className = 'res-explain-note';
-                noteEl.textContent = tierNote;
-                detailsEl.appendChild(noteEl);
-              }
-              if (reasons.length) {
-                const listEl = document.createElement('ul');
-                listEl.className = 'res-explain-reasons';
-                reasons.forEach(reason => {
-                  const reasonEl = document.createElement('li');
-                  reasonEl.textContent = reason;
-                  listEl.appendChild(reasonEl);
-                });
-                detailsEl.appendChild(listEl);
-              }
-              li.appendChild(detailsEl);
-            }
-          }
+    ordered.forEach((it) => {
+      // Skip ○ components of circle combos — the ◎ base shows the combined result
+      if (circleComponentIds.has(it.id)) return;
+      const li = document.createElement('li');
+      li.className = 'result-item';
+      // Mark standalone/parent items vs "included with" children for visual grouping
+      const isChild = it.comboComponent || lowerToGold.has(it.id);
+      if (isChild) li.classList.add('result-child');
+      else li.classList.add('result-primary');
+      if (mode === TEAM_TRIALS_MODE) li.classList.add('team-trials');
+      const cat = it.category || 'unknown';
+      const canon = (function (v) {
+        v = (v || '').toLowerCase();
+        if (v.includes('gold')) return 'gold';
+        if (v === 'ius' || v.includes('ius')) return 'ius';
+        return v;
+      })(cat);
+      if (canon) li.classList.add(`cat-${canon}`);
+      const baseCategory = getBaseCategoryForResult(it);
+      if (baseCategory) li.dataset.baseCategory = baseCategory;
+      const includedWith = it.comboComponent
+        ? it.comboParentName
+        : lowerToGold.has(it.id)
+          ? lowerToGold.get(it.id)?.name
+          : '';
+      if (mode === TEAM_TRIALS_MODE) {
+        const breakdown = teamBreakdownMap.get(it.id) || {};
+        if (includedWith) {
+          li.innerHTML = `<span class="res-name">${it.name}</span> <span class="res-meta">- included with ${includedWith}</span>`;
         } else {
-          // Show rating score in the meta, not the combined optimization score
-          const displayScore = it.ratingScore !== undefined ? it.ratingScore : it.score;
-          // For circle skills, show which tier was chosen
-          let displayName = it.name;
-          const skill = findSkillByName(it.name);
-          if (circleComboBaseIds.has(it.id) && skill?.circleBaseName) {
-            // ◎ upgrade was chosen (combo) — show base name with ◎
-            displayName = skill.circleBaseName + ' \u25ce';
-          } else if (skill?.circleUpgrade) {
-            // ○ only was chosen (no upgrade) — show base name with ○
-            displayName = skill.circleBaseName + ' \u25cb';
+          const rating = Number.isFinite(breakdown.ratingScore)
+            ? breakdown.ratingScore
+            : it.ratingScore || 0;
+          const cost = Number.isFinite(breakdown.cost) ? breakdown.cost : it.cost || 0;
+          const ratio = Number.isFinite(breakdown.scorePerSP) ? breakdown.scorePerSP : 0;
+          const consistency = Number.isFinite(breakdown.consistencyScore)
+            ? Math.round(Math.max(0, Math.min(1, breakdown.consistencyScore)) * 100)
+            : 0;
+          const metrics = `cost ${cost}, rating ${rating}, score/SP ${ratio.toFixed(2)}, consistency ${consistency}%`;
+          const nameEl = document.createElement('span');
+          nameEl.className = 'res-name';
+          nameEl.textContent = it.name;
+          const metricsEl = document.createElement('span');
+          metricsEl.className = 'res-metrics';
+          metricsEl.textContent = metrics;
+          li.appendChild(nameEl);
+          li.appendChild(metricsEl);
+
+          const tierNote = typeof breakdown.tierNote === 'string' ? breakdown.tierNote.trim() : '';
+          const reasons = Array.isArray(breakdown.reasons) ? breakdown.reasons.filter(Boolean) : [];
+          if (tierNote || reasons.length) {
+            const detailsEl = document.createElement('details');
+            detailsEl.className = 'res-explain';
+            const summaryEl = document.createElement('summary');
+            summaryEl.textContent = 'View explanation';
+            detailsEl.appendChild(summaryEl);
+
+            if (tierNote) {
+              const noteEl = document.createElement('p');
+              noteEl.className = 'res-explain-note';
+              noteEl.textContent = tierNote;
+              detailsEl.appendChild(noteEl);
+            }
+            if (reasons.length) {
+              const listEl = document.createElement('ul');
+              listEl.className = 'res-explain-reasons';
+              reasons.forEach((reason) => {
+                const reasonEl = document.createElement('li');
+                reasonEl.textContent = reason;
+                listEl.appendChild(reasonEl);
+              });
+              detailsEl.appendChild(listEl);
+            }
+            li.appendChild(detailsEl);
           }
-          const meta = includedWith
-            ? `- included with ${includedWith}`
-            : `- cost ${it.cost}, score ${displayScore}`;
-          li.innerHTML = `<span class="res-name">${displayName}</span> <span class="res-meta">${meta}</span>`;
         }
+      } else {
+        // Show rating score in the meta, not the combined optimization score
+        const displayScore = it.ratingScore !== undefined ? it.ratingScore : it.score;
+        // For circle skills, show which tier was chosen
+        let displayName = it.name;
+        const skill = findSkillByName(it.name);
+        if (circleComboBaseIds.has(it.id) && skill?.circleBaseName) {
+          // ◎ upgrade was chosen (combo) — show base name with ◎
+          displayName = skill.circleBaseName + ' \u25ce';
+        } else if (skill?.circleUpgrade) {
+          // ○ only was chosen (no upgrade) — show base name with ○
+          displayName = skill.circleBaseName + ' \u25cb';
+        }
+        const meta = includedWith
+          ? `- included with ${includedWith}`
+          : `- cost ${it.cost}, score ${displayScore}`;
+        li.innerHTML = `<span class="res-name">${displayName}</span> <span class="res-meta">${meta}</span>`;
+      }
       selectedListEl.appendChild(li);
     });
     // Always use the rating score for the rating display
@@ -2832,15 +3170,25 @@
 
   // persistence
   function saveState() {
-    const state = { budget: parseInt(budgetInput.value, 10) || 0, cfg: {}, rows: [], autoTargets: [], rating: ratingEngine.readRatingState(), fastLearner: !!fastLearnerToggle?.checked, optimizeMode: getOptimizeMode() };
-    Object.entries(cfg).forEach(([k, el]) => { state.cfg[k] = el ? el.value : 'A'; });
+    const state = {
+      budget: parseInt(budgetInput.value, 10) || 0,
+      cfg: {},
+      rows: [],
+      autoTargets: [],
+      rating: ratingEngine.readRatingState(),
+      fastLearner: !!fastLearnerToggle?.checked,
+      optimizeMode: getOptimizeMode(),
+    };
+    Object.entries(cfg).forEach(([k, el]) => {
+      state.cfg[k] = el ? el.value : 'A';
+    });
     if (autoTargetInputs && autoTargetInputs.length) {
       state.autoTargets = Array.from(autoTargetInputs)
-        .filter(input => input.checked)
-        .map(input => input.value);
+        .filter((input) => input.checked)
+        .map((input) => input.value);
     }
     const rows = rowsEl.querySelectorAll('.optimizer-row');
-    rows.forEach(row => {
+    rows.forEach((row) => {
       // Skip circle upgrade sub-rows — they're auto-generated from ○ parent
       if (row.dataset.parentCircleId) return;
       const nameInput = row.querySelector('.skill-name');
@@ -2857,20 +3205,26 @@
         required: !!requiredEl?.checked,
         baseCost: row.dataset.baseCost || '',
         parentGoldId: row.dataset.parentGoldId || '',
-        lowerRowId: row.dataset.lowerRowId || ''
+        lowerRowId: row.dataset.lowerRowId || '',
       });
     });
-    try { localStorage.setItem('optimizerState', JSON.stringify(state)); } catch {}
+    try {
+      localStorage.setItem('optimizerState', JSON.stringify(state));
+    } catch {}
   }
 
   function loadState() {
     try {
-      const raw = localStorage.getItem('optimizerState'); if (!raw) return false;
-      const state = JSON.parse(raw); if (!state || !Array.isArray(state.rows)) return false;
+      const raw = localStorage.getItem('optimizerState');
+      if (!raw) return false;
+      const state = JSON.parse(raw);
+      if (!state || !Array.isArray(state.rows)) return false;
       budgetInput.value = state.budget || 0;
       if (fastLearnerToggle) fastLearnerToggle.checked = !!state.fastLearner;
       if (optimizeModeSelect && state.optimizeMode) optimizeModeSelect.value = state.optimizeMode;
-      Object.entries(state.cfg || {}).forEach(([k, v]) => { if (cfg[k]) cfg[k].value = v; });
+      Object.entries(state.cfg || {}).forEach(([k, v]) => {
+        if (cfg[k]) cfg[k].value = v;
+      });
       if (Array.isArray(state.autoTargets) && state.autoTargets.length) {
         setAutoTargetSelections(state.autoTargets);
       } else {
@@ -2882,11 +3236,12 @@
       } else {
         ratingEngine.updateRatingDisplay();
       }
-      Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach(n => n.remove());
+      Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((n) => n.remove());
       const created = new Map();
       let createdAny = false;
-      state.rows.forEach(r => {
-        const row = makeRow(); rowsEl.appendChild(row);
+      state.rows.forEach((r) => {
+        const row = makeRow();
+        rowsEl.appendChild(row);
         createdAny = true;
         if (r.id) row.dataset.rowId = r.id;
         if (r.parentGoldId) {
@@ -2900,13 +3255,15 @@
         const costEl = row.querySelector('.cost');
         if (costEl) costEl.value = typeof r.cost === 'number' && !isNaN(r.cost) ? r.cost : 0;
         const hintEl = row.querySelector('.hint-level');
-        if (hintEl) hintEl.value = typeof r.hintLevel === 'number' && !isNaN(r.hintLevel) ? r.hintLevel : 0;
+        if (hintEl)
+          hintEl.value = typeof r.hintLevel === 'number' && !isNaN(r.hintLevel) ? r.hintLevel : 0;
         const requiredEl = row.querySelector('.required-skill');
         if (requiredEl) {
           requiredEl.checked = !!r.required;
           row.classList.toggle('required', !!r.required);
         }
-        if (r.baseCost) row.dataset.baseCost = r.baseCost; else delete row.dataset.baseCost;
+        if (r.baseCost) row.dataset.baseCost = r.baseCost;
+        else delete row.dataset.baseCost;
         if (r.category) row.dataset.skillCategory = r.category;
         if (typeof row.syncSkillCategory === 'function') {
           row.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
@@ -2915,7 +3272,7 @@
         }
         created.set(row.dataset.rowId, row);
       });
-      state.rows.forEach(r => {
+      state.rows.forEach((r) => {
         if (r.parentGoldId && created.has(r.parentGoldId)) {
           const parent = created.get(r.parentGoldId);
           parent.dataset.lowerRowId = r.id || '';
@@ -2928,7 +3285,7 @@
       });
       if (!createdAny) return false;
       // Recreate circle upgrade sub-rows (they aren't saved, only auto-generated)
-      created.forEach(row => {
+      created.forEach((row) => {
         if (row.dataset.parentGoldId || row.dataset.parentCircleId) return;
         if (typeof row.syncSkillCategory === 'function') {
           row.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
@@ -2938,48 +3295,67 @@
       refreshAllRowCosts();
       saveState();
       return true;
-    } catch { return false; }
+    } catch {
+      return false;
+    }
   }
 
   // events
-  if (addRowBtn) addRowBtn.addEventListener('click', () => {
-    const newRow = makeRow();
-    rowsEl.appendChild(newRow);
-    scrollRowIntoView(newRow);
-    saveState();
-  });
+  if (addRowBtn)
+    addRowBtn.addEventListener('click', () => {
+      const newRow = makeRow();
+      rowsEl.appendChild(newRow);
+      scrollRowIntoView(newRow);
+      saveState();
+    });
 
-  if (optimizeBtn) optimizeBtn.addEventListener('click', () => {
-    const budget = parseInt(budgetInput.value, 10); if (isNaN(budget) || budget < 0) { alert('Please enter a valid skill points budget.'); return; }
-    const { items, rowsMeta } = collectItems(); if (!items.length) { alert('Add at least one skill with a valid cost.'); return; }
-    if (getOptimizeMode() === TEAM_TRIALS_MODE) {
-      const teamResult = optimizeTeamTrialsCandidates(items, budget);
-      renderResults(teamResult, budget);
+  if (optimizeBtn)
+    optimizeBtn.addEventListener('click', () => {
+      const budget = parseInt(budgetInput.value, 10);
+      if (isNaN(budget) || budget < 0) {
+        alert('Please enter a valid skill points budget.');
+        return;
+      }
+      const { items, rowsMeta } = collectItems();
+      if (!items.length) {
+        alert('Add at least one skill with a valid cost.');
+        return;
+      }
+      if (getOptimizeMode() === TEAM_TRIALS_MODE) {
+        const teamResult = optimizeTeamTrialsCandidates(items, budget);
+        renderResults(teamResult, budget);
+        saveState();
+        return;
+      }
+      const requiredSummary = expandRequired(items);
+      if (requiredSummary.requiredCost > budget) {
+        renderResults({ best: 0, chosen: [], used: 0, error: 'required_unreachable' }, budget);
+        saveState();
+        return;
+      }
+      const optionalItems = items.filter((it) => !requiredSummary.requiredIds.has(it.id));
+      const groups = buildGroups(optionalItems, rowsMeta);
+      const result = optimizeGrouped(groups, optionalItems, budget - requiredSummary.requiredCost);
+      const mergedResult = {
+        ...result,
+        chosen: requiredSummary.requiredItems.concat(result.chosen),
+        used: result.used + requiredSummary.requiredCost,
+        best: result.best + requiredSummary.requiredScore,
+      };
+      renderResults(mergedResult, budget);
       saveState();
-      return;
-    }
-    const requiredSummary = expandRequired(items);
-    if (requiredSummary.requiredCost > budget) {
-      renderResults({ best: 0, chosen: [], used: 0, error: 'required_unreachable' }, budget);
-      saveState();
-      return;
-    }
-    const optionalItems = items.filter(it => !requiredSummary.requiredIds.has(it.id));
-    const groups = buildGroups(optionalItems, rowsMeta);
-    const result = optimizeGrouped(groups, optionalItems, budget - requiredSummary.requiredCost);
-    const mergedResult = {
-      ...result,
-      chosen: requiredSummary.requiredItems.concat(result.chosen),
-      used: result.used + requiredSummary.requiredCost,
-      best: result.best + requiredSummary.requiredScore
-    };
-    renderResults(mergedResult, budget); saveState();
-  });
-  if (clearAllBtn) clearAllBtn.addEventListener('click', () => { clearAllRows(); });
+    });
+  if (clearAllBtn)
+    clearAllBtn.addEventListener('click', () => {
+      clearAllRows();
+    });
   if (shareBuildBtn) {
     shareBuildBtn.addEventListener('click', async () => {
       const data = serializeRows();
-      if (!data) { setAutoStatus('No build to share.', true); return; }
+      if (!data) {
+        setAutoStatus('No build to share.', true);
+        return;
+      }
       try {
         writeToURL();
         const shareURL = location.href;
@@ -3043,7 +3419,9 @@
     const nodes = root.querySelectorAll(
       'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
     );
-    return Array.from(nodes).filter((el) => !el.hasAttribute('disabled') && el.offsetParent !== null);
+    return Array.from(nodes).filter(
+      (el) => !el.hasAttribute('disabled') && el.offsetParent !== null
+    );
   }
 
   function handleModalKeydown(e) {
@@ -3132,7 +3510,7 @@
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   }
 
@@ -3142,13 +3520,15 @@
       if (stored) {
         const builds = JSON.parse(stored);
         if (Array.isArray(builds)) {
-          const validated = builds.filter(b => {
-            return b &&
+          const validated = builds.filter((b) => {
+            return (
+              b &&
               typeof b === 'object' &&
               b.id &&
               b.name &&
               b.data &&
-              typeof b.timestamp === 'number';
+              typeof b.timestamp === 'number'
+            );
           });
           return validated.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
         }
@@ -3165,7 +3545,7 @@
   function deleteBuild(buildId) {
     try {
       let builds = getSavedBuilds();
-      builds = builds.filter(b => b.id !== buildId);
+      builds = builds.filter((b) => b.id !== buildId);
       localStorage.setItem('umatools-saved-builds', JSON.stringify(builds));
       return true;
     } catch (err) {
@@ -3237,8 +3617,19 @@
       }
 
       if (build.config) {
-        const cfgKeys = ['turf', 'dirt', 'sprint', 'mile', 'medium', 'long', 'front', 'pace', 'late', 'end'];
-        const cfgValues = cfgKeys.map(k => build.config[k] || 'A');
+        const cfgKeys = [
+          'turf',
+          'dirt',
+          'sprint',
+          'mile',
+          'medium',
+          'long',
+          'front',
+          'pace',
+          'late',
+          'end',
+        ];
+        const cfgValues = cfgKeys.map((k) => build.config[k] || 'A');
         const cfgString = cfgValues.join(',');
         if (cfgString && cfgString !== 'A,A,A,A,A,A,A,A,A,A') {
           p.set('c', cfgString);
@@ -3273,10 +3664,11 @@
     buildsListContainer.innerHTML = '';
     const builds = getSavedBuilds();
     if (builds.length === 0) {
-      buildsListContainer.innerHTML = '<div class="empty-builds">No saved builds yet. Save your current build to get started!</div>';
+      buildsListContainer.innerHTML =
+        '<div class="empty-builds">No saved builds yet. Save your current build to get started!</div>';
       return;
     }
-    builds.forEach(build => {
+    builds.forEach((build) => {
       const item = document.createElement('div');
       item.className = 'build-item';
       const header = document.createElement('div');
@@ -3395,9 +3787,12 @@
         fastLearner: fastLearnerToggle?.checked || false,
         optimizeMode: optimizeModeSelect?.value || 'rating',
         rating: ratingEngine.readRatingState(),
-        autoTargets: (autoTargetInputs && autoTargetInputs.length)
-          ? Array.from(autoTargetInputs).filter(input => input.checked).map(input => input.value)
-          : [],
+        autoTargets:
+          autoTargetInputs && autoTargetInputs.length
+            ? Array.from(autoTargetInputs)
+                .filter((input) => input.checked)
+                .map((input) => input.value)
+            : [],
         config: {
           turf: cfg.turf?.value || 'A',
           dirt: cfg.dirt?.value || 'G',
@@ -3408,8 +3803,8 @@
           front: cfg.front?.value || 'A',
           pace: cfg.pace?.value || 'B',
           late: cfg.late?.value || 'C',
-          end: cfg.end?.value || 'B'
-        }
+          end: cfg.end?.value || 'B',
+        },
       };
 
       try {
@@ -3430,7 +3825,9 @@
               builds = builds.slice(0, 10);
               try {
                 localStorage.setItem('umatools-saved-builds', JSON.stringify(builds));
-                alert(`Storage limit reached. Kept only your 10 most recent builds. Build "${name}" saved.`);
+                alert(
+                  `Storage limit reached. Kept only your 10 most recent builds. Build "${name}" saved.`
+                );
                 closeSaveBuildModal();
                 return;
               } catch {}
@@ -3468,7 +3865,20 @@
   const loadCsvBtn = document.getElementById('load-csv');
   if (loadCsvBtn && csvFileInput) {
     loadCsvBtn.addEventListener('click', () => csvFileInput.click());
-    csvFileInput.addEventListener('change', () => { const file = csvFileInput.files && csvFileInput.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = () => { const ok = loadFromCSVContent(reader.result || ''); if (!ok) alert('CSV not recognized. Expected headers like: skill_type,name,base/base_value,S_A/B_C/D_E_F/G or apt_1..apt_4,affinity'); saveState(); }; reader.readAsText(file); });
+    csvFileInput.addEventListener('change', () => {
+      const file = csvFileInput.files && csvFileInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const ok = loadFromCSVContent(reader.result || '');
+        if (!ok)
+          alert(
+            'CSV not recognized. Expected headers like: skill_type,name,base/base_value,S_A/B_C/D_E_F/G or apt_1..apt_4,affinity'
+          );
+        saveState();
+      };
+      reader.readAsText(file);
+    });
   }
 
   function initRatingFloat() {
@@ -3535,12 +3945,15 @@
     };
     const card = document.getElementById('rating-card');
     if ('IntersectionObserver' in window && card) {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          observer.disconnect();
-          load();
-        }
-      }, { rootMargin: '200px' });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            observer.disconnect();
+            load();
+          }
+        },
+        { rootMargin: '200px' }
+      );
       observer.observe(card);
     }
     if ('requestIdleCallback' in window) {
@@ -3557,64 +3970,64 @@
       openButton: '#tutorial-open',
       panelTitle: 'Optimizer quick tour',
       getTokens: () => ({
-        goalLabel: optimizeModeSelect?.selectedOptions?.[0]?.textContent?.trim() || 'Rating'
+        goalLabel: optimizeModeSelect?.selectedOptions?.[0]?.textContent?.trim() || 'Rating',
       }),
       steps: [
         {
           title: 'Quick setup path',
           shortTitle: 'Quick setup path',
           text: 'This lightweight tour is skippable and re-openable any time from this Help / Tutorial button.',
-          target: '#tutorial-open'
+          target: '#tutorial-open',
         },
         {
           title: 'Add your skill points',
           shortTitle: 'Skill points',
           text: 'Set your available skill points budget here. Recommendations and remaining points use this value.',
-          target: '#budget'
+          target: '#budget',
         },
         {
           title: 'Use Fast Learner when needed',
           shortTitle: 'Fast Learner toggle',
           text: 'Turn this on if your Uma has reduced skill costs. Skill costs update automatically.',
-          target: '#fast-learner'
+          target: '#fast-learner',
         },
         {
           title: 'Optimize for {goalLabel}',
           shortTitle: 'Optimize for goal',
           text: 'Choose the selected goal or category. Current mode is {goalLabel}, and you can switch any time.',
-          target: '#optimize-mode'
+          target: '#optimize-mode',
         },
         {
           title: 'Match race affinities',
           shortTitle: 'Race configuration',
           text: 'Set track, distance, and strategy to match your Uma. Affinities change how skills are scored.',
-          target: '#optimizer-race-config .race-config-pane'
+          target: '#optimizer-race-config .race-config-pane',
         },
         {
           title: 'Use the skill builder',
           shortTitle: 'Skill builder',
           text: 'Generate Build auto-picks strong rating skills for your selected categories, then you can fine-tune rows.',
-          target: '#optimizer-skill-builder'
+          target: '#optimizer-skill-builder',
         },
         {
           title: 'Enter stats and star level',
           shortTitle: 'Stats and stars',
           text: 'Input final stats, star rarity, and unique level so projected rating matches your Uma.',
-          target: '#rating-card'
+          target: '#rating-card',
         },
         {
           title: 'Add skills to the optimizer',
           shortTitle: 'Add skills',
           text: 'Type skills in these rows. Type and category are detected, and costs update with your settings.',
-          target: '#rows'
+          target: '#rows',
         },
         {
           title: 'Find your Skills to Buy',
           shortTitle: 'Skills to Buy',
           text: 'Your recommended purchase list appears here once rows are filled. This is where to read final picks.',
-          target: '#skills-to-buy-section'
-        }
-      ]
+          target: '#skills-to-buy-section',
+        },
+      ],
     });
     tutorial.init();
   }
@@ -3627,8 +4040,8 @@
         rowsEl.appendChild(makeRow());
       }
     }
-    if (libStatus && /loading/i.test(libStatus.textContent || "")) {
-      libStatus.textContent = "Skill library ready.";
+    if (libStatus && /loading/i.test(libStatus.textContent || '')) {
+      libStatus.textContent = 'Skill library ready.';
     }
     ratingEngine.initRatingInputs();
     scheduleRatingSpriteLoad();
@@ -3643,16 +4056,23 @@
 
   // Init: prefer CSV by default
   loadSkillCostsJSON()
-    .catch(err => { console.warn('Skill cost JSON load failed', err); })
-    .then(() => loadTeamTrialsTierlist().catch(err => { console.warn('Team Trials tierlist load failed', err); }))
+    .catch((err) => {
+      console.warn('Skill cost JSON load failed', err);
+    })
+    .then(() =>
+      loadTeamTrialsTierlist().catch((err) => {
+        console.warn('Team Trials tierlist load failed', err);
+      })
+    )
     .then(() => loadSkillsCSV())
     .then(() => finishInit())
-    .catch(err => {
+    .catch((err) => {
       console.error('Initialization failed', err);
       finishInit();
     });
   const persistIfRelevant = (e) => {
-    const t = e.target; if (!t) return;
+    const t = e.target;
+    if (!t) return;
     if (t.closest('.race-config-container')) updateAffinityStyles();
     if (t.closest('.auto-targets')) {
       saveState();
@@ -3670,6 +4090,13 @@
   document.addEventListener('change', persistIfRelevant);
   document.addEventListener('input', persistIfRelevant);
 
+  function getOCRSkillKey(skillName, resolvedSkill) {
+    const name = (skillName || '').trim();
+    if (!name) return '';
+    const resolved = resolvedSkill || findSkillByName(name);
+    return normalize(resolved?.circleBaseName || name);
+  }
+
   // OCR Integration: Apply detected skills to optimizer rows
   function applyOCRSkills(skills) {
     if (!skills || !Array.isArray(skills) || skills.length === 0) {
@@ -3679,12 +4106,11 @@
     // Build a map of existing skills (all rows including linked lower/circle)
     const allRows = Array.from(rowsEl.querySelectorAll('.optimizer-row'));
     const existingByKey = new Map(); // normalize(name) → row
-    allRows.forEach(row => {
+    allRows.forEach((row) => {
       const name = (row.querySelector('.skill-name')?.value || '').trim();
       if (!name) return;
       const skill = findSkillByName(name);
-      // Key by base name for circle skills, full name otherwise
-      const key = skill?.circleBaseName ? normalize(skill.circleBaseName) : normalize(name);
+      const key = getOCRSkillKey(name, skill);
       if (!existingByKey.has(key)) existingByKey.set(key, row);
     });
 
@@ -3697,7 +4123,7 @@
       if (!skill || !skill.name) return;
 
       const resolved = findSkillByName(skill.name);
-      const key = resolved?.circleBaseName ? normalize(resolved.circleBaseName) : normalize(skill.name);
+      const key = getOCRSkillKey(skill.name, resolved);
       const existingRow = existingByKey.get(key);
 
       if (existingRow) {
@@ -3737,7 +4163,11 @@
       }
 
       if (typeof targetRow.syncSkillCategory === 'function') {
-        targetRow.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
+        targetRow.syncSkillCategory({
+          triggerOptimize: false,
+          allowLinking: true,
+          updateCost: true,
+        });
       }
 
       // Track the newly added row so subsequent OCR scans don't re-add it
@@ -3752,7 +4182,7 @@
         const linkedName = (linkedRow.querySelector('.skill-name')?.value || '').trim();
         if (!linkedName) continue;
         const linkedSkill = findSkillByName(linkedName);
-        const linkedKey = linkedSkill?.circleBaseName ? normalize(linkedSkill.circleBaseName) : normalize(linkedName);
+        const linkedKey = getOCRSkillKey(linkedName, linkedSkill);
         if (!existingByKey.has(linkedKey)) existingByKey.set(linkedKey, linkedRow);
       }
     });

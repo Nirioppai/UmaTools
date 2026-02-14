@@ -72,7 +72,9 @@ body.landing-page .cta {
   border: 1px solid transparent;
   font-weight: 600;
   text-decoration: none;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
 }
 
 body.landing-page .cta-primary {
@@ -240,7 +242,9 @@ body.landing-page .tool-card {
   border-radius: 10px;
   padding: 1.1rem 1.1rem 1.2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 body.landing-page .tool-card:hover {
@@ -263,32 +267,32 @@ body.landing-page .tool-icon svg {
   height: 22px;
 }
 
-body.landing-page .tool-card[data-tone="sun"] .tool-icon {
+body.landing-page .tool-card[data-tone='sun'] .tool-icon {
   background: #feebc8;
   color: #9c4221;
 }
 
-body.landing-page .tool-card[data-tone="sky"] .tool-icon {
+body.landing-page .tool-card[data-tone='sky'] .tool-icon {
   background: #bee3f8;
   color: #2b6cb0;
 }
 
-body.landing-page .tool-card[data-tone="mint"] .tool-icon {
+body.landing-page .tool-card[data-tone='mint'] .tool-icon {
   background: #c6f6d5;
   color: #2f855a;
 }
 
-body.landing-page .tool-card[data-tone="slate"] .tool-icon {
+body.landing-page .tool-card[data-tone='slate'] .tool-icon {
   background: #e2e8f0;
   color: #4a5568;
 }
 
-body.landing-page .tool-card[data-tone="rose"] .tool-icon {
+body.landing-page .tool-card[data-tone='rose'] .tool-icon {
   background: #fed7e2;
   color: #b83280;
 }
 
-body.landing-page .tool-card[data-tone="amber"] .tool-icon {
+body.landing-page .tool-card[data-tone='amber'] .tool-icon {
   background: #fefcbf;
   color: #975a16;
 }
@@ -363,4 +367,3 @@ body.landing-page.dark .tool-card {
     margin-top: 0;
   }
 }
-

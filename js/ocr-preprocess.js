@@ -19,21 +19,21 @@
   // ─── Configuration ───────────────────────────────────────────────
 
   const DEFAULT_CONFIG = {
-    targetScale: 2,           // upscale factor (2x or 3x)
-    enableCLAHE: true,        // adaptive contrast
-    claheClipLimit: 2.5,      // CLAHE clip limit
-    claheTileSize: 8,         // CLAHE tile grid size
-    enableDenoise: true,      // median filter
-    denoiseKernel: 3,         // 3x3 median
-    enableThreshold: true,    // adaptive binarization
-    thresholdBlockSize: 15,   // local block radius
-    thresholdC: 10,           // constant subtracted from mean
-    enableMorphClose: true,   // fill glyph gaps
-    morphCloseRadius: 1,      // structuring element radius
-    enableSharpen: false,     // edge sharpening
-    enableDeskew: false,      // rotation correction
-    generateDebug: false,     // produce debug artifact images
-    multiVariant: true,       // run multiple preprocessing variants
+    targetScale: 2, // upscale factor (2x or 3x)
+    enableCLAHE: true, // adaptive contrast
+    claheClipLimit: 2.5, // CLAHE clip limit
+    claheTileSize: 8, // CLAHE tile grid size
+    enableDenoise: true, // median filter
+    denoiseKernel: 3, // 3x3 median
+    enableThreshold: true, // adaptive binarization
+    thresholdBlockSize: 15, // local block radius
+    thresholdC: 10, // constant subtracted from mean
+    enableMorphClose: true, // fill glyph gaps
+    morphCloseRadius: 1, // structuring element radius
+    enableSharpen: false, // edge sharpening
+    enableDeskew: false, // rotation correction
+    generateDebug: false, // produce debug artifact images
+    multiVariant: true, // run multiple preprocessing variants
   };
 
   // ─── Utility: Canvas helpers ────────────────────────────────────
@@ -103,10 +103,10 @@
     const tileHists = [];
     for (let ty = 0; ty < tilesY; ty++) {
       for (let tx = 0; tx < tilesX; tx++) {
-        const x0 = Math.floor(tx * width / tilesX);
-        const y0 = Math.floor(ty * height / tilesY);
-        const x1 = Math.floor((tx + 1) * width / tilesX);
-        const y1 = Math.floor((ty + 1) * height / tilesY);
+        const x0 = Math.floor((tx * width) / tilesX);
+        const y0 = Math.floor((ty * height) / tilesY);
+        const x1 = Math.floor(((tx + 1) * width) / tilesX);
+        const y1 = Math.floor(((ty + 1) * height) / tilesY);
 
         const hist = new Uint32Array(256);
         let count = 0;
@@ -118,7 +118,7 @@
         }
 
         // Clip histogram
-        const limit = Math.max(1, Math.round(clipLimit * count / 256));
+        const limit = Math.max(1, Math.round((clipLimit * count) / 256));
         let excess = 0;
         for (let i = 0; i < 256; i++) {
           if (hist[i] > limit) {
@@ -139,7 +139,7 @@
         let cumSum = 0;
         for (let i = 0; i < 256; i++) {
           cumSum += hist[i];
-          lut[i] = Math.round((cumSum - 1) * 255 / Math.max(1, count - 1));
+          lut[i] = Math.round(((cumSum - 1) * 255) / Math.max(1, count - 1));
         }
 
         tileHists.push({ x0, y0, x1, y1, lut, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 });
@@ -152,8 +152,8 @@
         const px = gray[y * width + x];
 
         // Find surrounding tile centers
-        const txf = (x / width * tilesX) - 0.5;
-        const tyf = (y / height * tilesY) - 0.5;
+        const txf = (x / width) * tilesX - 0.5;
+        const tyf = (y / height) * tilesY - 0.5;
         const tx0 = Math.max(0, Math.floor(txf));
         const ty0 = Math.max(0, Math.floor(tyf));
         const tx1 = Math.min(tilesX - 1, tx0 + 1);
@@ -214,7 +214,8 @@
     const iw = width + 1;
 
     for (let y = 0; y < height; y++) {
-      let rowSum = 0, rowSumSq = 0;
+      let rowSum = 0,
+        rowSumSq = 0;
       for (let x = 0; x < width; x++) {
         const v = gray[y * width + x];
         rowSum += v;
@@ -235,14 +236,16 @@
         const y1 = Math.min(height - 1, y + blockRadius);
 
         const area = (x1 - x0 + 1) * (y1 - y0 + 1);
-        const sum = integral[(y1 + 1) * iw + (x1 + 1)]
-                  - integral[y0 * iw + (x1 + 1)]
-                  - integral[(y1 + 1) * iw + x0]
-                  + integral[y0 * iw + x0];
-        const sumSq = integralSq[(y1 + 1) * iw + (x1 + 1)]
-                    - integralSq[y0 * iw + (x1 + 1)]
-                    - integralSq[(y1 + 1) * iw + x0]
-                    + integralSq[y0 * iw + x0];
+        const sum =
+          integral[(y1 + 1) * iw + (x1 + 1)] -
+          integral[y0 * iw + (x1 + 1)] -
+          integral[(y1 + 1) * iw + x0] +
+          integral[y0 * iw + x0];
+        const sumSq =
+          integralSq[(y1 + 1) * iw + (x1 + 1)] -
+          integralSq[y0 * iw + (x1 + 1)] -
+          integralSq[(y1 + 1) * iw + x0] +
+          integralSq[y0 * iw + x0];
 
         const mean = sum / area;
         const variance = Math.max(0, sumSq / area - mean * mean);
@@ -269,7 +272,10 @@
     let sum = 0;
     for (let i = 0; i < 256; i++) sum += i * hist[i];
 
-    let sumB = 0, wB = 0, maxVariance = 0, threshold = 0;
+    let sumB = 0,
+      wB = 0,
+      maxVariance = 0,
+      threshold = 0;
 
     for (let t = 0; t < 256; t++) {
       wB += hist[t];
@@ -387,15 +393,18 @@
   function laplacianVariance(grayObj) {
     const { gray, width, height } = grayObj;
     // Laplacian kernel: [0, 1, 0, 1, -4, 1, 0, 1, 0]
-    let sum = 0, sumSq = 0, count = 0;
+    let sum = 0,
+      sumSq = 0,
+      count = 0;
 
     for (let y = 1; y < height - 1; y++) {
       for (let x = 1; x < width - 1; x++) {
-        const lap = -4 * gray[y * width + x]
-                  + gray[(y - 1) * width + x]
-                  + gray[(y + 1) * width + x]
-                  + gray[y * width + (x - 1)]
-                  + gray[y * width + (x + 1)];
+        const lap =
+          -4 * gray[y * width + x] +
+          gray[(y - 1) * width + x] +
+          gray[(y + 1) * width + x] +
+          gray[y * width + (x - 1)] +
+          gray[y * width + (x + 1)];
         sum += lap;
         sumSq += lap * lap;
         count++;
@@ -403,7 +412,7 @@
     }
 
     const mean = sum / count;
-    return (sumSq / count) - mean * mean;
+    return sumSq / count - mean * mean;
   }
 
   // ─── Detect if image is dark or light background ───────────────
@@ -515,8 +524,8 @@
     const elapsed = performance.now() - startTime;
 
     return {
-      primary: resultCanvas,         // thresholded, best for Tesseract
-      enhanced: enhancedCanvas,       // grayscale enhanced, alternate for OCR
+      primary: resultCanvas, // thresholded, best for Tesseract
+      enhanced: enhancedCanvas, // grayscale enhanced, alternate for OCR
       sharpness: sharpnessScore,
       background: bgType,
       inverted,
@@ -540,7 +549,7 @@
         targetScale: 2,
         enableThreshold: true,
         enableSharpen: false,
-      })
+      }),
     });
 
     // Variant 2: Higher scale with sharpen (for low-res captures)
@@ -551,7 +560,7 @@
         targetScale: 3,
         enableThreshold: true,
         enableSharpen: true,
-      })
+      }),
     });
 
     // Variant 3: Enhanced grayscale only (let Tesseract handle binarization)
@@ -563,7 +572,7 @@
         enableThreshold: false,
         enableMorphClose: false,
         enableSharpen: false,
-      })
+      }),
     });
 
     // Variant 4: Otsu global threshold (handles uniform backgrounds better)
@@ -612,7 +621,7 @@
     return {
       canvas: frames[bestIdx],
       index: bestIdx,
-      sharpness: bestSharpness
+      sharpness: bestSharpness,
     };
   }
 
@@ -629,7 +638,7 @@
   // ─── Canvas to blob for OCR ───────────────────────────────────
 
   function canvasToBlob(canvas, type) {
-    return new Promise(resolve => canvas.toBlob(resolve, type || 'image/png'));
+    return new Promise((resolve) => canvas.toBlob(resolve, type || 'image/png'));
   }
 
   // ─── Region of Interest: Skill Panel Cropping ──────────────
@@ -642,8 +651,8 @@
   // to avoid reading menu text, log entries, scheduled races, etc.
 
   const SKILL_REGIONS = {
-    pc: { x: 0.01, y: 0.27, w: 0.40, h: 0.58 },
-    mobile: { x: 0.0, y: 0.17, w: 0.98, h: 0.70 },
+    pc: { x: 0.01, y: 0.27, w: 0.4, h: 0.58 },
+    mobile: { x: 0.0, y: 0.17, w: 0.98, h: 0.7 },
   };
 
   function detectLayout(canvas) {
@@ -743,8 +752,10 @@
     }
 
     // ── Normalize both signals to [0, 1] ──
-    let bMin = Infinity, bMax = -Infinity;
-    let eMin = Infinity, eMax = -Infinity;
+    let bMin = Infinity,
+      bMax = -Infinity;
+    let eMin = Infinity,
+      eMax = -Infinity;
     for (let y = 0; y < height; y++) {
       if (rowBright[y] < bMin) bMin = rowBright[y];
       if (rowBright[y] > bMax) bMax = rowBright[y];
@@ -768,10 +779,14 @@
     // ── Smooth (±3 rows) to reduce single-row noise ──
     const score = new Float32Array(height);
     for (let y = 0; y < height; y++) {
-      let s = 0, c = 0;
+      let s = 0,
+        c = 0;
       for (let dy = -3; dy <= 3; dy++) {
         const yy = y + dy;
-        if (yy >= 0 && yy < height) { s += raw[yy]; c++; }
+        if (yy >= 0 && yy < height) {
+          s += raw[yy];
+          c++;
+        }
       }
       score[y] = s / c;
     }
@@ -819,11 +834,13 @@
         clusters.push([valleys[i]]);
       }
     }
-    const candidates = clusters.map(cl =>
-      cl.reduce((best, v) => v.depth > best.depth ? v : best)
+    const candidates = clusters.map((cl) =>
+      cl.reduce((best, v) => (v.depth > best.depth ? v : best))
     );
 
-    console.log(`[segment] ${candidates.length} valley clusters, depths: [${candidates.map(c => c.depth.toFixed(3)).join(', ')}]`);
+    console.log(
+      `[segment] ${candidates.length} valley clusters, depths: [${candidates.map((c) => c.depth.toFixed(3)).join(', ')}]`
+    );
 
     // ── Select significant separators ──
     // Keep all valleys whose depth is at least 15% of the deepest.
@@ -832,11 +849,13 @@
     const cutoff = byDepth[0].depth * 0.15;
 
     const separators = byDepth
-      .filter(s => s.depth >= cutoff)
+      .filter((s) => s.depth >= cutoff)
       .slice(0, MAX_SEPS)
       .sort((a, b) => a.y - b.y);
 
-    console.log(`[segment] ${separators.length} separators (cutoff=${cutoff.toFixed(3)}): y=[${separators.map(s => s.y).join(', ')}]`);
+    console.log(
+      `[segment] ${separators.length} separators (cutoff=${cutoff.toFixed(3)}): y=[${separators.map((s) => s.y).join(', ')}]`
+    );
 
     if (separators.length === 0) {
       return [{ y: 0, h: height }];
@@ -844,15 +863,22 @@
 
     // ── Build card list ──
     // Find band start/end (first/last row with score > 0.12)
-    let bandStart = 0, bandEnd = height - 1;
+    let bandStart = 0,
+      bandEnd = height - 1;
     for (let y = 0; y < height; y++) {
-      if (score[y] > 0.12) { bandStart = y; break; }
+      if (score[y] > 0.12) {
+        bandStart = y;
+        break;
+      }
     }
     for (let y = height - 1; y >= 0; y--) {
-      if (score[y] > 0.12) { bandEnd = y; break; }
+      if (score[y] > 0.12) {
+        bandEnd = y;
+        break;
+      }
     }
 
-    const bounds = [bandStart, ...separators.map(s => s.y), bandEnd + 1];
+    const bounds = [bandStart, ...separators.map((s) => s.y), bandEnd + 1];
     const cards = [];
     for (let i = 0; i < bounds.length - 1; i++) {
       const cy = bounds[i];
@@ -865,7 +891,7 @@
     // Sanity: more than 6 cards is suspicious — keep only the deepest separators
     if (cards.length > 6) {
       const topSeps = byDepth.slice(0, 4).sort((a, b) => a.y - b.y);
-      const b2 = [bandStart, ...topSeps.map(s => s.y), bandEnd + 1];
+      const b2 = [bandStart, ...topSeps.map((s) => s.y), bandEnd + 1];
       const c2 = [];
       for (let i = 0; i < b2.length - 1; i++) {
         const cy = b2[i];

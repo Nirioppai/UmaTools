@@ -3,7 +3,8 @@
 
   const STORAGE_PREFIX = 'umatools.tutorial';
   const MOBILE_MEDIA_QUERY = '(max-width: 760px)';
-  const FOCUSABLE_SELECTOR = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  const FOCUSABLE_SELECTOR =
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -27,12 +28,16 @@
   }
 
   function prefersReducedMotion() {
-    return typeof window.matchMedia === 'function'
-      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return (
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
   }
 
   function sanitizeKey(input) {
-    return String(input || 'page').replace(/[^a-z0-9_-]/gi, '-').toLowerCase();
+    return String(input || 'page')
+      .replace(/[^a-z0-9_-]/gi, '-')
+      .toLowerCase();
   }
 
   class TutorialController {
@@ -41,9 +46,10 @@
       this.pageKey = this.config.pageKey || 'default';
       this.panelTitle = this.config.panelTitle || 'Quick setup tour';
       this.steps = Array.isArray(this.config.steps) ? this.config.steps : [];
-      this.openButton = typeof this.config.openButton === 'string'
-        ? document.querySelector(this.config.openButton)
-        : this.config.openButton;
+      this.openButton =
+        typeof this.config.openButton === 'string'
+          ? document.querySelector(this.config.openButton)
+          : this.config.openButton;
       this.stateKey = `${STORAGE_PREFIX}.${this.pageKey}`;
       this.state = this.readState();
       this.currentStep = clamp(
@@ -219,9 +225,10 @@
     }
 
     onChecklistClick(event) {
-      const button = event.target && event.target.closest
-        ? event.target.closest('.tutorial-check-button')
-        : null;
+      const button =
+        event.target && event.target.closest
+          ? event.target.closest('.tutorial-check-button')
+          : null;
       if (!button) return;
       const index = Number(button.dataset.stepIndex);
       if (!Number.isFinite(index)) return;
@@ -232,9 +239,7 @@
       if (!this.steps.length) return;
       this.hidePrompt();
       const saved = this.readState();
-      const startStep = resume && saved.status === 'in_progress'
-        ? Number(saved.step)
-        : 0;
+      const startStep = resume && saved.status === 'in_progress' ? Number(saved.step) : 0;
       this.currentStep = clamp(
         Number.isFinite(startStep) ? startStep : 0,
         0,
@@ -328,7 +333,8 @@
       }
       if (this.currentTitleEl) this.currentTitleEl.textContent = title;
       if (this.currentCopyEl) this.currentCopyEl.textContent = copy;
-      if (this.liveEl) this.liveEl.textContent = `Step ${this.currentStep + 1} of ${this.steps.length}: ${title}`;
+      if (this.liveEl)
+        this.liveEl.textContent = `Step ${this.currentStep + 1} of ${this.steps.length}: ${title}`;
       if (this.coachTitleEl) this.coachTitleEl.textContent = title;
       if (this.coachCopyEl) this.coachCopyEl.textContent = copy;
       if (this.backBtn) this.backBtn.disabled = this.currentStep === 0;
@@ -355,7 +361,10 @@
         button.type = 'button';
         button.className = 'tutorial-check-button';
         button.dataset.stepIndex = String(index);
-        const label = formatCopy(step.shortTitle || step.title || `Step ${index + 1}`, tokens).trim();
+        const label = formatCopy(
+          step.shortTitle || step.title || `Step ${index + 1}`,
+          tokens
+        ).trim();
         button.textContent = `${index + 1}. ${label}`;
         if (index === this.currentStep) {
           button.setAttribute('aria-current', 'step');
@@ -419,12 +428,12 @@
       if (!target || typeof target.getBoundingClientRect !== 'function') return;
       const rect = target.getBoundingClientRect();
       const margin = this.isMobile() ? 92 : 120;
-      const isOutOfView = rect.top < margin || rect.bottom > (window.innerHeight - margin);
+      const isOutOfView = rect.top < margin || rect.bottom > window.innerHeight - margin;
       if (!isOutOfView) return;
       target.scrollIntoView({
         behavior: prefersReducedMotion() ? 'auto' : 'smooth',
         block: 'center',
-        inline: 'nearest'
+        inline: 'nearest',
       });
     }
 
@@ -513,9 +522,9 @@
 
       const target = event.target;
       const tagName = target && target.tagName ? target.tagName.toLowerCase() : '';
-      const isTextEditingOutsidePanel = !this.panel?.contains(target) && (
-        tagName === 'input' || tagName === 'textarea' || tagName === 'select'
-      );
+      const isTextEditingOutsidePanel =
+        !this.panel?.contains(target) &&
+        (tagName === 'input' || tagName === 'textarea' || tagName === 'select');
       if (isTextEditingOutsidePanel) return;
 
       if (key === 'ArrowRight') {
@@ -549,11 +558,14 @@
       if (kind === 'resume') {
         const stepNumber = clamp((Number(this.state.step) || 0) + 1, 1, this.steps.length);
         if (this.toastTitleEl) this.toastTitleEl.textContent = 'Resume tutorial?';
-        if (this.toastCopyEl) this.toastCopyEl.textContent = `Continue from step ${stepNumber} of ${this.steps.length}. You can skip anytime.`;
+        if (this.toastCopyEl)
+          this.toastCopyEl.textContent = `Continue from step ${stepNumber} of ${this.steps.length}. You can skip anytime.`;
         if (this.toastStartBtn) this.toastStartBtn.textContent = 'Resume';
       } else {
         if (this.toastTitleEl) this.toastTitleEl.textContent = 'New here?';
-        if (this.toastCopyEl) this.toastCopyEl.textContent = 'Take a quick 60-second setup tour. It is lightweight, skippable, and can be reopened any time.';
+        if (this.toastCopyEl)
+          this.toastCopyEl.textContent =
+            'Take a quick 60-second setup tour. It is lightweight, skippable, and can be reopened any time.';
         if (this.toastStartBtn) this.toastStartBtn.textContent = 'Start tour';
       }
       this.toast.hidden = false;
@@ -576,8 +588,9 @@
     }
 
     isMobile() {
-      return typeof window.matchMedia === 'function'
-        && window.matchMedia(MOBILE_MEDIA_QUERY).matches;
+      return (
+        typeof window.matchMedia === 'function' && window.matchMedia(MOBILE_MEDIA_QUERY).matches
+      );
     }
 
     readState() {
@@ -595,7 +608,7 @@
       const nextState = {
         ...this.readState(),
         ...(patch || {}),
-        updatedAt: Date.now()
+        updatedAt: Date.now(),
       };
       this.state = nextState;
       this.currentStep = clamp(
@@ -623,6 +636,6 @@
   window.UmaTutorial = {
     create(config) {
       return new TutorialController(config);
-    }
+    },
   };
 })();

@@ -1,12 +1,12 @@
 (function () {
   const DEFAULT_ROUTES = [
-    { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
-    { label: "Calculator", path: "/calculator", file: "/calculator.html" },
-    { label: "Stamina Check", path: "/stamina", file: "/stamina.html" },
-    { label: "Event OCR", path: "/events", file: "/events.html" },
-    { label: "Support Hints", path: "/hints", file: "/hints.html" },
-    { label: "Randomizer", path: "/random", file: "/random.html" },
-    { label: "Umadle", path: "/umadle", file: "/umadle.html" },
+    { label: 'Optimizer', path: '/optimizer', file: '/optimizer.html' },
+    { label: 'Calculator', path: '/calculator', file: '/calculator.html' },
+    { label: 'Stamina Check', path: '/stamina', file: '/stamina.html' },
+    { label: 'Event OCR', path: '/events', file: '/events.html' },
+    { label: 'Support Hints', path: '/hints', file: '/hints.html' },
+    { label: 'Randomizer', path: '/random', file: '/random.html' },
+    { label: 'Umadle', path: '/umadle', file: '/umadle.html' },
   ];
   const ROUTES =
     Array.isArray(window.NAV_ROUTES) && window.NAV_ROUTES.length
@@ -16,10 +16,10 @@
   // Footer links: override per-page with window.FOOTER_LINKS if you want
   const DEFAULT_FOOTER = [
     {
-      label: "GitHub",
-      href: "https://github.com/daftuyda/UmaTools",
+      label: 'GitHub',
+      href: 'https://github.com/daftuyda/UmaTools',
     },
-    { label: "YouTube", href: "https://youtube.com/@MaybeVoid" },
+    { label: 'YouTube', href: 'https://youtube.com/@MaybeVoid' },
   ];
   const FOOTER =
     Array.isArray(window.FOOTER_LINKS) && window.FOOTER_LINKS.length
@@ -27,9 +27,9 @@
       : DEFAULT_FOOTER;
 
   // Build navbar element (not in DOM yet)
-  const nav = document.createElement("nav");
-  nav.className = "site-nav";
-  nav.setAttribute("aria-label", "Primary");
+  const nav = document.createElement('nav');
+  nav.className = 'site-nav';
+  nav.setAttribute('aria-label', 'Primary');
   nav.innerHTML = `
     <div class="nav-inner">
       <div class="nav-left">
@@ -53,39 +53,39 @@
 
   // Safe to reference the element we just created
   const navEl = nav;
-  const linksWrap = nav.querySelector(".nav-links");
-  const menuBtn = nav.querySelector(".menu-btn");
+  const linksWrap = nav.querySelector('.nav-links');
+  const menuBtn = nav.querySelector('.menu-btn');
 
   // Toggle dropdown on mobile
-  menuBtn.addEventListener("click", () => {
-    const open = navEl.classList.toggle("open");
-    menuBtn.setAttribute("aria-expanded", String(open));
+  menuBtn.addEventListener('click', () => {
+    const open = navEl.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
   });
 
   // Close menu when a link is chosen
-  linksWrap.addEventListener("click", (e) => {
-    if (e.target.closest(".nav-link")) {
-      navEl.classList.remove("open");
-      menuBtn.setAttribute("aria-expanded", "false");
+  linksWrap.addEventListener('click', (e) => {
+    if (e.target.closest('.nav-link')) {
+      navEl.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
     }
   });
 
   // Inject everything after DOM is ready
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener('DOMContentLoaded', () => {
     // Put navbar at top
-    const skipLink = document.querySelector(".skip-link");
+    const skipLink = document.querySelector('.skip-link');
     if (skipLink && skipLink.parentNode) {
-      skipLink.insertAdjacentElement("afterend", nav);
+      skipLink.insertAdjacentElement('afterend', nav);
     } else {
       document.body.prepend(nav);
     }
 
     // Build links
     const links = ROUTES.map((route) => {
-      const a = document.createElement("a");
-      a.className = "nav-link";
+      const a = document.createElement('a');
+      a.className = 'nav-link';
       a.textContent = route.label;
-      a.href = route.path || route.file || "#";
+      a.href = route.path || route.file || '#';
       if (route.file) a.dataset.file = route.file;
       if (route.path) a.dataset.clean = route.path;
       linksWrap.appendChild(a);
@@ -93,17 +93,16 @@
     });
 
     // Mark active route
-    const here = location.pathname.replace(/\/+$/, "") || "/";
-    const norm = (s) => (s || "").replace(/\/+$/, "") || "/";
+    const here = location.pathname.replace(/\/+$/, '') || '/';
+    const norm = (s) => (s || '').replace(/\/+$/, '') || '/';
     ROUTES.forEach((r, i) => {
-      if (here === norm(r.path) || here === norm(r.file))
-        links[i].classList.add("active");
+      if (here === norm(r.path) || here === norm(r.file)) links[i].classList.add('active');
     });
 
     // Prefer clean URLs, fall back to .html if needed
-    const test = ROUTES.find((r) => r.path && r.file && r.path !== "/");
+    const test = ROUTES.find((r) => r.path && r.file && r.path !== '/');
     if (test) {
-      fetch(test.path, { method: "HEAD" })
+      fetch(test.path, { method: 'HEAD' })
         .then((res) => {
           if (!res.ok) throw 0;
         })
@@ -115,40 +114,37 @@
     }
 
     // Move existing dark-mode toggle into navbar (if present)
-    const slot = nav.querySelector("#navModeToggleSlot");
-    const toggle = document.getElementById("modeToggleBtn");
+    const slot = nav.querySelector('#navModeToggleSlot');
+    const toggle = document.getElementById('modeToggleBtn');
     if (toggle && slot) {
       slot.appendChild(toggle);
-      toggle.classList.add("in-nav");
+      toggle.classList.add('in-nav');
     }
 
     // Footer at bottom
-    const footer = document.createElement("footer");
-    footer.className = "site-footer";
+    const footer = document.createElement('footer');
+    footer.className = 'site-footer';
     footer.innerHTML = `
       <span>Made with ❤️</span>
       ${FOOTER.map(
-        (l) =>
-          `<a href="${l.href}" target="_blank" rel="noopener noreferrer">${l.label}</a>`
-      ).join("")}
+        (l) => `<a href="${l.href}" target="_blank" rel="noopener noreferrer">${l.label}</a>`
+      ).join('')}
     `;
     document.body.appendChild(footer);
 
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js", { updateViaCache: "none" })
-        .catch(() => {});
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch(() => {});
     }
 
     // Signal that nav is ready so loaders can safely release.
-    window.dispatchEvent(new Event("nav:ready"));
+    window.dispatchEvent(new Event('nav:ready'));
   });
 
   // Close menu if switching to desktop width
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 640 && navEl.classList.contains("open")) {
-      navEl.classList.remove("open");
-      menuBtn.setAttribute("aria-expanded", "false");
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 640 && navEl.classList.contains('open')) {
+      navEl.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
     }
   });
 })();

@@ -1,4 +1,5 @@
-const PROBE_TEMPLATE_DATAURL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAmCAYAAACh1knUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARGSURBVFhH7VfraxNZFPffsVarVdfHLosLKuJ+2Ao+UFmVZRFW8IsLfhHEj+IDUdo0fUSr1lfV1eqqSFkXn7UivkCwm0nSTPNqG9ukTZvHJHM8586dZB53kpSUZVn8DT9IJr9z7m/uPffMzTz4j+D/YiTDWTtqNJLmrB1VGMkzKniFZ97Aq88uuBvaA+f8q8DlXczY4V8MXYGV8CC6H95PdMNo9iNGaFe1qGgkr05CJD0ArdIKaPYugVYcuF1aJCT9TnQjb8ibYST7CVQo8EzlUdZIFk3clHcXB5iNkU7GRngYOcCzlYejkZSahEvyeuGAs2Gztw6uBJsgqcg8sxhCIzOFBFwMroHOwBJh8tmw2Tuf8c7wLp5dDJsRRU1Db/hnYdJa6MFlehw7giOo2kAW2IwEUn1zMhNWUs14vEshU0jykcwwGSmoOfD414BLcjbSKjVACxYssZOzBetAo3afNKLYDrz/d+wwH80Mk5FA6mmx8kWJiLRr2O6RlsOT0SMwmLwFL8dboHtoYzG23M5qRSZyQT5iCQYjKjwdO8oalCiRW6pn7PCtRt1xyBUmeRxAjl1Z+JC4iM3tO4w3xxpJhTs4dZdHllA0UlAVuD3sXKSUoN23HIan+3mECGmIpvtR7zyjlOdF/CTXl1A0klezOL1rhcFESjAwfoarnaC9e17GjwlzEClPb+gXTW5A0Qht2w6f89q6pW9gSolxdXmEZwbYgGwWLXlo93RJK7myhKqN9Mg7uLIyCpirK/BDDUYcq70BHo2Jt50IVG835T1oxF4rdM9dzgj1kJ6hJlugxrk10hv6jStLMBhR4FZoR7E5mRM0QF/0d1TRaazyGSOnZuC6vB0HXWDJoxl5ET/NlSUUjVAf6Y+fQqG4yC4Hf0QN7QqFqcshi8vs8X8rzENGBqfuc2UJBiPUWR9hM6pntCZo8zViHSVQVdnIZD6GA9Yz6vFunFViG/aiRM5+JDAZoWrvxncNVbbRBNGFXXUs8w5VlY28nTjPntxYI/r3ntBPXGWGyQgNEsBpExmhaf4zvJdpyoEV6vBOoRGXtKy6ty+BtnFnYIXJhJZoPhZxPQRTz7hSjHcTl4TvKnq4P+RtWIlVnkcIkfRrWyK9iC8MrYNY+gNXGqHCP5MPoU1aLTRyFmdjTPFxrR22pckURvAEvtWWSJ/qZu9CuBehPmD+P0MzSSZIIzJCLaEvehDtik/1tmK9Lm9hT25NpBu5geuvv9ys8OOu6wpsEBrRZ/RacCNXm2Eyoqp5+GvkEAvQT1s629HEczyvKOoMKTntmM7HoX/0BJsB46lNM1KHvcp+BCDYaoQSXQ1uwiB9KRqx4/4K4ekBrqgMKshPyduWPHXwILIffxF3ZmGx5tRpuIb/1Dz+7/E4eJzfnT0UbPX3owewia3CutrH74ohNEKgZUphh5wLjOck/skZjkb+bXw1YsVXI2YAfAGs8LSsCIEo2AAAAABJRU5ErkJggg==";
+const PROBE_TEMPLATE_DATAURL =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAmCAYAAACh1knUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARGSURBVFhH7VfraxNZFPffsVarVdfHLosLKuJ+2Ao+UFmVZRFW8IsLfhHEj+IDUdo0fUSr1lfV1eqqSFkXn7UivkCwm0nSTPNqG9ukTZvHJHM8586dZB53kpSUZVn8DT9IJr9z7m/uPffMzTz4j+D/YiTDWTtqNJLmrB1VGMkzKniFZ97Aq88uuBvaA+f8q8DlXczY4V8MXYGV8CC6H95PdMNo9iNGaFe1qGgkr05CJD0ArdIKaPYugVYcuF1aJCT9TnQjb8ibYST7CVQo8EzlUdZIFk3clHcXB5iNkU7GRngYOcCzlYejkZSahEvyeuGAs2Gztw6uBJsgqcg8sxhCIzOFBFwMroHOwBJh8tmw2Tuf8c7wLp5dDJsRRU1Db/hnYdJa6MFlehw7giOo2kAW2IwEUn1zMhNWUs14vEshU0jykcwwGSmoOfD414BLcjbSKjVACxYssZOzBetAo3afNKLYDrz/d+wwH80Mk5FA6mmx8kWJiLRr2O6RlsOT0SMwmLwFL8dboHtoYzG23M5qRSZyQT5iCQYjKjwdO8oalCiRW6pn7PCtRt1xyBUmeRxAjl1Z+JC4iM3tO4w3xxpJhTs4dZdHllA0UlAVuD3sXKSUoN23HIan+3mECGmIpvtR7zyjlOdF/CTXl1A0klezOL1rhcFESjAwfoarnaC9e17GjwlzEClPb+gXTW5A0Qht2w6f89q6pW9gSolxdXmEZwbYgGwWLXlo93RJK7myhKqN9Mg7uLIyCpirK/BDDUYcq70BHo2Jt50IVG835T1oxF4rdM9dzgj1kJ6hJlugxrk10hv6jStLMBhR4FZoR7E5mRM0QF/0d1TRaazyGSOnZuC6vB0HXWDJoxl5ET/NlSUUjVAf6Y+fQqG4yC4Hf0QN7QqFqcshi8vs8X8rzENGBqfuc2UJBiPUWR9hM6pntCZo8zViHSVQVdnIZD6GA9Yz6vFunFViG/aiRM5+JDAZoWrvxncNVbbRBNGFXXUs8w5VlY28nTjPntxYI/r3ntBPXGWGyQgNEsBpExmhaf4zvJdpyoEV6vBOoRGXtKy6ty+BtnFnYIXJhJZoPhZxPQRTz7hSjHcTl4TvKnq4P+RtWIlVnkcIkfRrWyK9iC8MrYNY+gNXGqHCP5MPoU1aLTRyFmdjTPFxrR22pckURvAEvtWWSJ/qZu9CuBehPmD+P0MzSSZIIzJCLaEvehDtik/1tmK9Lm9hT25NpBu5geuvv9ys8OOu6wpsEBrRZ/RacCNXm2Eyoqp5+GvkEAvQT1s629HEczyvKOoMKTntmM7HoX/0BJsB46lNM1KHvcp+BCDYaoQSXQ1uwiB9KRqx4/4K4ekBrqgMKshPyduWPHXwILIffxF3ZmGx5tRpuIb/1Dz+7/E4eJzfnT0UbPX3owewia3CutrH74ohNEKgZUphh5wLjOck/skZjkb+bXw1YsVXI2YAfAGs8LSsCIEo2AAAAABJRU5ErkJggg==';
 
 const PROBE_REGION = { x: 0.13, y: 0.45, w: 0.05, h: 0.45 }; // % of frame
 const EVENT_REGION = { x: 0.12, y: 0.175, w: 0.2, h: 0.05 }; // % of frame
@@ -7,22 +8,21 @@ const MATCH_STRIDE = 2;
 const MATCH_THRESHOLD = 0.85;
 const MAX_MS_PER_SCAN = 60;
 
-const OCR_OPTS = { lang: "eng", psm: 6 }; // 6 = block of text (ribbon often has 2 lines)
+const OCR_OPTS = { lang: 'eng', psm: 6 }; // 6 = block of text (ribbon often has 2 lines)
 const TRIGGER_COOLDOWN_MS = 1500;
-const TESSERACT_SRC = "https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js";
+const TESSERACT_SRC = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
 const MAX_OCR_WORKERS = 3; // Max workers for skill OCR pool
 
-const captureBtn   = document.getElementById("captureBtn");
-const videoEl      = document.getElementById("captureVideo");
-const suggestions  = document.getElementById("suggestions");
+const captureBtn = document.getElementById('captureBtn');
+const videoEl = document.getElementById('captureVideo');
+const suggestions = document.getElementById('suggestions');
 
-const SCAN_TIME_KEY = "umasearch-scantime";
+const SCAN_TIME_KEY = 'umasearch-scantime';
 function getScanDelay() {
-  const v = localStorage.getItem(SCAN_TIME_KEY) || "3000";
+  const v = localStorage.getItem(SCAN_TIME_KEY) || '3000';
   const n = Number(v);
   return Number.isFinite(n) && n > 200 ? n : 3000;
 }
-
 
 let mediaStream = null;
 let captureTimer = null;
@@ -32,23 +32,30 @@ let ocrScheduler = null; // Tesseract worker pool scheduler
 let skillOCRWorker = null;
 let skillOCRWorkerInit = null;
 
-const canvas = document.createElement("canvas");
-const ctx    = canvas.getContext("2d", { willReadFrequently: true });
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
 let tpl = null; // {w,h,gray,mean,std}
 function toGray(imgData) {
   const { data, width, height } = imgData;
   const gray = new Uint8ClampedArray(width * height);
   for (let i = 0, j = 0; i < data.length; i += 4, j++) {
-    const r = data[i], g = data[i+1], b = data[i+2];
+    const r = data[i],
+      g = data[i + 1],
+      b = data[i + 2];
     gray[j] = (r * 0.299 + g * 0.587 + b * 0.114) | 0;
   }
   return { gray, width, height };
 }
 function stats(gray) {
-  let s = 0, s2 = 0;
+  let s = 0,
+    s2 = 0;
   const n = gray.length;
-  for (let i = 0; i < n; i++) { const v = gray[i]; s += v; s2 += v*v; }
+  for (let i = 0; i < n; i++) {
+    const v = gray[i];
+    s += v;
+    s2 += v * v;
+  }
   const mean = s / n;
   const v2 = Math.max(1e-6, s2 / n - mean * mean);
   return { mean, std: Math.sqrt(v2) };
@@ -58,15 +65,22 @@ function _toGray(imgData) {
   const { data, width, height } = imgData;
   const gray = new Uint8ClampedArray(width * height);
   for (let i = 0, j = 0; i < data.length; i += 4, j++) {
-    const r = data[i], g = data[i+1], b = data[i+2];
+    const r = data[i],
+      g = data[i + 1],
+      b = data[i + 2];
     gray[j] = (r * 0.299 + g * 0.587 + b * 0.114) | 0;
   }
   return { gray, width, height };
 }
 function _stats(gray) {
-  let s = 0, s2 = 0;
+  let s = 0,
+    s2 = 0;
   const n = gray.length;
-  for (let i = 0; i < n; i++) { const v = gray[i]; s += v; s2 += v*v; }
+  for (let i = 0; i < n; i++) {
+    const v = gray[i];
+    s += v;
+    s2 += v * v;
+  }
   const mean = s / n;
   const v2 = Math.max(1e-6, s2 / n - mean * mean);
   return { mean, std: Math.sqrt(v2) };
@@ -75,20 +89,22 @@ function _stats(gray) {
 async function _decodeToCanvasFromBlob(blob) {
   try {
     const bmp = await createImageBitmap(blob);
-    const c = document.createElement("canvas");
-    c.width = bmp.width; c.height = bmp.height;
-    c.getContext("2d", { willReadFrequently: true }).drawImage(bmp, 0, 0);
+    const c = document.createElement('canvas');
+    c.width = bmp.width;
+    c.height = bmp.height;
+    c.getContext('2d', { willReadFrequently: true }).drawImage(bmp, 0, 0);
     return c;
   } catch {
     const url = URL.createObjectURL(blob);
     try {
       const img = new Image();
-      img.decoding = "sync";
+      img.decoding = 'sync';
       img.src = url;
       await img.decode();
-      const c = document.createElement("canvas");
-      c.width = img.naturalWidth; c.height = img.naturalHeight;
-      c.getContext("2d", { willReadFrequently: true }).drawImage(img, 0, 0);
+      const c = document.createElement('canvas');
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      c.getContext('2d', { willReadFrequently: true }).drawImage(img, 0, 0);
       return c;
     } finally {
       URL.revokeObjectURL(url);
@@ -110,10 +126,11 @@ async function loadTemplate(src) {
   } else {
     // Use default caching for template images
     const res = await fetch(src);
-    if (!res.ok) throw new Error(`Failed to fetch template ${src}: ${res.status} ${res.statusText}`);
+    if (!res.ok)
+      throw new Error(`Failed to fetch template ${src}: ${res.status} ${res.statusText}`);
 
-    const ct = (res.headers.get("content-type") || "").toLowerCase();
-    if (!ct.startsWith("image/")) {
+    const ct = (res.headers.get('content-type') || '').toLowerCase();
+    if (!ct.startsWith('image/')) {
       const snippet = (await res.text()).slice(0, 200);
       throw new Error(`Template is not an image (content-type: "${ct}"). First bytes: ${snippet}`);
     }
@@ -122,8 +139,9 @@ async function loadTemplate(src) {
     canvasFromImg = await _decodeToCanvasFromBlob(blob);
   }
 
-  const id = canvasFromImg.getContext("2d", { willReadFrequently: true })
-                          .getImageData(0, 0, canvasFromImg.width, canvasFromImg.height);
+  const id = canvasFromImg
+    .getContext('2d', { willReadFrequently: true })
+    .getImageData(0, 0, canvasFromImg.width, canvasFromImg.height);
   const g = _toGray(id);
   const st = _stats(g.gray);
   tpl = { w: g.width, h: g.height, gray: g.gray, mean: st.mean, std: st.std };
@@ -132,30 +150,35 @@ async function loadTemplate(src) {
 
 function nccScore(frameGray, fW, x, y, tplObj) {
   const { w: tw, h: th, gray: tGray, mean: tMean, std: tStd } = tplObj;
-  let sum = 0, sum2 = 0, sumCross = 0;
+  let sum = 0,
+    sum2 = 0,
+    sumCross = 0;
   for (let j = 0; j < th; j++) {
     const fy = (y + j) * fW;
     const tj = j * tw;
     for (let i = 0; i < tw; i++) {
       const fv = frameGray[fy + x + i];
       const tv = tGray[tj + i];
-      sum += fv; sum2 += fv * fv; sumCross += fv * tv;
+      sum += fv;
+      sum2 += fv * fv;
+      sumCross += fv * tv;
     }
   }
   const n = tw * th;
   const fMean = sum / n;
-  const fVar  = Math.max(1e-6, sum2 / n - fMean * fMean);
-  const fStd  = Math.sqrt(fVar);
-  const num   = sumCross - n * fMean * tMean;
-  const den   = n * fStd * tStd;
-  return den > 0 ? (num / den) : 0;
+  const fVar = Math.max(1e-6, sum2 / n - fMean * fMean);
+  const fStd = Math.sqrt(fVar);
+  const num = sumCross - n * fMean * tMean;
+  const den = n * fStd * tStd;
+  return den > 0 ? num / den : 0;
 }
 function matchTemplateInRegion(frameImgData, probeRect, tplObj) {
   const { width: fW, height: fH } = frameImgData;
   const frameGray = toGray(frameImgData).gray;
 
   const { w: tw, h: th } = tplObj;
-  const x0 = probeRect.x, y0 = probeRect.y;
+  const x0 = probeRect.x,
+    y0 = probeRect.y;
   const x1 = x0 + Math.max(0, probeRect.w - tw);
   const y1 = y0 + Math.max(0, probeRect.h - th);
 
@@ -172,10 +195,12 @@ function matchTemplateInRegion(frameImgData, probeRect, tplObj) {
   return best;
 }
 
-function setSuggestion(msg) { if (suggestions) suggestions.textContent = msg || ""; }
+function setSuggestion(msg) {
+  if (suggestions) suggestions.textContent = msg || '';
+}
 function loadScript(src) {
   return new Promise((resolve, reject) => {
-    const tag = document.createElement("script");
+    const tag = document.createElement('script');
     tag.src = src;
     tag.async = true;
     tag.onload = () => resolve();
@@ -199,7 +224,7 @@ async function getSkillOCRWorker() {
       const Tess = await ensureTesseract();
       skillOCRWorker = await Tess.createWorker('eng');
       return skillOCRWorker;
-    })().catch(err => {
+    })().catch((err) => {
       skillOCRWorkerInit = null;
       throw err;
     });
@@ -230,7 +255,7 @@ async function createScheduler() {
 
   for (let i = 0; i < numWorkers; i++) {
     const worker = await Tess.createWorker(OCR_OPTS.lang, 1, {
-      logger: () => {}
+      logger: () => {},
     });
     scheduler.addWorker(worker);
     workers.push(worker);
@@ -248,41 +273,43 @@ function mayTrigger() {
 }
 
 function cleanTitle(raw) {
-  if (!raw) return "";
+  if (!raw) return '';
 
   let t = raw
     .replace(/[\u2018\u2019\u2032]/g, "'")
     .replace(/[\u201C\u201D\u2033]/g, '"')
-    .replace(/[\u2013\u2014]/g, "-")
-    .replace(/\u00A0/g, " ");
+    .replace(/[\u2013\u2014]/g, '-')
+    .replace(/\u00A0/g, ' ');
 
-  const lines = t.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
-  const noRibbon = lines.filter(l => !/support\s*card\s*event/i.test(l));
+  const lines = t
+    .split(/\r?\n/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const noRibbon = lines.filter((l) => !/support\s*card\s*event/i.test(l));
 
-  t = (noRibbon.length ? noRibbon.join(" ") : lines.join(" "));
+  t = noRibbon.length ? noRibbon.join(' ') : lines.join(' ');
 
   t = t
-    .replace(/\s*\*\s*/g, " ") // stray bullets
-    .replace(/\s*\.\s*/g, ". ")
-    .replace(/\s*\|\s*/g, " I ") // pipe -> capital I (very common on this font)
-    .replace(/\s{2,}/g, " ")
-    .replace(/^[^A-Za-z0-9]+/, "") // leading junk
+    .replace(/\s*\*\s*/g, ' ') // stray bullets
+    .replace(/\s*\.\s*/g, '. ')
+    .replace(/\s*\|\s*/g, ' I ') // pipe -> capital I (very common on this font)
+    .replace(/\s{2,}/g, ' ')
+    .replace(/^[^A-Za-z0-9]+/, '') // leading junk
     .trim();
 
   if (t && t === t.toLowerCase()) {
     t = t.replace(/\b([a-z])([a-z]*)\b/g, (_, a, b) => a.toUpperCase() + b);
   }
-  t = t.replace(/[^A-Za-z0-9 '"\-\?\!\:\,\.\&\(\)]/g, "").trim();
+  t = t.replace(/[^A-Za-z0-9 '"\-\?\!\:\,\.\&\(\)]/g, '').trim();
 
   return t;
 }
-
 
 function extractHintLevel(text) {
   // Delegate to OCRMatcher if available (single source of truth)
   if (window.OCRMatcher) return window.OCRMatcher.extractHintLevel(text);
 
-  if (!text || typeof text !== "string") return null;
+  if (!text || typeof text !== 'string') return null;
 
   const m = text.match(/[Hh]int\s*[Ll][vVyY][lL]?\s*\.?\s*(\d)/);
   if (m) {
@@ -327,19 +354,29 @@ function extractHintLevel(text) {
   return null;
 }
 
-
 async function ocrEventRect(eventRectPx) {
-  const sub = document.createElement("canvas");
-  sub.width = eventRectPx.w; sub.height = eventRectPx.h;
-  const sctx = sub.getContext("2d", { willReadFrequently: true });
-  sctx.drawImage(canvas, eventRectPx.x, eventRectPx.y, eventRectPx.w, eventRectPx.h, 0, 0, eventRectPx.w, eventRectPx.h);
+  const sub = document.createElement('canvas');
+  sub.width = eventRectPx.w;
+  sub.height = eventRectPx.h;
+  const sctx = sub.getContext('2d', { willReadFrequently: true });
+  sctx.drawImage(
+    canvas,
+    eventRectPx.x,
+    eventRectPx.y,
+    eventRectPx.w,
+    eventRectPx.h,
+    0,
+    0,
+    eventRectPx.w,
+    eventRectPx.h
+  );
 
-  const blob = await new Promise(res => sub.toBlob(res, "image/png"));
+  const blob = await new Promise((res) => sub.toBlob(res, 'image/png'));
   const url = URL.createObjectURL(blob);
   try {
     if (!ocrScheduler) await createScheduler();
-    const r = await ocrScheduler.addJob("recognize", url);
-    const raw = (r?.data?.text || "").trim();
+    const r = await ocrScheduler.addJob('recognize', url);
+    const raw = (r?.data?.text || '').trim();
     return cleanTitle(raw);
   } finally {
     URL.revokeObjectURL(url);
@@ -348,10 +385,12 @@ async function ocrEventRect(eventRectPx) {
 
 async function scanFrame() {
   if (!tpl) return;
-  const vw = videoEl.videoWidth, vh = videoEl.videoHeight;
+  const vw = videoEl.videoWidth,
+    vh = videoEl.videoHeight;
   if (!vw || !vh) return;
 
-  canvas.width = vw; canvas.height = vh;
+  canvas.width = vw;
+  canvas.height = vh;
   ctx.drawImage(videoEl, 0, 0, vw, vh);
   const frameData = ctx.getImageData(0, 0, vw, vh);
 
@@ -359,36 +398,36 @@ async function scanFrame() {
     x: Math.round(PROBE_REGION.x * vw),
     y: Math.round(PROBE_REGION.y * vh),
     w: Math.round(PROBE_REGION.w * vw),
-    h: Math.round(PROBE_REGION.h * vh)
+    h: Math.round(PROBE_REGION.h * vh),
   };
   const eventRectPx = {
     x: Math.round(EVENT_REGION.x * vw),
     y: Math.round(EVENT_REGION.y * vh),
     w: Math.round(EVENT_REGION.w * vw),
-    h: Math.round(EVENT_REGION.h * vh)
+    h: Math.round(EVENT_REGION.h * vh),
   };
 
   const match = matchTemplateInRegion(frameData, probeRectPx, tpl);
 
   if (match.score >= MATCH_THRESHOLD) {
-    setSuggestion(`UI found (${Math.round(match.score*100)}%). Reading title…`);
+    setSuggestion(`UI found (${Math.round(match.score * 100)}%). Reading title…`);
     if (!mayTrigger()) return;
 
     const title = (await ocrEventRect(eventRectPx)).trim();
     if (title) {
       setSuggestion(`Detected: “${title}” — searching…`);
-      if (typeof window.performSearch === "function") {
+      if (typeof window.performSearch === 'function') {
         window.performSearch(title); // search.js renders the results
-      } else if (typeof performSearch === "function") {
+      } else if (typeof performSearch === 'function') {
         performSearch(title);
       } else {
-        console.warn("[ocr] performSearch() not found.");
+        console.warn('[ocr] performSearch() not found.');
       }
     } else {
-      setSuggestion("UI found, but OCR produced no text.");
+      setSuggestion('UI found, but OCR produced no text.');
     }
   } else {
-    setSuggestion("Waiting for UI…");
+    setSuggestion('Waiting for UI…');
   }
 }
 
@@ -398,24 +437,24 @@ let cameraContainer = null;
 
 async function startScreenCapture() {
   try {
-    setSuggestion("Select a window or screen to capture…");
+    setSuggestion('Select a window or screen to capture…');
 
     mediaStream = await navigator.mediaDevices.getDisplayMedia({
       video: { frameRate: { ideal: 5 } },
-      audio: false
+      audio: false,
     });
     videoEl.srcObject = mediaStream;
 
     if (!cameraContainer) {
-      cameraContainer = document.getElementById("camera-capture-container");
+      cameraContainer = document.getElementById('camera-capture-container');
     }
     if (cameraContainer) {
-      cameraContainer.style.display = "block";
+      cameraContainer.style.display = 'block';
     }
 
     setSuggestion("Screen shared. Click 'Capture Frame' to OCR the current view.");
 
-    captureBtn.textContent = "⏹ Stop Capture";
+    captureBtn.textContent = '⏹ Stop Capture';
     captureBtn.onclick = stopScreenCapture;
     isCapturing = true;
 
@@ -425,19 +464,19 @@ async function startScreenCapture() {
     }
 
     videoEl.onloadedmetadata = () => {
-      videoEl.play().catch(err => {
-        console.error("Video play error:", err);
-        setSuggestion("Failed to start video preview.");
+      videoEl.play().catch((err) => {
+        console.error('Video play error:', err);
+        setSuggestion('Failed to start video preview.');
       });
     };
 
-    mediaStream.getVideoTracks()[0].addEventListener("ended", stopScreenCapture);
+    mediaStream.getVideoTracks()[0].addEventListener('ended', stopScreenCapture);
   } catch (err) {
-    console.error("Screen capture error:", err);
-    if (err.name === "NotAllowedError") {
-      setSuggestion("Screen capture cancelled.");
+    console.error('Screen capture error:', err);
+    if (err.name === 'NotAllowedError') {
+      setSuggestion('Screen capture cancelled.');
     } else {
-      setSuggestion("Screen capture failed. Please try again.");
+      setSuggestion('Screen capture failed. Please try again.');
     }
     stopScreenCapture();
   }
@@ -448,13 +487,13 @@ async function stopScreenCapture() {
     if (captureTimer) clearInterval(captureTimer);
     captureTimer = null;
     if (mediaStream) {
-      mediaStream.getTracks().forEach(track => track.stop());
+      mediaStream.getTracks().forEach((track) => track.stop());
       mediaStream = null;
     }
     videoEl.srcObject = null;
 
     if (cameraContainer) {
-      cameraContainer.style.display = "none";
+      cameraContainer.style.display = 'none';
     }
 
     const captureFrameBtn = document.getElementById('capture-frame-btn');
@@ -462,41 +501,41 @@ async function stopScreenCapture() {
       captureFrameBtn.style.display = 'none';
     }
 
-    captureBtn.textContent = "🖥 Screen Capture";
+    captureBtn.textContent = '🖥 Screen Capture';
     captureBtn.onclick = startScreenCapture;
     isCapturing = false;
-    setSuggestion("");
+    setSuggestion('');
   } catch (err) {
-    console.error("Stop capture error:", err);
+    console.error('Stop capture error:', err);
   }
 }
 
 async function startCapture() {
   try {
-    setSuggestion("Loading OCR engine\u2026");
+    setSuggestion('Loading OCR engine\u2026');
     await createScheduler();
     await loadTemplate(PROBE_TEMPLATE_DATAURL);
 
     mediaStream = await navigator.mediaDevices.getDisplayMedia({
       video: { frameRate: 30 },
-      audio: false
+      audio: false,
     });
     videoEl.srcObject = mediaStream;
 
     if (captureTimer) clearInterval(captureTimer);
     const delay = getScanDelay();
-    setSuggestion("Screen capture started. Waiting for UI…");
+    setSuggestion('Screen capture started. Waiting for UI…');
 
-    captureBtn.style.display = "none";
+    captureBtn.style.display = 'none';
     if (!stopBtn) {
-      stopBtn = document.createElement("button");
-      stopBtn.id = "stopCaptureBtn";
-      stopBtn.className = "capture-btn";
-      stopBtn.textContent = "Stop Capture";
+      stopBtn = document.createElement('button');
+      stopBtn.id = 'stopCaptureBtn';
+      stopBtn.className = 'capture-btn';
+      stopBtn.textContent = 'Stop Capture';
       stopBtn.onclick = stopCapture;
       captureBtn.parentNode.insertBefore(stopBtn, captureBtn.nextSibling);
     }
-    stopBtn.style.display = "";
+    stopBtn.style.display = '';
 
     isCapturing = true;
 
@@ -507,10 +546,10 @@ async function startCapture() {
       });
     };
 
-    mediaStream.getVideoTracks()[0].addEventListener("ended", stopCapture);
+    mediaStream.getVideoTracks()[0].addEventListener('ended', stopCapture);
   } catch (err) {
-    console.error("capture/template error:", err);
-    setSuggestion("Screen capture failed (permissions or template).");
+    console.error('capture/template error:', err);
+    setSuggestion('Screen capture failed (permissions or template).');
     stopCapture();
   }
 }
@@ -520,10 +559,10 @@ async function stopCapture() {
     if (captureTimer) clearInterval(captureTimer);
     captureTimer = null;
     if (mediaStream) {
-      mediaStream.getTracks().forEach(track => track.stop());
+      mediaStream.getTracks().forEach((track) => track.stop());
       mediaStream = null;
     }
-    setSuggestion("Capture stopped.");
+    setSuggestion('Capture stopped.');
     videoEl.srcObject = null;
   } finally {
     // Ensure scheduler is always terminated
@@ -531,14 +570,14 @@ async function stopCapture() {
       try {
         await ocrScheduler.terminate();
       } catch (err) {
-        console.error("[ocr] Scheduler termination error:", err);
+        console.error('[ocr] Scheduler termination error:', err);
       }
       ocrScheduler = null;
     }
 
     // Ensure UI is always reset
-    if (stopBtn) stopBtn.style.display = "none";
-    captureBtn.style.display = "";
+    if (stopBtn) stopBtn.style.display = 'none';
+    captureBtn.style.display = '';
     isCapturing = false;
   }
 }
@@ -554,7 +593,6 @@ let preprocessingEnabled = false;
 let skillCostIndexExact = new Map();
 let skillCostIndexNormalized = new Map();
 let skillCostIndexReady = null;
-
 
 function normalize(str) {
   return (str || '').toString().trim().toLowerCase();
@@ -613,7 +651,7 @@ async function loadSkillCostIndex() {
     }
 
     return false;
-  })().catch(err => {
+  })().catch((err) => {
     skillCostIndexReady = null;
     throw err;
   });
@@ -632,7 +670,8 @@ function lookupSkillCost(name) {
 function levenshteinDistance(a, b) {
   if (window.OCRMatcher) return window.OCRMatcher.levenshtein(a, b);
   if (!a || !b) return Math.max(a?.length || 0, b?.length || 0);
-  const m = a.length, n = b.length;
+  const m = a.length,
+    n = b.length;
   if (m === 0) return n;
   if (n === 0) return m;
   let prev = Array.from({ length: n + 1 }, (_, j) => j);
@@ -640,7 +679,11 @@ function levenshteinDistance(a, b) {
   for (let i = 1; i <= m; i++) {
     curr[0] = i;
     for (let j = 1; j <= n; j++) {
-      curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      curr[j] = Math.min(
+        prev[j] + 1,
+        curr[j - 1] + 1,
+        prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+      );
     }
     [prev, curr] = [curr, prev];
   }
@@ -671,14 +714,19 @@ function fuzzyMatchSkill(ocrText, maxDistance) {
     return { skill: skillNameIndex.get(queryNorm), confidence: 1.0, distance: 0 };
   }
   const md = maxDistance || 2;
-  let bestMatch = null, bestDist = md + 1;
+  let bestMatch = null,
+    bestDist = md + 1;
   for (const [normName, skill] of skillNameIndex) {
     const shorter = Math.min(queryNorm.length, normName.length);
     const effectiveMax = Math.min(md, Math.max(1, Math.floor(shorter * 0.3)));
     const dist = levenshteinDistance(queryNorm, normName);
     if (dist <= effectiveMax && dist < bestDist) {
       bestDist = dist;
-      bestMatch = { skill, distance: dist, confidence: 1.0 - (dist / (Math.max(queryNorm.length, normName.length) + 1)) };
+      bestMatch = {
+        skill,
+        distance: dist,
+        confidence: 1.0 - dist / (Math.max(queryNorm.length, normName.length) + 1),
+      };
     }
   }
   return bestMatch;
@@ -703,10 +751,10 @@ async function loadSkillDatabase() {
       if (!response.ok) continue;
 
       const text = await response.text();
-      const lines = text.split(/\r?\n/).filter(l => l.trim());
+      const lines = text.split(/\r?\n/).filter((l) => l.trim());
       if (lines.length < 2) continue;
 
-      const header = lines[0].split(',').map(h => h.trim().toLowerCase());
+      const header = lines[0].split(',').map((h) => h.trim().toLowerCase());
       const nameIdx = header.indexOf('name');
       const typeIdx = header.indexOf('skill_type');
       if (nameIdx === -1) continue;
@@ -754,7 +802,7 @@ if (typeof window !== 'undefined') {
   window.loadSkillDatabase = loadSkillDatabase;
 
   const initDB = () => {
-    loadSkillDatabase().catch(err => {
+    loadSkillDatabase().catch((err) => {
       console.error('[ocr] Failed to initialize skill database:', err);
     });
   };
@@ -773,7 +821,7 @@ const screenshotUploadInput = document.getElementById('screenshot-upload-input')
 const screenshotUploadBtn = document.getElementById('screenshot-upload-btn');
 
 if (screenshotUploadInput) {
-  screenshotUploadInput.addEventListener('change', async function(e) {
+  screenshotUploadInput.addEventListener('change', async function (e) {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -798,7 +846,9 @@ if (videoEl) {
   captureFrameBtn.textContent = '📸 Capture Frame';
   captureFrameBtn.style.display = 'none';
 
-  const container = document.getElementById('camera-capture-container') || document.querySelector('.camera-capture-container');
+  const container =
+    document.getElementById('camera-capture-container') ||
+    document.querySelector('.camera-capture-container');
   if (container) {
     const sug = container.querySelector('#suggestions');
     if (sug) {
@@ -857,7 +907,7 @@ function hasStrongNameEvidence(skillName, text) {
 
   if (textNorm.includes(nameNorm)) return true;
 
-  const nameTokens = nameNorm.split(/\s+/).filter(t => t.length >= 4);
+  const nameTokens = nameNorm.split(/\s+/).filter((t) => t.length >= 4);
   if (nameTokens.length === 0) return false;
 
   let tokenHits = 0;
@@ -933,7 +983,7 @@ async function recognizeCanvas(worker, canvas, psmMode) {
     });
   }
 
-  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
   if (!blob) return { text: '', confidence: 0 };
 
   const url = URL.createObjectURL(blob);
@@ -954,7 +1004,7 @@ async function collectFallbackSkillsFromStrips(worker, cropCanvas) {
 
   const stripConfigs = [
     // Top strip catches missed first card names (e.g., obtained/rare cards).
-    { label: 'top', region: { x: 0, y: 0.0, w: 1, h: 0.40 }, preprocess: true, psm: 6 },
+    { label: 'top', region: { x: 0, y: 0.0, w: 1, h: 0.4 }, preprocess: true, psm: 6 },
     // Mid strip catches names that were skipped in full-block OCR.
     { label: 'mid', region: { x: 0, y: 0.28, w: 1, h: 0.45 }, preprocess: false, psm: 6 },
     // Bottom strip catches final card names near confirm/reset buttons.
@@ -1016,7 +1066,8 @@ async function ocrPipelineCore(imageBlob) {
   try {
     await worker.setParameters({
       tessedit_pageseg_mode: Tess.PSM ? Tess.PSM.AUTO : '3',
-      tessedit_char_whitelist: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 '-+%.",
+      tessedit_char_whitelist:
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 '-+%.",
       preserve_interword_spaces: '1',
     });
 
@@ -1026,13 +1077,14 @@ async function ocrPipelineCore(imageBlob) {
     if (Preprocess) {
       sourceCanvas = await Preprocess.blobToCanvas(imageBlob);
       cropInfo = Preprocess.cropSkillRegion(sourceCanvas);
-      console.log(`[ocr] Layout: ${cropInfo.layout} | Crop: x=${cropInfo.region.x} y=${cropInfo.region.y} w=${cropInfo.region.w} h=${cropInfo.region.h}`);
+      console.log(
+        `[ocr] Layout: ${cropInfo.layout} | Crop: x=${cropInfo.region.x} y=${cropInfo.region.y} w=${cropInfo.region.w} h=${cropInfo.region.h}`
+      );
     }
 
     // Step 2: OCR the full cropped region as one block
-    const ocrBlob = (cropInfo && Preprocess)
-      ? await Preprocess.canvasToBlob(cropInfo.canvas)
-      : imageBlob;
+    const ocrBlob =
+      cropInfo && Preprocess ? await Preprocess.canvasToBlob(cropInfo.canvas) : imageBlob;
 
     const ocrResults = await runOCRWithPreprocessing(worker, ocrBlob);
     const bestResult = selectBestOCRResult(ocrResults);
@@ -1128,7 +1180,11 @@ async function processSkillOCR(imageBlob) {
       if (cards.length > 0) {
         displaySegmentedDebugOverlay(sourceCanvas, cropInfo, cards, debugCardTexts);
       } else {
-        displayDebugOverlay(sourceCanvas, cropInfo, { variant: 'fallback', ocrConfidence: 0, text: '' });
+        displayDebugOverlay(sourceCanvas, cropInfo, {
+          variant: 'fallback',
+          ocrConfidence: 0,
+          text: '',
+        });
       }
     }
 
@@ -1136,7 +1192,8 @@ async function processSkillOCR(imageBlob) {
     window.ocrDetectedSkills = detectedSkills;
   } catch (err) {
     console.error('[ocr] Skill OCR error:', err);
-    resultsList.innerHTML = '<div class="error-message">Failed to process image. Please try again.</div>';
+    resultsList.innerHTML =
+      '<div class="error-message">Failed to process image. Please try again.</div>';
     throw err;
   }
 }
@@ -1204,7 +1261,10 @@ async function runOCRWithPreprocessing(worker, croppedBlob) {
 
 function countPotentialSkillLines(text) {
   if (!text) return 0;
-  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  const lines = text
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter(Boolean);
   let count = 0;
   for (const line of lines) {
     const alpha = (line.match(/[a-zA-Z]/g) || []).length;
@@ -1249,7 +1309,10 @@ function parseSkillsEnhanced(ocrText, ocrEngineConfidence) {
 
 // Legacy parser kept as fallback
 function parseSkillsFromOCRLegacy(ocrText) {
-  const lines = ocrText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  const lines = ocrText
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter(Boolean);
   const detectedSkills = [];
   const seenSkills = new Set();
 
@@ -1282,21 +1345,55 @@ function parseSkillsFromOCRLegacy(ocrText) {
 }
 
 function cleanLinePipesAsI(text) {
-  return text.replace(/[\u2018\u2019\u2032]/g, "'").replace(/[\u201C\u201D\u2033]/g, '"').replace(/[\u2013\u2014]/g, "-").replace(/\u00A0/g, " ").replace(/\s*\|\s*/g, " I ").replace(/[\[\]©@*#]+/g, '').replace(/\s{2,}/g, " ").replace(/^[^A-Za-z0-9]+/, "").trim();
+  return text
+    .replace(/[\u2018\u2019\u2032]/g, "'")
+    .replace(/[\u201C\u201D\u2033]/g, '"')
+    .replace(/[\u2013\u2014]/g, '-')
+    .replace(/\u00A0/g, ' ')
+    .replace(/\s*\|\s*/g, ' I ')
+    .replace(/[\[\]©@*#]+/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/^[^A-Za-z0-9]+/, '')
+    .trim();
 }
 function cleanLineStripNoise(text) {
-  return text.replace(/[\u2018\u2019\u2032]/g, "'").replace(/[\u201C\u201D\u2033]/g, '"').replace(/[\u2013\u2014]/g, "-").replace(/\u00A0/g, " ").replace(/[|[\]©@*#]+/g, '').replace(/\s{2,}/g, " ").replace(/^[^A-Za-z0-9]+/, "").trim();
+  return text
+    .replace(/[\u2018\u2019\u2032]/g, "'")
+    .replace(/[\u201C\u201D\u2033]/g, '"')
+    .replace(/[\u2013\u2014]/g, '-')
+    .replace(/\u00A0/g, ' ')
+    .replace(/[|[\]©@*#]+/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/^[^A-Za-z0-9]+/, '')
+    .trim();
 }
 function _tryMatchCleanedLegacy(cleaned) {
   if (cleaned.length < 3) return null;
   let match = fuzzyMatchSkill(cleaned, 2);
   if (match) return match;
   let stripped = cleaned.replace(/\s+\d{1,3}\s*[+]?\s*$/, '').trim();
-  if (stripped.length >= 3 && stripped !== cleaned) { match = fuzzyMatchSkill(stripped, 2); if (match) return match; }
-  stripped = cleaned.replace(/[Hh]int\s*[Ll][vV]\.?\s*\d/g, '').replace(/\d+%\s*[Oo][Ff][Ff]/gi, '').replace(/\s+\d{1,3}\s*[+]?\s*$/, '').replace(/\s{2,}/g, ' ').trim();
-  if (stripped.length >= 3 && stripped !== cleaned) { match = fuzzyMatchSkill(stripped, 2); if (match) return match; }
+  if (stripped.length >= 3 && stripped !== cleaned) {
+    match = fuzzyMatchSkill(stripped, 2);
+    if (match) return match;
+  }
+  stripped = cleaned
+    .replace(/[Hh]int\s*[Ll][vV]\.?\s*\d/g, '')
+    .replace(/\d+%\s*[Oo][Ff][Ff]/gi, '')
+    .replace(/\s+\d{1,3}\s*[+]?\s*$/, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+  if (stripped.length >= 3 && stripped !== cleaned) {
+    match = fuzzyMatchSkill(stripped, 2);
+    if (match) return match;
+  }
   const words = cleaned.split(/\s+/);
-  for (let n = Math.min(words.length - 1, 7); n >= 1; n--) { const prefix = words.slice(0, n).join(' '); if (prefix.length >= 3) { match = fuzzyMatchSkill(prefix, 2); if (match) return match; } }
+  for (let n = Math.min(words.length - 1, 7); n >= 1; n--) {
+    const prefix = words.slice(0, n).join(' ');
+    if (prefix.length >= 3) {
+      match = fuzzyMatchSkill(prefix, 2);
+      if (match) return match;
+    }
+  }
   return null;
 }
 function tryMatchLineLegacy(line) {
@@ -1325,21 +1422,28 @@ function displayOCRResults(detectedSkills) {
   }
 
   if (detectedSkills.length === 0) {
-    resultsList.innerHTML = '<div class="no-results">No skills detected. Try a different image, adjust the crop, or use Manual Search below.</div>';
+    resultsList.innerHTML =
+      '<div class="no-results">No skills detected. Try a different image, adjust the crop, or use Manual Search below.</div>';
     return;
   }
 
   // Snapshot current checkbox states before re-rendering
   const prevCheckboxes = resultsList.querySelectorAll('.ocr-skill-checkbox');
   const uncheckedSet = new Set();
-  prevCheckboxes.forEach((cb, i) => { if (!cb.checked) uncheckedSet.add(i); });
+  prevCheckboxes.forEach((cb, i) => {
+    if (!cb.checked) uncheckedSet.add(i);
+  });
 
   let html = '<div class="ocr-results-hint">Click on a skill to edit its name or hint level</div>';
   detectedSkills.forEach((skill, index) => {
     const confidencePct = Math.round((skill.confidence || 0) * 100);
     const level = window.OCRMatcher
       ? window.OCRMatcher.getConfidenceLevel(skill.confidence || 0)
-      : (confidencePct >= 85 ? 'high' : confidencePct >= 70 ? 'medium' : 'low');
+      : confidencePct >= 85
+        ? 'high'
+        : confidencePct >= 70
+          ? 'medium'
+          : 'low';
     const typeClass = skill.type ? `cat-${skill.type}` : '';
     const suggestions = skill.suggestions || [];
     const showSuggestions = level === 'low' && suggestions.length > 0;
@@ -1376,7 +1480,7 @@ function displayOCRResults(detectedSkills) {
   resultsList.innerHTML = html;
 
   // Click-to-edit on result items
-  resultsList.querySelectorAll('.ocr-result-item').forEach(item => {
+  resultsList.querySelectorAll('.ocr-result-item').forEach((item) => {
     item.addEventListener('click', function (e) {
       if (e.target.classList.contains('ocr-skill-checkbox')) return;
       const idx = parseInt(this.dataset.skillIndex, 10);
@@ -1385,7 +1489,7 @@ function displayOCRResults(detectedSkills) {
   });
 
   // Suggestion buttons — one-click replace
-  resultsList.querySelectorAll('.ocr-suggestion-btn').forEach(btn => {
+  resultsList.querySelectorAll('.ocr-suggestion-btn').forEach((btn) => {
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       const skillIdx = parseInt(this.dataset.skillIndex, 10);
@@ -1426,7 +1530,7 @@ const ocrResultsCloseBtn = document.getElementById('ocr-results-close');
 const ocrResultsPanel = document.getElementById('ocr-results-panel');
 
 if (ocrAddAllBtn) {
-  ocrAddAllBtn.addEventListener('click', function() {
+  ocrAddAllBtn.addEventListener('click', function () {
     if (!window.ocrDetectedSkills || window.ocrDetectedSkills.length === 0) {
       return;
     }
@@ -1464,7 +1568,7 @@ if (ocrAddAllBtn) {
 }
 
 if (ocrAddSelectedBtn) {
-  ocrAddSelectedBtn.addEventListener('click', function() {
+  ocrAddSelectedBtn.addEventListener('click', function () {
     if (!window.ocrDetectedSkills || window.ocrDetectedSkills.length === 0) {
       return;
     }
@@ -1516,7 +1620,7 @@ if (ocrAddSelectedBtn) {
 }
 
 if (ocrResultsCloseBtn) {
-  ocrResultsCloseBtn.addEventListener('click', function() {
+  ocrResultsCloseBtn.addEventListener('click', function () {
     if (ocrResultsPanel) {
       ocrResultsPanel.style.display = 'none';
     }
@@ -1557,7 +1661,7 @@ function updateCorrectionDatalist(query) {
 
   if (!query || !skillNameIndex || skillNameIndex.size === 0) {
     const allSkills = Array.from(skillNameIndex.values()).slice(0, 50);
-    allSkills.forEach(skill => {
+    allSkills.forEach((skill) => {
       const option = document.createElement('option');
       option.value = skill.name;
       datalist.appendChild(option);
@@ -1584,7 +1688,7 @@ function updateCorrectionDatalist(query) {
     return a.skill.name.localeCompare(b.skill.name);
   });
 
-  matches.slice(0, 20).forEach(match => {
+  matches.slice(0, 20).forEach((match) => {
     const option = document.createElement('option');
     option.value = match.skill.name;
     datalist.appendChild(option);
@@ -1604,7 +1708,9 @@ function openCorrectionModal(index) {
     updateCorrectionDatalist(skill.name || '');
   }
   if (correctionSkillCost) correctionSkillCost.value = skill.cost !== null ? skill.cost : '';
-  if (correctionSkillHint) correctionSkillHint.value = skill.hint !== null && skill.hint !== undefined ? String(skill.hint) : '0';
+  if (correctionSkillHint)
+    correctionSkillHint.value =
+      skill.hint !== null && skill.hint !== undefined ? String(skill.hint) : '0';
 
   if (correctionBackdrop) {
     correctionBackdrop.classList.add('open');
@@ -1629,12 +1735,14 @@ function saveCorrectionModal() {
     return;
   }
 
-  const cost = correctionSkillCost && correctionSkillCost.value !== ''
-    ? parseInt(correctionSkillCost.value, 10)
-    : null;
-  const hint = correctionSkillHint && correctionSkillHint.value !== ''
-    ? parseInt(correctionSkillHint.value, 10)
-    : 0;
+  const cost =
+    correctionSkillCost && correctionSkillCost.value !== ''
+      ? parseInt(correctionSkillCost.value, 10)
+      : null;
+  const hint =
+    correctionSkillHint && correctionSkillHint.value !== ''
+      ? parseInt(correctionSkillHint.value, 10)
+      : 0;
 
   if (cost !== null && (cost < 0 || cost > 999)) {
     alert('Cost must be between 0 and 999');
@@ -1658,7 +1766,7 @@ function saveCorrectionModal() {
     name: name,
     cost: cost,
     hint: hint,
-    confidence: 1.0,  // User-corrected = full confidence
+    confidence: 1.0, // User-corrected = full confidence
     suggestions: [],
   };
 
@@ -1679,7 +1787,7 @@ if (correctionModalSave) {
 }
 
 if (correctionBackdrop) {
-  correctionBackdrop.addEventListener('click', function(e) {
+  correctionBackdrop.addEventListener('click', function (e) {
     if (e.target === correctionBackdrop) {
       closeCorrectionModal();
     }
@@ -1692,11 +1800,11 @@ if (correctionSkillName) {
   correctionSkillName.setAttribute('list', 'correction-skills-datalist');
   correctionSkillName.setAttribute('autocomplete', 'off');
 
-  correctionSkillName.addEventListener('input', function() {
+  correctionSkillName.addEventListener('input', function () {
     updateCorrectionDatalist(this.value);
   });
 
-  correctionSkillName.addEventListener('focus', function() {
+  correctionSkillName.addEventListener('focus', function () {
     if (!this.value) {
       updateCorrectionDatalist('');
     }
@@ -1717,7 +1825,8 @@ function displayDebugOverlay(sourceCanvas, cropInfo, bestResult) {
   if (!debugContainer) {
     debugContainer = document.createElement('div');
     debugContainer.id = 'ocr-debug-overlay';
-    debugContainer.style.cssText = 'margin:12px 0;padding:12px;background:#1a1a2e;border:2px solid #00ff00;border-radius:8px;';
+    debugContainer.style.cssText =
+      'margin:12px 0;padding:12px;background:#1a1a2e;border:2px solid #00ff00;border-radius:8px;';
 
     const resultsPanel = document.getElementById('ocr-results-panel');
     if (resultsPanel) {
@@ -1780,7 +1889,8 @@ function displaySegmentedDebugOverlay(sourceCanvas, cropInfo, cards, debugCardTe
   if (!debugContainer) {
     debugContainer = document.createElement('div');
     debugContainer.id = 'ocr-debug-overlay';
-    debugContainer.style.cssText = 'margin:12px 0;padding:12px;background:#1a1a2e;border:2px solid #00ff00;border-radius:8px;';
+    debugContainer.style.cssText =
+      'margin:12px 0;padding:12px;background:#1a1a2e;border:2px solid #00ff00;border-radius:8px;';
     const resultsPanel = document.getElementById('ocr-results-panel');
     if (resultsPanel) {
       resultsPanel.insertBefore(debugContainer, resultsPanel.firstChild);
@@ -1864,8 +1974,10 @@ window.showOCRDebug = function () {
   console.log('Crop region:', info.cropInfo?.region || 'none');
   console.log('Cards detected:', info.cards?.length || 0);
   if (info.debugCardTexts) {
-    info.debugCardTexts.forEach(ct => {
-      console.log(`  Card ${ct.card}: name="${ct.nameText}" | full="${ct.fullText.substring(0, 80)}..." | conf=${ct.confidence}%`);
+    info.debugCardTexts.forEach((ct) => {
+      console.log(
+        `  Card ${ct.card}: name="${ct.nameText}" | full="${ct.fullText.substring(0, 80)}..." | conf=${ct.confidence}%`
+      );
     });
   }
   console.log('Detected skills:', info.detectedSkills);

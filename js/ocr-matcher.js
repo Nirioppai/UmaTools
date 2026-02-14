@@ -17,16 +17,16 @@
 
   const CONFIDENCE_THRESHOLDS = {
     HIGH: 0.85,
-    MEDIUM: 0.70,
-    LOW: 0.70,  // below this triggers suggestions
+    MEDIUM: 0.7,
+    LOW: 0.7, // below this triggers suggestions
   };
 
   const MAX_SUGGESTIONS = 3;
   const MAX_EDIT_DISTANCE = 3;
   const NGRAM_SIZE_TRI = 3;
   const NGRAM_SIZE_BI = 2;
-  const MIN_QUERY_ALPHA = 3;  // minimum alphabetic chars to attempt match
-  const HINT_DISCOUNTS = { 0: 0.0, 1: 0.10, 2: 0.20, 3: 0.30, 4: 0.35, 5: 0.40 };
+  const MIN_QUERY_ALPHA = 3; // minimum alphabetic chars to attempt match
+  const HINT_DISCOUNTS = { 0: 0.0, 1: 0.1, 2: 0.2, 3: 0.3, 4: 0.35, 5: 0.4 };
 
   // ─── Session correction cache ─────────────────────────────────
 
@@ -50,39 +50,43 @@
   // ─── Text normalization ───────────────────────────────────────
 
   function normalizeForMatch(str) {
-    return (str || '')
-      .toString()
-      .trim()
-      .toLowerCase()
-      // Normalize unicode quotes/dashes
-      .replace(/[\u2018\u2019\u2032\u0060]/g, "'")
-      .replace(/[\u201C\u201D\u2033]/g, '"')
-      .replace(/[\u2013\u2014\u2212]/g, '-')
-      .replace(/\u00A0/g, ' ')
-      // Collapse whitespace
-      .replace(/\s+/g, ' ')
-      // Strip non-printing / control chars (keep letters, digits, basic punct)
-      .replace(/[^\w\s'\-]/g, '')
-      .trim();
+    return (
+      (str || '')
+        .toString()
+        .trim()
+        .toLowerCase()
+        // Normalize unicode quotes/dashes
+        .replace(/[\u2018\u2019\u2032\u0060]/g, "'")
+        .replace(/[\u201C\u201D\u2033]/g, '"')
+        .replace(/[\u2013\u2014\u2212]/g, '-')
+        .replace(/\u00A0/g, ' ')
+        // Collapse whitespace
+        .replace(/\s+/g, ' ')
+        // Strip non-printing / control chars (keep letters, digits, basic punct)
+        .replace(/[^\w\s'\-]/g, '')
+        .trim()
+    );
   }
 
   function normalizeOCROutput(rawText) {
     if (!rawText) return '';
-    return rawText
-      // Normalize unicode
-      .replace(/[\u2018\u2019\u2032\u0060]/g, "'")
-      .replace(/[\u201C\u201D\u2033]/g, '"')
-      .replace(/[\u2013\u2014\u2212]/g, '-')
-      .replace(/\u00A0/g, ' ')
-      // Pipe -> I (common OCR substitution for this font)
-      .replace(/\|/g, 'I')
-      // Remove stray symbols that are OCR noise
-      .replace(/[©@#*[\]{}~^`\\]/g, '')
-      // Collapse repeated spaces
-      .replace(/\s{2,}/g, ' ')
-      // Strip non-printing characters
-      .replace(/[^\x20-\x7E]/g, '')
-      .trim();
+    return (
+      rawText
+        // Normalize unicode
+        .replace(/[\u2018\u2019\u2032\u0060]/g, "'")
+        .replace(/[\u201C\u201D\u2033]/g, '"')
+        .replace(/[\u2013\u2014\u2212]/g, '-')
+        .replace(/\u00A0/g, ' ')
+        // Pipe -> I (common OCR substitution for this font)
+        .replace(/\|/g, 'I')
+        // Remove stray symbols that are OCR noise
+        .replace(/[©@#*[\]{}~^`\\]/g, '')
+        // Collapse repeated spaces
+        .replace(/\s{2,}/g, ' ')
+        // Strip non-printing characters
+        .replace(/[^\x20-\x7E]/g, '')
+        .trim()
+    );
   }
 
   // ─── Levenshtein distance (optimized single-row DP) ──────────
@@ -92,7 +96,8 @@
     if (!b) return a.length;
     if (a === b) return 0;
 
-    const m = a.length, n = b.length;
+    const m = a.length,
+      n = b.length;
     if (m === 0) return n;
     if (n === 0) return m;
 
@@ -106,8 +111,8 @@
       for (let j = 1; j <= n; j++) {
         const cost = a[i - 1] === b[j - 1] ? 0 : 1;
         curr[j] = Math.min(
-          prev[j] + 1,      // deletion
-          curr[j - 1] + 1,  // insertion
+          prev[j] + 1, // deletion
+          curr[j - 1] + 1, // insertion
           prev[j - 1] + cost // substitution
         );
       }
@@ -124,14 +129,21 @@
     if (!b) return a.length;
     if (a === b) return 0;
 
-    const m = a.length, n = b.length;
+    const m = a.length,
+      n = b.length;
     const d = Array.from({ length: m + 2 }, () => new Array(n + 2).fill(0));
 
     const maxDist = m + n;
     d[0][0] = maxDist;
 
-    for (let i = 0; i <= m; i++) { d[i + 1][0] = maxDist; d[i + 1][1] = i; }
-    for (let j = 0; j <= n; j++) { d[0][j + 1] = maxDist; d[1][j + 1] = j; }
+    for (let i = 0; i <= m; i++) {
+      d[i + 1][0] = maxDist;
+      d[i + 1][1] = i;
+    }
+    for (let j = 0; j <= n; j++) {
+      d[0][j + 1] = maxDist;
+      d[1][j + 1] = j;
+    }
 
     const da = {};
 
@@ -141,12 +153,15 @@
         const i1 = da[b[j - 1]] || 0;
         const j1 = db;
         let cost = 1;
-        if (a[i - 1] === b[j - 1]) { cost = 0; db = j; }
+        if (a[i - 1] === b[j - 1]) {
+          cost = 0;
+          db = j;
+        }
 
         d[i + 1][j + 1] = Math.min(
-          d[i][j] + cost,           // substitution
-          d[i + 1][j] + 1,          // insertion
-          d[i][j + 1] + 1,          // deletion
+          d[i][j] + cost, // substitution
+          d[i + 1][j] + 1, // insertion
+          d[i][j + 1] + 1, // deletion
           d[i1][j1] + (i - i1 - 1) + 1 + (j - j1 - 1) // transposition
         );
       }
@@ -267,17 +282,18 @@
     const prefixScore = maxLen > 0 ? prefixLen / maxLen : 0;
 
     // 6. Length ratio penalty
-    const lenRatio = Math.min(queryNorm.length, candidateNorm.length) /
-                     Math.max(queryNorm.length, candidateNorm.length);
+    const lenRatio =
+      Math.min(queryNorm.length, candidateNorm.length) /
+      Math.max(queryNorm.length, candidateNorm.length);
 
     // Weighted combination
     const composite =
-      editScore * 0.30 +
+      editScore * 0.3 +
       trigramScore * 0.25 +
-      bigramScore * 0.10 +
-      tokenScore * 0.20 +
+      bigramScore * 0.1 +
+      tokenScore * 0.2 +
       prefixScore * 0.05 +
-      lenRatio * 0.10;
+      lenRatio * 0.1;
 
     return {
       composite,
@@ -312,9 +328,12 @@
     const alphaRatio = text.length > 0 ? alphaCount / text.length : 0;
 
     // Skill names are 3-40 chars typically
-    const lengthScore = text.length >= 3 && text.length <= 50 ? 1.0 :
-                        text.length < 3 ? text.length / 3 :
-                        Math.max(0, 1 - (text.length - 50) / 50);
+    const lengthScore =
+      text.length >= 3 && text.length <= 50
+        ? 1.0
+        : text.length < 3
+          ? text.length / 3
+          : Math.max(0, 1 - (text.length - 50) / 50);
 
     // Penalize excessive symbols
     const symbolPenalty = Math.max(0, 1 - symbolCount * 0.3);
@@ -335,25 +354,18 @@
     // ocrEngineConfidence: Tesseract confidence if available (0..100 -> 0..1)
     // sharpnessNorm: normalized sharpness score (0..1)
 
-    const engineConf = typeof ocrEngineConfidence === 'number'
-      ? Math.min(1, ocrEngineConfidence / 100)
-      : null;
+    const engineConf =
+      typeof ocrEngineConfidence === 'number' ? Math.min(1, ocrEngineConfidence / 100) : null;
 
     let confidence;
 
     if (engineConf !== null) {
       // Use OCR engine confidence as primary signal, blend with match score
       confidence =
-        engineConf * 0.35 +
-        matchScore * 0.40 +
-        ocrQuality * 0.15 +
-        (sharpnessNorm || 0.5) * 0.10;
+        engineConf * 0.35 + matchScore * 0.4 + ocrQuality * 0.15 + (sharpnessNorm || 0.5) * 0.1;
     } else {
       // No engine confidence: rely more on match quality
-      confidence =
-        matchScore * 0.55 +
-        ocrQuality * 0.25 +
-        (sharpnessNorm || 0.5) * 0.20;
+      confidence = matchScore * 0.55 + ocrQuality * 0.25 + (sharpnessNorm || 0.5) * 0.2;
     }
 
     // Exact match override
@@ -364,7 +376,7 @@
 
   // ─── Skill dictionary ─────────────────────────────────────────
 
-  let skillDict = [];        // [{ name, normName, type, tokens, trigrams }]
+  let skillDict = []; // [{ name, normName, type, tokens, trigrams }]
   let skillDictMap = new Map(); // normName -> dict entry
 
   function buildSkillDictionary(skills) {
@@ -391,7 +403,7 @@
       if (name.endsWith(' \u25ce')) {
         const baseName = name.slice(0, -2);
         // Check if a matching ○ exists in the skill list
-        const hasSingle = skills.some(s => (s.name || '').trim() === baseName + ' \u25cb');
+        const hasSingle = skills.some((s) => (s.name || '').trim() === baseName + ' \u25cb');
         if (hasSingle) continue;
       }
 
@@ -477,7 +489,10 @@
       const scores = computeMatchScore(queryNorm, entry.normName);
 
       // Early skip: if edit distance is way too large, skip
-      const maxAllowed = Math.min(MAX_EDIT_DISTANCE, Math.max(2, Math.floor(entry.normName.length * 0.4)));
+      const maxAllowed = Math.min(
+        MAX_EDIT_DISTANCE,
+        Math.max(2, Math.floor(entry.normName.length * 0.4))
+      );
       if (scores.editDist > maxAllowed && scores.composite < 0.3) continue;
 
       // Context boost: if we know the skill type context, boost matching types
@@ -506,7 +521,7 @@
       // No reasonable match
       return {
         match: null,
-        suggestions: scored.slice(0, maxResults).map(s => ({
+        suggestions: scored.slice(0, maxResults).map((s) => ({
           name: s.entry.name,
           type: s.entry.type,
           cost: s.entry.cost,
@@ -520,9 +535,10 @@
     const confidence = computeConfidence(best.finalScore, quality, ocrConfidence, sharpnessNorm);
 
     // Build suggestions (top N excluding the best match)
-    const suggestions = scored.slice(1, maxResults + 1)
-      .filter(s => s.finalScore >= 0.3)
-      .map(s => ({
+    const suggestions = scored
+      .slice(1, maxResults + 1)
+      .filter((s) => s.finalScore >= 0.3)
+      .map((s) => ({
         name: s.entry.name,
         type: s.entry.type,
         cost: s.entry.cost,
@@ -554,19 +570,24 @@
   // Description lines start with these verbs/adverbs/prepositions
   // NOTE: avoid articles (a/an/the), prepositions (with/from), pronouns (this/that/your)
   // as several skill names start with those words.
-  const DESCRIPTION_PREFIXES = /^\s*(slightly|moderately|greatly|increase|decrease|recover|restore|regain|widen|reduce|boost|raise|negate|activate|trigger|improve|heighten|allows?\s|enables?\s|grants?\s|provides?\s|deals?\s|gives?\s|causes?\s|makes?\s|keeps?\s|maintains?\s|positioned|well-|when\s|if\s|at\s|on\s|for\s|while\s|during\s|after\s|before\s|into\s|through\s|against\s)/i;
+  const DESCRIPTION_PREFIXES =
+    /^\s*(slightly|moderately|greatly|increase|decrease|recover|restore|regain|widen|reduce|boost|raise|negate|activate|trigger|improve|heighten|allows?\s|enables?\s|grants?\s|provides?\s|deals?\s|gives?\s|causes?\s|makes?\s|keeps?\s|maintains?\s|positioned|well-|when\s|if\s|at\s|on\s|for\s|while\s|during\s|after\s|before\s|into\s|through\s|against\s)/i;
 
   // Role/position tags that appear in parentheses in descriptions
-  const ROLE_TAG_PATTERN = /^\s*\(?\s*(end|mid|late|early|front|rear|back)\s+(closer|runner|surger|bettor|chaser|leader)\s*\)?\s*$/i;
+  const ROLE_TAG_PATTERN =
+    /^\s*\(?\s*(end|mid|late|early|front|rear|back)\s+(closer|runner|surger|bettor|chaser|leader)\s*\)?\s*$/i;
 
   // Standalone role words that OCR picks up from description parentheticals
-  const STANDALONE_ROLE = /^(late surger|end closer|mid runner|front runner|early leader|rear runner|pace chaser|long|medium|short|mile|dirt|turf)\s*$/i;
+  const STANDALONE_ROLE =
+    /^(late surger|end closer|mid runner|front runner|early leader|rear runner|pace chaser|long|medium|short|mile|dirt|turf)\s*$/i;
 
   // UI noise patterns
-  const UI_NOISE = /^\s*(confirm|reset|back|skip|quick|log|menu|agenda|full stats|skill points)\s*$/i;
+  const UI_NOISE =
+    /^\s*(confirm|reset|back|skip|quick|log|menu|agenda|full stats|skill points)\s*$/i;
 
   // Parenthetical role tags anywhere in a line (from skill descriptions)
-  const PARENTHETICAL_ROLE = /\(\s*(end|mid|late|early|front|rear|back)\s+(closer|runner|surger|bettor|chaser|leader)\s*\)/i;
+  const PARENTHETICAL_ROLE =
+    /\(\s*(end|mid|late|early|front|rear|back)\s+(closer|runner|surger|bettor|chaser|leader)\s*\)/i;
 
   // Cost/number lines: just a number with optional +/- buttons
   const COST_LINE = /^\s*[-+]?\s*\d{1,3}\s*[+-]?\s*$/;
@@ -592,12 +613,16 @@
     // Lines with 3+ words that are mostly lowercase are likely descriptions
     const words = trimmed.split(/\s+/);
     if (words.length >= 3) {
-      const lowercaseWords = words.filter(w => w === w.toLowerCase()).length;
+      const lowercaseWords = words.filter((w) => w === w.toLowerCase()).length;
       if (lowercaseWords / words.length >= 0.7) return true;
     }
     // Lines with common description verbs/prepositions in the middle
     // e.g. "well-positioned upon approaching", "runners in the final"
-    if (/\b(upon|towards?|approaching|positioned|during|within|between|among)\b/i.test(trimmed) && words.length >= 3) return true;
+    if (
+      /\b(upon|towards?|approaching|positioned|during|within|between|among)\b/i.test(trimmed) &&
+      words.length >= 3
+    )
+      return true;
     return false;
   }
 
@@ -631,7 +656,7 @@
 
       let bestResult = null;
       let bestVariant = null;
-      let bestFullResult = null;   // best match from full-length (non-prefix) variants
+      let bestFullResult = null; // best match from full-length (non-prefix) variants
       let bestFullVariant = null;
       const firstVariantLen = variants[0] ? variants[0].length : 0;
 
@@ -642,8 +667,11 @@
         const result = matchSkill(variant, options);
         if (!result.match) continue;
 
-        if (!bestResult || result.confidence > bestResult.confidence ||
-            (result.confidence === bestResult.confidence && variant.length > bestVariant.length)) {
+        if (
+          !bestResult ||
+          result.confidence > bestResult.confidence ||
+          (result.confidence === bestResult.confidence && variant.length > bestVariant.length)
+        ) {
           bestResult = result;
           bestVariant = variant;
         }
@@ -662,11 +690,10 @@
 
       // When a prefix variant matches a different skill than the full line,
       // prefer the full-line match — the OCR text contains more evidence
-      if (bestResult && bestFullResult &&
-          bestVariant.length < firstVariantLen * 0.85) {
+      if (bestResult && bestFullResult && bestVariant.length < firstVariantLen * 0.85) {
         const bestName = normalizeForMatch(bestResult.match.name);
         const fullName = normalizeForMatch(bestFullResult.match.name);
-        if (bestName !== fullName && bestFullResult.confidence >= 0.60) {
+        if (bestName !== fullName && bestFullResult.confidence >= 0.6) {
           bestResult = bestFullResult;
           bestVariant = bestFullVariant;
         }
@@ -767,10 +794,10 @@
         variants.add(camelSplit);
         // Clean: strip discount text, then trailing digits from each word
         const cleaned = camelSplit
-          .replace(/\d+%?\s*[Oo][Ff][Ff]?\s*/g, '')  // "20% OFF"
+          .replace(/\d+%?\s*[Oo][Ff][Ff]?\s*/g, '') // "20% OFF"
           .split(/\s+/)
-          .map(w => w.replace(/\d+\w*$/, ''))  // "Flowery7r" → "Flowery"
-          .filter(w => w.length >= 2)
+          .map((w) => w.replace(/\d+\w*$/, '')) // "Flowery7r" → "Flowery"
+          .filter((w) => w.length >= 2)
           .join(' ')
           .trim();
         if (cleaned.length >= 3 && cleaned !== camelSplit) variants.add(cleaned);
@@ -938,13 +965,16 @@
 
   function parseOCRText(ocrText, options) {
     const opts = options || {};
-    const lines = ocrText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    const lines = ocrText
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean);
 
     const matchResults = matchSkillLines(lines, opts);
     const detected = [];
 
     // Build set of matched skill line indices to prevent hint cross-contamination
-    const matchedLineIndices = new Set(matchResults.map(r => r.lineIndex));
+    const matchedLineIndices = new Set(matchResults.map((r) => r.lineIndex));
 
     for (const result of matchResults) {
       if (!result.match) continue;

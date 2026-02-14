@@ -27,11 +27,11 @@ A character's **Total Rating** is the sum of three independent components:
 Total Rating = Stat Score + Unique Bonus + Skill Score
 ```
 
-| Component | What It Measures |
-|-----------|-----------------|
-| **Stat Score** | How high your five stats (Speed, Stamina, Power, Guts, Wisdom) are, scored using progressively increasing per-block rates. |
-| **Unique Bonus** | A flat bonus based on the character's star level and unique skill level. |
-| **Skill Score** | The sum of all selected skills' scores, evaluated against your race aptitudes. |
+| Component        | What It Measures                                                                                                           |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Stat Score**   | How high your five stats (Speed, Stamina, Power, Guts, Wisdom) are, scored using progressively increasing per-block rates. |
+| **Unique Bonus** | A flat bonus based on the character's star level and unique skill level.                                                   |
+| **Skill Score**  | The sum of all selected skills' scores, evaluated against your race aptitudes.                                             |
 
 Each component is calculated independently and then summed to produce the final rating, which determines your badge tier (G through US9).
 
@@ -47,22 +47,22 @@ The code stores the **exact stat score at every 50-point boundary** (0, 50, 100,
 
 ### Boundary Score Table
 
-| Stat | Score | | Stat | Score | | Stat | Score |
-|-----:|------:|-|-----:|------:|-|-----:|------:|
-| 0 | 0 | | 700 | 1298 | | 1400 | 5665 |
-| 50 | 25 | | 750 | 1463 | | 1450 | 6203 |
-| 100 | 66 | | 800 | 1633 | | 1500 | 6773 |
-| 150 | 116 | | 850 | 1808 | | 1550 | 7377 |
-| 200 | 181 | | 900 | 2004 | | 1600 | 8013 |
-| 250 | 261 | | 950 | 2209 | | 1650 | 8682 |
-| 300 | 352 | | 1000 | 2419 | | 1700 | 9384 |
-| 350 | 457 | | 1050 | 2635 | | 1750 | 10117 |
-| 400 | 577 | | 1100 | 2895 | | 1800 | 10885 |
-| 450 | 707 | | 1150 | 3171 | | 1850 | 11684 |
-| 500 | 847 | | 1200 | 3501 | | 1900 | 12516 |
-| 550 | 993 | | 1250 | 3841 | | 1950 | 13383 |
-| 600 | 1143 | | 1300 | 4249 | | 2000 | 14280 |
-| 650 | 1298 | | 1350 | 4688 | | | |
+| Stat | Score |     | Stat | Score |     | Stat | Score |
+| ---: | ----: | --- | ---: | ----: | --- | ---: | ----: |
+|    0 |     0 |     |  700 |  1298 |     | 1400 |  5665 |
+|   50 |    25 |     |  750 |  1463 |     | 1450 |  6203 |
+|  100 |    66 |     |  800 |  1633 |     | 1500 |  6773 |
+|  150 |   116 |     |  850 |  1808 |     | 1550 |  7377 |
+|  200 |   181 |     |  900 |  2004 |     | 1600 |  8013 |
+|  250 |   261 |     |  950 |  2209 |     | 1650 |  8682 |
+|  300 |   352 |     | 1000 |  2419 |     | 1700 |  9384 |
+|  350 |   457 |     | 1050 |  2635 |     | 1750 | 10117 |
+|  400 |   577 |     | 1100 |  2895 |     | 1800 | 10885 |
+|  450 |   707 |     | 1150 |  3171 |     | 1850 | 11684 |
+|  500 |   847 |     | 1200 |  3501 |     | 1900 | 12516 |
+|  550 |   993 |     | 1250 |  3841 |     | 1950 | 13383 |
+|  600 |  1143 |     | 1300 |  4249 |     | 2000 | 14280 |
+|  650 |  1298 |     | 1350 |  4688 |     |      |       |
 
 The score grows slowly at low stats (25 points for the first 50) and accelerates dramatically at high stats (897 points for the last 50).
 
@@ -121,20 +121,20 @@ uniqueBonus = uniqueLevel * multiplier
 Where:
 
 | Star Level | Multiplier |
-|-----------:|-----------:|
-| 1 or 2 | 120 |
-| 3+ | 170 |
+| ---------: | ---------: |
+|     1 or 2 |        120 |
+|         3+ |        170 |
 
 If `uniqueLevel` is 0, the bonus is 0.
 
 ### Examples
 
 | Stars | Level | Calculation | Bonus |
-|------:|------:|-------------|------:|
-| 1--2 | 5 | 5 * 120 | 600 |
-| 3+ | 5 | 5 * 170 | 850 |
-| 3+ | 10 | 10 * 170 | 1,700 |
-| Any | 0 | 0 * any | 0 |
+| ----: | ----: | ----------- | ----: |
+|  1--2 |     5 | 5 \* 120    |   600 |
+|    3+ |     5 | 5 \* 170    |   850 |
+|    3+ |    10 | 10 \* 170   | 1,700 |
+|   Any |     0 | 0 \* any    |     0 |
 
 ---
 
@@ -146,12 +146,12 @@ Each skill has a **score** that contributes to the total rating. Scores can be e
 
 When a skill has a `checkType` (e.g., `"turf"`, `"mile"`, `"front"`), the game looks at the character's aptitude grade for that type and maps it to a score bucket:
 
-| Aptitude Grade | Bucket |
-|:--------------|:---------|
-| S, A | `good` |
-| B, C | `average` |
-| D, E, F | `bad` |
-| Anything else | `terrible` |
+| Aptitude Grade | Bucket     |
+| :------------- | :--------- |
+| S, A           | `good`     |
+| B, C           | `average`  |
+| D, E, F        | `bad`      |
+| Anything else  | `terrible` |
 
 If a skill has **no** `checkType`, the bucket is `"base"`.
 
@@ -198,13 +198,13 @@ When a skill is added to the optimizer, the base cost is stored in `row.dataset.
 Hint levels reduce the cost of a skill. The discount percentages are:
 
 | Hint Level | Discount |
-|-----------:|--------:|
-| 0 | 0% |
-| 1 | 10% |
-| 2 | 20% |
-| 3 | 30% |
-| 4 | 35% |
-| 5 | 40% |
+| ---------: | -------: |
+|          0 |       0% |
+|          1 |      10% |
+|          2 |      20% |
+|          3 |      30% |
+|          4 |      35% |
+|          5 |      40% |
 
 Note that hint levels 1--3 increase by 10% each, then the curve flattens: level 4 is only +5% over level 3, and level 5 is another +5%.
 
@@ -227,14 +227,14 @@ If a user manually types a cost value into the cost field (rather than letting i
 
 ### Discount Examples
 
-| Base Cost | Hint Level | Fast Learner | Discount | Final Cost |
-|----------:|-----------:|:-------------|--------:|-----------:|
-| 200 | 0 | No | 0% | 200 |
-| 200 | 3 | No | 30% | 140 |
-| 200 | 5 | No | 40% | 120 |
-| 200 | 3 | Yes | 40% | 120 |
-| 200 | 5 | Yes | 50% | 100 |
-| 170 | 4 | Yes | 45% | floor(170 * 0.55) = 93 |
+| Base Cost | Hint Level | Fast Learner | Discount |              Final Cost |
+| --------: | ---------: | :----------- | -------: | ----------------------: |
+|       200 |          0 | No           |       0% |                     200 |
+|       200 |          3 | No           |      30% |                     140 |
+|       200 |          5 | No           |      40% |                     120 |
+|       200 |          3 | Yes          |      40% |                     120 |
+|       200 |          5 | Yes          |      50% |                     100 |
+|       170 |          4 | Yes          |      45% | floor(170 \* 0.55) = 93 |
 
 ---
 
@@ -248,11 +248,11 @@ A gold (rare) skill typically requires a lower-rarity prerequisite skill. In the
 
 The optimizer creates a **three-option decision group**:
 
-| Option | Cost | Score | Description |
-|-------:|:-----|:------|:------------|
-| 1 | 0 | 0 | Skip both skills entirely. |
-| 2 | Lower cost | Lower score | Take the lower skill only. |
-| 3 | Gold cost alone | Gold score only | Take the gold combo. The gold's listed cost already includes the lower skill cost, so no additional cost is charged for the lower. |
+| Option | Cost            | Score           | Description                                                                                                                        |
+| -----: | :-------------- | :-------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+|      1 | 0               | 0               | Skip both skills entirely.                                                                                                         |
+|      2 | Lower cost      | Lower score     | Take the lower skill only.                                                                                                         |
+|      3 | Gold cost alone | Gold score only | Take the gold combo. The gold's listed cost already includes the lower skill cost, so no additional cost is charged for the lower. |
 
 In the results, the lower skill shows as "included with [gold skill]" at 0 additional cost and 0 additional score.
 
@@ -262,11 +262,11 @@ Single-circle skills can be upgraded to double-circle versions. Adding a single-
 
 The optimizer creates a **three-option decision group**:
 
-| Option | Cost | Score | Description |
-|-------:|:-----|:------|:------------|
-| 1 | 0 | 0 | Skip both. |
-| 2 | Single-circle cost | Single-circle score | Take the base version only. |
-| 3 | Single-circle + double-circle (additive) | Double-circle score only | Take the combo. Both costs are paid, but only the upgrade's score counts. |
+| Option | Cost                                     | Score                    | Description                                                               |
+| -----: | :--------------------------------------- | :----------------------- | :------------------------------------------------------------------------ |
+|      1 | 0                                        | 0                        | Skip both.                                                                |
+|      2 | Single-circle cost                       | Single-circle score      | Take the base version only.                                               |
+|      3 | Single-circle + double-circle (additive) | Double-circle score only | Take the combo. Both costs are paid, but only the upgrade's score counts. |
 
 The key difference from gold linking: circle combo cost is **additive** (base + upgrade), while gold combo cost uses **only the gold cost** (which already subsumes the lower).
 
@@ -389,105 +389,105 @@ When filtering, the optimizer also includes linked counterparts (gold lower skil
 The total rating maps to one of 98 badge tiers. Each badge has a minimum threshold -- you receive the highest badge whose minimum threshold is less than or equal to your rating.
 
 | Minimum Rating | Badge |
-|:---------------|:------|
-| 0 | G |
-| 300 | G+ |
-| 600 | F |
-| 900 | F+ |
-| 1,300 | E |
-| 1,800 | E+ |
-| 2,300 | D |
-| 2,900 | D+ |
-| 3,500 | C |
-| 4,900 | C+ |
-| 7,000 | B |
-| 8,200 | B+ |
-| 10,000 | A |
-| 12,100 | A+ |
-| 14,500 | S |
-| 15,900 | S+ |
-| 17,500 | SS |
-| 19,200 | SS+ |
-| 19,600 | UG |
-| 20,000 | UG1 |
-| 20,400 | UG2 |
-| 20,800 | UG3 |
-| 21,200 | UG4 |
-| 21,600 | UG5 |
-| 22,100 | UG6 |
-| 22,500 | UG7 |
-| 23,000 | UG8 |
-| 23,400 | UG9 |
-| 23,900 | UF |
-| 24,300 | UF1 |
-| 24,800 | UF2 |
-| 25,300 | UF3 |
-| 25,800 | UF4 |
-| 26,300 | UF5 |
-| 26,800 | UF6 |
-| 27,300 | UF7 |
-| 27,800 | UF8 |
-| 28,300 | UF9 |
-| 28,800 | UE |
-| 29,400 | UE1 |
-| 29,900 | UE2 |
-| 30,400 | UE3 |
-| 31,000 | UE4 |
-| 31,500 | UE5 |
-| 32,100 | UE6 |
-| 32,700 | UE7 |
-| 33,200 | UE8 |
-| 33,800 | UE9 |
-| 34,400 | UD |
-| 35,000 | UD1 |
-| 35,600 | UD2 |
-| 36,200 | UD3 |
-| 36,800 | UD4 |
-| 37,500 | UD5 |
-| 38,100 | UD6 |
-| 38,700 | UD7 |
-| 39,400 | UD8 |
-| 40,000 | UD9 |
-| 40,700 | UC |
-| 41,300 | UC1 |
-| 42,000 | UC2 |
-| 42,700 | UC3 |
-| 43,400 | UC4 |
-| 44,000 | UC5 |
-| 44,700 | UC6 |
-| 45,400 | UC7 |
-| 46,200 | UC8 |
-| 46,900 | UC9 |
-| 47,600 | UB |
-| 48,300 | UB1 |
-| 49,000 | UB2 |
-| 49,800 | UB3 |
-| 50,500 | UB4 |
-| 51,300 | UB5 |
-| 52,000 | UB6 |
-| 52,800 | UB7 |
-| 53,600 | UB8 |
-| 54,400 | UB9 |
-| 55,200 | UA |
-| 55,900 | UA1 |
-| 56,700 | UA2 |
-| 57,500 | UA3 |
-| 58,400 | UA4 |
-| 59,200 | UA5 |
-| 60,000 | UA6 |
-| 60,800 | UA7 |
-| 61,700 | UA8 |
-| 62,500 | UA9 |
-| 63,400 | US |
-| 64,200 | US1 |
-| 65,100 | US2 |
-| 66,000 | US3 |
-| 66,800 | US4 |
-| 67,700 | US5 |
-| 68,600 | US6 |
-| 69,500 | US7 |
-| 70,400 | US8 |
-| 71,400 | US9 |
+| :------------- | :---- |
+| 0              | G     |
+| 300            | G+    |
+| 600            | F     |
+| 900            | F+    |
+| 1,300          | E     |
+| 1,800          | E+    |
+| 2,300          | D     |
+| 2,900          | D+    |
+| 3,500          | C     |
+| 4,900          | C+    |
+| 7,000          | B     |
+| 8,200          | B+    |
+| 10,000         | A     |
+| 12,100         | A+    |
+| 14,500         | S     |
+| 15,900         | S+    |
+| 17,500         | SS    |
+| 19,200         | SS+   |
+| 19,600         | UG    |
+| 20,000         | UG1   |
+| 20,400         | UG2   |
+| 20,800         | UG3   |
+| 21,200         | UG4   |
+| 21,600         | UG5   |
+| 22,100         | UG6   |
+| 22,500         | UG7   |
+| 23,000         | UG8   |
+| 23,400         | UG9   |
+| 23,900         | UF    |
+| 24,300         | UF1   |
+| 24,800         | UF2   |
+| 25,300         | UF3   |
+| 25,800         | UF4   |
+| 26,300         | UF5   |
+| 26,800         | UF6   |
+| 27,300         | UF7   |
+| 27,800         | UF8   |
+| 28,300         | UF9   |
+| 28,800         | UE    |
+| 29,400         | UE1   |
+| 29,900         | UE2   |
+| 30,400         | UE3   |
+| 31,000         | UE4   |
+| 31,500         | UE5   |
+| 32,100         | UE6   |
+| 32,700         | UE7   |
+| 33,200         | UE8   |
+| 33,800         | UE9   |
+| 34,400         | UD    |
+| 35,000         | UD1   |
+| 35,600         | UD2   |
+| 36,200         | UD3   |
+| 36,800         | UD4   |
+| 37,500         | UD5   |
+| 38,100         | UD6   |
+| 38,700         | UD7   |
+| 39,400         | UD8   |
+| 40,000         | UD9   |
+| 40,700         | UC    |
+| 41,300         | UC1   |
+| 42,000         | UC2   |
+| 42,700         | UC3   |
+| 43,400         | UC4   |
+| 44,000         | UC5   |
+| 44,700         | UC6   |
+| 45,400         | UC7   |
+| 46,200         | UC8   |
+| 46,900         | UC9   |
+| 47,600         | UB    |
+| 48,300         | UB1   |
+| 49,000         | UB2   |
+| 49,800         | UB3   |
+| 50,500         | UB4   |
+| 51,300         | UB5   |
+| 52,000         | UB6   |
+| 52,800         | UB7   |
+| 53,600         | UB8   |
+| 54,400         | UB9   |
+| 55,200         | UA    |
+| 55,900         | UA1   |
+| 56,700         | UA2   |
+| 57,500         | UA3   |
+| 58,400         | UA4   |
+| 59,200         | UA5   |
+| 60,000         | UA6   |
+| 60,800         | UA7   |
+| 61,700         | UA8   |
+| 62,500         | UA9   |
+| 63,400         | US    |
+| 64,200         | US1   |
+| 65,100         | US2   |
+| 66,000         | US3   |
+| 66,800         | US4   |
+| 67,700         | US5   |
+| 68,600         | US6   |
+| 69,500         | US7   |
+| 70,400         | US8   |
+| 71,400         | US9   |
 
 ### Progress Bar
 
@@ -526,13 +526,10 @@ At maximum rank (US9 at 71,400+), the progress bar shows "Max rank reached" with
 
 ## 10. Source Files
 
-| File | Responsibility |
-|:-----|:---------------|
-| `js/rating-shared.js` | Stat scoring (`calcStatScore`), unique bonus (`calcUniqueBonus`), badge thresholds (`RATING_BADGES`), skill evaluation (`evaluateSkillScore`), aptitude bucket mapping (`getBucketForGrade`). |
-| `js/optimizer.js` | Skill row management, cost discounting (`calculateDiscountedCost`), dependency groups (`buildGroups`), knapsack DP (`optimizeGrouped`), Auto Build filtering, aptitude test scoring (`getAptitudeTestScore`). |
-| `js/calculator.js` | Standalone rating calculator page using the shared rating engine. |
-| `assets/uma_skills.csv` | Skill database (443 skills) with names, score buckets, affinity roles, and check types. |
-| `assets/skills_all.json` | Detailed skill metadata including base costs, parent/lower/circle relationships, skill IDs, and categories. |
-
-
-
+| File                     | Responsibility                                                                                                                                                                                                |
+| :----------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `js/rating-shared.js`    | Stat scoring (`calcStatScore`), unique bonus (`calcUniqueBonus`), badge thresholds (`RATING_BADGES`), skill evaluation (`evaluateSkillScore`), aptitude bucket mapping (`getBucketForGrade`).                 |
+| `js/optimizer.js`        | Skill row management, cost discounting (`calculateDiscountedCost`), dependency groups (`buildGroups`), knapsack DP (`optimizeGrouped`), Auto Build filtering, aptitude test scoring (`getAptitudeTestScore`). |
+| `js/calculator.js`       | Standalone rating calculator page using the shared rating engine.                                                                                                                                             |
+| `assets/uma_skills.csv`  | Skill database (443 skills) with names, score buckets, affinity roles, and check types.                                                                                                                       |
+| `assets/skills_all.json` | Detailed skill metadata including base costs, parent/lower/circle relationships, skill IDs, and categories.                                                                                                   |

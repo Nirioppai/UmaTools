@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,21 +8,10 @@
       name="description"
       content="Standalone Uma Musume rating calculator with stats, skills, and race aptitude inputs."
     />
-    <link
-      rel="canonical"
-      href="https://daftuyda.moe/calculator"
-    />
+    <link rel="canonical" href="https://daftuyda.moe/calculator" />
     <meta name="robots" content="index, follow" />
-    <meta
-      name="theme-color"
-      content="#f8fafc"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#0f172a"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
@@ -32,57 +21,31 @@
       property="og:description"
       content="Standalone Uma Musume rating calculator with stats, skills, and race aptitude inputs."
     />
-    <meta
-      property="og:url"
-      content="https://daftuyda.moe/calculator"
-    />
-    <meta
-      property="og:image"
-      content="https://daftuyda.moe/assets/og-default.png"
-    />
+    <meta property="og:url" content="https://daftuyda.moe/calculator" />
+    <meta property="og:image" content="https://daftuyda.moe/assets/og-default.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="UmaTools - Rating Calculator"
-    />
+    <meta property="og:image:alt" content="UmaTools - Rating Calculator" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="UmaTools - Rating Calculator" />
     <meta
       name="twitter:description"
       content="Standalone Uma Musume rating calculator with stats, skills, and race aptitude inputs."
     />
-    <meta
-      name="twitter:image"
-      content="https://daftuyda.moe/assets/og-default.png"
-    />
-    <meta
-      name="twitter:image:alt"
-      content="UmaTools - Rating Calculator"
-    />
+    <meta name="twitter:image" content="https://daftuyda.moe/assets/og-default.png" />
+    <meta name="twitter:image:alt" content="UmaTools - Rating Calculator" />
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/favicon-16x16.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/apple-touch-icon.png"
-    />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/rating.css" />
@@ -98,10 +61,7 @@
             "name": "UmaTools",
             "url": "https://daftuyda.moe/",
             "logo": "https://daftuyda.moe/assets/icon-512.png",
-            "sameAs": [
-              "https://github.com/daftuyda/UmaTools",
-              "https://youtube.com/@MaybeVoid"
-            ]
+            "sameAs": ["https://github.com/daftuyda/UmaTools", "https://youtube.com/@MaybeVoid"]
           },
           {
             "@type": "WebSite",
@@ -143,27 +103,26 @@
       }
     </script>
     <!-- No-flash dark mode (matches other pages) -->
-    
-      <script defer src="/_vercel/insights/script.js"></script>
+
+    <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
     <script>
       (function () {
         try {
-          var pref = localStorage.getItem("umasearch-darkmode");
+          var pref = localStorage.getItem('umasearch-darkmode');
           var dark = pref
-            ? pref === "dark"
-            : window.matchMedia &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches;
+            ? pref === 'dark'
+            : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
           var root = document.documentElement;
-          root.classList.add("is-loading");
-          root.classList.toggle("dark", dark);
-          root.style.colorScheme = dark ? "dark" : "light";
+          root.classList.add('is-loading');
+          root.classList.toggle('dark', dark);
+          root.style.colorScheme = dark ? 'dark' : 'light';
 
           var pageLoaded = false;
           var navReady = !document.querySelector('script[src="/js/nav.js"]');
           var release = function () {
-            root.classList.remove("is-loading");
+            root.classList.remove('is-loading');
           };
           var tryRelease = function () {
             if (!pageLoaded || !navReady) return;
@@ -172,7 +131,7 @@
                 document.fonts.ready,
                 new Promise(function (resolve) {
                   setTimeout(resolve, 1200);
-                })
+                }),
               ]).then(function () {
                 requestAnimationFrame(release);
               });
@@ -180,11 +139,11 @@
               requestAnimationFrame(release);
             }
           };
-          window.addEventListener("load", function () {
+          window.addEventListener('load', function () {
             pageLoaded = true;
             tryRelease();
           });
-          window.addEventListener("nav:ready", function () {
+          window.addEventListener('nav:ready', function () {
             navReady = true;
             tryRelease();
           });
@@ -196,15 +155,25 @@
         } catch (e) {}
       })();
     </script>
-    
+
     <!-- Same floating toggle button used across site; nav.js will relocate it into the navbar when present -->
     <button
       id="modeToggleBtn"
       aria-label="Toggle dark/light mode"
       class="mode-toggle-btn"
-      title="Toggle dark/light mode">
-      <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      title="Toggle dark/light mode"
+    >
+      <svg
+        id="iconSun"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <circle cx="12" cy="12" r="5"></circle>
         <line x1="12" y1="1" x2="12" y2="3"></line>
         <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -215,8 +184,18 @@
         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
       </svg>
-      <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+      <svg
+        id="iconMoon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        style="display: none"
+      >
         <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
       </svg>
     </button>
@@ -229,7 +208,8 @@
           class="btn btn-secondary tutorial-open-link"
           type="button"
           aria-haspopup="dialog"
-          aria-expanded="false">
+          aria-expanded="false"
+        >
           Help / Tutorial
         </button>
       </div>
@@ -246,18 +226,30 @@
               <div class="kv-row">
                 <div class="k">Track</div>
                 <div class="v row">
-                  <label> Turf
+                  <label>
+                    Turf
                     <select id="cfg-turf">
-                      <option value="S">S</option><option value="A" selected>A</option><option value="B">B</option>
-                      <option value="C">C</option><option value="D">D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G">G</option>
+                      <option value="S">S</option>
+                      <option value="A" selected>A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Dirt
+                  <label>
+                    Dirt
                     <select id="cfg-dirt">
-                      <option value="S">S</option><option value="A">A</option><option value="B">B</option>
-                      <option value="C">C</option><option value="D">D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G" selected>G</option>
+                      <option value="S">S</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G" selected>G</option>
                     </select>
                   </label>
                 </div>
@@ -265,32 +257,56 @@
               <div class="kv-row">
                 <div class="k">Distance</div>
                 <div class="v row">
-                  <label> Sprint
+                  <label>
+                    Sprint
                     <select id="cfg-sprint">
-                      <option value="S">S</option><option value="A">A</option><option value="B">B</option>
-                      <option value="C">C</option><option value="D" selected>D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G">G</option>
+                      <option value="S">S</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D" selected>D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Mile
+                  <label>
+                    Mile
                     <select id="cfg-mile">
-                      <option value="S">S</option><option value="A">A</option><option value="B">B</option>
-                      <option value="C" selected>C</option><option value="D">D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G">G</option>
+                      <option value="S">S</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C" selected>C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Medium
+                  <label>
+                    Medium
                     <select id="cfg-medium">
-                      <option value="S">S</option><option value="A" selected>A</option><option value="B">B</option>
-                      <option value="C">C</option><option value="D">D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G">G</option>
+                      <option value="S">S</option>
+                      <option value="A" selected>A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Long
+                  <label>
+                    Long
                     <select id="cfg-long">
-                      <option value="S">S</option><option value="A">A</option><option value="B" selected>B</option>
-                      <option value="C">C</option><option value="D">D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G">G</option>
+                      <option value="S">S</option>
+                      <option value="A">A</option>
+                      <option value="B" selected>B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
                     </select>
                   </label>
                 </div>
@@ -298,32 +314,56 @@
               <div class="kv-row">
                 <div class="k">Strategy</div>
                 <div class="v row">
-                  <label> Front
+                  <label>
+                    Front
                     <select id="cfg-front">
-                      <option value="S">S</option><option value="A" selected>A</option><option value="B">B</option>
-                      <option value="C">C</option><option value="D">D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G">G</option>
+                      <option value="S">S</option>
+                      <option value="A" selected>A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Pace
+                  <label>
+                    Pace
                     <select id="cfg-pace">
-                      <option value="S">S</option><option value="A">A</option><option value="B" selected>B</option>
-                      <option value="C">C</option><option value="D">D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G">G</option>
+                      <option value="S">S</option>
+                      <option value="A">A</option>
+                      <option value="B" selected>B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Late
+                  <label>
+                    Late
                     <select id="cfg-late">
-                      <option value="S">S</option><option value="A">A</option><option value="B">B</option>
-                      <option value="C" selected>C</option><option value="D">D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G">G</option>
+                      <option value="S">S</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C" selected>C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
                     </select>
                   </label>
-                  <label> End
+                  <label>
+                    End
                     <select id="cfg-end">
-                      <option value="S">S</option><option value="A">A</option><option value="B" selected>B</option>
-                      <option value="C">C</option><option value="D">D</option><option value="E">E</option>
-                      <option value="F">F</option><option value="G">G</option>
+                      <option value="S">S</option>
+                      <option value="A">A</option>
+                      <option value="B" selected>B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="G">G</option>
                     </select>
                   </label>
                 </div>
@@ -337,24 +377,73 @@
               <h2 id="ratingCalcTitle">Stats &amp; Rating</h2>
             </div>
             <div class="rating-grid">
-              <label>Speed
-                <input id="stat-speed" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
+              <label
+                >Speed
+                <input
+                  id="stat-speed"
+                  type="number"
+                  min="0"
+                  max="2000"
+                  step="1"
+                  value="0"
+                  inputmode="numeric"
+                />
               </label>
-              <label>Stamina
-                <input id="stat-stamina" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
+              <label
+                >Stamina
+                <input
+                  id="stat-stamina"
+                  type="number"
+                  min="0"
+                  max="2000"
+                  step="1"
+                  value="0"
+                  inputmode="numeric"
+                />
               </label>
-              <label>Power
-                <input id="stat-power" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
+              <label
+                >Power
+                <input
+                  id="stat-power"
+                  type="number"
+                  min="0"
+                  max="2000"
+                  step="1"
+                  value="0"
+                  inputmode="numeric"
+                />
               </label>
-              <label>Guts
-                <input id="stat-guts" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
+              <label
+                >Guts
+                <input
+                  id="stat-guts"
+                  type="number"
+                  min="0"
+                  max="2000"
+                  step="1"
+                  value="0"
+                  inputmode="numeric"
+                />
               </label>
-              <label>Wisdom
-                <input id="stat-wisdom" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
+              <label
+                >Wisdom
+                <input
+                  id="stat-wisdom"
+                  type="number"
+                  min="0"
+                  max="2000"
+                  step="1"
+                  value="0"
+                  inputmode="numeric"
+                />
               </label>
             </div>
-            <div class="rating-grid" style="grid-template-columns: repeat(2, minmax(120px, 1fr)); margin-top:0.4rem">
-              <label>Star Level
+            <div
+              class="rating-grid"
+              style="grid-template-columns: repeat(2, minmax(120px, 1fr)); margin-top: 0.4rem"
+            >
+              <label
+                >Star Level
                 <select id="star-level">
                   <option value="1">&#9733;1</option>
                   <option value="2">&#9733;2</option>
@@ -363,7 +452,8 @@
                   <option value="5">&#9733;5</option>
                 </select>
               </label>
-              <label>Unique Skill Level
+              <label
+                >Unique Skill Level
                 <select id="unique-level">
                   <option value="1">Lv1</option>
                   <option value="2">Lv2</option>
@@ -375,9 +465,18 @@
               </label>
             </div>
             <div class="rating-summary">
-              <div class="pill"><div class="label">Stats</div><div id="rating-stats-score" class="value">0</div></div>
-              <div class="pill"><div class="label">Skills</div><div id="rating-skills-score" class="value">0</div></div>
-              <div class="pill"><div class="label">Unique</div><div id="rating-unique-bonus" class="value">0</div></div>
+              <div class="pill">
+                <div class="label">Stats</div>
+                <div id="rating-stats-score" class="value">0</div>
+              </div>
+              <div class="pill">
+                <div class="label">Skills</div>
+                <div id="rating-skills-score" class="value">0</div>
+              </div>
+              <div class="pill">
+                <div class="label">Unique</div>
+                <div id="rating-unique-bonus" class="value">0</div>
+              </div>
             </div>
             <div class="rating-projected-row rating-hero">
               <div class="pill rating-total-pill">
@@ -388,13 +487,24 @@
                     <span id="rating-next-label">Next: G+</span>
                     <span id="rating-next-needed">+300</span>
                   </div>
-                  <div class="rating-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                  <div
+                    class="rating-progress-bar"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                  >
                     <div id="rating-progress-fill" class="rating-progress-fill"></div>
                   </div>
                 </div>
               </div>
               <div class="rating-badge" id="rating-badge">
-                <div id="rating-badge-sprite" class="rating-badge-sprite" role="img" aria-label="Projected rank badge"></div>
+                <div
+                  id="rating-badge-sprite"
+                  class="rating-badge-sprite"
+                  role="img"
+                  aria-label="Projected rank badge"
+                ></div>
               </div>
             </div>
           </div>
@@ -402,32 +512,34 @@
       </section>
 
       <!-- Selected Skills Display -->
-      <section class="card card-elevated" id="selected-skills-section" style="margin-bottom:16px">
-        <h3 style="margin:.2rem 0 .5rem 0">Selected Skills</h3>
+      <section class="card card-elevated" id="selected-skills-section" style="margin-bottom: 16px">
+        <h3 style="margin: 0.2rem 0 0.5rem 0">Selected Skills</h3>
         <div id="results" class="results">
-          <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px;">
+          <div
+            class="grid"
+            style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px"
+          >
             <div class="pill"><b>Skills:</b> <span id="skill-count">0</span></div>
             <div class="pill"><b>Skill Score:</b> <span id="total-skill-score">0</span></div>
           </div>
-          <div class="results-list" id="selected-list" style="margin-top:.75rem"></div>
+          <div class="results-list" id="selected-list" style="margin-top: 0.75rem"></div>
         </div>
       </section>
 
       <!-- Skill Rows (simplified - no cost, hint, or must buy) -->
       <section class="card card-elevated">
-        <div class="toolbar" role="group" aria-label="Skill rows" style="justify-content:flex-end">
+        <div class="toolbar" role="group" aria-label="Skill rows" style="justify-content: flex-end">
           <span class="muted">Add skills to calculate your build's rating</span>
           <div class="spacer"></div>
           <div id="lib-status" class="status" aria-live="polite"></div>
         </div>
-        <div class="toolbar" style="justify-content:flex-end">
+        <div class="toolbar" style="justify-content: flex-end">
           <button id="clear-all" class="btn" type="button">Clear All Skills</button>
         </div>
 
         <div id="rows" class="rows calculator-rows"></div>
       </section>
     </main>
-
 
     <div id="rating-float" class="rating-float" aria-live="polite">
       <div class="rating-float-main">
@@ -444,33 +556,37 @@
           <span id="rating-float-next-label">Next: G+ at 300</span>
           <span id="rating-float-next-needed">+0</span>
         </div>
-        <div id="rating-float-progress-bar" class="rating-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div
+          id="rating-float-progress-bar"
+          class="rating-progress-bar"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
           <div id="rating-float-progress-fill" class="rating-progress-fill"></div>
         </div>
       </div>
     </div>
 
     <!-- Declare routes so nav.js can render the shared navbar (like other pages) -->
-    
+
     <script src="/js/rating-shared.js" defer></script>
     <script src="/js/tutorial.js" defer></script>
     <script src="/js/calculator.js" defer></script>
-        <script>
+    <script>
       window.NAV_ROUTES = [
-  { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
-  { label: "Calculator", path: "/calculator", file: "/calculator.html" },
-  { label: "Stamina Check", path: "/stamina", file: "/stamina.html" },
-  { label: "Event OCR", path: "/events", file: "/events.html" },
-  { label: "Support Hints", path: "/hints", file: "/hints.html" },
-  { label: "Randomizer", path: "/random", file: "/random.html" },
-  { label: "Umadle", path: "/umadle", file: "/umadle.html" }
-];
+        { label: 'Optimizer', path: '/optimizer', file: '/optimizer.html' },
+        { label: 'Calculator', path: '/calculator', file: '/calculator.html' },
+        { label: 'Stamina Check', path: '/stamina', file: '/stamina.html' },
+        { label: 'Event OCR', path: '/events', file: '/events.html' },
+        { label: 'Support Hints', path: '/hints', file: '/hints.html' },
+        { label: 'Randomizer', path: '/random', file: '/random.html' },
+        { label: 'Umadle', path: '/umadle', file: '/umadle.html' },
+      ];
     </script>
 
     <script src="/js/nav.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>
-
-
-

@@ -1,7 +1,4 @@
-import {
-  chooseRecommendedOption,
-  renderRecommendationBadge,
-} from "./recommend.js";
+import { chooseRecommendedOption, renderRecommendationBadge } from './recommend.js';
 
 const API_BASE = window.API_BASE || `${location.protocol}//${location.host}`;
 
@@ -21,25 +18,25 @@ const clear = (node) => {
 };
 
 function scrubMarkers(s) {
-  const str = String(s ?? "");
-  if (/^\s*❯+\s*$/.test(str)) return "";
+  const str = String(s ?? '');
+  if (/^\s*❯+\s*$/.test(str)) return '';
   return str
-    .replace(/^\s*❯+\s*/g, "")
-    .replace(/\s*❯+\s*$/g, "")
+    .replace(/^\s*❯+\s*/g, '')
+    .replace(/\s*❯+\s*$/g, '')
     .trim();
 }
 
 function preferLabeledOptions(optionsObj) {
-  if (!optionsObj || typeof optionsObj !== "object") return optionsObj;
+  if (!optionsObj || typeof optionsObj !== 'object') return optionsObj;
   const labels = Object.keys(optionsObj);
   if (labels.length === 0) return optionsObj;
 
-  const hasLabeled = labels.some((l) => String(l || "").trim() !== "");
+  const hasLabeled = labels.some((l) => String(l || '').trim() !== '');
   if (!hasLabeled) return optionsObj; // only unlabeled -> keep as-is
 
   const cleaned = {};
   for (const [label, groups] of Object.entries(optionsObj)) {
-    if (String(label || "").trim() === "") continue; // drop
+    if (String(label || '').trim() === '') continue; // drop
     cleaned[label] = groups;
   }
   return Object.keys(cleaned).length ? cleaned : optionsObj;
@@ -54,17 +51,17 @@ function renderLine(raw) {
   if (!txt) return null; // drop empty/marker-only lines
 
   if (/^※\s*/.test(txt)) {
-    const div = el("div");
-    div.style.fontWeight = "700";
-    div.style.marginBottom = "6px";
-    div.style.color = "rgb(214, 158, 46)";
-    div.style.lineHeight = "1.5";
-    div.textContent = txt.replace(/^※\s*/, "");
+    const div = el('div');
+    div.style.fontWeight = '700';
+    div.style.marginBottom = '6px';
+    div.style.color = 'rgb(214, 158, 46)';
+    div.style.lineHeight = '1.5';
+    div.textContent = txt.replace(/^※\s*/, '');
     return div;
   }
 
-  txt = txt.replace(/\bhint\s*([+-]\d+)\b/i, "hint: $1");
-  const p = el("p");
+  txt = txt.replace(/\bhint\s*([+-]\d+)\b/i, 'hint: $1');
+  const p = el('p');
   p.textContent = txt;
   return p;
 }
@@ -72,8 +69,7 @@ function renderLine(raw) {
 function splitChanceOutcomes(lines) {
   const outcomes = [];
   let current = null;
-  const isEither = (s) =>
-    /^randomly either(?:\s*\([^)]+\))?$/i.test(String(s).trim());
+  const isEither = (s) => /^randomly either(?:\s*\([^)]+\))?$/i.test(String(s).trim());
   const isOr = (s) => /^or(?:\s*\([^)]+\))?$/i.test(String(s).trim());
 
   for (const raw of lines || []) {
@@ -81,41 +77,36 @@ function splitChanceOutcomes(lines) {
     const line = scrubMarkers(rawStr).trim();
     if (!line) continue;
     if (isEither(line) || isOr(line)) {
-      if (current && (current.header || current.bodyLines.length))
-        outcomes.push(current);
+      if (current && (current.header || current.bodyLines.length)) outcomes.push(current);
       current = { header: line, bodyLines: [] };
     } else {
       if (!current) return null; // no header yet → not a chance pattern
       current.bodyLines.push(rawStr);
     }
   }
-  if (current && (current.header || current.bodyLines.length))
-    outcomes.push(current);
+  if (current && (current.header || current.bodyLines.length)) outcomes.push(current);
   return outcomes.length >= 2 ? outcomes : null;
 }
 
 function renderRewardGroup(lines) {
-  const groupDiv = el("div", "reward-group");
+  const groupDiv = el('div', 'reward-group');
   const outcomes = splitChanceOutcomes(lines);
 
   if (outcomes) {
-    if (
-      outcomes[0] &&
-      /^randomly either(?:\s*\([^)]+\))?$/i.test(outcomes[0].header || "")
-    ) {
-      outcomes[0].header = "";
+    if (outcomes[0] && /^randomly either(?:\s*\([^)]+\))?$/i.test(outcomes[0].header || '')) {
+      outcomes[0].header = '';
     }
 
     outcomes.forEach((oc, idx) => {
       if (idx > 0 && oc.header) {
-        const sep = el("div", "outcome-separator");
-        const em = document.createElement("em");
+        const sep = el('div', 'outcome-separator');
+        const em = document.createElement('em');
         em.textContent = oc.header; // e.g., "or (50%)"
         sep.appendChild(em);
         groupDiv.appendChild(sep);
       }
 
-      const wrap = el("div", `outcome-alt alt-${idx % 2}`);
+      const wrap = el('div', `outcome-alt alt-${idx % 2}`);
 
       (oc.bodyLines || []).forEach((line) => {
         const node = renderLine(line);
@@ -138,7 +129,7 @@ function renderRewardGroup(lines) {
 }
 
 function renderRewardGroups(groups) {
-  const container = el("div", "reward-groups");
+  const container = el('div', 'reward-groups');
   (groups || []).forEach((lines) => {
     const arr = Array.isArray(lines) ? lines : [String(lines)];
     container.appendChild(renderRewardGroup(arr));
@@ -147,13 +138,8 @@ function renderRewardGroups(groups) {
 }
 
 const normalizeLine = (s) =>
-  scrubMarkers(s)
-    .replace(/\r\n/g, "\n")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
-const groupKey = (lines) =>
-  (lines || []).map(normalizeLine).filter(Boolean).join(" | ");
+  scrubMarkers(s).replace(/\r\n/g, '\n').replace(/\s+/g, ' ').trim().toLowerCase();
+const groupKey = (lines) => (lines || []).map(normalizeLine).filter(Boolean).join(' | ');
 function dedupeGroups(groups) {
   const seen = new Set();
   const out = [];
@@ -175,16 +161,14 @@ async function fetchEventByName(q, { limit = 5, min_score = 0 } = {}) {
   const res = await fetch(url);
   if (!res.ok)
     throw new Error(
-      `API error ${res.status}: ${
-        (await res.text().catch(() => "")) || res.statusText
-      }`
+      `API error ${res.status}: ${(await res.text().catch(() => '')) || res.statusText}`
     );
   return res.json();
 }
 
 async function performSearch(q) {
-  const status = $("#status");
-  const result = $("#result");
+  const status = $('#status');
+  const result = $('#result');
   const queryKey = normalizeQueryKey(q);
 
   if (queryKey && queryKey === LAST_QUERY_KEY) {
@@ -196,17 +180,17 @@ async function performSearch(q) {
 
   const qClean = scrubMarkers(q);
   if (!qClean) {
-    status.textContent = "Type an event name and press Search.";
+    status.textContent = 'Type an event name and press Search.';
     return;
   }
-  status.textContent = "Searching…";
+  status.textContent = 'Searching…';
 
   let payload;
   try {
     payload = await fetchEventByName(qClean, { limit: 6, min_score: 0 });
   } catch (e) {
     clear(status);
-    status.textContent = e.message || "Search failed.";
+    status.textContent = e.message || 'Search failed.';
     return;
   }
 
@@ -214,7 +198,7 @@ async function performSearch(q) {
 
   const match = payload?.match?.data;
   if (!match || !match.options) {
-    status.textContent = "No event found.";
+    status.textContent = 'No event found.';
     return;
   }
 
@@ -233,10 +217,10 @@ async function performSearch(q) {
 }
 
 function renderEvent(evt, otherMatches) {
-  const result = $("#result");
+  const result = $('#result');
   clear(result);
 
-  result.appendChild(el("h2", null, scrubMarkers(evt.event_name) || "Event"));
+  result.appendChild(el('h2', null, scrubMarkers(evt.event_name) || 'Event'));
 
   let rec = chooseRecommendedOption(evt);
 
@@ -256,18 +240,18 @@ function renderEvent(evt, otherMatches) {
   }
 
   for (const [rawLabel, groups] of Object.entries(evt.options || {})) {
-    const label = scrubMarkers(rawLabel) || "Option";
-    const choice = el("div", "choice");
-    const h3 = el("h3", null, label);
+    const label = scrubMarkers(rawLabel) || 'Option';
+    const choice = el('div', 'choice');
+    const h3 = el('h3', null, label);
     if (rec?.label === rawLabel || rec?.label === label) {
       h3.appendChild(renderRecommendationBadge(rec));
     }
     choice.appendChild(h3);
     choice.appendChild(renderRewardGroups(groups));
     const total = rec?.byLabel?.[label]?.score;
-    if (typeof total === "number") {
-      const scoreTag = document.createElement("div");
-      scoreTag.className = "option-score";
+    if (typeof total === 'number') {
+      const scoreTag = document.createElement('div');
+      scoreTag.className = 'option-score';
       scoreTag.textContent = `Score: ${total.toFixed(1)}`;
       choice.appendChild(scoreTag);
     }
@@ -276,22 +260,22 @@ function renderEvent(evt, otherMatches) {
   }
 
   if (Array.isArray(otherMatches) && otherMatches.length) {
-    const wrap = el("div");
-    wrap.style.marginTop = "12px";
-    const cap = el("div", null, "Other matches:");
-    cap.style.fontWeight = "600";
+    const wrap = el('div');
+    wrap.style.marginTop = '12px';
+    const cap = el('div', null, 'Other matches:');
+    cap.style.fontWeight = '600';
     wrap.appendChild(cap);
-    const ul = el("ul");
+    const ul = el('ul');
     otherMatches.forEach((m) => {
       const name = scrubMarkers(m.event_name);
-      const li = el("li");
-      const a = el("a");
-      a.href = "#";
+      const li = el('li');
+      const a = el('a');
+      a.href = '#';
       a.textContent = `${name} (${Math.round(m.score)}%)`;
-      a.style.color = "#7999aa";
-      a.addEventListener("click", (e) => {
+      a.style.color = '#7999aa';
+      a.addEventListener('click', (e) => {
         e.preventDefault();
-        $("#query").value = name;
+        $('#query').value = name;
         performSearch(name);
       });
       li.appendChild(a);
@@ -303,21 +287,21 @@ function renderEvent(evt, otherMatches) {
 }
 
 function attachUI() {
-  const form = $("#search-form");
-  const input = $("#query");
-  form.addEventListener("submit", (e) => {
+  const form = $('#search-form');
+  const input = $('#query');
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     performSearch(input.value);
   });
 
   try {
-    const q = new URLSearchParams(location.search).get("q");
+    const q = new URLSearchParams(location.search).get('q');
     if (q) {
       input.value = scrubMarkers(q);
       performSearch(q);
     }
   } catch {}
 }
-document.addEventListener("DOMContentLoaded", attachUI);
+document.addEventListener('DOMContentLoaded', attachUI);
 
 window.performSearch = performSearch;

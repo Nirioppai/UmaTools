@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,16 +10,8 @@
     />
     <link rel="canonical" href="https://daftuyda.moe/stamina" />
     <meta name="robots" content="index, follow" />
-    <meta
-      name="theme-color"
-      content="#f8fafc"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#0f172a"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
@@ -29,14 +21,8 @@
       property="og:description"
       content="Estimate stamina needs for races using stats, recovery skills, track, and condition settings."
     />
-    <meta
-      property="og:url"
-      content="https://daftuyda.moe/stamina"
-    />
-    <meta
-      property="og:image"
-      content="https://daftuyda.moe/assets/og-default.png"
-    />
+    <meta property="og:url" content="https://daftuyda.moe/stamina" />
+    <meta property="og:image" content="https://daftuyda.moe/assets/og-default.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -47,32 +33,12 @@
       name="twitter:description"
       content="Estimate stamina needs for races using stats, recovery skills, track, and condition settings."
     />
-    <meta
-      name="twitter:image"
-      content="https://daftuyda.moe/assets/og-default.png"
-    />
-    <meta
-      name="twitter:image:alt"
-      content="UmaTools - Stamina Check"
-    />
+    <meta name="twitter:image" content="https://daftuyda.moe/assets/og-default.png" />
+    <meta name="twitter:image:alt" content="UmaTools - Stamina Check" />
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/favicon-16x16.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/apple-touch-icon.png"
-    />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -93,10 +59,7 @@
             "name": "UmaTools",
             "url": "https://daftuyda.moe/",
             "logo": "https://daftuyda.moe/assets/icon-512.png",
-            "sameAs": [
-              "https://github.com/daftuyda/UmaTools",
-              "https://youtube.com/@MaybeVoid"
-            ]
+            "sameAs": ["https://github.com/daftuyda/UmaTools", "https://youtube.com/@MaybeVoid"]
           },
           {
             "@type": "WebSite",
@@ -138,27 +101,26 @@
       }
     </script>
     <!-- No-flash dark mode: pre-apply saved theme before paint -->
-    
+
     <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
     <script>
       (function () {
         try {
-          var pref = localStorage.getItem("umasearch-darkmode");
+          var pref = localStorage.getItem('umasearch-darkmode');
           var dark = pref
-            ? pref === "dark"
-            : window.matchMedia &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches;
+            ? pref === 'dark'
+            : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
           var root = document.documentElement;
-          root.classList.add("is-loading");
-          root.classList.toggle("dark", dark);
-          root.style.colorScheme = dark ? "dark" : "light";
+          root.classList.add('is-loading');
+          root.classList.toggle('dark', dark);
+          root.style.colorScheme = dark ? 'dark' : 'light';
 
           var pageLoaded = false;
           var navReady = !document.querySelector('script[src="/js/nav.js"]');
           var release = function () {
-            root.classList.remove("is-loading");
+            root.classList.remove('is-loading');
           };
           var tryRelease = function () {
             if (!pageLoaded || !navReady) return;
@@ -167,7 +129,7 @@
                 document.fonts.ready,
                 new Promise(function (resolve) {
                   setTimeout(resolve, 1200);
-                })
+                }),
               ]).then(function () {
                 requestAnimationFrame(release);
               });
@@ -175,11 +137,11 @@
               requestAnimationFrame(release);
             }
           };
-          window.addEventListener("load", function () {
+          window.addEventListener('load', function () {
             pageLoaded = true;
             tryRelease();
           });
-          window.addEventListener("nav:ready", function () {
+          window.addEventListener('nav:ready', function () {
             navReady = true;
             tryRelease();
           });
@@ -239,7 +201,10 @@
     <main id="main" class="container">
       <h1>Stamina Calculator</h1>
 
-      <section class="card card-elevated race-config-container" aria-labelledby="staminaConfigTitle">
+      <section
+        class="card card-elevated race-config-container"
+        aria-labelledby="staminaConfigTitle"
+      >
         <div class="race-card-grid">
           <div class="race-config-pane">
             <div class="race-card-header">
@@ -249,7 +214,8 @@
               <div class="kv-row distance-row">
                 <div class="k">Track</div>
                 <div class="v row">
-                  <label> Turf
+                  <label>
+                    Turf
                     <select id="apt-turf" data-apt-select data-default="S">
                       <option value="S" selected>S</option>
                       <option value="A">A</option>
@@ -261,7 +227,8 @@
                       <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Dirt
+                  <label>
+                    Dirt
                     <select id="apt-dirt" data-apt-select data-default="S">
                       <option value="S" selected>S</option>
                       <option value="A">A</option>
@@ -278,7 +245,8 @@
               <div class="kv-row">
                 <div class="k">Distance</div>
                 <div class="v row">
-                  <label> Sprint
+                  <label>
+                    Sprint
                     <select id="apt-sprint" data-apt-select data-default="S">
                       <option value="S" selected>S</option>
                       <option value="A">A</option>
@@ -290,7 +258,8 @@
                       <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Mile
+                  <label>
+                    Mile
                     <select id="apt-mile" data-apt-select data-default="S">
                       <option value="S" selected>S</option>
                       <option value="A">A</option>
@@ -302,7 +271,8 @@
                       <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Medium
+                  <label>
+                    Medium
                     <select id="apt-medium" data-apt-select data-default="S">
                       <option value="S" selected>S</option>
                       <option value="A">A</option>
@@ -314,7 +284,8 @@
                       <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Long
+                  <label>
+                    Long
                     <select id="apt-long" data-apt-select data-default="S">
                       <option value="S" selected>S</option>
                       <option value="A">A</option>
@@ -331,7 +302,8 @@
               <div class="kv-row">
                 <div class="k">Strategy</div>
                 <div class="v row">
-                  <label> Front
+                  <label>
+                    Front
                     <select id="apt-front" data-apt-select data-default="A">
                       <option value="S">S</option>
                       <option value="A" selected>A</option>
@@ -343,7 +315,8 @@
                       <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Pace
+                  <label>
+                    Pace
                     <select id="apt-pace" data-apt-select data-default="A">
                       <option value="S">S</option>
                       <option value="A" selected>A</option>
@@ -355,7 +328,8 @@
                       <option value="G">G</option>
                     </select>
                   </label>
-                  <label> Late
+                  <label>
+                    Late
                     <select id="apt-late" data-apt-select data-default="A">
                       <option value="S">S</option>
                       <option value="A" selected>A</option>
@@ -367,7 +341,8 @@
                       <option value="G">G</option>
                     </select>
                   </label>
-                  <label> End
+                  <label>
+                    End
                     <select id="apt-end" data-apt-select data-default="A">
                       <option value="S">S</option>
                       <option value="A" selected>A</option>
@@ -384,16 +359,26 @@
               <div class="kv-row">
                 <div class="k">Race</div>
                 <div class="v row">
-                  <label> Distance
-                    <input id="race-distance" type="number" min="1000" max="3600" step="100" value="2400" />
+                  <label>
+                    Distance
+                    <input
+                      id="race-distance"
+                      type="number"
+                      min="1000"
+                      max="3600"
+                      step="100"
+                      value="2400"
+                    />
                   </label>
-                  <label> Surface
+                  <label>
+                    Surface
                     <select id="race-surface">
                       <option value="Turf" selected>Turf</option>
                       <option value="Dirt">Dirt</option>
                     </select>
                   </label>
-                  <label> Condition
+                  <label>
+                    Condition
                     <select id="race-condition">
                       <option value="Firm" selected>Firm</option>
                       <option value="Good">Good</option>
@@ -401,7 +386,8 @@
                       <option value="Heavy">Heavy</option>
                     </select>
                   </label>
-                  <label> Style
+                  <label>
+                    Style
                     <select id="race-style">
                       <option value="Front">Front</option>
                       <option value="Pace" selected>Pace</option>
@@ -409,7 +395,8 @@
                       <option value="End">End</option>
                     </select>
                   </label>
-                  <label> Mood
+                  <label>
+                    Mood
                     <select id="race-mood">
                       <option value="Great">Great</option>
                       <option value="Good">Good</option>
@@ -419,7 +406,7 @@
                     </select>
                   </label>
                 </div>
-                <div style="display: none;" class="stamina-hint muted" id="distanceHint"></div>
+                <div style="display: none" class="stamina-hint muted" id="distanceHint"></div>
               </div>
             </div>
           </div>
@@ -427,40 +414,50 @@
           <div class="ideal-builder-pane">
             <div class="ideal-header">
               <h3>Stats &amp; Recovery</h3>
-              <p class="muted">Fill in your stat line and recovery skills to match the spreadsheet.</p>
+              <p class="muted">
+                Fill in your stat line and recovery skills to match the spreadsheet.
+              </p>
             </div>
 
             <div class="stamina-block">
               <div class="target-group-title">Stats</div>
               <div class="rating-grid stamina-stat-grid">
-                <label>Speed
+                <label
+                  >Speed
                   <input id="stat-speed" type="number" min="0" max="2000" step="1" value="1200" />
                 </label>
-                <label>Stamina
+                <label
+                  >Stamina
                   <input id="stat-stamina" type="number" min="0" max="2000" step="1" value="900" />
                 </label>
-                <label>Power
+                <label
+                  >Power
                   <input id="stat-power" type="number" min="0" max="2000" step="1" value="1200" />
                 </label>
-                <label>Guts
+                <label
+                  >Guts
                   <input id="stat-guts" type="number" min="0" max="2000" step="1" value="440" />
                 </label>
-                <label>Wisdom
+                <label
+                  >Wisdom
                   <input id="stat-wisdom" type="number" min="0" max="2000" step="1" value="1200" />
                 </label>
               </div>
             </div>
 
-              <div class="stamina-block">
+            <div class="stamina-block">
               <div class="target-group-title">Recovery Skills</div>
               <div class="stamina-input-grid">
-                <label>White (1.5%)
+                <label
+                  >White (1.5%)
                   <input id="white-count" type="number" min="0" max="20" step="1" value="0" />
                 </label>
-                <label>Other (3.5%)
+                <label
+                  >Other (3.5%)
                   <input id="mid-count" type="number" min="0" max="20" step="1" value="0" />
                 </label>
-                <label>Gold (5.5%)
+                <label
+                  >Gold (5.5%)
                   <input id="gold-count" type="number" min="0" max="20" step="1" value="1" />
                 </label>
               </div>
@@ -469,13 +466,24 @@
             <div class="stamina-block">
               <div class="target-group-title unique-title">
                 <span>Unique Recovery</span>
-                <span class="unique-note muted">Check <a href="https://gametora.com/umamusume/skills" target="_blank" rel="noopener noreferrer">Gametora</a> to see how much your unique recovery restores.</span>
+                <span class="unique-note muted"
+                  >Check
+                  <a
+                    href="https://gametora.com/umamusume/skills"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Gametora</a
+                  >
+                  to see how much your unique recovery restores.</span
+                >
               </div>
               <div class="unique-controls">
-                <label>Unique Skill
+                <label
+                  >Unique Skill
                   <select id="unique-select"></select>
                 </label>
-                <label>Level
+                <label
+                  >Level
                   <input id="unique-level" type="number" min="1" max="6" step="1" value="1" />
                 </label>
                 <button id="unique-add" class="btn" type="button">Add</button>
@@ -530,7 +538,8 @@
             <input id="consider-proc" type="checkbox" />
             Consider skill proc rate
           </label>
-          <label> Rushing
+          <label>
+            Rushing
             <select id="rushing-mode">
               <option value="0" selected>Never</option>
               <option value="1">Always</option>
@@ -542,18 +551,17 @@
       </section>
     </main>
 
-    
     <script src="/js/stamina.js" defer></script>
-        <script>
+    <script>
       window.NAV_ROUTES = [
-  { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
-  { label: "Calculator", path: "/calculator", file: "/calculator.html" },
-  { label: "Stamina Check", path: "/stamina", file: "/stamina.html" },
-  { label: "Event OCR", path: "/events", file: "/events.html" },
-  { label: "Support Hints", path: "/hints", file: "/hints.html" },
-  { label: "Randomizer", path: "/random", file: "/random.html" },
-  { label: "Umadle", path: "/umadle", file: "/umadle.html" }
-];
+        { label: 'Optimizer', path: '/optimizer', file: '/optimizer.html' },
+        { label: 'Calculator', path: '/calculator', file: '/calculator.html' },
+        { label: 'Stamina Check', path: '/stamina', file: '/stamina.html' },
+        { label: 'Event OCR', path: '/events', file: '/events.html' },
+        { label: 'Support Hints', path: '/hints', file: '/hints.html' },
+        { label: 'Randomizer', path: '/random', file: '/random.html' },
+        { label: 'Umadle', path: '/umadle', file: '/umadle.html' },
+      ];
     </script>
 
     <script src="/js/nav.js" defer></script>

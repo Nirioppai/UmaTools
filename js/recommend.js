@@ -1,50 +1,49 @@
 const STAT_KEYS = new Set([
-  "speed",
-  "stamina",
-  "power",
-  "guts",
-  "intelligence",
-  "wit",
-  "wisdom",
-  "sp",
-  "sta",
-  "pwr",
-  "int",
+  'speed',
+  'stamina',
+  'power',
+  'guts',
+  'intelligence',
+  'wit',
+  'wisdom',
+  'sp',
+  'sta',
+  'pwr',
+  'int',
 ]);
-const ENERGY_KEYS = new Set(["energy", "stamina (energy)"]);
-const BOND_KEY = "bond";
-const MOOD_KEY = "mood";
-const HINT_KEY = "hint";
+const ENERGY_KEYS = new Set(['energy', 'stamina (energy)']);
+const BOND_KEY = 'bond';
+const MOOD_KEY = 'mood';
+const HINT_KEY = 'hint';
 
 function toNum(val) {
-  const n = Number(String(val).replace(/[^\-0-9.]/g, ""));
+  const n = Number(String(val).replace(/[^\-0-9.]/g, ''));
   return Number.isFinite(n) ? n : 0;
 }
 function norm(s) {
-  return String(s || "").trim();
+  return String(s || '').trim();
 }
 function lc(s) {
   return norm(s).toLowerCase();
 }
 
 function normStatusName(text) {
-  let s = String(text || "");
-  s = s.replace(/\bstatus\b/i, ""); // drop the trailing word "status"
-  s = s.replace(/^("|'|Get\s+|Lose\s+)/i, ""); // remove leading quotes/Get/Lose
-  s = s.replace(/^get\s+/i, "").replace(/^lose\s+/i, "");
-  s = s.replace(/[○●◎◇◆]/g, "").trim();
+  let s = String(text || '');
+  s = s.replace(/\bstatus\b/i, ''); // drop the trailing word "status"
+  s = s.replace(/^("|'|Get\s+|Lose\s+)/i, ''); // remove leading quotes/Get/Lose
+  s = s.replace(/^get\s+/i, '').replace(/^lose\s+/i, '');
+  s = s.replace(/[○●◎◇◆]/g, '').trim();
   s = s.trim();
   return s
     .split(/\s+/)
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+    .join(' ');
 }
 
 function splitChanceOutcomesFromLines(lines) {
   const out = [];
   let current = null;
-  const isEither = (s) =>
-    /^randomly either(?:\s*\([^)]+\))?$/i.test(String(s).trim());
+  const isEither = (s) => /^randomly either(?:\s*\([^)]+\))?$/i.test(String(s).trim());
   const isOr = (s) => /^or(?:\s*\([^)]+\))?$/i.test(String(s).trim());
 
   for (const raw of lines || []) {
@@ -52,8 +51,7 @@ function splitChanceOutcomesFromLines(lines) {
     if (!line) continue;
 
     if (isEither(line) || isOr(line)) {
-      if (current && (current.header || current.bodyLines.length))
-        out.push(current);
+      if (current && (current.header || current.bodyLines.length)) out.push(current);
       current = { header: line, bodyLines: [] };
     } else {
       if (!current) {
@@ -63,13 +61,12 @@ function splitChanceOutcomesFromLines(lines) {
       current.bodyLines.push(raw);
     }
   }
-  if (current && (current.header || current.bodyLines.length))
-    out.push(current);
+  if (current && (current.header || current.bodyLines.length)) out.push(current);
   return out.length >= 2 ? out : null;
 }
 
 function parseHeaderPercent(header) {
-  const m = String(header || "").match(/\((\d+)\s*%\)/);
+  const m = String(header || '').match(/\((\d+)\s*%\)/);
   return m ? Number(m[1]) : null;
 }
 
@@ -77,13 +74,13 @@ export function parseRewardLine(line) {
   const raw = norm(line);
   const lower = lc(raw);
 
-  if (!raw) return { type: "text", text: raw };
+  if (!raw) return { type: 'text', text: raw };
 
   const hintMatch = lower.match(/(.+?)\s+hint\s*([+\-]?\d+)?$/i);
   if (hintMatch) {
     const name = norm(hintMatch[1]);
     const val = toNum(hintMatch[2] ?? 1);
-    return { type: "hint", name, value: val, raw };
+    return { type: 'hint', name, value: val, raw };
   }
 
   const statPair = raw.match(/^([A-Za-z]+)\s*([+\-]\s*\d+)/);
@@ -93,58 +90,55 @@ export function parseRewardLine(line) {
     const keyLc = lc(keyRaw);
 
     const key =
-      keyLc === "sp" || keyLc === "speed"
-        ? "speed"
-        : keyLc === "sta" || keyLc === "stamina"
-        ? "stamina"
-        : keyLc === "pwr" || keyLc === "power"
-        ? "power"
-        : keyLc === "guts"
-        ? "guts"
-        : keyLc === "int" ||
-          keyLc === "intelligence" ||
-          keyLc === "wit" ||
-          keyLc === "wisdom"
-        ? "intelligence"
-        : keyLc;
+      keyLc === 'sp' || keyLc === 'speed'
+        ? 'speed'
+        : keyLc === 'sta' || keyLc === 'stamina'
+          ? 'stamina'
+          : keyLc === 'pwr' || keyLc === 'power'
+            ? 'power'
+            : keyLc === 'guts'
+              ? 'guts'
+              : keyLc === 'int' || keyLc === 'intelligence' || keyLc === 'wit' || keyLc === 'wisdom'
+                ? 'intelligence'
+                : keyLc;
 
     if (STAT_KEYS.has(key)) {
-      return { type: "stat", key, value: val, raw };
+      return { type: 'stat', key, value: val, raw };
     }
   }
 
-  if (lower.startsWith("energy ")) {
-    const num = toNum(raw.split(/\s+/).slice(1).join(" "));
-    return { type: "energy", value: num, raw };
+  if (lower.startsWith('energy ')) {
+    const num = toNum(raw.split(/\s+/).slice(1).join(' '));
+    return { type: 'energy', value: num, raw };
   }
 
-  if (lower.startsWith("mood ")) {
-    const num = toNum(raw.split(/\s+/).slice(1).join(" "));
-    return { type: "mood", value: num, raw };
+  if (lower.startsWith('mood ')) {
+    const num = toNum(raw.split(/\s+/).slice(1).join(' '));
+    return { type: 'mood', value: num, raw };
   }
   if (/mood (up|down)/i.test(raw)) {
     const sign = /up/i.test(raw) ? +1 : -1;
-    return { type: "mood", value: sign, raw };
+    return { type: 'mood', value: sign, raw };
   }
 
   const bondMatch = raw.match(/bond\s*([+\-]?\d+)/i);
   if (bondMatch) {
-    return { type: "bond", value: toNum(bondMatch[1]), raw };
+    return { type: 'bond', value: toNum(bondMatch[1]), raw };
   }
 
   if (/^skill\s*points?\s*[+\-]?\d+/i.test(raw)) {
     const m = raw.match(/^skill\s*points?\s*([+\-]?\d+)/i);
-    return { type: "skill_points", value: toNum(m?.[1] ?? 0), raw };
+    return { type: 'skill_points', value: toNum(m?.[1] ?? 0), raw };
   }
 
   if (/^get\s+/i.test(raw)) {
-    return { type: "status_gain", text: raw.replace(/^get\s+/i, ""), raw };
+    return { type: 'status_gain', text: raw.replace(/^get\s+/i, ''), raw };
   }
   if (/^lose\s+/i.test(raw)) {
-    return { type: "status_loss", text: raw.replace(/^lose\s+/i, ""), raw };
+    return { type: 'status_loss', text: raw.replace(/^lose\s+/i, ''), raw };
   }
 
-  return { type: "text", text: raw };
+  return { type: 'text', text: raw };
 }
 
 export function parseGroup(lines) {
@@ -164,13 +158,13 @@ const WEIGHTS = {
 
 const STATUS_WEIGHTS = {
   Charming: 20,
-  "Fast Learner": 20,
-  "Hot Topic": 20,
-  "Practice Perfect": 20,
+  'Fast Learner': 20,
+  'Hot Topic': 20,
+  'Practice Perfect': 20,
 
-  "Practice Poor": -20,
+  'Practice Poor': -20,
   Slacker: -20,
-  "Slow Metabolism": -20,
+  'Slow Metabolism': -20,
   Gatekept: -20,
 };
 
@@ -184,12 +178,12 @@ const STAT_MULT = {
 
 function scoreItem(item) {
   switch (item.type) {
-    case "energy":
+    case 'energy':
       return {
         score: WEIGHTS.energy * (item.value || 0),
         note: `Energy ${fmtPlus(item.value)}`,
       };
-    case "stat": {
+    case 'stat': {
       const mult = STAT_MULT[item.key] ?? 1.0;
       const s = WEIGHTS.stat * mult * item.value;
       return {
@@ -197,48 +191,44 @@ function scoreItem(item) {
         note: `${cap(item.key)} ${fmtPlus(item.value)} (${mult.toFixed(2)}×)`,
       };
     }
-    case "bond":
+    case 'bond':
       return {
         score: WEIGHTS.bond * item.value,
         note: `Bond ${fmtPlus(item.value)}`,
       };
-    case "skill_points":
+    case 'skill_points':
       return {
         score: 0.25 * (item.value || 0),
         note: `Skill points ${fmtPlus(item.value)}`,
       };
-    case "mood":
+    case 'mood':
       return {
         score: WEIGHTS.mood * item.value,
-        note: `Mood ${item.value > 0 ? "Up" : "Down"}`,
+        note: `Mood ${item.value > 0 ? 'Up' : 'Down'}`,
       };
-    case "hint":
+    case 'hint':
       return {
         score: WEIGHTS.hint * (item.value || 1),
         note: `Hint: ${item.name} ${fmtPlus(item.value || 1)}`,
       };
-    case "status_gain": {
+    case 'status_gain': {
       const name = normStatusName(item.text);
       const custom = STATUS_WEIGHTS[name];
       const s = custom !== undefined ? custom : WEIGHTS.status_gain;
       const note =
-        custom !== undefined
-          ? `Status gained: ${name}`
-          : `Status gained: ${name || item.text}`;
+        custom !== undefined ? `Status gained: ${name}` : `Status gained: ${name || item.text}`;
       return { score: s, note };
     }
-    case "status_loss": {
+    case 'status_loss': {
       const name = normStatusName(item.text);
       const custom = STATUS_WEIGHTS[name];
       const s = custom !== undefined ? -custom : WEIGHTS.status_loss;
       const note =
-        custom !== undefined
-          ? `Status removed: ${name}`
-          : `Status removed: ${name || item.text}`;
+        custom !== undefined ? `Status removed: ${name}` : `Status removed: ${name || item.text}`;
       return { score: s, note };
     }
     default:
-      return { score: WEIGHTS.text, note: item.text || item.raw || "" };
+      return { score: WEIGHTS.text, note: item.text || item.raw || '' };
   }
 }
 
@@ -260,7 +250,7 @@ export function scoreOption(groups) {
   const keptGroups = groups;
 
   const add = (label, val) => {
-    breakdown.push(`${label} → ${val >= 0 ? "+" : ""}${val}`);
+    breakdown.push(`${label} → ${val >= 0 ? '+' : ''}${val}`);
     total += val;
   };
 
@@ -295,18 +285,16 @@ export function scoreOption(groups) {
       return sum / 5; // expected value when we don't know which stat was last trained
     }
 
-    m = s.match(
-      /^(Speed|Power|Stamina|Guts|Wisdom|Intelligence)\s*([+\-]?\d+)/i
-    );
+    m = s.match(/^(Speed|Power|Stamina|Guts|Wisdom|Intelligence)\s*([+\-]?\d+)/i);
     if (m) {
       const key = m[1].toLowerCase();
       const val = Number(m[2]);
       const mult =
-        key === "guts"
+        key === 'guts'
           ? 0.6
-          : key === "wisdom" || key === "intelligence"
-          ? 0.8 // matches your file’s STAT_MULT
-          : 1.0;
+          : key === 'wisdom' || key === 'intelligence'
+            ? 0.8 // matches your file’s STAT_MULT
+            : 1.0;
       return 1.0 * mult * val;
     }
 
@@ -340,12 +328,8 @@ export function scoreOption(groups) {
 
   function flushStatRun() {
     if (pendingStatRun.length >= 2) {
-      const ev =
-        pendingStatRun.reduce((a, b) => a + b, 0) / pendingStatRun.length;
-      add(
-        `Stat set EV (${pendingStatRun.length} outcomes)`,
-        Number(ev.toFixed(2))
-      );
+      const ev = pendingStatRun.reduce((a, b) => a + b, 0) / pendingStatRun.length;
+      add(`Stat set EV (${pendingStatRun.length} outcomes)`, Number(ev.toFixed(2)));
     } else if (pendingStatRun.length === 1) {
       add(`Stat`, pendingStatRun[0]);
     }
@@ -364,10 +348,7 @@ export function scoreOption(groups) {
       let explicitWeights = true;
 
       outcomes.forEach((oc) => {
-        const v = (oc.bodyLines || []).reduce(
-          (acc, ln) => acc + scoreLineRaw(String(ln)),
-          0
-        );
+        const v = (oc.bodyLines || []).reduce((acc, ln) => acc + scoreLineRaw(String(ln)), 0);
         const p = parseHeaderPercent(oc.header);
         if (p == null) explicitWeights = false;
         vals.push(v);
@@ -418,7 +399,7 @@ function sumEnergyEntry(entry) {
   let s = 0;
   if (entry?.parsed) {
     entry.parsed.flat().forEach((it) => {
-      if (it && it.type === "energy") s += it.value || 0;
+      if (it && it.type === 'energy') s += it.value || 0;
     });
     return s;
   }
@@ -435,7 +416,7 @@ function sumHintsEntry(entry) {
   let s = 0;
   if (entry?.parsed) {
     entry.parsed.flat().forEach((it) => {
-      if (it && it.type === "hint") s += it.value || 1;
+      if (it && it.type === 'hint') s += it.value || 1;
     });
     return s;
   }
@@ -450,16 +431,12 @@ function sumHintsEntry(entry) {
 
 export function chooseRecommendedOption(eventData) {
   const notes = [];
-  if (
-    !eventData ||
-    !eventData.options ||
-    typeof eventData.options !== "object"
-  ) {
+  if (!eventData || !eventData.options || typeof eventData.options !== 'object') {
     return {
       label: null,
       score: 0,
       byLabel: {},
-      notes: ["No options to evaluate."],
+      notes: ['No options to evaluate.'],
     };
   }
 
@@ -488,9 +465,7 @@ export function chooseRecommendedOption(eventData) {
   if (numAtMax === 1) {
     best = labels.find((l) => Math.abs(byLabel[l].score - maxScore) < EPS);
   } else {
-    let candidates = labels.filter(
-      (l) => Math.abs(byLabel[l].score - maxScore) < EPS
-    );
+    let candidates = labels.filter((l) => Math.abs(byLabel[l].score - maxScore) < EPS);
 
     let bestEnergy = -Infinity,
       energyWinners = [];
@@ -523,10 +498,7 @@ export function chooseRecommendedOption(eventData) {
     }
   }
 
-  if (best)
-    notes.push(
-      `Recommended “${best}” (score ${byLabel[best].score.toFixed(1)})`
-    );
+  if (best) notes.push(`Recommended “${best}” (score ${byLabel[best].score.toFixed(1)})`);
 
   return { label: best, score: best ? byLabel[best].score : 0, byLabel, notes };
 }
@@ -534,60 +506,58 @@ export function chooseRecommendedOption(eventData) {
 function fmtPlus(n) {
   const num = Number(n);
   if (!Number.isFinite(num)) return String(n);
-  return (num >= 0 ? "+" : "") + num;
+  return (num >= 0 ? '+' : '') + num;
 }
 function cap(s) {
-  s = String(s || "");
+  s = String(s || '');
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 export function renderRecommendationBadge(result) {
-  const span = document.createElement("span");
-  span.className = "recommended-badge";
-  span.title = "This option is recommended based on rewards";
-  span.style.marginLeft = "8px";
-  span.style.backgroundColor = "#48BB78";
-  span.style.color = "white";
-  span.style.fontSize = "0.75em";
-  span.style.padding = "2px 6px";
-  span.style.borderRadius = "12px";
-  span.style.fontWeight = "600";
-  span.textContent = "Recommended";
-  if (!result || !result.label) span.style.display = "none";
+  const span = document.createElement('span');
+  span.className = 'recommended-badge';
+  span.title = 'This option is recommended based on rewards';
+  span.style.marginLeft = '8px';
+  span.style.backgroundColor = '#48BB78';
+  span.style.color = 'white';
+  span.style.fontSize = '0.75em';
+  span.style.padding = '2px 6px';
+  span.style.borderRadius = '12px';
+  span.style.fontWeight = '600';
+  span.textContent = 'Recommended';
+  if (!result || !result.label) span.style.display = 'none';
   return span;
 }
 
 export function explainRecommendation(result) {
-  const wrap = document.createElement("div");
-  wrap.style.marginTop = "6px";
-  wrap.style.fontSize = "0.9em";
+  const wrap = document.createElement('div');
+  wrap.style.marginTop = '6px';
+  wrap.style.fontSize = '0.9em';
 
   if (!result || !result.label) {
-    wrap.textContent = "No recommendation available.";
+    wrap.textContent = 'No recommendation available.';
     return wrap;
   }
 
   const best = result.byLabel[result.label];
-  const hdr = document.createElement("div");
-  hdr.style.fontWeight = "700";
+  const hdr = document.createElement('div');
+  hdr.style.fontWeight = '700';
   hdr.textContent = `Why “${result.label}”? (score ${best.score.toFixed(1)})`;
   wrap.appendChild(hdr);
 
   best.breakdown.forEach((g) => {
-    const gdiv = document.createElement("div");
-    gdiv.style.margin = "4px 0 2px";
-    const title = document.createElement("div");
-    title.style.color = "var(--text-secondary, #666)";
+    const gdiv = document.createElement('div');
+    gdiv.style.margin = '4px 0 2px';
+    const title = document.createElement('div');
+    title.style.color = 'var(--text-secondary, #666)';
     title.textContent = `Group ${g.group}: ${g.score.toFixed(1)}`;
     gdiv.appendChild(title);
 
-    const ul = document.createElement("ul");
-    ul.style.margin = "2px 0 0 18px";
+    const ul = document.createElement('ul');
+    ul.style.margin = '2px 0 0 18px';
     g.topContribs.forEach((c) => {
-      const li = document.createElement("li");
-      li.textContent = `${c.note} (${c.score >= 0 ? "+" : ""}${c.score.toFixed(
-        1
-      )})`;
+      const li = document.createElement('li');
+      li.textContent = `${c.note} (${c.score >= 0 ? '+' : ''}${c.score.toFixed(1)})`;
       ul.appendChild(li);
     });
     gdiv.appendChild(ul);

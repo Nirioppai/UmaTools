@@ -48,11 +48,11 @@ Roll a random 5-card support deck or pick a random uma. Filter by rarity, exclud
 
 For deeper technical details on how things work under the hood:
 
-| Doc | What it covers |
-|-----|---------------|
+| Doc                                    | What it covers                                                                                                                          |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | [Rating System](docs/rating-system.md) | Stat scoring formula, skill score buckets, cost discounts, gold/circle skill linking, knapsack optimization algorithm, badge thresholds |
-| [Team Trials](docs/team-trials.md) | Consistency-first skill selection, trigger analysis, green/volatile penalties, expected value scoring, tuning weights |
-| [OCR Guide](docs/ocr-guide.md) | Image preprocessing pipeline, Tesseract config, fuzzy matching algorithm, tuning thresholds, troubleshooting |
+| [Team Trials](docs/team-trials.md)     | Consistency-first skill selection, trigger analysis, green/volatile penalties, expected value scoring, tuning weights                   |
+| [OCR Guide](docs/ocr-guide.md)         | Image preprocessing pipeline, Tesseract config, fuzzy matching algorithm, tuning thresholds, troubleshooting                            |
 
 ---
 
@@ -75,6 +75,15 @@ vercel dev --debug
 ```
 
 </details>
+
+## Checks
+
+```bash
+npm run format
+npm run lint
+npm test
+npm run check
+```
 
 ## License
 

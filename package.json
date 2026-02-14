@@ -5,15 +5,27 @@
   "scripts": {
     "build:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css",
     "watch:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css --watch",
+    "format:js": "prettier --write .",
+    "format:py": "python -m ruff format api",
+    "format": "npm run format:js && npm run format:py",
+    "lint:js": "eslint .",
+    "lint:py": "python -m ruff check api",
+    "lint": "npm run lint:js && npm run lint:py",
     "test:team-trials": "node tests/team-trials-optimizer.test.js",
-    "test": "npm run test:team-trials"
+    "test:rating-shared": "node tests/rating-shared.test.js",
+    "test": "npm run test:team-trials && npm run test:rating-shared",
+    "check": "npm run lint && npm run test"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.17",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0",
     "postcss": "^8.4.35",
+    "prettier": "^3.8.1",
     "tailwindcss": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   }

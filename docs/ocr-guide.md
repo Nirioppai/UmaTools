@@ -44,14 +44,14 @@ Image Input
 
 ## 2. Source Files
 
-| File | Purpose |
-| ---- | ------- |
-| `js/ocr-preprocess.js` | Image preprocessing pipeline |
-| `js/ocr-matcher.js` | Fuzzy matching, confidence scoring, suggestions |
-| `js/ocr.js` | Main OCR integration, UI, event handlers |
-| `js/ocr-test.js` | Test harness and accuracy benchmarks |
-| `css/optimizer.css` | OCR result panel styles |
-| `assets/uma_skills.csv` | Skill name dictionary (443 skills) |
+| File                    | Purpose                                         |
+| ----------------------- | ----------------------------------------------- |
+| `js/ocr-preprocess.js`  | Image preprocessing pipeline                    |
+| `js/ocr-matcher.js`     | Fuzzy matching, confidence scoring, suggestions |
+| `js/ocr.js`             | Main OCR integration, UI, event handlers        |
+| `js/ocr-test.js`        | Test harness and accuracy benchmarks            |
+| `css/optimizer.css`     | OCR result panel styles                         |
+| `assets/uma_skills.csv` | Skill name dictionary (443 skills)              |
 
 ---
 
@@ -61,35 +61,35 @@ Image Input
 
 The pipeline first detects the layout from aspect ratio and crops to the skill panel:
 
-| Layout | Detection | Crop Region |
-| ------ | --------- | ----------- |
-| PC (landscape) | width/height >= 1.1 | x: 1-40%, y: 27-85% |
-| Mobile (portrait) | width/height < 1.1 | x: 0-98%, y: 17-87% |
+| Layout            | Detection           | Crop Region         |
+| ----------------- | ------------------- | ------------------- |
+| PC (landscape)    | width/height >= 1.1 | x: 1-40%, y: 27-85% |
+| Mobile (portrait) | width/height < 1.1  | x: 0-98%, y: 17-87% |
 
 ### Processing Steps
 
 Each image runs through up to 9 steps. Multi-variant mode tests 4 configurations in parallel and picks the best:
 
-| Step | Operation | Parameters |
-| ---- | --------- | ---------- |
-| 1 | Upscale | 2x (standard) or 3x (high-res variant) |
-| 2 | Grayscale | Standard RGB luminance conversion |
-| 3 | CLAHE | Clip limit 2.5, tile size 8x8 |
-| 4 | Denoise | 3x3 median filter |
-| 5 | Sharpen | Unsharp mask, amount 0.5 (optional) |
-| 6 | Adaptive threshold | Sauvola with block radius 7-8, C=10 |
-| 7 | Morphological close | Dilate + erode, radius 1 |
-| 8 | Deskew | Optional, disabled by default |
-| 9 | Best-frame selection | Laplacian sharpness metric |
+| Step | Operation            | Parameters                             |
+| ---- | -------------------- | -------------------------------------- |
+| 1    | Upscale              | 2x (standard) or 3x (high-res variant) |
+| 2    | Grayscale            | Standard RGB luminance conversion      |
+| 3    | CLAHE                | Clip limit 2.5, tile size 8x8          |
+| 4    | Denoise              | 3x3 median filter                      |
+| 5    | Sharpen              | Unsharp mask, amount 0.5 (optional)    |
+| 6    | Adaptive threshold   | Sauvola with block radius 7-8, C=10    |
+| 7    | Morphological close  | Dilate + erode, radius 1               |
+| 8    | Deskew               | Optional, disabled by default          |
+| 9    | Best-frame selection | Laplacian sharpness metric             |
 
 ### Multi-Variant Configs
 
-| Variant | Scale | Threshold | Notes |
-| ------- | ----- | --------- | ----- |
-| Standard | 2x | Sauvola adaptive | Default, good all-around |
-| High-res | 3x | Sauvola + sharpen | Better for mobile screenshots |
-| Grayscale-only | 2x | None | Lets Tesseract handle binarization |
-| Otsu | 2x | Global Otsu | Better on uniform backgrounds |
+| Variant        | Scale | Threshold         | Notes                              |
+| -------------- | ----- | ----------------- | ---------------------------------- |
+| Standard       | 2x    | Sauvola adaptive  | Default, good all-around           |
+| High-res       | 3x    | Sauvola + sharpen | Better for mobile screenshots      |
+| Grayscale-only | 2x    | None              | Lets Tesseract handle binarization |
+| Otsu           | 2x    | Global Otsu       | Better on uniform backgrounds      |
 
 Best variant is selected by: `skillCount * 0.6 + (ocrConfidence / 100) * 0.4`
 
@@ -99,19 +99,19 @@ In `ocr-preprocess.js`, the `DEFAULT_CONFIG` object:
 
 ```js
 const DEFAULT_CONFIG = {
-  targetScale: 2,           // 2x upscale (try 3 for mobile screenshots)
-  enableCLAHE: true,        // Adaptive contrast enhancement
-  claheClipLimit: 2.5,      // Higher = more contrast
-  claheTileSize: 8,         // Tile grid for local contrast
-  enableDenoise: true,      // Median filter (reduces noise)
-  denoiseKernel: 3,         // 3x3 kernel
-  enableThreshold: true,    // Adaptive binarization
-  thresholdBlockSize: 15,   // Larger = smoother threshold
-  thresholdC: 10,           // Bias constant
-  enableMorphClose: true,   // Fill thin glyph gaps
-  morphCloseRadius: 1,      // 1px structuring element
-  enableSharpen: false,     // Edge sharpening (helps low-res)
-  multiVariant: true,       // Run multiple configs in parallel
+  targetScale: 2, // 2x upscale (try 3 for mobile screenshots)
+  enableCLAHE: true, // Adaptive contrast enhancement
+  claheClipLimit: 2.5, // Higher = more contrast
+  claheTileSize: 8, // Tile grid for local contrast
+  enableDenoise: true, // Median filter (reduces noise)
+  denoiseKernel: 3, // 3x3 kernel
+  enableThreshold: true, // Adaptive binarization
+  thresholdBlockSize: 15, // Larger = smoother threshold
+  thresholdC: 10, // Bias constant
+  enableMorphClose: true, // Fill thin glyph gaps
+  morphCloseRadius: 1, // 1px structuring element
+  enableSharpen: false, // Edge sharpening (helps low-res)
+  multiVariant: true, // Run multiple configs in parallel
 };
 ```
 
@@ -125,12 +125,12 @@ The matcher computes a weighted composite of six signals for each candidate skil
 
 ```js
 composite =
-  editScore   * 0.30 +     // Damerau-Levenshtein edit distance
-  trigramScore * 0.25 +    // Trigram overlap (Jaccard)
-  bigramScore  * 0.10 +    // Bigram overlap (Jaccard)
-  tokenScore   * 0.20 +    // Word-level matching
-  prefixScore  * 0.05 +    // Common prefix bonus
-  lenRatio     * 0.10;     // Length similarity
+  editScore * 0.3 + // Damerau-Levenshtein edit distance
+  trigramScore * 0.25 + // Trigram overlap (Jaccard)
+  bigramScore * 0.1 + // Bigram overlap (Jaccard)
+  tokenScore * 0.2 + // Word-level matching
+  prefixScore * 0.05 + // Common prefix bonus
+  lenRatio * 0.1; // Length similarity
 ```
 
 Adjust weights if certain error types dominate:
@@ -154,12 +154,12 @@ For each OCR line, 6 cleaned variants are tested:
 
 Final confidence combines four signals:
 
-| Signal | Weight |
-| ------ | ------ |
-| Match score (composite above) | 40% |
-| Tesseract engine confidence | 35% |
-| OCR text quality (alpha ratio, length, symbol penalties) | 15% |
-| Image sharpness (Laplacian variance) | 10% |
+| Signal                                                   | Weight |
+| -------------------------------------------------------- | ------ |
+| Match score (composite above)                            | 40%    |
+| Tesseract engine confidence                              | 35%    |
+| OCR text quality (alpha ratio, length, symbol penalties) | 15%    |
+| Image sharpness (Laplacian variance)                     | 10%    |
 
 ### Confidence Thresholds
 
@@ -167,9 +167,9 @@ In `ocr-matcher.js`, the `CONFIDENCE_THRESHOLDS` object controls UI behavior:
 
 ```js
 const CONFIDENCE_THRESHOLDS = {
-  HIGH: 0.85,    // Green badge, no suggestions
-  MEDIUM: 0.70,  // Yellow badge
-  LOW: 0.70,     // Red badge, shows "Did you mean?" suggestions
+  HIGH: 0.85, // Green badge, no suggestions
+  MEDIUM: 0.7, // Yellow badge
+  LOW: 0.7, // Red badge, shows "Did you mean?" suggestions
 };
 ```
 
@@ -185,11 +185,11 @@ Minimum confidence filter: **0.55** (skills below this are discarded entirely).
 
 When the primary pass detects fewer than 3 skills, a fallback runs targeted OCR on 3 horizontal strips:
 
-| Strip | Region | Catches |
-| ----- | ------ | ------- |
-| Top | 0-40% | Obtained/rare cards at top of panel |
-| Mid | 28-73% | Skipped names in middle |
-| Bottom | 58-100% | Cards near buttons at bottom |
+| Strip  | Region  | Catches                             |
+| ------ | ------- | ----------------------------------- |
+| Top    | 0-40%   | Obtained/rare cards at top of panel |
+| Mid    | 28-73%  | Skipped names in middle             |
+| Bottom | 58-100% | Cards near buttons at bottom        |
 
 High-confidence results from strips are merged into the main list.
 
@@ -245,13 +245,13 @@ When a user corrects an OCR result (via suggestion click or manual edit), the co
 
 ### Common Failure Modes
 
-| Symptom | Likely Cause | Fix |
-| ------- | ------------ | --- |
-| No skills detected | Image too dark/bright or too low resolution | Enable Image Enhancement toggle; try 3x scale |
-| Wrong skill matched | OCR garbles multiple characters | Click the skill to correct; use suggestions if shown |
-| All low confidence | Poor image quality or compression artifacts | Use PNG screenshots, avoid JPEG |
-| "Processing image..." hangs | Tesseract worker crashed | Refresh the page; try a smaller image |
-| Skills duplicated | OCR reads same line twice | Already deduped; check for variant names |
+| Symptom                     | Likely Cause                                | Fix                                                  |
+| --------------------------- | ------------------------------------------- | ---------------------------------------------------- |
+| No skills detected          | Image too dark/bright or too low resolution | Enable Image Enhancement toggle; try 3x scale        |
+| Wrong skill matched         | OCR garbles multiple characters             | Click the skill to correct; use suggestions if shown |
+| All low confidence          | Poor image quality or compression artifacts | Use PNG screenshots, avoid JPEG                      |
+| "Processing image..." hangs | Tesseract worker crashed                    | Refresh the page; try a smaller image                |
+| Skills duplicated           | OCR reads same line twice                   | Already deduped; check for variant names             |
 
 ### Debug Mode
 
