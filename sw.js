@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v23";
+const CACHE_VERSION = "v24";
 const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
 
@@ -40,14 +40,14 @@ const STATIC_ASSETS = [
   "/js/umadle.js",
   "/js/search.js",
   "/js/recommend.js",
-  "/favicon.ico",
-  "/favicon-16x16.png",
-  "/favicon-32x32.png",
-  "/apple-touch-icon.png",
-  "/icon-192.png",
-  "/icon-512.png",
-  "/og-default.png",
-  "/assets/rank_badges.png"
+  "/assets/favicon.ico",
+  "/assets/favicon-16x16.png",
+  "/assets/favicon-32x32.png",
+  "/assets/apple-touch-icon.png",
+  "/assets/icon-192.png",
+  "/assets/icon-512.png",
+  "/assets/og-default.png",
+  "/assets/Rank_tex.png"
 ];
 
 self.addEventListener("install", (event) => {

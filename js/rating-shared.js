@@ -69,61 +69,236 @@
   function createRatingEngine({ ratingInputs, ratingDisplays, onChange }) {
     const MAX_STAT_VALUE = 2000;
     const STAT_BLOCK_SIZE = 50;
-    const STAT_MULTIPLIERS = [
-      0.5, 0.8, 1, 1.3, 1.6, 1.8, 2.1, 2.4, 2.6, 2.8, 2.9, 3, 3.1, 3.3, 3.4,
-      3.5, 3.9, 4.1, 4.2, 4.3, 5.2, 5.5, 6.6, 6.8, 6.9
+    // Stat score at each 50-point boundary (stat 0, 50, 100, ..., 2000)
+    const STAT_BOUNDARY_SCORES = [
+      0, 25, 66, 116, 181, 261, 352, 457, 577, 707, 847,
+      993, 1143, 1298, 1463, 1633, 1808, 2004, 2209, 2419,
+      2635, 2895, 3171, 3501, 3841,
+      4249, 4688, 5160, 5665, 6203, 6773, 7377, 8013, 8682, 9384,
+      10117, 10885, 11684, 12516, 13383, 14280
     ];
     let lastSkillScore = 0;
 
     const RATING_SPRITE = {
-      url: 'assets/rank_badges.png',
+      url: 'assets/Rank_tex.png',
       version: '1',
-      columns: 6,
-      rows: 6,
-      tileWidth: 125,
-      tileHeight: 125,
+      sheetWidth: 0,
+      sheetHeight: 0,
+      activeUrl: '',
       loaded: false
     };
 
-    const RATING_BADGES = [
-      { threshold: 300, label: 'G', sprite: { col: 0, row: 0 } },
-      { threshold: 600, label: 'G+', sprite: { col: 0, row: 1 } },
-      { threshold: 900, label: 'F', sprite: { col: 0, row: 2 } },
-      { threshold: 1300, label: 'F+', sprite: { col: 0, row: 3 } },
-      { threshold: 1800, label: 'E', sprite: { col: 0, row: 4 } },
-      { threshold: 2300, label: 'E+', sprite: { col: 0, row: 5 } },
-      { threshold: 2900, label: 'D', sprite: { col: 1, row: 0 } },
-      { threshold: 3500, label: 'D+', sprite: { col: 1, row: 1 } },
-      { threshold: 4900, label: 'C', sprite: { col: 1, row: 2 } },
-      { threshold: 6500, label: 'C+', sprite: { col: 1, row: 3 } },
-      { threshold: 8200, label: 'B', sprite: { col: 1, row: 4 } },
-      { threshold: 10000, label: 'B+', sprite: { col: 1, row: 5 } },
-      { threshold: 12100, label: 'A', sprite: { col: 2, row: 0 } },
-      { threshold: 14500, label: 'A+', sprite: { col: 2, row: 1 } },
-      { threshold: 15900, label: 'S', sprite: { col: 2, row: 2 } },
-      { threshold: 17500, label: 'S+', sprite: { col: 2, row: 3 } },
-      { threshold: 19200, label: 'SS', sprite: { col: 2, row: 4 } },
-      { threshold: 19600, label: 'SS+', sprite: { col: 2, row: 5 } },
-      { threshold: 20000, label: 'UG', sprite: { col: 3, row: 0 } },
-      { threshold: 20400, label: 'UG1', sprite: { col: 3, row: 1 } },
-      { threshold: 20800, label: 'UG2', sprite: { col: 3, row: 2 } },
-      { threshold: 21200, label: 'UG3', sprite: { col: 3, row: 3 } },
-      { threshold: 21600, label: 'UG4', sprite: { col: 3, row: 4 } },
-      { threshold: 22100, label: 'UG5', sprite: { col: 3, row: 5 } },
-      { threshold: 22500, label: 'UG6', sprite: { col: 4, row: 0 } },
-      { threshold: 23000, label: 'UG7', sprite: { col: 4, row: 1 } },
-      { threshold: 23400, label: 'UG8', sprite: { col: 4, row: 2 } },
-      { threshold: 23900, label: 'UG9', sprite: { col: 4, row: 3 } },
-      { threshold: 24300, label: 'UF', sprite: { col: 4, row: 4 } },
-      { threshold: 24800, label: 'UF1', sprite: { col: 4, row: 5 } },
-      { threshold: 25300, label: 'UF2', sprite: { col: 5, row: 0 } },
-      { threshold: 25800, label: 'UF3', sprite: { col: 5, row: 1 } },
-      { threshold: 26300, label: 'UF4', sprite: { col: 5, row: 2 } },
-      { threshold: 26800, label: 'UF5', sprite: { col: 5, row: 3 } },
-      { threshold: 27300, label: 'UF6', sprite: { col: 5, row: 4 } },
-      { threshold: 27800, label: 'UF7', sprite: { col: 5, row: 5 } },
-      { threshold: Infinity, label: 'UF7', sprite: { col: 5, row: 5 } },
+    const GAME_RANK_SPRITE_MAP = {
+      'A': { x: 4, y: 22, w: 150, h: 151 },
+      'UF8': { x: 159, y: 22, w: 151, h: 154 },
+      'UC': { x: 315, y: 22, w: 151, h: 154 },
+      'UA': { x: 471, y: 22, w: 151, h: 154 },
+      'US8': { x: 627, y: 22, w: 151, h: 154 },
+      'B+': { x: 4, y: 178, w: 150, h: 151 },
+      'UF7': { x: 159, y: 178, w: 151, h: 154 },
+      'UD9': { x: 315, y: 178, w: 151, h: 154 },
+      'UB9': { x: 471, y: 178, w: 151, h: 154 },
+      'US7': { x: 627, y: 178, w: 151, h: 154 },
+      'B': { x: 4, y: 334, w: 150, h: 151 },
+      'UF6': { x: 159, y: 334, w: 151, h: 154 },
+      'UD8': { x: 315, y: 334, w: 151, h: 154 },
+      'UB8': { x: 471, y: 334, w: 151, h: 154 },
+      'US6': { x: 627, y: 334, w: 151, h: 154 },
+      'C+': { x: 4, y: 490, w: 150, h: 151 },
+      'UF5': { x: 159, y: 490, w: 151, h: 154 },
+      'UD7': { x: 315, y: 490, w: 151, h: 154 },
+      'UB7': { x: 471, y: 490, w: 151, h: 154 },
+      'US5': { x: 627, y: 490, w: 151, h: 154 },
+      'C': { x: 4, y: 646, w: 150, h: 151 },
+      'UF4': { x: 159, y: 646, w: 151, h: 154 },
+      'UD6': { x: 315, y: 646, w: 151, h: 154 },
+      'UB6': { x: 471, y: 646, w: 151, h: 154 },
+      'US4': { x: 627, y: 646, w: 151, h: 154 },
+      'D+': { x: 4, y: 802, w: 150, h: 151 },
+      'UF3': { x: 159, y: 802, w: 151, h: 154 },
+      'UD5': { x: 315, y: 802, w: 151, h: 154 },
+      'UB5': { x: 471, y: 802, w: 151, h: 154 },
+      'US3': { x: 627, y: 802, w: 151, h: 154 },
+      'D': { x: 4, y: 958, w: 150, h: 151 },
+      'UF2': { x: 159, y: 958, w: 151, h: 154 },
+      'UD4': { x: 315, y: 958, w: 151, h: 154 },
+      'UB4': { x: 471, y: 958, w: 151, h: 154 },
+      'US2': { x: 627, y: 958, w: 151, h: 154 },
+      'E+': { x: 4, y: 1114, w: 150, h: 151 },
+      'UF1': { x: 159, y: 1114, w: 151, h: 154 },
+      'UD3': { x: 315, y: 1114, w: 151, h: 154 },
+      'UB3': { x: 471, y: 1114, w: 151, h: 154 },
+      'US1': { x: 627, y: 1114, w: 151, h: 154 },
+      'E': { x: 4, y: 1270, w: 150, h: 151 },
+      'UF': { x: 159, y: 1270, w: 151, h: 154 },
+      'UD2': { x: 315, y: 1270, w: 151, h: 154 },
+      'UB2': { x: 471, y: 1270, w: 151, h: 154 },
+      'US': { x: 627, y: 1270, w: 151, h: 154 },
+      'US9': { x: 783, y: 1270, w: 151, h: 154 },
+      'F+': { x: 4, y: 1426, w: 150, h: 151 },
+      'UG9': { x: 159, y: 1426, w: 151, h: 154 },
+      'UD1': { x: 315, y: 1426, w: 151, h: 154 },
+      'UB1': { x: 471, y: 1426, w: 151, h: 154 },
+      'UA1': { x: 627, y: 1426, w: 151, h: 154 },
+      'UA2': { x: 783, y: 1426, w: 151, h: 154 },
+      'UA3': { x: 939, y: 1426, w: 151, h: 154 },
+      'UA4': { x: 1095, y: 1426, w: 151, h: 154 },
+      'UA5': { x: 1251, y: 1426, w: 151, h: 154 },
+      'UA6': { x: 1407, y: 1426, w: 151, h: 154 },
+      'UA7': { x: 1563, y: 1426, w: 151, h: 154 },
+      'UA8': { x: 1719, y: 1426, w: 151, h: 154 },
+      'UA9': { x: 1875, y: 1426, w: 151, h: 154 },
+      'F': { x: 4, y: 1582, w: 150, h: 151 },
+      'UG8': { x: 159, y: 1582, w: 151, h: 154 },
+      'UD': { x: 315, y: 1582, w: 151, h: 154 },
+      'UC1': { x: 471, y: 1582, w: 151, h: 154 },
+      'UC2': { x: 627, y: 1582, w: 151, h: 154 },
+      'UC3': { x: 783, y: 1582, w: 151, h: 154 },
+      'UC4': { x: 939, y: 1582, w: 151, h: 154 },
+      'UC5': { x: 1095, y: 1582, w: 151, h: 154 },
+      'UC6': { x: 1251, y: 1582, w: 151, h: 154 },
+      'UC7': { x: 1407, y: 1582, w: 151, h: 154 },
+      'UC8': { x: 1563, y: 1582, w: 151, h: 154 },
+      'UC9': { x: 1719, y: 1582, w: 151, h: 154 },
+      'UB': { x: 1875, y: 1582, w: 151, h: 154 },
+      'G+': { x: 4, y: 1738, w: 150, h: 151 },
+      'UG7': { x: 159, y: 1738, w: 151, h: 154 },
+      'UF9': { x: 315, y: 1738, w: 151, h: 154 },
+      'UE': { x: 471, y: 1738, w: 151, h: 154 },
+      'UE1': { x: 627, y: 1738, w: 151, h: 154 },
+      'UE2': { x: 783, y: 1738, w: 151, h: 154 },
+      'UE3': { x: 939, y: 1738, w: 151, h: 154 },
+      'UE4': { x: 1095, y: 1738, w: 151, h: 154 },
+      'UE5': { x: 1251, y: 1738, w: 151, h: 154 },
+      'UE6': { x: 1407, y: 1738, w: 151, h: 154 },
+      'UE7': { x: 1563, y: 1738, w: 151, h: 154 },
+      'UE8': { x: 1719, y: 1738, w: 151, h: 154 },
+      'UE9': { x: 1875, y: 1738, w: 151, h: 154 },
+      'G': { x: 4, y: 1894, w: 150, h: 151 },
+      'A+': { x: 160, y: 1894, w: 150, h: 151 },
+      'S': { x: 316, y: 1894, w: 150, h: 154 },
+      'S+': { x: 472, y: 1894, w: 150, h: 154 },
+      'SS': { x: 627, y: 1894, w: 151, h: 154 },
+      'SS+': { x: 783, y: 1894, w: 151, h: 154 },
+      'UG': { x: 939, y: 1894, w: 151, h: 154 },
+      'UG1': { x: 1095, y: 1894, w: 151, h: 154 },
+      'UG2': { x: 1251, y: 1894, w: 151, h: 154 },
+      'UG3': { x: 1407, y: 1894, w: 151, h: 154 },
+      'UG4': { x: 1563, y: 1894, w: 151, h: 154 },
+      'UG5': { x: 1719, y: 1894, w: 151, h: 154 },
+      'UG6': { x: 1875, y: 1894, w: 151, h: 154 },
+    };
+
+    const RATING_BADGE_MINIMA = [
+      { min: 0, label: 'G' },
+      { min: 300, label: 'G+' },
+      { min: 600, label: 'F' },
+      { min: 900, label: 'F+' },
+      { min: 1300, label: 'E' },
+      { min: 1800, label: 'E+' },
+      { min: 2300, label: 'D' },
+      { min: 2900, label: 'D+' },
+      { min: 3500, label: 'C' },
+      { min: 4900, label: 'C+' },
+      { min: 7000, label: 'B' },
+      { min: 8200, label: 'B+' },
+      { min: 10000, label: 'A' },
+      { min: 12100, label: 'A+' },
+      { min: 14500, label: 'S' },
+      { min: 15900, label: 'S+' },
+      { min: 17500, label: 'SS' },
+      { min: 19200, label: 'SS+' },
+      { min: 19600, label: 'UG' },
+      { min: 20000, label: 'UG1' },
+      { min: 20400, label: 'UG2' },
+      { min: 20800, label: 'UG3' },
+      { min: 21200, label: 'UG4' },
+      { min: 21600, label: 'UG5' },
+      { min: 22100, label: 'UG6' },
+      { min: 22500, label: 'UG7' },
+      { min: 23000, label: 'UG8' },
+      { min: 23400, label: 'UG9' },
+      { min: 23900, label: 'UF' },
+      { min: 24300, label: 'UF1' },
+      { min: 24800, label: 'UF2' },
+      { min: 25300, label: 'UF3' },
+      { min: 25800, label: 'UF4' },
+      { min: 26300, label: 'UF5' },
+      { min: 26800, label: 'UF6' },
+      { min: 27300, label: 'UF7' },
+      { min: 27800, label: 'UF8' },
+      { min: 28300, label: 'UF9' },
+      { min: 28800, label: 'UE' },
+      { min: 29400, label: 'UE1' },
+      { min: 29900, label: 'UE2' },
+      { min: 30400, label: 'UE3' },
+      { min: 31000, label: 'UE4' },
+      { min: 31500, label: 'UE5' },
+      { min: 32100, label: 'UE6' },
+      { min: 32700, label: 'UE7' },
+      { min: 33200, label: 'UE8' },
+      { min: 33800, label: 'UE9' },
+      { min: 34400, label: 'UD' },
+      { min: 35000, label: 'UD1' },
+      { min: 35600, label: 'UD2' },
+      { min: 36200, label: 'UD3' },
+      { min: 36800, label: 'UD4' },
+      { min: 37500, label: 'UD5' },
+      { min: 38100, label: 'UD6' },
+      { min: 38700, label: 'UD7' },
+      { min: 39400, label: 'UD8' },
+      { min: 40000, label: 'UD9' },
+      { min: 40700, label: 'UC' },
+      { min: 41300, label: 'UC1' },
+      { min: 42000, label: 'UC2' },
+      { min: 42700, label: 'UC3' },
+      { min: 43400, label: 'UC4' },
+      { min: 44000, label: 'UC5' },
+      { min: 44700, label: 'UC6' },
+      { min: 45400, label: 'UC7' },
+      { min: 46200, label: 'UC8' },
+      { min: 46900, label: 'UC9' },
+      { min: 47600, label: 'UB' },
+      { min: 48300, label: 'UB1' },
+      { min: 49000, label: 'UB2' },
+      { min: 49800, label: 'UB3' },
+      { min: 50500, label: 'UB4' },
+      { min: 51300, label: 'UB5' },
+      { min: 52000, label: 'UB6' },
+      { min: 52800, label: 'UB7' },
+      { min: 53600, label: 'UB8' },
+      { min: 54400, label: 'UB9' },
+      { min: 55200, label: 'UA' },
+      { min: 55900, label: 'UA1' },
+      { min: 56700, label: 'UA2' },
+      { min: 57500, label: 'UA3' },
+      { min: 58400, label: 'UA4' },
+      { min: 59200, label: 'UA5' },
+      { min: 60000, label: 'UA6' },
+      { min: 60800, label: 'UA7' },
+      { min: 61700, label: 'UA8' },
+      { min: 62500, label: 'UA9' },
+      { min: 63400, label: 'US' },
+      { min: 64200, label: 'US1' },
+      { min: 65100, label: 'US2' },
+      { min: 66000, label: 'US3' },
+      { min: 66800, label: 'US4' },
+      { min: 67700, label: 'US5' },
+      { min: 68600, label: 'US6' },
+      { min: 69500, label: 'US7' },
+      { min: 70400, label: 'US8' },
+      { min: 71400, label: 'US9' }
     ];
+
+    const RATING_BADGES = RATING_BADGE_MINIMA.map((badge, idx) => {
+      const next = RATING_BADGE_MINIMA[idx + 1];
+      const sprite = GAME_RANK_SPRITE_MAP[badge.label];
+      return {
+        threshold: next ? next.min : Infinity,
+        label: badge.label,
+        ...(sprite ? { sprite } : {})
+      };
+    });
 
     function clampStatValue(value) {
       if (typeof value !== 'number' || isNaN(value)) return 0;
@@ -162,17 +337,21 @@
     }
 
     function syncBadgeSpriteMetrics(target) {
-      if (!target) return { badgeWidth: RATING_SPRITE.tileWidth, badgeHeight: RATING_SPRITE.tileHeight };
-      const badgeWidth = target.clientWidth || RATING_SPRITE.tileWidth;
-      const badgeHeight = target.clientHeight || RATING_SPRITE.tileHeight;
-      target.style.backgroundSize = `${badgeWidth * RATING_SPRITE.columns}px ${badgeHeight * RATING_SPRITE.rows}px`;
+      if (!target) return { badgeWidth: 0, badgeHeight: 0 };
+      const style = typeof getComputedStyle === 'function' ? getComputedStyle(target) : null;
+      const cssWidth = style ? parseFloat(style.width) : 0;
+      const cssHeight = style ? parseFloat(style.height) : 0;
+      const badgeWidth = target.clientWidth || cssWidth || 0;
+      const badgeHeight = target.clientHeight || cssHeight || 0;
       return { badgeWidth, badgeHeight };
     }
 
     function applyBadgeSpriteStyles(target, spriteUrl) {
       if (!target) return;
       target.style.backgroundImage = `url(${spriteUrl})`;
-      syncBadgeSpriteMetrics(target);
+      target.style.backgroundRepeat = 'no-repeat';
+      target.style.backgroundPosition = 'center';
+      target.style.backgroundSize = 'contain';
     }
 
     function loadRatingSprite() {
@@ -182,10 +361,9 @@
         : RATING_SPRITE.url;
       const img = new Image();
       img.onload = () => {
-        const sheetWidth = img.naturalWidth;
-        const sheetHeight = img.naturalHeight;
-        RATING_SPRITE.tileWidth = sheetWidth / RATING_SPRITE.columns;
-        RATING_SPRITE.tileHeight = sheetHeight / RATING_SPRITE.rows;
+        RATING_SPRITE.sheetWidth = img.naturalWidth;
+        RATING_SPRITE.sheetHeight = img.naturalHeight;
+        RATING_SPRITE.activeUrl = spriteUrl;
         RATING_SPRITE.loaded = true;
         applyBadgeSpriteStyles(ratingDisplays.badgeSprite, spriteUrl);
         applyBadgeSpriteStyles(ratingDisplays.floatBadgeSprite, spriteUrl);
@@ -209,24 +387,16 @@
       };
     }
 
-    function getMultiplierForBlock(blockIndex) {
-      if (blockIndex < STAT_MULTIPLIERS.length) {
-        return STAT_MULTIPLIERS[blockIndex];
-      }
-      return STAT_MULTIPLIERS[STAT_MULTIPLIERS.length - 1];
-    }
-
     function calcStatScore(statValue) {
       const value = clampStatValue(statValue);
-      const blocks = Math.floor(value / STAT_BLOCK_SIZE);
-      let blockSum = 0;
-      for (let i = 0; i < blocks && i < STAT_MULTIPLIERS.length; i++) {
-        blockSum += STAT_MULTIPLIERS[i] * STAT_BLOCK_SIZE;
-      }
-      const remainder = value % STAT_BLOCK_SIZE;
-      const multiplier = getMultiplierForBlock(blocks);
-      const remainderSum = multiplier * (remainder + 1);
-      return Math.floor(blockSum + remainderSum);
+      const idx = Math.floor(value / STAT_BLOCK_SIZE);
+      const rem = value % STAT_BLOCK_SIZE;
+      const last = STAT_BOUNDARY_SCORES.length - 1;
+      if (idx >= last) return STAT_BOUNDARY_SCORES[last];
+      const base = STAT_BOUNDARY_SCORES[idx];
+      if (rem === 0) return base;
+      const blockDiff = STAT_BOUNDARY_SCORES[idx + 1] - base;
+      return base + Math.round(blockDiff * rem / STAT_BLOCK_SIZE);
     }
 
     function calculateRatingBreakdown(skillScoreOverride) {
@@ -244,14 +414,27 @@
 
     function updateBadgeSprite(target, badge) {
       if (!target) return;
-      if (RATING_SPRITE.loaded && badge.sprite) {
+      if (RATING_SPRITE.loaded && badge.sprite && RATING_SPRITE.sheetWidth && RATING_SPRITE.sheetHeight) {
+        const rect = badge.sprite;
         const { badgeWidth, badgeHeight } = syncBadgeSpriteMetrics(target);
-        const offsetX = badge.sprite.col * badgeWidth;
-        const offsetY = badge.sprite.row * badgeHeight;
-        target.style.backgroundPosition = `-${offsetX}px -${offsetY}px`;
+        const renderWidth = badgeWidth || rect.w;
+        const renderHeight = badgeHeight || rect.h;
+        const scale = Math.min(renderWidth / rect.w, renderHeight / rect.h);
+        const scaledSpriteWidth = RATING_SPRITE.sheetWidth * scale;
+        const scaledSpriteHeight = RATING_SPRITE.sheetHeight * scale;
+        const scaledRectWidth = rect.w * scale;
+        const scaledRectHeight = rect.h * scale;
+        const offsetX = (renderWidth - scaledRectWidth) / 2 - rect.x * scale;
+        const offsetY = (renderHeight - scaledRectHeight) / 2 - rect.y * scale;
+        target.style.backgroundImage = RATING_SPRITE.activeUrl ? `url(${RATING_SPRITE.activeUrl})` : '';
+        target.style.backgroundRepeat = 'no-repeat';
+        target.style.backgroundSize = `${scaledSpriteWidth}px ${scaledSpriteHeight}px`;
+        target.style.backgroundPosition = `${offsetX}px ${offsetY}px`;
         target.textContent = '';
       } else {
         target.style.backgroundImage = 'none';
+        target.style.backgroundSize = '';
+        target.style.backgroundPosition = '';
         target.textContent = badge.label;
       }
     }

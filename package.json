@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "scripts": {
     "build:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css",
-    "watch:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css --watch"
+    "watch:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css --watch",
+    "test:team-trials": "node tests/team-trials-optimizer.test.js",
+    "test": "npm run test:team-trials"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

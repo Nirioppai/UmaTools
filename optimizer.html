@@ -41,7 +41,7 @@
     />
     <meta
       property="og:image"
-      content="https://daftuyda.moe/og-default.png"
+      content="https://daftuyda.moe/assets/og-default.png"
     />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
@@ -61,29 +61,29 @@
     />
     <meta
       name="twitter:image"
-      content="https://daftuyda.moe/og-default.png"
+      content="https://daftuyda.moe/assets/og-default.png"
     />
     <meta
       name="twitter:image:alt"
       content="UmaTools - Skill Optimizer & Rating Calculator"
     />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="/favicon-32x32.png"
+      href="/assets/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="/favicon-16x16.png"
+      href="/assets/favicon-16x16.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="/apple-touch-icon.png"
+      href="/assets/apple-touch-icon.png"
     />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -105,7 +105,7 @@
             "@id": "https://daftuyda.moe/#organization",
             "name": "UmaTools",
             "url": "https://daftuyda.moe/",
-            "logo": "https://daftuyda.moe/icon-512.png",
+            "logo": "https://daftuyda.moe/assets/icon-512.png",
             "sameAs": [
               "https://github.com/daftuyda/UmaTools",
               "https://youtube.com/@MaybeVoid"
@@ -391,6 +391,7 @@
             Optimize For
             <select id="optimize-mode">
               <option value="rating" selected>Rating</option>
+              <option value="team_trials">Team Trials (Consistent)</option>
               <option value="aptitude-test">Trainer Aptitude Test</option>
             </select>
           </label>
@@ -571,19 +572,19 @@
         </div>
         <div class="rating-grid">
           <label>Speed
-            <input id="stat-speed" type="number" min="0" max="1600" step="1" value="0" inputmode="numeric" />
+            <input id="stat-speed" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
           </label>
           <label>Stamina
-            <input id="stat-stamina" type="number" min="0" max="1600" step="1" value="0" inputmode="numeric" />
+            <input id="stat-stamina" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
           </label>
           <label>Power
-            <input id="stat-power" type="number" min="0" max="1600" step="1" value="0" inputmode="numeric" />
+            <input id="stat-power" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
           </label>
           <label>Guts
-            <input id="stat-guts" type="number" min="0" max="1600" step="1" value="0" inputmode="numeric" />
+            <input id="stat-guts" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
           </label>
           <label>Wisdom
-            <input id="stat-wisdom" type="number" min="0" max="1600" step="1" value="0" inputmode="numeric" />
+            <input id="stat-wisdom" type="number" min="0" max="2000" step="1" value="0" inputmode="numeric" />
           </label>
         </div>
         <div class="rating-grid" style="grid-template-columns: repeat(2, minmax(150px, 1fr)); margin-top:0.4rem">
@@ -632,11 +633,42 @@
             <div class="pill"><b>Used Points:</b> <span id="used-points">0</span></div>
             <div class="pill"><b>Total Points:</b> <span id="total-points">0</span></div>
             <div class="pill"><b>Remaining:</b> <span id="remaining-points">0</span></div>
+            <div class="pill team-trials-pill" id="team-consistency-pill" style="display:none;">
+              <b>Consistency:</b> <span id="team-consistency">0%</span>
+            </div>
+            <div class="pill team-trials-pill" id="team-expected-pill" style="display:none;">
+              <b>Expected Value:</b> <span id="team-expected">0.00</span>
+            </div>
             <div class="pill aptitude-test-pill" id="aptitude-score-pill" style="display:none;">
               <b>Aptitude Test Score:</b> <span id="aptitude-score">0</span>
             </div>
           </div>
           <div class="results-list" id="selected-list" style="margin-top:.75rem"></div>
+          <details id="team-explain-panel" class="team-explain-panel" style="display:none; margin-top:.75rem;">
+            <summary>Explain Team Trials Build</summary>
+            <div class="team-explain-body">
+              <p class="team-explain-reference">
+                Reference:
+                <a
+                  href="https://docs.google.com/spreadsheets/d/1oB3eTvKqREtJDWJL0q80O_VjBcpOmRl5xE0z5fZKgFY"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Uma Musume Skill Sheet</a>
+              </p>
+              <div>
+                <h4>Consistency Strengths</h4>
+                <ul id="team-explain-strengths" class="team-explain-list"></ul>
+              </div>
+              <div>
+                <h4>Risks & Warnings</h4>
+                <ul id="team-explain-risks" class="team-explain-list"></ul>
+              </div>
+              <div>
+                <h4>Optimizer Warnings</h4>
+                <ul id="team-warnings" class="team-explain-list"></ul>
+              </div>
+            </div>
+          </details>
         </div>
       </section>
 
@@ -645,6 +677,14 @@
         <div class="toolbar" role="group" aria-label="Skill rows" style="justify-content:flex-end">
           <span class="muted">Tip: just enter the skill name and cost - its type auto-detects</span>
           <div class="spacer"></div>
+          <label class="preprocessing-toggle" title="Enhance images before OCR for better accuracy">
+            <input type="checkbox" id="preprocess-toggle" />
+            Image Enhancement
+          </label>
+          <label class="preprocessing-toggle" title="Show OCR scan region and debug info">
+            <input type="checkbox" id="ocr-debug-toggle" />
+            Debug Mode
+          </label>
           <input
             type="file"
             id="screenshot-upload-input"
@@ -653,10 +693,10 @@
             aria-label="Upload screenshot"
           />
           <button id="screenshot-upload-btn" class="btn btn-secondary" type="button">
-            📸 Upload Screenshot
+            Upload Screenshot
           </button>
           <button id="captureBtn" class="btn btn-secondary" type="button">
-            🖥 Screen Capture
+            Screen Capture
           </button>
         </div>
         <div class="toolbar" style="justify-content:flex-end">
@@ -732,8 +772,8 @@
     </div>
 
     <!-- Skill Correction Modal -->
-    <div id="skill-correction-modal" class="modal" style="display:none">
-      <div class="modal-content">
+    <div id="skill-correction-backdrop">
+      <div id="skill-correction-modal">
         <div class="modal-header">
           <h3>Edit Detected Skill</h3>
           <button id="correction-modal-close" class="modal-close" type="button" aria-label="Close">&times;</button>
@@ -748,8 +788,15 @@
             <input id="correction-skill-cost" type="number" min="0" step="1" placeholder="Skill points cost" />
           </label>
           <label class="labelTitle" style="margin-top:12px">
-            Hint Level <span style="color:var(--text-muted)">(1-5)</span>
-            <input id="correction-skill-hint" type="number" min="0" max="5" step="1" placeholder="0-5" />
+            Hint Level <span style="color:var(--text-muted)">(0-5)</span>
+            <select id="correction-skill-hint">
+              <option value="0">No Hint</option>
+              <option value="1">Hint Lv 1</option>
+              <option value="2">Hint Lv 2</option>
+              <option value="3">Hint Lv 3</option>
+              <option value="4">Hint Lv 4</option>
+              <option value="5">Hint Lv 5</option>
+            </select>
           </label>
         </div>
         <div class="modal-footer">
@@ -787,16 +834,40 @@
     
     <script src="/js/rating-shared.js" defer></script>
     <script src="/js/tutorial.js" defer></script>
+    <script src="/js/team-trials-optimizer.js" defer></script>
     <script src="/js/optimizer.js" defer></script>
+    <script src="/js/ocr-preprocess.js" defer></script>
+    <script src="/js/ocr-matcher.js" defer></script>
     <script src="/js/ocr.js" defer></script>
+    <script src="/js/ocr-test.js" defer></script>
     <script>
-      // Connect screenshot upload button to file input
       document.addEventListener('DOMContentLoaded', function() {
+        // Connect screenshot upload button to file input
         var uploadBtn = document.getElementById('screenshot-upload-btn');
         var uploadInput = document.getElementById('screenshot-upload-input');
         if (uploadBtn && uploadInput) {
           uploadBtn.addEventListener('click', function() {
             uploadInput.click();
+          });
+        }
+
+        // Connect preprocessing toggle
+        var preprocessToggle = document.getElementById('preprocess-toggle');
+        if (preprocessToggle) {
+          preprocessToggle.addEventListener('change', function() {
+            if (typeof window.setOCRPreprocessing === 'function') {
+              window.setOCRPreprocessing(this.checked);
+            }
+          });
+        }
+
+        // Connect debug mode toggle
+        var debugToggle = document.getElementById('ocr-debug-toggle');
+        if (debugToggle) {
+          debugToggle.addEventListener('change', function() {
+            if (typeof window.setOCRDebugMode === 'function') {
+              window.setOCRDebugMode(this.checked);
+            }
           });
         }
       });

@@ -7057,5 +7057,112 @@
     ],
     "UmaEvents": [],
     "UmaImage": "/assets/character_thumbs/101502-tm-opera-o-new-year.png"
+  },
+  {
+    "UmaKey": "Sakura Chiyono O :: Hinoshita Kaisan・Hana Akari",
+    "UmaName": "Sakura Chiyono O",
+    "UmaNickname": "Hinoshita Kaisan・Hana Akari",
+    "UmaSlug": "106901-sakura-chiyono-o",
+    "UmaId": "106901",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 93,
+        "Stamina": 96,
+        "Power": 78,
+        "Guts": 93,
+        "Wit": 90
+      },
+      "5★": {
+        "Speed": 114,
+        "Stamina": 117,
+        "Power": 95,
+        "Guts": 114,
+        "Wit": 110
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 10,
+      "Stamina": 0,
+      "Power": 0,
+      "Guts": 10,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "E",
+        "Mile": "A",
+        "Medium": "A",
+        "Long": "E"
+      },
+      "Strategy": {
+        "Front": "B",
+        "Pace": "A",
+        "Late": "F",
+        "End": "G"
+      }
+    },
+    "UmaHeightCm": 156,
+    "UmaThreeSizes": {
+      "B": 80,
+      "W": 55,
+      "H": 83
+    },
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": "1: 0"
+      },
+      {
+        "ObjectiveName": "Asahi Hai Futurity Stakes",
+        "Turn": "23",
+        "Time": "Junior Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Satsuki Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Tokyo Yushun (Japanese Derby)",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Autumn)",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 3"
+      },
+      {
+        "ObjectiveName": "Yasuda Kinen",
+        "Turn": "59",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 3"
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Autumn)",
+        "Turn": "68",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 1"
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 2"
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/106901-sakura-chiyono-o.png"
   }
 ]

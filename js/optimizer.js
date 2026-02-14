@@ -21,6 +21,14 @@
   const selectedListEl = document.getElementById('selected-list');
   const aptitudeScorePill = document.getElementById('aptitude-score-pill');
   const aptitudeScoreEl = document.getElementById('aptitude-score');
+  const teamConsistencyPill = document.getElementById('team-consistency-pill');
+  const teamConsistencyEl = document.getElementById('team-consistency');
+  const teamExpectedPill = document.getElementById('team-expected-pill');
+  const teamExpectedEl = document.getElementById('team-expected');
+  const teamExplainPanel = document.getElementById('team-explain-panel');
+  const teamExplainStrengthsEl = document.getElementById('team-explain-strengths');
+  const teamExplainRisksEl = document.getElementById('team-explain-risks');
+  const teamWarningsEl = document.getElementById('team-warnings');
   const autoBuildBtn = document.getElementById('auto-build-btn');
   const autoTargetInputs = document.querySelectorAll('input[name="auto-target"]');
   const autoBuilderStatus = document.getElementById('auto-builder-status');
@@ -112,6 +120,20 @@
     return optimizeModeSelect ? optimizeModeSelect.value : 'rating';
   }
 
+  function getOptimizeModeLabel(mode) {
+    if (mode === TEAM_TRIALS_MODE) return 'Team Trials (Consistent)';
+    if (mode === 'aptitude-test') return 'Trainer Aptitude Test';
+    return 'Rating';
+  }
+
+  function getRaceConfigSnapshot() {
+    const snapshot = {};
+    Object.entries(cfg).forEach(([k, el]) => {
+      snapshot[k] = el ? el.value : '';
+    });
+    return snapshot;
+  }
+
   // Trainer Aptitude Test scoring: normal skills = 400, gold/rare skills = 1200
   // Lower skills for gold combos don't count toward aptitude score
   const APTITUDE_TEST_SCORE_NORMAL = 400;
@@ -139,6 +161,11 @@
   const skillCostMapExact = new Map(); // exact lowercased name -> meta
   const skillCostById = new Map(); // skillId -> base cost
   const skillMetaById = new Map(); // skillId -> { cost, versions, parents }
+  const TEAM_TRIALS_MODE = 'team_trials';
+  const teamTrialsSkillMetaById = new Map();
+  const teamTrialsSkillMetaByName = new Map();
+  const teamTrialsTierById = new Map();
+  const teamTrialsTierByName = new Map();
 
   function normalizeCostKey(str) {
     return normalize(str).replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
@@ -217,7 +244,9 @@
             if (typeof entry?.cost === 'number') return entry.cost;
             return null;
           })();
-          const parents = Array.isArray(entry?.parent_skills) ? entry.parent_skills : [];
+          const parents = Array.isArray(entry?.gene_version?.parent_skills)
+            ? entry.gene_version.parent_skills
+            : (Array.isArray(entry?.parent_skills) ? entry.parent_skills : []);
           const versions = Array.isArray(entry?.versions) ? entry.versions : [];
           const id = entry?.id;
           if (cost !== null) {
@@ -231,10 +260,50 @@
             if (!skillCostMapNormalized.has(key)) skillCostMapNormalized.set(key, meta);
           }
         });
+        if (window.TeamTrialsOptimizer?.buildEnglishSkillIndex) {
+          const teamIndex = window.TeamTrialsOptimizer.buildEnglishSkillIndex(list);
+          teamTrialsSkillMetaById.clear();
+          teamTrialsSkillMetaByName.clear();
+          if (teamIndex?.byId?.forEach) {
+            teamIndex.byId.forEach((v, k) => teamTrialsSkillMetaById.set(String(k), v));
+          }
+          if (teamIndex?.byName?.forEach) {
+            teamIndex.byName.forEach((v, k) => teamTrialsSkillMetaByName.set(String(k), v));
+          }
+        }
         console.log(`Loaded skill costs from ${url}: ${skillCostMapExact.size} exact, ${skillCostMapNormalized.size} normalized`);
         return true;
       } catch (err) {
         console.warn('Failed loading skill costs', url, err);
+      }
+    }
+    return false;
+  }
+
+  async function loadTeamTrialsTierlist() {
+    if (!window.TeamTrialsOptimizer?.parseTierlistCSV) return false;
+    const candidates = ['/assets/skill_tiers.csv', './assets/skill_tiers.csv'];
+    for (const url of candidates) {
+      try {
+        const res = await fetch(url, { cache: 'force-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        const rows = window.TeamTrialsOptimizer.parseTierlistCSV(text, {
+          byId: teamTrialsSkillMetaById,
+          byName: teamTrialsSkillMetaByName
+        });
+        const lookup = window.TeamTrialsOptimizer.buildTierLookup(rows);
+        teamTrialsTierById.clear();
+        teamTrialsTierByName.clear();
+        if (lookup?.byId?.forEach) {
+          lookup.byId.forEach((v, k) => teamTrialsTierById.set(String(k), v));
+        }
+        if (lookup?.byName?.forEach) {
+          lookup.byName.forEach((v, k) => teamTrialsTierByName.set(String(k), v));
+        }
+        return true;
+      } catch (err) {
+        console.warn('Failed loading Team Trials tierlist', url, err);
       }
     }
     return false;
@@ -988,10 +1057,50 @@
     }
     const includeGeneral = targets.includes('general');
     const targetSet = new Set(targets.filter(t => t !== 'general'));
-    const optionalCandidates = items.filter(it => !requiredSummary.requiredIds.has(it.id) && matchesAutoTargets(it, targetSet, includeGeneral));
+    let optionalCandidates = items.filter(it => !requiredSummary.requiredIds.has(it.id) && matchesAutoTargets(it, targetSet, includeGeneral));
+    // Include linked counterparts (gold lower, circle upgrade) so buildGroups can
+    // form proper combo groups — otherwise the optimizer treats them standalone.
+    const candidateIds = new Set(optionalCandidates.map(it => it.id));
+    const itemById = new Map(items.map(it => [it.id, it]));
+    for (const it of optionalCandidates) {
+      // Pull in gold linked lower
+      if (it.lowerRowId && !candidateIds.has(it.lowerRowId) && itemById.has(it.lowerRowId)) {
+        candidateIds.add(it.lowerRowId);
+      }
+      // Pull in circle upgrade
+      if (it.circleRowId && !candidateIds.has(it.circleRowId) && itemById.has(it.circleRowId)) {
+        candidateIds.add(it.circleRowId);
+      }
+    }
+    // Also pull in parents when the child was matched but parent wasn't
+    for (const it of items) {
+      if (requiredSummary.requiredIds.has(it.id)) continue;
+      if (candidateIds.has(it.id)) continue;
+      // If this item's linked child is already a candidate, include the parent too
+      if (it.lowerRowId && candidateIds.has(it.lowerRowId)) candidateIds.add(it.id);
+      if (it.circleRowId && candidateIds.has(it.circleRowId)) candidateIds.add(it.id);
+    }
+    optionalCandidates = items.filter(it => candidateIds.has(it.id));
     const candidates = optionalCandidates.concat(requiredSummary.requiredItems);
     if (!candidates.length) {
       setAutoStatus('No existing rows match the selected targets with S-A affinity.', true);
+      return;
+    }
+    if (getOptimizeMode() === TEAM_TRIALS_MODE) {
+      const teamResult = optimizeTeamTrialsCandidates(candidates, budget);
+      if (teamResult.error) {
+        setAutoStatus('Team Trials optimization failed for the current constraints.', true);
+        renderResults(teamResult, budget);
+        return;
+      }
+      if (!teamResult.chosen?.length) {
+        setAutoStatus('Budget too low to purchase any matching Team Trials candidates.', true);
+        renderResults(teamResult, budget);
+        return;
+      }
+      applyAutoHighlights(teamResult.chosen.map(it => it.id), candidates.map(it => it.id));
+      renderResults(teamResult, budget);
+      setAutoStatus(`Highlighted ${teamResult.chosen.length}/${candidates.length} matching skills (cost ${teamResult.used}/${budget}).`);
       return;
     }
     const groups = buildGroups(optionalCandidates, rowsMeta);
@@ -1023,6 +1132,10 @@
     if (totalPointsEl) totalPointsEl.textContent = String(parseInt(budgetInput.value || '0', 10) || 0);
     if (remainingPointsEl) remainingPointsEl.textContent = totalPointsEl.textContent;
     if (selectedListEl) selectedListEl.innerHTML = '';
+    if (aptitudeScorePill) aptitudeScorePill.style.display = 'none';
+    if (teamConsistencyPill) teamConsistencyPill.style.display = 'none';
+    if (teamExpectedPill) teamExpectedPill.style.display = 'none';
+    if (teamExplainPanel) teamExplainPanel.style.display = 'none';
     lastSkillScore = 0;
     ratingEngine.updateRatingDisplay(0);
   }
@@ -1035,6 +1148,11 @@
     if (isNaN(budget) || budget < 0) return;
     const { items, rowsMeta } = collectItems();
     if (!items.length) return;
+    if (getOptimizeMode() === TEAM_TRIALS_MODE) {
+      const teamResult = optimizeTeamTrialsCandidates(items, budget);
+      renderResults(teamResult, budget);
+      return;
+    }
     const requiredSummary = expandRequired(items);
     if (requiredSummary.requiredCost > budget) {
       renderResults({ best: 0, chosen: [], used: 0, error: 'required_unreachable' }, budget);
@@ -1062,10 +1180,25 @@
         if (!skill || !skill.name) return;
         const key = normalize(skill.name);
         const enriched = { ...skill, category };
-        if (!nextIndex.has(key)) {
-          names.push(skill.name);
-        }
+
+        // ◎ skills with a paired ○: index under full name but skip from datalist
+        // ○ skills with a paired ◎: also index under base name, show base name in datalist
+        const isDoubleCircle = !!skill.circleUpgradeOf; // ◎ with paired ○
+        const isPairedSingle = !!skill.circleUpgrade;   // ○ with paired ◎
+
         nextIndex.set(key, enriched);
+        if (isPairedSingle && skill.circleBaseName) {
+          // Also index under the bare base name → resolves to ○ variant
+          const baseKey = normalize(skill.circleBaseName);
+          if (!nextIndex.has(baseKey)) nextIndex.set(baseKey, enriched);
+        }
+
+        if (!isDoubleCircle) {
+          // Show base name in datalist for paired ○, full name otherwise
+          const displayName = isPairedSingle ? skill.circleBaseName : skill.name;
+          names.push(displayName); // deduped via Set below
+        }
+
         if (skill.skillId) {
           const sid = String(skill.skillId);
           if (!nextIdIndex.has(sid)) nextIdIndex.set(sid, enriched);
@@ -1216,6 +1349,34 @@
         lowerSkillId
       });
     }
+    // ── Link ◎/○ circle skill pairs ──
+    // Build a map of base names (without ◎/○ suffix) to their variants
+    const circleMap = new Map(); // baseName -> { single: skill, double: skill }
+    for (const list of Object.values(catMap)) {
+      for (const skill of list) {
+        if (skill.name.endsWith(' ◎') || skill.name.endsWith(' ○')) {
+          const baseName = skill.name.slice(0, -2); // strip " ◎" or " ○"
+          if (!circleMap.has(baseName)) circleMap.set(baseName, {});
+          const entry = circleMap.get(baseName);
+          if (skill.name.endsWith(' ○')) entry.single = skill;
+          else entry.double = skill;
+        }
+      }
+    }
+    for (const [baseName, pair] of circleMap) {
+      if (pair.single && pair.double) {
+        pair.single.circleBaseName = baseName;
+        pair.single.circleUpgrade = pair.double.name;
+        pair.double.circleBaseName = baseName;
+        pair.double.circleUpgradeOf = pair.single.name;
+        // Clear lowerSkillId on paired circle skills — their `versions` arrays
+        // cross-reference each other, which would create a false parent-child
+        // grouping in buildGroups before the circle-specific logic runs.
+        pair.single.lowerSkillId = '';
+        pair.double.lowerSkillId = '';
+      }
+    }
+
     skillsByCategory = catMap; categories = Object.keys(catMap).sort((a,b)=>{const ia=preferredOrder.indexOf(a), ib=preferredOrder.indexOf(b); if(ia!==-1||ib!==-1) return (ia===-1?999:ia) - (ib===-1?999:ib); return a.localeCompare(b)});
     const totalSkills = Object.values(skillsByCategory).reduce((acc, arr) => acc + arr.length, 0);
     rebuildSkillCaches();
@@ -1349,7 +1510,7 @@
     });
   }
 
-  function isTopLevelRow(row) { return !row.dataset.parentGoldId; }
+  function isTopLevelRow(row) { return !row.dataset.parentGoldId && !row.dataset.parentCircleId; }
   function isRowFilled(row) {
     const name = (row.querySelector('.skill-name')?.value || '').trim();
     const costVal = row.querySelector('.cost')?.value;
@@ -1462,6 +1623,16 @@
           }
           delete row.dataset.lowerRowId;
         }
+        if (row.dataset.circleRowId) {
+          const linked = rowsEl.querySelector(`.optimizer-row[data-row-id="${row.dataset.circleRowId}"]`);
+          if (linked) {
+            if (typeof linked.cleanupSkillTracking === 'function') {
+              linked.cleanupSkillTracking();
+            }
+            linked.remove();
+          }
+          delete row.dataset.circleRowId;
+        }
         row.remove();
         saveState();
         ensureOneEmptyRow();
@@ -1570,7 +1741,17 @@
     }
 
     function getSkillIdentity(name) {
-      const skill = findSkillByName(name);
+      let skill = findSkillByName(name);
+      // For any circle variant (○ or ◎), resolve to ○ and use base name
+      if (skill?.circleBaseName) {
+        if (skill.circleUpgradeOf) {
+          // This is a ◎ skill — resolve to its ○ counterpart instead
+          const singleSkill = findSkillByName(skill.circleUpgradeOf);
+          if (singleSkill) skill = singleSkill;
+        }
+        const id = skill?.skillId ?? skill?.id ?? '';
+        return { id: id ? String(id) : '', name: skill.circleBaseName, skill };
+      }
       const id = skill?.skillId ?? skill?.id ?? '';
       const canonicalName = skill?.name || name;
       return { id: id ? String(id) : '', name: canonicalName, skill };
@@ -1578,7 +1759,11 @@
 
     function getSkillKey(identity) {
       if (!identity || !identity.name) return '';
-      return identity.id || normalize(identity.name);
+      if (identity.id) return identity.id;
+      // For circle skills, use the base name as the key so ○/◎/base all collide
+      const skill = identity.skill;
+      if (skill?.circleBaseName) return normalize(skill.circleBaseName);
+      return normalize(identity.name);
     }
 
     // O(1) duplicate check using activeSkillKeys map
@@ -1711,6 +1896,66 @@
       autoOptimizeDebounced();
     }
 
+    function ensureLinkedCircleUpgrade(skill, { allowCreate = true } = {}) {
+      // Don't create upgrade rows for rows that are themselves linked children
+      if (row.dataset.parentGoldId || row.dataset.parentCircleId) return;
+      const hasCircleUpgrade = skill && skill.circleUpgrade;
+      const currentLinkedId = row.dataset.circleRowId;
+      // Clean up if skill changed away from a circle skill
+      if (!hasCircleUpgrade) {
+        if (currentLinkedId) {
+          const linked = rowsEl.querySelector(`.optimizer-row[data-row-id="${currentLinkedId}"]`);
+          if (linked) {
+            if (typeof linked.cleanupSkillTracking === 'function') linked.cleanupSkillTracking();
+            linked.remove();
+          }
+          delete row.dataset.circleRowId;
+          saveState();
+          ensureOneEmptyRow();
+          autoOptimizeDebounced();
+        }
+        return;
+      }
+      if (!allowCreate || currentLinkedId) return;
+      const doubleSkill = findSkillByName(skill.circleUpgrade);
+      if (!doubleSkill) return;
+      const linked = makeRow();
+      linked.classList.add('linked-lower');
+      linked.dataset.parentCircleId = id;
+      const lid = linked.dataset.rowId;
+      const linkedInput = linked.querySelector('.skill-name');
+      if (linkedInput) linkedInput.placeholder = '\u25ce upgrade...';
+      const linkedRemove = linked.querySelector('.remove');
+      if (linkedRemove) {
+        linkedRemove.disabled = true;
+        linkedRemove.title = 'Remove the \u25cb row to unlink';
+        linkedRemove.style.pointerEvents = 'none';
+        linkedRemove.style.opacity = '0.4';
+      }
+      linked.style.display = 'none'; // Hidden — optimizer reads it, user doesn't see it
+      rowsEl.insertBefore(linked, row.nextSibling);
+      row.dataset.circleRowId = lid;
+      // Auto-fill the ◎ upgrade row, mirroring parent hint level
+      const lInput = linked.querySelector('.skill-name');
+      const lCost = linked.querySelector('.cost');
+      const lHint = linked.querySelector('.hint-level');
+      if (lInput) lInput.value = doubleSkill.name;
+      // Mirror hint level from parent ○ row
+      const parentHint = hintSelect ? parseInt(hintSelect.value || '0', 10) || 0 : 0;
+      if (lHint) lHint.value = parentHint;
+      if (typeof doubleSkill.baseCost === 'number') {
+        linked.dataset.baseCost = String(doubleSkill.baseCost);
+        const discounted = calculateDiscountedCost(doubleSkill.baseCost, parentHint);
+        if (lCost && !isNaN(discounted)) lCost.value = discounted;
+      }
+      if (typeof linked.syncSkillCategory === 'function') {
+        linked.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
+      }
+      saveState();
+      ensureOneEmptyRow();
+      autoOptimizeDebounced();
+    }
+
     function syncSkillCategory({ triggerOptimize = false, allowLinking = true, updateCost = false } = {}) {
       if (!skillInput) return;
       const rawName = (skillInput.value || '').trim();
@@ -1719,11 +1964,21 @@
         if (!row.dataset.dupWarningHold) clearDupWarning();
         updateSkillKeyTracking(null); // Clear tracking when skill is removed
       }
-      const identity = getSkillIdentity(rawName);
-      const skill = identity.skill;
+      // For circle sub-rows (◎ upgrade), use findSkillByName directly to preserve the ◎
+      // skill data (higher score, correct baseCost). getSkillIdentity normalizes to the ○
+      // variant which would clobber the ◎-specific values.
+      const isCircleSubRow = !!row.dataset.parentCircleId;
+      const identity = isCircleSubRow ? null : getSkillIdentity(rawName);
+      const skill = isCircleSubRow ? findSkillByName(rawName) : identity?.skill;
       if (rawName) {
-        const canonical = identity.name || rawName;
-        if (isDuplicateSkill(identity)) {
+        const canonical = isCircleSubRow ? rawName : (identity?.name || rawName);
+        // Rewrite input to base name for circle skills (strip ○/◎ suffixes)
+        // But NOT for circle sub-rows — they must keep their ◎ name for correct scoring
+        if (!isCircleSubRow && skill?.circleBaseName && rawName !== canonical) {
+          skillInput.value = canonical;
+        }
+        const isLinkedChild = !!(row.dataset.parentGoldId || row.dataset.parentCircleId || row.dataset.parentSkillLink);
+        if (!isLinkedChild && isDuplicateSkill(identity)) {
           showDupWarning('This skill has already been added.');
           const fallback = row.dataset.lastSkillName || '';
           if (fallback) {
@@ -1743,7 +1998,7 @@
           return;
         }
         row.dataset.lastSkillName = canonical;
-        updateSkillKeyTracking(identity); // Update tracking with new skill
+        if (!isLinkedChild) updateSkillKeyTracking(identity); // Update tracking with new skill
       }
       clearDupWarning();
       const category = skill ? skill.category : '';
@@ -1752,6 +2007,7 @@
       updateBaseCostDisplay(skill);
       ensureLinkedLowerForGold(category, { allowCreate: allowLinking });
       ensureLinkedLowerForParent(skill, { allowCreate: allowLinking });
+      ensureLinkedCircleUpgrade(skill, { allowCreate: allowLinking });
       if (updateCost) applyHintedCost(skill);
       if (triggerOptimize) {
         saveState();
@@ -1826,6 +2082,20 @@
             parent.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
           }
         }
+        // Mirror hint level to linked ◎ upgrade row
+        if (row.dataset.circleRowId) {
+          const circleRow = rowsEl.querySelector(`.optimizer-row[data-row-id="${row.dataset.circleRowId}"]`);
+          if (circleRow) {
+            const cHint = circleRow.querySelector('.hint-level');
+            const cCost = circleRow.querySelector('.cost');
+            const newHint = parseInt(hintSelect.value || '0', 10) || 0;
+            if (cHint) cHint.value = newHint;
+            const cBaseCost = circleRow.dataset.baseCost ? parseInt(circleRow.dataset.baseCost, 10) : NaN;
+            if (!isNaN(cBaseCost) && cCost) {
+              cCost.value = calculateDiscountedCost(cBaseCost, newHint);
+            }
+          }
+        }
         saveState();
         ensureOneEmptyRow();
         autoOptimizeDebounced();
@@ -1884,6 +2154,7 @@
       if (!skill) return;
       const category = skill.category || '';
       const parentGoldId = row.dataset.parentGoldId || '';
+      const parentCircleId = row.dataset.parentCircleId || '';
       const isLowerForGold = !!parentGoldId; // This row is a lower skill linked to a gold
 
       // Always calculate both scores
@@ -1898,16 +2169,17 @@
 
       const rowId = row.dataset.rowId || Math.random().toString(36).slice(2);
       const lowerRowId = row.dataset.lowerRowId || '';
+      const circleRowId = row.dataset.circleRowId || '';
       const parentSkillIds = Array.isArray(skill.parentIds) && skill.parentIds.length ? skill.parentIds : [];
       const lowerSkillId = skill.lowerSkillId || '';
       const skillId = skill.skillId || skill.id || '';
       items.push({
         id: rowId, name: skill.name, cost, score,
         ratingScore, aptitudeScore, // Track both scores
-        baseCost: baseCostStored, category, parentGoldId, lowerRowId,
+        baseCost: baseCostStored, category, parentGoldId, parentCircleId, lowerRowId, circleRowId,
         checkType: skill.checkType || '', parentSkillIds, lowerSkillId, skillId, hintLevel, required
       });
-      rowsMeta.push({ id: rowId, category, parentGoldId, lowerRowId });
+      rowsMeta.push({ id: rowId, category, parentGoldId, parentCircleId, lowerRowId, circleRowId });
     });
     return { items, rowsMeta };
   }
@@ -1971,7 +2243,23 @@
           continue;
         }
       }
-      // If this is a lower-linked row, and its parent gold appears later, it will be grouped there.
+      // ◎/○ circle pair: ○ parent with linked ◎ upgrade row (additive cost)
+      if (it.circleRowId && idToIndex.has(it.circleRowId)) {
+        const j = idToIndex.get(it.circleRowId);
+        if (!used[j]) {
+          const upgrade = items[j];
+          groups.push([
+            { none: true, items: [] },
+            { pick: i, cost: it.cost, score: it.score,
+              ratingScore: it.ratingScore || 0, aptitudeScore: it.aptitudeScore || 0, items: [i] },
+            { combo: [i, j], cost: it.cost + upgrade.cost, score: upgrade.score,
+              ratingScore: upgrade.ratingScore || 0, aptitudeScore: upgrade.aptitudeScore || 0, items: [i, j] }
+          ]);
+          used[i] = used[j] = true;
+          continue;
+        }
+      }
+      // If this is a linked sub-row (circle or gold), its parent will group it.
       groups.push([
         { none: true, items: [] },
         { pick: i, cost: it.cost, score: it.score,
@@ -2194,6 +2482,41 @@
     return { requiredIds, requiredItems, requiredCost, requiredScore };
   }
 
+  function optimizeTeamTrialsCandidates(items, budget) {
+    const api = window.TeamTrialsOptimizer;
+    if (!api?.optimizeTeamTrialsBuild) {
+      return {
+        error: 'team_trials_unavailable',
+        chosen: [],
+        used: 0,
+        best: 0,
+        warnings: ['Team Trials optimizer module is unavailable.']
+      };
+    }
+    const result = api.optimizeTeamTrialsBuild({
+      budget,
+      items,
+      raceConfig: getRaceConfigSnapshot(),
+      autoTargets: getSelectedAutoTargets(),
+      skillMetaById: teamTrialsSkillMetaById,
+      skillMetaByName: teamTrialsSkillMetaByName,
+      tierById: teamTrialsTierById,
+      tierByName: teamTrialsTierByName
+    }, {
+      weights: api.DEFAULT_WEIGHTS || undefined
+    });
+    if (!result || typeof result !== 'object') {
+      return {
+        error: 'team_trials_failed',
+        chosen: [],
+        used: 0,
+        best: 0,
+        warnings: ['Team Trials optimizer did not return a valid result.']
+      };
+    }
+    return result;
+  }
+
   function renderResults(result, budget) {
     resultsEl.hidden = false;
     usedPointsEl.textContent = String(result.used);
@@ -2203,6 +2526,11 @@
 
     const mode = getOptimizeMode();
     const chosen = Array.isArray(result.chosen) ? result.chosen : [];
+    const teamBreakdownMap = new Map(
+      Array.isArray(result.perSkillBreakdown)
+        ? result.perSkillBreakdown.map(entry => [entry.id, entry])
+        : []
+    );
 
     // Calculate actual rating and aptitude scores from chosen items
     // For aptitude: don't count lower skills that are part of gold combos
@@ -2243,6 +2571,10 @@
       }
     });
 
+    if (mode === TEAM_TRIALS_MODE && Number.isFinite(result.totalRatingScore)) {
+      totalRatingScore = Math.max(0, Math.floor(result.totalRatingScore));
+    }
+
     // Display the appropriate score in "Best Score"
     if (mode === 'aptitude-test') {
       // In aptitude mode, show rating score as best (aptitude shown separately)
@@ -2261,16 +2593,97 @@
       }
     }
 
-    if (result.error === 'required_unreachable') {
+    if (teamConsistencyPill && teamConsistencyEl) {
+      if (mode === TEAM_TRIALS_MODE) {
+        const consistency = Number.isFinite(result.consistencyScore)
+          ? Math.max(0, Math.min(1, result.consistencyScore))
+          : 0;
+        teamConsistencyPill.style.display = '';
+        teamConsistencyEl.textContent = `${Math.round(consistency * 100)}%`;
+      } else {
+        teamConsistencyPill.style.display = 'none';
+      }
+    }
+    if (teamExpectedPill && teamExpectedEl) {
+      if (mode === TEAM_TRIALS_MODE) {
+        const expected = Number.isFinite(result.totalExpectedValue) ? result.totalExpectedValue : 0;
+        teamExpectedPill.style.display = '';
+        teamExpectedEl.textContent = expected.toFixed(2);
+      } else {
+        teamExpectedPill.style.display = 'none';
+      }
+    }
+
+    if (teamExplainPanel && teamExplainStrengthsEl && teamExplainRisksEl && teamWarningsEl) {
+      if (mode === TEAM_TRIALS_MODE) {
+        teamExplainPanel.style.display = '';
+        teamExplainStrengthsEl.innerHTML = '';
+        teamExplainRisksEl.innerHTML = '';
+        teamWarningsEl.innerHTML = '';
+        const strengths = Array.isArray(result?.explain?.strengths) ? result.explain.strengths : [];
+        const risks = Array.isArray(result?.explain?.risks) ? result.explain.risks : [];
+        const warnings = Array.isArray(result?.warnings) ? result.warnings : [];
+        if (!strengths.length) {
+          const li = document.createElement('li');
+          li.textContent = 'No additional strengths were generated.';
+          teamExplainStrengthsEl.appendChild(li);
+        } else {
+          strengths.forEach(text => {
+            const li = document.createElement('li');
+            li.textContent = text;
+            teamExplainStrengthsEl.appendChild(li);
+          });
+        }
+        if (!risks.length) {
+          const li = document.createElement('li');
+          li.textContent = 'No major risks detected.';
+          teamExplainRisksEl.appendChild(li);
+        } else {
+          risks.forEach(text => {
+            const li = document.createElement('li');
+            li.textContent = text;
+            teamExplainRisksEl.appendChild(li);
+          });
+        }
+        if (!warnings.length) {
+          const li = document.createElement('li');
+          li.textContent = 'No optimizer warnings.';
+          teamWarningsEl.appendChild(li);
+        } else {
+          warnings.forEach(text => {
+            const li = document.createElement('li');
+            li.textContent = text;
+            teamWarningsEl.appendChild(li);
+          });
+        }
+      } else {
+        teamExplainPanel.style.display = 'none';
+      }
+    }
+
+    if (result.error) {
+      let message = 'Required skills cannot fit within the current budget.';
+      if (result.error === 'team_trials_unavailable') message = 'Team Trials optimizer module is unavailable.';
+      else if (result.error === 'team_trials_failed') message = 'Team Trials optimizer failed to produce a result.';
+      else if (result.error === 'no_items') message = 'No candidate skills were provided.';
+      else if (result.error === 'no_applicable_skills') message = 'No skills match the selected Team Trials targets/aptitudes.';
+      else if (result.error !== 'required_unreachable') message = 'Optimization failed for the current constraints.';
       const li = document.createElement('li');
       li.className = 'result-item';
-      li.textContent = 'Required skills cannot fit within the current budget.';
+      li.textContent = message;
       selectedListEl.appendChild(li);
       ratingEngine.updateRatingDisplay(0);
       return;
     }
     const ordered = [...chosen];
     const indexMap = new Map(ordered.map((it, idx) => [it.id, idx]));
+    const inputOrderMap = new Map();
+    if (rowsEl) {
+      Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((row, idx) => {
+        const rowId = row?.dataset?.rowId;
+        if (rowId && !inputOrderMap.has(rowId)) inputOrderMap.set(rowId, idx);
+      });
+    }
     const byId = new Map(ordered.map(it => [it.id, it]));
     const bySkillId = new Map();
     ordered.forEach(it => {
@@ -2295,7 +2708,27 @@
         }
       }
     });
+    // Build circle pair mapping for display
+    // In combos, ◎ is the base item (combo: true), ○ is the component (comboComponent: true)
+    const circleComboBaseIds = new Set(); // ◎ items that are circle combo bases
+    const circleComponentIds = new Set(); // ○ items that are circle combo components
+    ordered.forEach(it => {
+      if (!it.combo) return;
+      const skill = findSkillByName(it.name);
+      if (skill?.circleUpgradeOf) {
+        // This is a ◎ base item in a circle combo
+        circleComboBaseIds.add(it.id);
+        (it.components || []).forEach(cid => {
+          const comp = byId.get(cid);
+          const compSkill = comp ? findSkillByName(comp.name) : null;
+          if (compSkill?.circleUpgrade) circleComponentIds.add(cid);
+        });
+      }
+    });
     ordered.sort((a, b) => {
+      const aInputOrder = inputOrderMap.has(a.id) ? inputOrderMap.get(a.id) : Number.MAX_SAFE_INTEGER;
+      const bInputOrder = inputOrderMap.has(b.id) ? inputOrderMap.get(b.id) : Number.MAX_SAFE_INTEGER;
+      if (aInputOrder !== bInputOrder) return aInputOrder - bInputOrder;
       const ag = lowerToGold.get(a.id);
       const bg = lowerToGold.get(b.id);
       if (ag && ag.id === b.id) return 1;
@@ -2303,8 +2736,15 @@
       return (indexMap.get(a.id) || 0) - (indexMap.get(b.id) || 0);
     });
       ordered.forEach(it => {
+        // Skip ○ components of circle combos — the ◎ base shows the combined result
+        if (circleComponentIds.has(it.id)) return;
         const li = document.createElement('li');
         li.className = 'result-item';
+        // Mark standalone/parent items vs "included with" children for visual grouping
+        const isChild = it.comboComponent || lowerToGold.has(it.id);
+        if (isChild) li.classList.add('result-child');
+        else li.classList.add('result-primary');
+        if (mode === TEAM_TRIALS_MODE) li.classList.add('team-trials');
         const cat = it.category || 'unknown';
         const canon = (function(v){ v=(v||'').toLowerCase(); if(v.includes('gold')) return 'gold'; if(v==='ius'||v.includes('ius')) return 'ius'; return v; })(cat);
         if (canon) li.classList.add(`cat-${canon}`);
@@ -2313,12 +2753,77 @@
         const includedWith = it.comboComponent
           ? it.comboParentName
           : (lowerToGold.has(it.id) ? lowerToGold.get(it.id)?.name : '');
-      // Show rating score in the meta, not the combined optimization score
-      const displayScore = it.ratingScore !== undefined ? it.ratingScore : it.score;
-      const meta = includedWith
-        ? `- included with ${includedWith}`
-        : `- cost ${it.cost}, score ${displayScore}`;
-      li.innerHTML = `<span class="res-name">${it.name}</span> <span class="res-meta">${meta}</span>`;
+        if (mode === TEAM_TRIALS_MODE) {
+          const breakdown = teamBreakdownMap.get(it.id) || {};
+          if (includedWith) {
+            li.innerHTML = `<span class="res-name">${it.name}</span> <span class="res-meta">- included with ${includedWith}</span>`;
+          } else {
+            const rating = Number.isFinite(breakdown.ratingScore) ? breakdown.ratingScore : (it.ratingScore || 0);
+            const cost = Number.isFinite(breakdown.cost) ? breakdown.cost : (it.cost || 0);
+            const ratio = Number.isFinite(breakdown.scorePerSP) ? breakdown.scorePerSP : 0;
+            const consistency = Number.isFinite(breakdown.consistencyScore)
+              ? Math.round(Math.max(0, Math.min(1, breakdown.consistencyScore)) * 100)
+              : 0;
+            const metrics = `cost ${cost}, rating ${rating}, score/SP ${ratio.toFixed(2)}, consistency ${consistency}%`;
+            const nameEl = document.createElement('span');
+            nameEl.className = 'res-name';
+            nameEl.textContent = it.name;
+            const metricsEl = document.createElement('span');
+            metricsEl.className = 'res-metrics';
+            metricsEl.textContent = metrics;
+            li.appendChild(nameEl);
+            li.appendChild(metricsEl);
+
+            const tierNote = typeof breakdown.tierNote === 'string'
+              ? breakdown.tierNote.trim()
+              : '';
+            const reasons = Array.isArray(breakdown.reasons)
+              ? breakdown.reasons.filter(Boolean)
+              : [];
+            if (tierNote || reasons.length) {
+              const detailsEl = document.createElement('details');
+              detailsEl.className = 'res-explain';
+              const summaryEl = document.createElement('summary');
+              summaryEl.textContent = 'View explanation';
+              detailsEl.appendChild(summaryEl);
+
+              if (tierNote) {
+                const noteEl = document.createElement('p');
+                noteEl.className = 'res-explain-note';
+                noteEl.textContent = tierNote;
+                detailsEl.appendChild(noteEl);
+              }
+              if (reasons.length) {
+                const listEl = document.createElement('ul');
+                listEl.className = 'res-explain-reasons';
+                reasons.forEach(reason => {
+                  const reasonEl = document.createElement('li');
+                  reasonEl.textContent = reason;
+                  listEl.appendChild(reasonEl);
+                });
+                detailsEl.appendChild(listEl);
+              }
+              li.appendChild(detailsEl);
+            }
+          }
+        } else {
+          // Show rating score in the meta, not the combined optimization score
+          const displayScore = it.ratingScore !== undefined ? it.ratingScore : it.score;
+          // For circle skills, show which tier was chosen
+          let displayName = it.name;
+          const skill = findSkillByName(it.name);
+          if (circleComboBaseIds.has(it.id) && skill?.circleBaseName) {
+            // ◎ upgrade was chosen (combo) — show base name with ◎
+            displayName = skill.circleBaseName + ' \u25ce';
+          } else if (skill?.circleUpgrade) {
+            // ○ only was chosen (no upgrade) — show base name with ○
+            displayName = skill.circleBaseName + ' \u25cb';
+          }
+          const meta = includedWith
+            ? `- included with ${includedWith}`
+            : `- cost ${it.cost}, score ${displayScore}`;
+          li.innerHTML = `<span class="res-name">${displayName}</span> <span class="res-meta">${meta}</span>`;
+        }
       selectedListEl.appendChild(li);
     });
     // Always use the rating score for the rating display
@@ -2336,6 +2841,8 @@
     }
     const rows = rowsEl.querySelectorAll('.optimizer-row');
     rows.forEach(row => {
+      // Skip circle upgrade sub-rows — they're auto-generated from ○ parent
+      if (row.dataset.parentCircleId) return;
       const nameInput = row.querySelector('.skill-name');
       const costEl = row.querySelector('.cost');
       const hintEl = row.querySelector('.hint-level');
@@ -2420,6 +2927,13 @@
         }
       });
       if (!createdAny) return false;
+      // Recreate circle upgrade sub-rows (they aren't saved, only auto-generated)
+      created.forEach(row => {
+        if (row.dataset.parentGoldId || row.dataset.parentCircleId) return;
+        if (typeof row.syncSkillCategory === 'function') {
+          row.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
+        }
+      });
       updateHintOptionLabels();
       refreshAllRowCosts();
       saveState();
@@ -2438,6 +2952,12 @@
   if (optimizeBtn) optimizeBtn.addEventListener('click', () => {
     const budget = parseInt(budgetInput.value, 10); if (isNaN(budget) || budget < 0) { alert('Please enter a valid skill points budget.'); return; }
     const { items, rowsMeta } = collectItems(); if (!items.length) { alert('Add at least one skill with a valid cost.'); return; }
+    if (getOptimizeMode() === TEAM_TRIALS_MODE) {
+      const teamResult = optimizeTeamTrialsCandidates(items, budget);
+      renderResults(teamResult, budget);
+      saveState();
+      return;
+    }
     const requiredSummary = expandRequired(items);
     if (requiredSummary.requiredCost > budget) {
       renderResults({ best: 0, chosen: [], used: 0, error: 'required_unreachable' }, budget);
@@ -2784,7 +3304,7 @@
       if (build.budget) metaParts.push(`Budget: ${build.budget}`);
       if (build.fastLearner) metaParts.push('Fast Learner');
       if (build.optimizeMode) {
-        const modeLabel = build.optimizeMode === 'rating' ? 'Rating' : 'Aptitude Test';
+        const modeLabel = getOptimizeModeLabel(build.optimizeMode);
         metaParts.push(`Mode: ${modeLabel}`);
       }
       meta.textContent = metaParts.join(' • ');
@@ -3124,6 +3644,7 @@
   // Init: prefer CSV by default
   loadSkillCostsJSON()
     .catch(err => { console.warn('Skill cost JSON load failed', err); })
+    .then(() => loadTeamTrialsTierlist().catch(err => { console.warn('Team Trials tierlist load failed', err); }))
     .then(() => loadSkillsCSV())
     .then(() => finishInit())
     .catch(err => {
@@ -3155,16 +3676,51 @@
       return;
     }
 
-    const existingRows = Array.from(rowsEl.querySelectorAll('.optimizer-row')).filter(isTopLevelRow);
-    const lastRow = existingRows[existingRows.length - 1];
-    const lastRowEmpty = lastRow && !isRowFilled(lastRow);
+    // Build a map of existing skills (all rows including linked lower/circle)
+    const allRows = Array.from(rowsEl.querySelectorAll('.optimizer-row'));
+    const existingByKey = new Map(); // normalize(name) → row
+    allRows.forEach(row => {
+      const name = (row.querySelector('.skill-name')?.value || '').trim();
+      if (!name) return;
+      const skill = findSkillByName(name);
+      // Key by base name for circle skills, full name otherwise
+      const key = skill?.circleBaseName ? normalize(skill.circleBaseName) : normalize(name);
+      if (!existingByKey.has(key)) existingByKey.set(key, row);
+    });
 
-    skills.forEach((skill, index) => {
+    const topRows = allRows.filter(isTopLevelRow);
+    const lastRow = topRows[topRows.length - 1];
+    const lastRowEmpty = lastRow && !isRowFilled(lastRow);
+    let usedLastRow = false;
+
+    skills.forEach((skill) => {
       if (!skill || !skill.name) return;
 
+      const resolved = findSkillByName(skill.name);
+      const key = resolved?.circleBaseName ? normalize(resolved.circleBaseName) : normalize(skill.name);
+      const existingRow = existingByKey.get(key);
+
+      if (existingRow) {
+        // Skill already exists — preserve non-zero hints when OCR falls back to 0.
+        if (typeof skill.hint === 'number' && skill.hint >= 0 && skill.hint <= 5) {
+          const hintEl = existingRow.querySelector('.hint-level');
+          if (hintEl) {
+            const currentHint = parseInt(hintEl.value || '0', 10) || 0;
+            const incomingHint = skill.hint;
+            const shouldApplyHint = incomingHint > 0 || currentHint <= 0;
+            if (shouldApplyHint && incomingHint !== currentHint) {
+              hintEl.value = incomingHint;
+              hintEl.dispatchEvent(new Event('change'));
+            }
+          }
+        }
+        return; // Don't add a duplicate row
+      }
+
       let targetRow = null;
-      if (index === 0 && lastRowEmpty) {
+      if (!usedLastRow && lastRowEmpty) {
         targetRow = lastRow;
+        usedLastRow = true;
       } else {
         targetRow = makeRow();
         rowsEl.appendChild(targetRow);
@@ -3182,6 +3738,22 @@
 
       if (typeof targetRow.syncSkillCategory === 'function') {
         targetRow.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
+      }
+
+      // Track the newly added row so subsequent OCR scans don't re-add it
+      existingByKey.set(key, targetRow);
+
+      // Also track any auto-linked rows (gold→lower, circle→◎) that syncSkillCategory created,
+      // so later OCR skills don't re-add them as duplicates
+      for (const linkedId of [targetRow.dataset.lowerRowId, targetRow.dataset.circleRowId]) {
+        if (!linkedId) continue;
+        const linkedRow = rowsEl.querySelector(`.optimizer-row[data-row-id="${linkedId}"]`);
+        if (!linkedRow) continue;
+        const linkedName = (linkedRow.querySelector('.skill-name')?.value || '').trim();
+        if (!linkedName) continue;
+        const linkedSkill = findSkillByName(linkedName);
+        const linkedKey = linkedSkill?.circleBaseName ? normalize(linkedSkill.circleBaseName) : normalize(linkedName);
+        if (!existingByKey.has(linkedKey)) existingByKey.set(linkedKey, linkedRow);
       }
     });
 

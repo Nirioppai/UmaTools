@@ -9,7 +9,7 @@ const MAX_MS_PER_SCAN = 60;
 
 const OCR_OPTS = { lang: "eng", psm: 6 }; // 6 = block of text (ribbon often has 2 lines)
 const TRIGGER_COOLDOWN_MS = 1500;
-const TESSERACT_SRC = "https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js";
+const TESSERACT_SRC = "https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js";
 const MAX_OCR_WORKERS = 3; // Max workers for skill OCR pool
 
 const captureBtn   = document.getElementById("captureBtn");
@@ -29,6 +29,8 @@ let captureTimer = null;
 let lastTriggerTs = 0;
 let tesseractReady = null;
 let ocrScheduler = null; // Tesseract worker pool scheduler
+let skillOCRWorker = null;
+let skillOCRWorkerInit = null;
 
 const canvas = document.createElement("canvas");
 const ctx    = canvas.getContext("2d", { willReadFrequently: true });
@@ -190,6 +192,33 @@ async function ensureTesseract() {
   return tesseractReady;
 }
 
+async function getSkillOCRWorker() {
+  if (skillOCRWorker) return skillOCRWorker;
+  if (!skillOCRWorkerInit) {
+    skillOCRWorkerInit = (async () => {
+      const Tess = await ensureTesseract();
+      skillOCRWorker = await Tess.createWorker('eng');
+      return skillOCRWorker;
+    })().catch(err => {
+      skillOCRWorkerInit = null;
+      throw err;
+    });
+  }
+  return skillOCRWorkerInit;
+}
+
+async function resetSkillOCRWorker() {
+  if (skillOCRWorker) {
+    try {
+      await skillOCRWorker.terminate();
+    } catch (err) {
+      console.warn('[ocr] Failed to terminate OCR worker:', err);
+    }
+  }
+  skillOCRWorker = null;
+  skillOCRWorkerInit = null;
+}
+
 async function createScheduler() {
   if (ocrScheduler) return ocrScheduler;
 
@@ -250,28 +279,49 @@ function cleanTitle(raw) {
 
 
 function extractHintLevel(text) {
+  // Delegate to OCRMatcher if available (single source of truth)
+  if (window.OCRMatcher) return window.OCRMatcher.extractHintLevel(text);
+
   if (!text || typeof text !== "string") return null;
 
-  // Match "Hint Lvl 2", "Hint Lv 2", "HintLv.2", "Hint Lvl2", etc.
-  const m = text.match(/[Hh]int\s*[Ll][vV][lL]?\s*\.?\s*(\d)/);
+  const m = text.match(/[Hh]int\s*[Ll][vVyY][lL]?\s*\.?\s*(\d)/);
   if (m) {
     const h = parseInt(m[1], 10);
     if (h >= 1 && h <= 5) return h;
   }
 
-  // Match "X0% OFF" discount pattern (10%=Lv1, 20%=Lv2, 30%=Lv3, etc.)
-  // Also handles OCR garbles like "10% ot", "20% Of", "10% oft"
-  const m2 = text.match(/(\d)0%\s*[Oo]/i);
+  const mGarbled = text.match(/[Hh][il1][nm][t7]\s*.{0,3}?\s*(\d)/);
+  if (mGarbled) {
+    const h = parseInt(mGarbled[1], 10);
+    if (h >= 1 && h <= 5) return h;
+  }
+
+  const mGarbled2 = text.match(/[Hh](?:in|[il1]n|n)[t7]?\s*.{0,3}?\s*(\d)/);
+  if (mGarbled2) {
+    const h = parseInt(mGarbled2[1], 10);
+    if (h >= 1 && h <= 5) return h;
+  }
+
+  const m2 = text.match(/(\d)[0oO]%\s*[Oo0]/i);
   if (m2) {
     const h = parseInt(m2[1], 10);
     if (h >= 1 && h <= 5) return h;
   }
 
-  // Standalone "Lvl X" or "Lv X" or "Lv.X"
-  const m3 = text.match(/[Ll][vV][lL]?\s*\.?\s*([1-5])\b/);
+  const m2b = text.match(/(\d)[0oO]\s*%/);
+  if (m2b) {
+    const h = parseInt(m2b[1], 10);
+    if (h >= 1 && h <= 5) return h;
+  }
+
+  const m3 = text.match(/[Ll][vVyY][lL]?\s*\.?\s*([1-5])\b/);
   if (m3) {
     const h = parseInt(m3[1], 10);
     if (h >= 1 && h <= 5) return h;
+  }
+
+  if (/[Oo]btain|[Bb]ought/i.test(text)) {
+    return 0;
   }
 
   return null;
@@ -493,81 +543,144 @@ async function stopCapture() {
   }
 }
 
+// ─── Skill Database + Matcher Integration ──────────────────────
+// Uses OCRMatcher (ocr-matcher.js) for advanced fuzzy matching
+// and OCRPreprocess (ocr-preprocess.js) for image preprocessing.
+
 let skillDatabase = null;
 let skillNameIndex = new Map();
+let matcherReady = false;
+let preprocessingEnabled = false;
+let skillCostIndexExact = new Map();
+let skillCostIndexNormalized = new Map();
+let skillCostIndexReady = null;
+
 
 function normalize(str) {
   return (str || '').toString().trim().toLowerCase();
 }
 
-function levenshteinDistance(a, b) {
-  if (!a || !b) return Math.max(a?.length || 0, b?.length || 0);
-
-  const alen = a.length;
-  const blen = b.length;
-
-  if (alen === 0) return blen;
-  if (blen === 0) return alen;
-
-  const dp = Array(alen + 1).fill(null).map(() => Array(blen + 1).fill(0));
-
-  for (let i = 0; i <= alen; i++) dp[i][0] = i;
-  for (let j = 0; j <= blen; j++) dp[0][j] = j;
-
-  for (let i = 1; i <= alen; i++) {
-    for (let j = 1; j <= blen; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      dp[i][j] = Math.min(
-        dp[i - 1][j] + 1,
-        dp[i][j - 1] + 1,
-        dp[i - 1][j - 1] + cost
-      );
-    }
-  }
-
-  return dp[alen][blen];
+function normalizeCostKey(str) {
+  return (str || '')
+    .toString()
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '');
 }
 
-function fuzzyMatchSkill(ocrText, maxDistance = 2) {
-  if (!ocrText || !skillDatabase || skillNameIndex.size === 0) {
+async function loadSkillCostIndex() {
+  if (skillCostIndexReady) return skillCostIndexReady;
+
+  skillCostIndexReady = (async () => {
+    const candidates = ['/assets/skills_all.json', './assets/skills_all.json'];
+
+    for (const url of candidates) {
+      try {
+        const res = await fetch(url, { cache: 'force-cache' });
+        if (!res.ok) continue;
+        const list = await res.json();
+        if (!Array.isArray(list) || !list.length) continue;
+
+        skillCostIndexExact.clear();
+        skillCostIndexNormalized.clear();
+
+        for (const entry of list) {
+          const name = (entry?.name_en || entry?.enname || '').trim();
+          if (!name) continue;
+
+          let cost = null;
+          if (entry?.gene_version && typeof entry.gene_version.cost === 'number') {
+            cost = entry.gene_version.cost;
+          } else if (typeof entry?.cost === 'number') {
+            cost = entry.cost;
+          }
+
+          const meta = { cost: Number.isFinite(cost) ? cost : null };
+          const exactKey = normalize(name);
+          const normKey = normalizeCostKey(name);
+
+          if (!skillCostIndexExact.has(exactKey)) {
+            skillCostIndexExact.set(exactKey, meta);
+          }
+          if (!skillCostIndexNormalized.has(normKey)) {
+            skillCostIndexNormalized.set(normKey, meta);
+          }
+        }
+
+        return true;
+      } catch (err) {
+        console.warn('[ocr] Failed loading skill costs', url, err);
+      }
+    }
+
+    return false;
+  })().catch(err => {
+    skillCostIndexReady = null;
+    throw err;
+  });
+
+  return skillCostIndexReady;
+}
+
+function lookupSkillCost(name) {
+  const exactKey = normalize(name);
+  const normKey = normalizeCostKey(name);
+  const meta = skillCostIndexExact.get(exactKey) || skillCostIndexNormalized.get(normKey) || null;
+  return meta && Number.isFinite(meta.cost) ? meta.cost : null;
+}
+
+// Legacy levenshtein kept for correction datalist (uses OCRMatcher internally when available)
+function levenshteinDistance(a, b) {
+  if (window.OCRMatcher) return window.OCRMatcher.levenshtein(a, b);
+  if (!a || !b) return Math.max(a?.length || 0, b?.length || 0);
+  const m = a.length, n = b.length;
+  if (m === 0) return n;
+  if (n === 0) return m;
+  let prev = Array.from({ length: n + 1 }, (_, j) => j);
+  let curr = new Array(n + 1);
+  for (let i = 1; i <= m; i++) {
+    curr[0] = i;
+    for (let j = 1; j <= n; j++) {
+      curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    }
+    [prev, curr] = [curr, prev];
+  }
+  return prev[n];
+}
+
+// Legacy wrapper — used by old code paths and correction datalist
+function fuzzyMatchSkill(ocrText, maxDistance) {
+  if (window.OCRMatcher && matcherReady) {
+    const result = window.OCRMatcher.matchSkill(ocrText);
+    if (result && result.match) {
+      return {
+        skill: { name: result.match.name, type: result.match.type },
+        confidence: result.confidence,
+        distance: result.detail ? result.detail.editDist : 0,
+        suggestions: result.suggestions || [],
+      };
+    }
     return null;
   }
 
+  // Fallback: basic levenshtein matching
+  if (!ocrText || !skillDatabase || skillNameIndex.size === 0) return null;
   const queryNorm = normalize(ocrText);
-
-  // Reject queries with fewer than 3 alphabetic characters
   const alphaCount = (queryNorm.match(/[a-z]/g) || []).length;
   if (alphaCount < 3) return null;
-
   if (skillNameIndex.has(queryNorm)) {
-    return {
-      skill: skillNameIndex.get(queryNorm),
-      confidence: 1.0,
-      distance: 0
-    };
+    return { skill: skillNameIndex.get(queryNorm), confidence: 1.0, distance: 0 };
   }
-
-  let bestMatch = null;
-  let bestDistance = maxDistance + 1;
-
+  const md = maxDistance || 2;
+  let bestMatch = null, bestDist = md + 1;
   for (const [normName, skill] of skillNameIndex) {
-    // Scale allowed distance by the shorter string's length to prevent
-    // short garbage text from matching real skills (e.g. "15" → "Focus")
     const shorter = Math.min(queryNorm.length, normName.length);
-    const effectiveMax = Math.min(maxDistance, Math.max(1, Math.floor(shorter * 0.3)));
-
+    const effectiveMax = Math.min(md, Math.max(1, Math.floor(shorter * 0.3)));
     const dist = levenshteinDistance(queryNorm, normName);
-
-    if (dist <= effectiveMax && dist < bestDistance) {
-      bestDistance = dist;
-      bestMatch = {
-        skill,
-        distance: dist,
-        confidence: 1.0 - (dist / (Math.max(queryNorm.length, normName.length) + 1))
-      };
+    if (dist <= effectiveMax && dist < bestDist) {
+      bestDist = dist;
+      bestMatch = { skill, distance: dist, confidence: 1.0 - (dist / (Math.max(queryNorm.length, normName.length) + 1)) };
     }
   }
-
   return bestMatch;
 }
 
@@ -576,6 +689,13 @@ async function loadSkillDatabase() {
 
   const candidates = ['/assets/uma_skills.csv', './assets/uma_skills.csv'];
   let lastErr = null;
+
+  // Best-effort: load base costs for hint inference.
+  try {
+    await loadSkillCostIndex();
+  } catch (err) {
+    console.warn('[ocr] Skill cost index unavailable, hint cost inference disabled:', err);
+  }
 
   for (const url of candidates) {
     try {
@@ -598,20 +718,27 @@ async function loadSkillDatabase() {
         const cols = lines[i].split(',');
         const name = (cols[nameIdx] || '').trim();
         if (!name) continue;
-        // Skip entries that are too short or lack alphabetic characters (CSV artifacts)
         if (name.length < 3 || !/[a-zA-Z]{2,}/.test(name)) continue;
 
         const type = typeIdx !== -1 ? (cols[typeIdx] || '').trim().toLowerCase() : '';
-        const skill = { name, type };
+        const skill = { name, type, cost: lookupSkillCost(name) };
         skills.push(skill);
 
         const normName = normalize(name);
         if (!skillNameIndex.has(normName)) {
-          skillNameIndex.set(normName, { name, type });
+          skillNameIndex.set(normName, { name, type, cost: skill.cost });
         }
       }
 
       skillDatabase = skills;
+
+      // Build OCRMatcher dictionary if available
+      if (window.OCRMatcher) {
+        window.OCRMatcher.buildSkillDictionary(skills);
+        matcherReady = true;
+        console.log(`[ocr] Matcher dictionary built: ${skills.length} skills`);
+      }
+
       return skillDatabase;
     } catch (err) {
       lastErr = err;
@@ -622,47 +749,20 @@ async function loadSkillDatabase() {
   return null;
 }
 
-function testFuzzyMatching() {
-  const testCases = [
-    { input: 'Concentration', expected: 'Concentration' },
-    { input: 'Concetration', expected: 'Concentration' },
-    { input: 'Consentration', expected: 'Concentration' },
-    { input: 'Stealth Mode', expected: 'Stealth Mode' },
-    { input: 'Stelth Mode', expected: 'Stealth Mode' }
-  ];
-
-  const results = [];
-  for (const test of testCases) {
-    const match = fuzzyMatchSkill(test.input, 2);
-    results.push({
-      input: test.input,
-      expected: test.expected,
-      matched: match?.skill?.name || null,
-      confidence: match?.confidence || 0,
-      distance: match?.distance !== undefined ? match.distance : null,
-      success: match && normalize(match.skill.name) === normalize(test.expected)
-    });
-  }
-  return results;
-}
-
 if (typeof window !== 'undefined') {
   window.fuzzyMatchSkill = fuzzyMatchSkill;
   window.loadSkillDatabase = loadSkillDatabase;
-  window.testFuzzyMatching = testFuzzyMatching;
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      loadSkillDatabase().then(() => {
-      }).catch(err => {
-        console.error('[ocr] Failed to initialize skill database:', err);
-      });
-    });
-  } else {
-    loadSkillDatabase().then(() => {
-    }).catch(err => {
+  const initDB = () => {
+    loadSkillDatabase().catch(err => {
       console.error('[ocr] Failed to initialize skill database:', err);
     });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDB);
+  } else {
+    initDB();
   }
 }
 
@@ -724,7 +824,6 @@ if (videoEl) {
       if (!blob) return;
       try {
         await processSkillOCR(blob);
-        stopScreenCapture();
       } catch (err) {
         console.error('[ocr] Skill OCR from screen capture failed:', err);
         alert('Failed to process captured frame. Please try again.');
@@ -732,6 +831,267 @@ if (videoEl) {
     }, 'image/png');
   });
 }
+
+// ─── Enhanced Skill OCR Pipeline ────────────────────────────────
+// Uses OCRPreprocess for image enhancement and OCRMatcher for
+// advanced fuzzy matching with confidence scoring and suggestions.
+
+const MAX_SKILL_RESULTS = 5; // At most ~4-5 skills visible on screen at a time
+
+function normalizeSkillNameKey(name) {
+  if (window.OCRMatcher && typeof window.OCRMatcher.normalizeForMatch === 'function') {
+    return window.OCRMatcher.normalizeForMatch(name || '');
+  }
+  return normalize(name || '');
+}
+
+function hasStrongNameEvidence(skillName, text) {
+  if (!skillName || !text) return false;
+  if (!window.OCRMatcher || typeof window.OCRMatcher.normalizeForMatch !== 'function') {
+    return true;
+  }
+
+  const nameNorm = window.OCRMatcher.normalizeForMatch(skillName);
+  const textNorm = window.OCRMatcher.normalizeForMatch(text);
+  if (!nameNorm || !textNorm) return false;
+
+  if (textNorm.includes(nameNorm)) return true;
+
+  const nameTokens = nameNorm.split(/\s+/).filter(t => t.length >= 4);
+  if (nameTokens.length === 0) return false;
+
+  let tokenHits = 0;
+  for (const token of nameTokens) {
+    if (textNorm.includes(token)) tokenHits++;
+  }
+
+  if (nameTokens.length === 1) return tokenHits >= 1;
+  return tokenHits >= Math.min(2, nameTokens.length);
+}
+
+function mergeDetectedSkillLists(primary, supplemental) {
+  const merged = Array.isArray(primary) ? primary.slice() : [];
+  const byName = new Map();
+
+  for (let i = 0; i < merged.length; i++) {
+    byName.set(normalizeSkillNameKey(merged[i].name), i);
+  }
+
+  for (const extra of supplemental || []) {
+    const key = normalizeSkillNameKey(extra.name);
+    if (!key) continue;
+
+    if (!byName.has(key)) {
+      byName.set(key, merged.length);
+      merged.push(extra);
+      continue;
+    }
+
+    const idx = byName.get(key);
+    const cur = merged[idx];
+
+    // Keep stronger confidence and preserve non-zero hint if fallback found one.
+    const curConf = typeof cur.confidence === 'number' ? cur.confidence : 0;
+    const extraConf = typeof extra.confidence === 'number' ? extra.confidence : 0;
+    if (extraConf > curConf) {
+      merged[idx] = { ...cur, ...extra };
+    } else if ((cur.hint || 0) === 0 && (extra.hint || 0) > 0) {
+      merged[idx] = { ...cur, hint: extra.hint };
+    }
+  }
+
+  return merged;
+}
+
+function createStripCanvas(sourceCanvas, region) {
+  if (!sourceCanvas || !region) return null;
+
+  const x = Math.max(0, Math.min(1, region.x || 0));
+  const y = Math.max(0, Math.min(1, region.y || 0));
+  const w = Math.max(0.01, Math.min(1 - x, region.w || 1));
+  const h = Math.max(0.01, Math.min(1 - y, region.h || 1));
+
+  const sx = Math.round(sourceCanvas.width * x);
+  const sy = Math.round(sourceCanvas.height * y);
+  const sw = Math.max(1, Math.round(sourceCanvas.width * w));
+  const sh = Math.max(1, Math.round(sourceCanvas.height * h));
+
+  const out = document.createElement('canvas');
+  out.width = sw;
+  out.height = sh;
+  const octx = out.getContext('2d', { willReadFrequently: true });
+  octx.drawImage(sourceCanvas, sx, sy, sw, sh, 0, 0, sw, sh);
+  return out;
+}
+
+async function recognizeCanvas(worker, canvas, psmMode) {
+  if (!worker || !canvas) return { text: '', confidence: 0 };
+
+  if (typeof psmMode === 'number') {
+    await worker.setParameters({
+      tessedit_pageseg_mode: psmMode,
+    });
+  }
+
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  if (!blob) return { text: '', confidence: 0 };
+
+  const url = URL.createObjectURL(blob);
+  try {
+    const result = await worker.recognize(url);
+    return {
+      text: (result?.data?.text || '').trim(),
+      confidence: result?.data?.confidence || 0,
+    };
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+async function collectFallbackSkillsFromStrips(worker, cropCanvas) {
+  const Preprocess = window.OCRPreprocess;
+  if (!worker || !cropCanvas || !Preprocess) return [];
+
+  const stripConfigs = [
+    // Top strip catches missed first card names (e.g., obtained/rare cards).
+    { label: 'top', region: { x: 0, y: 0.0, w: 1, h: 0.40 }, preprocess: true, psm: 6 },
+    // Mid strip catches names that were skipped in full-block OCR.
+    { label: 'mid', region: { x: 0, y: 0.28, w: 1, h: 0.45 }, preprocess: false, psm: 6 },
+    // Bottom strip catches final card names near confirm/reset buttons.
+    { label: 'bottom', region: { x: 0, y: 0.58, w: 1, h: 0.42 }, preprocess: true, psm: 6 },
+  ];
+
+  const fallbackMatches = [];
+
+  for (const cfg of stripConfigs) {
+    const stripCanvas = createStripCanvas(cropCanvas, cfg.region);
+    if (!stripCanvas || stripCanvas.width < 80 || stripCanvas.height < 30) continue;
+
+    let ocrCanvas = stripCanvas;
+    if (cfg.preprocess) {
+      const prep = Preprocess.preprocessImage(stripCanvas, {
+        targetScale: 2,
+        enableCLAHE: true,
+        enableDenoise: true,
+        enableThreshold: true,
+        thresholdBlockSize: 15,
+        thresholdC: 9,
+        enableMorphClose: true,
+        morphCloseRadius: 1,
+        enableSharpen: false,
+      });
+      if (prep && prep.primary) ocrCanvas = prep.primary;
+    }
+
+    const { text, confidence } = await recognizeCanvas(worker, ocrCanvas, cfg.psm);
+    if (!text || text.length < 3) continue;
+
+    const parsed = parseSkillsEnhanced(text, confidence);
+    for (const candidate of parsed) {
+      const evidenceText = `${candidate.rawText || ''}\n${text}`;
+      if (!hasStrongNameEvidence(candidate.name, evidenceText)) continue;
+      fallbackMatches.push({
+        ...candidate,
+        source: `${candidate.source || 'fuzzy'}+strip_${cfg.label}`,
+      });
+    }
+  }
+
+  return fallbackMatches;
+}
+
+// Core OCR pipeline — returns detected skills without touching the DOM.
+// Used by both processSkillOCR (UI) and automated tests.
+//
+// Strategy: OCR the entire cropped skill region as one block, then use
+// parseOCRText (line-by-line matching with description filtering) to
+// extract skill names. Card segmentation is kept only for debug overlay.
+async function ocrPipelineCore(imageBlob) {
+  await loadSkillDatabase();
+
+  const Tess = await ensureTesseract();
+  const worker = await getSkillOCRWorker();
+  const Preprocess = window.OCRPreprocess;
+
+  try {
+    await worker.setParameters({
+      tessedit_pageseg_mode: Tess.PSM ? Tess.PSM.AUTO : '3',
+      tessedit_char_whitelist: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 '-+%.",
+      preserve_interword_spaces: '1',
+    });
+
+    // Step 1: Crop to skill region
+    let sourceCanvas = null;
+    let cropInfo = null;
+    if (Preprocess) {
+      sourceCanvas = await Preprocess.blobToCanvas(imageBlob);
+      cropInfo = Preprocess.cropSkillRegion(sourceCanvas);
+      console.log(`[ocr] Layout: ${cropInfo.layout} | Crop: x=${cropInfo.region.x} y=${cropInfo.region.y} w=${cropInfo.region.w} h=${cropInfo.region.h}`);
+    }
+
+    // Step 2: OCR the full cropped region as one block
+    const ocrBlob = (cropInfo && Preprocess)
+      ? await Preprocess.canvasToBlob(cropInfo.canvas)
+      : imageBlob;
+
+    const ocrResults = await runOCRWithPreprocessing(worker, ocrBlob);
+    const bestResult = selectBestOCRResult(ocrResults);
+    const rawOCRText = bestResult.text;
+    console.log('[ocr] Best variant:', bestResult.variant, '| text:', rawOCRText.substring(0, 300));
+
+    // Step 3: Parse skill names from the OCR text using line-by-line matching
+    let detectedSkills = parseSkillsEnhanced(rawOCRText, bestResult.ocrConfidence);
+
+    // Step 3b: Fallback OCR on focused strips when primary OCR found too few skills.
+    // This recovers names that block OCR often skips (top/bottom obtained or rare cards).
+    if (Preprocess && cropInfo && detectedSkills.length <= 2) {
+      try {
+        const recovered = await collectFallbackSkillsFromStrips(worker, cropInfo.canvas);
+        if (recovered.length > 0) {
+          const before = detectedSkills.length;
+          detectedSkills = mergeDetectedSkillLists(detectedSkills, recovered);
+          const added = detectedSkills.length - before;
+          if (added > 0) {
+            console.log(`[ocr] Fallback strip OCR recovered ${added} additional skill(s)`);
+          }
+        }
+      } catch (err) {
+        console.warn('[ocr] Strip fallback OCR failed:', err);
+      }
+    }
+
+    if (detectedSkills.length > MAX_SKILL_RESULTS) {
+      detectedSkills.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
+      detectedSkills = detectedSkills.slice(0, MAX_SKILL_RESULTS);
+    }
+
+    // Step 4: Card segmentation (debug overlay only)
+    let cards = [];
+    let cardRegions = [];
+    let debugCardTexts = [];
+    if (Preprocess && cropInfo && window._ocrDebugMode) {
+      cards = Preprocess.segmentSkillCards(cropInfo.canvas);
+      console.log(`[ocr] Debug: ${cards.length} card regions detected`);
+    }
+
+    return {
+      detectedSkills,
+      cards,
+      cardRegions,
+      debugCardTexts,
+      cropInfo,
+      sourceCanvas,
+      rawOCRText,
+    };
+  } catch (err) {
+    // If the persistent worker got into a bad state, reset it for next run.
+    await resetSkillOCRWorker();
+    throw err;
+  }
+}
+
+// Expose for automated tests
+window.ocrPipelineCore = ocrPipelineCore;
 
 async function processSkillOCR(imageBlob) {
   const resultsPanel = document.getElementById('ocr-results-panel');
@@ -746,32 +1106,34 @@ async function processSkillOCR(imageBlob) {
   resultsPanel.style.display = 'block';
 
   try {
-    await loadSkillDatabase();
+    const result = await ocrPipelineCore(imageBlob);
+    const { detectedSkills, cards, cardRegions, debugCardTexts, cropInfo, sourceCanvas } = result;
+    const Preprocess = window.OCRPreprocess;
 
-    const Tess = await ensureTesseract();
-    const worker = await Tess.createWorker('eng');
-
-    try {
-      await worker.setParameters({
-        tessedit_pageseg_mode: Tess.PSM.AUTO
-      });
-
-      const url = URL.createObjectURL(imageBlob);
-
-      try {
-        const result = await worker.recognize(url);
-        const ocrText = result.data.text || '';
-        console.log('[ocr] Raw OCR text:', ocrText);
-
-        const detectedSkills = parseSkillsFromOCR(ocrText);
-        displayOCRResults(detectedSkills);
-        window.ocrDetectedSkills = detectedSkills;
-      } finally {
-        URL.revokeObjectURL(url);
-      }
-    } finally {
-      await worker.terminate();
+    // Store debug info
+    if (window._ocrDebugMode) {
+      window._ocrDebugInfo = {
+        cards,
+        cardRegions,
+        debugCardTexts,
+        detectedSkills,
+        cropInfo,
+        sourceCanvas,
+        timestamp: Date.now(),
+      };
     }
+
+    // Show debug overlay with card segmentation
+    if (window._ocrDebugMode && sourceCanvas && cropInfo && Preprocess) {
+      if (cards.length > 0) {
+        displaySegmentedDebugOverlay(sourceCanvas, cropInfo, cards, debugCardTexts);
+      } else {
+        displayDebugOverlay(sourceCanvas, cropInfo, { variant: 'fallback', ocrConfidence: 0, text: '' });
+      }
+    }
+
+    displayOCRResults(detectedSkills);
+    window.ocrDetectedSkills = detectedSkills;
   } catch (err) {
     console.error('[ocr] Skill OCR error:', err);
     resultsList.innerHTML = '<div class="error-message">Failed to process image. Please try again.</div>';
@@ -779,108 +1141,128 @@ async function processSkillOCR(imageBlob) {
   }
 }
 
-// Clean line treating pipes as letter "I" (for names like "I Can See Right Through You")
-function cleanLinePipesAsI(text) {
-  return text
-    .replace(/[\u2018\u2019\u2032]/g, "'")
-    .replace(/[\u201C\u201D\u2033]/g, '"')
-    .replace(/[\u2013\u2014]/g, "-")
-    .replace(/\u00A0/g, " ")
-    .replace(/\s*\|\s*/g, " I ")
-    .replace(/[\[\]©@*#]+/g, '')
-    .replace(/\s{2,}/g, " ")
-    .replace(/^[^A-Za-z0-9]+/, "")
-    .trim();
-}
+async function runOCRWithPreprocessing(worker, croppedBlob) {
+  const results = [];
+  const Preprocess = window.OCRPreprocess;
 
-// Clean line stripping pipes entirely (for "Iron Wil | Te | |" → "Iron Wil Te")
-function cleanLineStripNoise(text) {
-  return text
-    .replace(/[\u2018\u2019\u2032]/g, "'")
-    .replace(/[\u201C\u201D\u2033]/g, '"')
-    .replace(/[\u2013\u2014]/g, "-")
-    .replace(/\u00A0/g, " ")
-    .replace(/[|[\]©@*#]+/g, '')
-    .replace(/\s{2,}/g, " ")
-    .replace(/^[^A-Za-z0-9]+/, "")
-    .trim();
-}
-
-function _tryMatchCleaned(cleaned) {
-  if (cleaned.length < 3) return null;
-
-  // Try full line
-  let match = fuzzyMatchSkill(cleaned, 2);
-  if (match) return match;
-
-  // Strip trailing numbers (costs like "160 +")
-  let stripped = cleaned.replace(/\s+\d{1,3}\s*[\+]?\s*$/, '').trim();
-  if (stripped.length >= 3 && stripped !== cleaned) {
-    match = fuzzyMatchSkill(stripped, 2);
-    if (match) return match;
+  // Always run the cropped image first (baseline)
+  const origUrl = URL.createObjectURL(croppedBlob);
+  try {
+    const origResult = await worker.recognize(origUrl);
+    const origText = (origResult?.data?.text || '').trim();
+    const origConf = origResult?.data?.confidence || 0;
+    results.push({
+      variant: 'original',
+      text: origText,
+      ocrConfidence: origConf,
+      skillCount: countPotentialSkillLines(origText),
+    });
+  } finally {
+    URL.revokeObjectURL(origUrl);
   }
 
-  // Strip hint/discount/badge text then trailing numbers
-  stripped = cleaned
-    .replace(/[Hh]int\s*[Ll][vV]\.?\s*\d/g, '')
-    .replace(/\d+%\s*[Oo][Ff][Ff]/gi, '')
-    .replace(/\s+\d{1,3}\s*[\+]?\s*$/, '')
-    .replace(/\s{2,}/g, ' ')
-    .trim();
-  if (stripped.length >= 3 && stripped !== cleaned) {
-    match = fuzzyMatchSkill(stripped, 2);
-    if (match) return match;
+  // If preprocessing is disabled or module not loaded, return baseline
+  if (!preprocessingEnabled || !Preprocess) {
+    return results;
   }
 
-  // Try progressively shorter word prefixes (handles trailing badge garbage)
-  const words = cleaned.split(/\s+/);
-  for (let n = Math.min(words.length - 1, 7); n >= 1; n--) {
-    const prefix = words.slice(0, n).join(' ');
-    if (prefix.length >= 3) {
-      match = fuzzyMatchSkill(prefix, 2);
-      if (match) return match;
+  try {
+    const sourceCanvas = await Preprocess.blobToCanvas(croppedBlob);
+    const variants = Preprocess.preprocessMultiVariant(sourceCanvas, {
+      generateDebug: !!window._ocrDebugMode,
+    });
+
+    for (const variant of variants) {
+      try {
+        const blob = await Preprocess.canvasToBlob(variant.primary);
+        const url = URL.createObjectURL(blob);
+        try {
+          const result = await worker.recognize(url);
+          const text = (result?.data?.text || '').trim();
+          const conf = result?.data?.confidence || 0;
+          results.push({
+            variant: variant.label,
+            text,
+            ocrConfidence: conf,
+            skillCount: countPotentialSkillLines(text),
+            sharpness: variant.sharpness,
+            debugArtifacts: variant.debugArtifacts,
+          });
+        } finally {
+          URL.revokeObjectURL(url);
+        }
+      } catch (err) {
+        console.warn(`[ocr] Variant ${variant.label} failed:`, err);
+      }
+    }
+  } catch (err) {
+    console.warn('[ocr] Preprocessing failed, using original:', err);
+  }
+
+  return results;
+}
+
+function countPotentialSkillLines(text) {
+  if (!text) return 0;
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  let count = 0;
+  for (const line of lines) {
+    const alpha = (line.match(/[a-zA-Z]/g) || []).length;
+    if (alpha >= 3 && line.length >= 4 && line.length <= 60) count++;
+  }
+  return count;
+}
+
+function selectBestOCRResult(results) {
+  if (results.length === 0) {
+    return { variant: 'none', text: '', ocrConfidence: 0 };
+  }
+  if (results.length === 1) return results[0];
+
+  // Score each result: prefer higher OCR confidence and more potential skill lines
+  let best = results[0];
+  let bestScore = -1;
+
+  for (const r of results) {
+    // Composite: skill line count * confidence
+    const score = r.skillCount * 0.6 + (r.ocrConfidence / 100) * 0.4;
+    if (score > bestScore) {
+      bestScore = score;
+      best = r;
     }
   }
 
-  return null;
-}
-
-function tryMatchLine(line) {
-  // Try both cleaning strategies — pipes-as-I first, then strip-noise
-  const pipesAsI = cleanLinePipesAsI(line);
-  const stripped = cleanLineStripNoise(line);
-
-  let best = null;
-  for (const cleaned of [pipesAsI, stripped]) {
-    const match = _tryMatchCleaned(cleaned);
-    if (!match) continue;
-    if (!best || match.confidence > best.confidence) {
-      best = match;
-    }
-    if (best.confidence >= 1.0) return best;
-  }
   return best;
 }
 
-function parseSkillsFromOCR(ocrText) {
+// Parse skills using the new OCRMatcher if available, else fall back to legacy
+function parseSkillsEnhanced(ocrText, ocrEngineConfidence) {
+  if (window.OCRMatcher && matcherReady) {
+    return window.OCRMatcher.parseOCRText(ocrText, {
+      ocrEngineConfidence,
+    });
+  }
+
+  // Legacy fallback
+  return parseSkillsFromOCRLegacy(ocrText);
+}
+
+// Legacy parser kept as fallback
+function parseSkillsFromOCRLegacy(ocrText) {
   const lines = ocrText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
   const detectedSkills = [];
   const seenSkills = new Set();
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const match = tryMatchLine(line);
+    const match = tryMatchLineLegacy(line);
     if (!match || !match.skill) continue;
-
-    // Reject low-confidence matches (< 65%)
     if (match.confidence < 0.65) continue;
 
-    // Avoid duplicate skills
     const normName = normalize(match.skill.name);
     if (seenSkills.has(normName)) continue;
     seenSkills.add(normName);
 
-    // Search for hint: same line ("20% OFF"), 1-2 lines above ("Hint Lvl 2"), then below
     let hint = null;
     hint = extractHintLevel(lines[i]);
     if (hint === null && i > 0) hint = extractHintLevel(lines[i - 1]);
@@ -889,84 +1271,144 @@ function parseSkillsFromOCR(ocrText) {
 
     detectedSkills.push({
       name: match.skill.name,
+      type: match.skill.type || '',
       hint: hint !== null ? hint : 0,
       confidence: match.confidence || 0,
-      rawText: line
+      suggestions: [],
+      rawText: line,
     });
   }
-
   return detectedSkills;
 }
+
+function cleanLinePipesAsI(text) {
+  return text.replace(/[\u2018\u2019\u2032]/g, "'").replace(/[\u201C\u201D\u2033]/g, '"').replace(/[\u2013\u2014]/g, "-").replace(/\u00A0/g, " ").replace(/\s*\|\s*/g, " I ").replace(/[\[\]©@*#]+/g, '').replace(/\s{2,}/g, " ").replace(/^[^A-Za-z0-9]+/, "").trim();
+}
+function cleanLineStripNoise(text) {
+  return text.replace(/[\u2018\u2019\u2032]/g, "'").replace(/[\u201C\u201D\u2033]/g, '"').replace(/[\u2013\u2014]/g, "-").replace(/\u00A0/g, " ").replace(/[|[\]©@*#]+/g, '').replace(/\s{2,}/g, " ").replace(/^[^A-Za-z0-9]+/, "").trim();
+}
+function _tryMatchCleanedLegacy(cleaned) {
+  if (cleaned.length < 3) return null;
+  let match = fuzzyMatchSkill(cleaned, 2);
+  if (match) return match;
+  let stripped = cleaned.replace(/\s+\d{1,3}\s*[+]?\s*$/, '').trim();
+  if (stripped.length >= 3 && stripped !== cleaned) { match = fuzzyMatchSkill(stripped, 2); if (match) return match; }
+  stripped = cleaned.replace(/[Hh]int\s*[Ll][vV]\.?\s*\d/g, '').replace(/\d+%\s*[Oo][Ff][Ff]/gi, '').replace(/\s+\d{1,3}\s*[+]?\s*$/, '').replace(/\s{2,}/g, ' ').trim();
+  if (stripped.length >= 3 && stripped !== cleaned) { match = fuzzyMatchSkill(stripped, 2); if (match) return match; }
+  const words = cleaned.split(/\s+/);
+  for (let n = Math.min(words.length - 1, 7); n >= 1; n--) { const prefix = words.slice(0, n).join(' '); if (prefix.length >= 3) { match = fuzzyMatchSkill(prefix, 2); if (match) return match; } }
+  return null;
+}
+function tryMatchLineLegacy(line) {
+  const pipesAsI = cleanLinePipesAsI(line);
+  const stripped = cleanLineStripNoise(line);
+  let best = null;
+  for (const cleaned of [pipesAsI, stripped]) {
+    const match = _tryMatchCleanedLegacy(cleaned);
+    if (!match) continue;
+    if (!best || match.confidence > best.confidence) best = match;
+    if (best.confidence >= 1.0) return best;
+  }
+  return best;
+}
+
+// ─── Display OCR Results with Confidence + Suggestions ──────────
 
 function displayOCRResults(detectedSkills) {
   const resultsList = document.getElementById('ocr-results-list');
   if (!resultsList) return;
 
+  // Hide debug overlay if not in debug mode
+  if (!window._ocrDebugMode) {
+    const debugContainer = document.getElementById('ocr-debug-overlay');
+    if (debugContainer) debugContainer.style.display = 'none';
+  }
+
   if (detectedSkills.length === 0) {
-    resultsList.innerHTML = '<div class="no-results">No skills detected. Please try a different image or adjust the crop area.</div>';
+    resultsList.innerHTML = '<div class="no-results">No skills detected. Try a different image, adjust the crop, or use Manual Search below.</div>';
     return;
   }
 
-  let html = '';
+  // Snapshot current checkbox states before re-rendering
+  const prevCheckboxes = resultsList.querySelectorAll('.ocr-skill-checkbox');
+  const uncheckedSet = new Set();
+  prevCheckboxes.forEach((cb, i) => { if (!cb.checked) uncheckedSet.add(i); });
+
+  let html = '<div class="ocr-results-hint">Click on a skill to edit its name or hint level</div>';
   detectedSkills.forEach((skill, index) => {
-    const confidencePct = Math.round(skill.confidence * 100);
-    let confidenceClass = 'low';
-    if (confidencePct >= 80) confidenceClass = 'high';
-    else if (confidencePct >= 60) confidenceClass = 'medium';
+    const confidencePct = Math.round((skill.confidence || 0) * 100);
+    const level = window.OCRMatcher
+      ? window.OCRMatcher.getConfidenceLevel(skill.confidence || 0)
+      : (confidencePct >= 85 ? 'high' : confidencePct >= 70 ? 'medium' : 'low');
+    const typeClass = skill.type ? `cat-${skill.type}` : '';
+    const suggestions = skill.suggestions || [];
+    const showSuggestions = level === 'low' && suggestions.length > 0;
+    const isChecked = !uncheckedSet.has(index);
 
     html += `
-      <div class="ocr-result-item" data-skill-index="${index}" style="cursor: pointer;" title="Click to edit this skill">
-        <input type="checkbox" id="ocr-skill-${index}" class="ocr-skill-checkbox" checked>
-        <div class="ocr-skill-info">
-          <div class="ocr-skill-name">${escapeHTML(skill.name)}</div>
-          <div class="ocr-skill-meta">
-            <span class="ocr-hint">Hint Lv ${skill.hint}</span>
+      <div class="ocr-result-item ocr-result-editable ${typeClass}" data-skill-index="${index}" title="Click to edit">
+        <input type="checkbox" id="ocr-skill-${index}" class="ocr-skill-checkbox"${isChecked ? ' checked' : ''}>
+        <div class="ocr-result-info">
+          <div class="ocr-result-name">${escapeHTML(skill.name)}<span class="ocr-edit-icon" aria-hidden="true">&#9998;</span></div>
+          <div class="ocr-result-meta">
+            <span class="ocr-result-hint">Hint Lv ${skill.hint}</span>
+            ${skill.type ? `<span class="ocr-type">${escapeHTML(skill.type)}</span>` : ''}
           </div>
         </div>
-        <div class="confidence-badge confidence-${confidenceClass}">${confidencePct}%</div>
-        <button type="button" class="ocr-flag-btn" data-flag-index="${index}" title="Flag this entry as incorrect">&#9873;</button>
-      </div>
-    `;
+        <div class="ocr-confidence-badge ${level}">${confidencePct}%</div>
+      </div>`;
+
+    // Suggestions row (shown inline below the main item when confidence is low)
+    if (showSuggestions) {
+      html += `
+      <div class="ocr-suggestions" data-skill-index="${index}">
+        <span class="ocr-suggestions-label">Did you mean?</span>
+        <div class="ocr-suggestions-list">`;
+      suggestions.forEach((sug, si) => {
+        html += `<button type="button" class="ocr-suggestion-btn" data-skill-index="${index}" data-suggestion-index="${si}" title="${escapeHTML(sug.type || '')} (${sug.score}% match)">${escapeHTML(sug.name)}<span class="sug-score">${sug.score}%</span></button>`;
+      });
+      html += `
+        </div>
+      </div>`;
+    }
   });
 
   resultsList.innerHTML = html;
 
-  const skillItems = resultsList.querySelectorAll('.ocr-result-item');
-  skillItems.forEach((item) => {
-    item.addEventListener('click', function(e) {
-      if (e.target.classList.contains('ocr-skill-checkbox') ||
-          e.target.classList.contains('ocr-flag-btn')) {
-        return;
-      }
-      const index = parseInt(this.getAttribute('data-skill-index'), 10);
-      if (!isNaN(index)) {
-        openCorrectionModal(index);
-      }
+  // Click-to-edit on result items
+  resultsList.querySelectorAll('.ocr-result-item').forEach(item => {
+    item.addEventListener('click', function (e) {
+      if (e.target.classList.contains('ocr-skill-checkbox')) return;
+      const idx = parseInt(this.dataset.skillIndex, 10);
+      if (!isNaN(idx)) openCorrectionModal(idx);
     });
   });
 
-  // Flag buttons — save flagged entries to localStorage for manual review
-  resultsList.querySelectorAll('.ocr-flag-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
+  // Suggestion buttons — one-click replace
+  resultsList.querySelectorAll('.ocr-suggestion-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
       e.stopPropagation();
-      const idx = parseInt(this.dataset.flagIndex, 10);
-      const skill = detectedSkills[idx];
-      if (!skill) return;
+      const skillIdx = parseInt(this.dataset.skillIndex, 10);
+      const sugIdx = parseInt(this.dataset.suggestionIndex, 10);
+      const skill = window.ocrDetectedSkills?.[skillIdx];
+      const sug = skill?.suggestions?.[sugIdx];
+      if (!skill || !sug) return;
 
-      const flags = JSON.parse(localStorage.getItem('ocr-flagged-entries') || '[]');
-      flags.push({
-        name: skill.name,
-        rawText: skill.rawText,
-        confidence: skill.confidence,
-        hint: skill.hint,
-        timestamp: new Date().toISOString()
-      });
-      localStorage.setItem('ocr-flagged-entries', JSON.stringify(flags));
+      // Cache the correction so OCR doesn't re-detect wrong name
+      if (window.OCRMatcher && skill.rawText) {
+        window.OCRMatcher.addCorrection(skill.rawText, sug.name);
+      }
 
-      this.textContent = '\u2713';
-      this.disabled = true;
-      this.title = 'Flagged for review';
-      console.log('[ocr] Flagged entry:', skill.name, '| raw:', skill.rawText);
+      // Replace skill data
+      window.ocrDetectedSkills[skillIdx] = {
+        ...skill,
+        name: sug.name,
+        type: sug.type || skill.type,
+        confidence: Math.min(1, (sug.score || 80) / 100 + 0.15),
+        suggestions: [],
+      };
+
+      displayOCRResults(window.ocrDetectedSkills);
     });
   });
 }
@@ -1082,6 +1524,7 @@ if (ocrResultsCloseBtn) {
 }
 
 // Manual correction modal handling
+const correctionBackdrop = document.getElementById('skill-correction-backdrop');
 const correctionModal = document.getElementById('skill-correction-modal');
 const correctionModalClose = document.getElementById('correction-modal-close');
 const correctionModalCancel = document.getElementById('correction-modal-cancel');
@@ -1161,16 +1604,16 @@ function openCorrectionModal(index) {
     updateCorrectionDatalist(skill.name || '');
   }
   if (correctionSkillCost) correctionSkillCost.value = skill.cost !== null ? skill.cost : '';
-  if (correctionSkillHint) correctionSkillHint.value = skill.hint !== null ? skill.hint : '';
+  if (correctionSkillHint) correctionSkillHint.value = skill.hint !== null && skill.hint !== undefined ? String(skill.hint) : '0';
 
-  if (correctionModal) {
-    correctionModal.style.display = 'block';
+  if (correctionBackdrop) {
+    correctionBackdrop.classList.add('open');
   }
 }
 
 function closeCorrectionModal() {
-  if (correctionModal) {
-    correctionModal.style.display = 'none';
+  if (correctionBackdrop) {
+    correctionBackdrop.classList.remove('open');
   }
   editingSkillIndex = -1;
 }
@@ -1198,16 +1641,25 @@ function saveCorrectionModal() {
     return;
   }
 
-  if (hint !== null && (hint < 0 || hint > 5)) {
+  if (hint < 0 || hint > 5) {
     alert('Hint level must be between 0 and 5');
     return;
   }
 
+  const oldSkill = window.ocrDetectedSkills[editingSkillIndex];
+
+  // Cache correction so future OCR frames won't re-match to the wrong skill
+  if (window.OCRMatcher && oldSkill.rawText && name !== oldSkill.name) {
+    window.OCRMatcher.addCorrection(oldSkill.rawText, name);
+  }
+
   window.ocrDetectedSkills[editingSkillIndex] = {
-    ...window.ocrDetectedSkills[editingSkillIndex],
+    ...oldSkill,
     name: name,
     cost: cost,
-    hint: hint
+    hint: hint,
+    confidence: 1.0,  // User-corrected = full confidence
+    suggestions: [],
   };
 
   displayOCRResults(window.ocrDetectedSkills);
@@ -1226,9 +1678,9 @@ if (correctionModalSave) {
   correctionModalSave.addEventListener('click', saveCorrectionModal);
 }
 
-if (correctionModal) {
-  correctionModal.addEventListener('click', function(e) {
-    if (e.target === correctionModal) {
+if (correctionBackdrop) {
+  correctionBackdrop.addEventListener('click', function(e) {
+    if (e.target === correctionBackdrop) {
       closeCorrectionModal();
     }
   });
@@ -1250,3 +1702,188 @@ if (correctionSkillName) {
     }
   });
 }
+
+// ─── Debug Overlay Display ──────────────────────────────────────
+// Shows a visual overlay on the original image indicating where OCR scanned
+
+function displayDebugOverlay(sourceCanvas, cropInfo, bestResult) {
+  const Preprocess = window.OCRPreprocess;
+  if (!Preprocess) return;
+
+  const overlay = Preprocess.drawDebugOverlay(sourceCanvas, cropInfo);
+
+  // Find or create the debug container
+  let debugContainer = document.getElementById('ocr-debug-overlay');
+  if (!debugContainer) {
+    debugContainer = document.createElement('div');
+    debugContainer.id = 'ocr-debug-overlay';
+    debugContainer.style.cssText = 'margin:12px 0;padding:12px;background:#1a1a2e;border:2px solid #00ff00;border-radius:8px;';
+
+    const resultsPanel = document.getElementById('ocr-results-panel');
+    if (resultsPanel) {
+      resultsPanel.insertBefore(debugContainer, resultsPanel.firstChild);
+    }
+  }
+
+  // Scale overlay to fit in the panel (max 500px wide)
+  const maxW = 500;
+  const scale = Math.min(1, maxW / overlay.width);
+  const displayW = Math.round(overlay.width * scale);
+  const displayH = Math.round(overlay.height * scale);
+
+  debugContainer.innerHTML = `
+    <div style="color:#00ff00;font-family:monospace;font-size:13px;margin-bottom:8px;font-weight:bold;">
+      OCR Debug: ${cropInfo.layout.toUpperCase()} layout detected
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start;">
+      <div>
+        <div style="color:#aaa;font-size:11px;margin-bottom:4px;">Scan Region (green = OCR area)</div>
+        <canvas id="ocr-debug-canvas-overlay" width="${displayW}" height="${displayH}" style="border:1px solid #333;border-radius:4px;max-width:100%;"></canvas>
+      </div>
+      <div>
+        <div style="color:#aaa;font-size:11px;margin-bottom:4px;">Cropped Input (what OCR sees)</div>
+        <canvas id="ocr-debug-canvas-cropped" width="${Math.round(cropInfo.region.w * scale)}" height="${Math.round(cropInfo.region.h * scale)}" style="border:1px solid #333;border-radius:4px;max-width:100%;"></canvas>
+      </div>
+    </div>
+    <div style="color:#ccc;font-family:monospace;font-size:11px;margin-top:8px;">
+      Region: x=${cropInfo.region.x} y=${cropInfo.region.y} w=${cropInfo.region.w} h=${cropInfo.region.h}<br>
+      Best variant: ${bestResult.variant} | OCR conf: ${bestResult.ocrConfidence}%<br>
+      Raw text (first 200 chars): ${escapeHTML(bestResult.text.substring(0, 200))}
+    </div>
+  `;
+
+  // Draw the overlay canvas
+  const overlayCanvas = document.getElementById('ocr-debug-canvas-overlay');
+  if (overlayCanvas) {
+    const ctx = overlayCanvas.getContext('2d');
+    ctx.drawImage(overlay, 0, 0, displayW, displayH);
+  }
+
+  // Draw the cropped canvas
+  const croppedCanvas = document.getElementById('ocr-debug-canvas-cropped');
+  if (croppedCanvas) {
+    const ctx = croppedCanvas.getContext('2d');
+    ctx.drawImage(cropInfo.canvas, 0, 0, croppedCanvas.width, croppedCanvas.height);
+  }
+}
+
+// ─── Segmented Debug Overlay ────────────────────────────────────
+// Shows card boundaries + per-card OCR text in the debug panel
+
+function displaySegmentedDebugOverlay(sourceCanvas, cropInfo, cards, debugCardTexts) {
+  const Preprocess = window.OCRPreprocess;
+  if (!Preprocess) return;
+
+  const overlay = Preprocess.drawSegmentedDebugOverlay(sourceCanvas, cropInfo, cards);
+
+  let debugContainer = document.getElementById('ocr-debug-overlay');
+  if (!debugContainer) {
+    debugContainer = document.createElement('div');
+    debugContainer.id = 'ocr-debug-overlay';
+    debugContainer.style.cssText = 'margin:12px 0;padding:12px;background:#1a1a2e;border:2px solid #00ff00;border-radius:8px;';
+    const resultsPanel = document.getElementById('ocr-results-panel');
+    if (resultsPanel) {
+      resultsPanel.insertBefore(debugContainer, resultsPanel.firstChild);
+    }
+  }
+  debugContainer.style.display = '';
+
+  const maxW = 500;
+  const scale = Math.min(1, maxW / overlay.width);
+  const displayW = Math.round(overlay.width * scale);
+  const displayH = Math.round(overlay.height * scale);
+
+  let cardInfoHtml = '';
+  for (const ct of debugCardTexts) {
+    cardInfoHtml += `<div style="margin-top:4px;padding:4px 6px;background:#222;border-radius:4px;">`;
+    cardInfoHtml += `<span style="color:#ffff00;">Card ${ct.card}</span>: `;
+    cardInfoHtml += `name=<span style="color:#0f0;">"${escapeHTML(ct.nameText)}"</span> `;
+    cardInfoHtml += `<span style="color:#888;">| full="${escapeHTML(ct.fullText.substring(0, 80))}..."</span>`;
+    cardInfoHtml += `</div>`;
+  }
+
+  debugContainer.innerHTML = `
+    <div style="color:#00ff00;font-family:monospace;font-size:13px;margin-bottom:8px;font-weight:bold;">
+      OCR Debug: ${cropInfo.layout.toUpperCase()} layout | ${cards.length} cards detected
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start;">
+      <div>
+        <div style="color:#aaa;font-size:11px;margin-bottom:4px;">
+          <span style="color:#0f0;">Green</span>=scan region |
+          <span style="color:#ff0;">Yellow</span>=card bounds |
+          <span style="color:#0af;">Blue dash</span>=name cutoff
+        </div>
+        <canvas id="ocr-debug-canvas-overlay" width="${displayW}" height="${displayH}" style="border:1px solid #333;border-radius:4px;max-width:100%;"></canvas>
+      </div>
+    </div>
+    <div style="color:#ccc;font-family:monospace;font-size:11px;margin-top:8px;">
+      Region: x=${cropInfo.region.x} y=${cropInfo.region.y} w=${cropInfo.region.w} h=${cropInfo.region.h}<br>
+      Cards: ${cards.map((c, i) => `#${i + 1}(y=${c.y} h=${c.h})`).join(', ')}
+    </div>
+    <div style="font-family:monospace;font-size:11px;margin-top:6px;">
+      ${cardInfoHtml}
+    </div>
+  `;
+
+  const overlayCanvas = document.getElementById('ocr-debug-canvas-overlay');
+  if (overlayCanvas) {
+    const ctx = overlayCanvas.getContext('2d');
+    ctx.drawImage(overlay, 0, 0, displayW, displayH);
+  }
+}
+
+// ─── Dev Debug Mode Toggle ──────────────────────────────────────
+
+window._ocrDebugMode = false;
+
+window.setOCRPreprocessing = function (enabled) {
+  preprocessingEnabled = !!enabled;
+  console.log('[ocr] Preprocessing:', preprocessingEnabled ? 'enabled' : 'disabled');
+};
+
+window.setOCRDebugMode = function (enabled) {
+  window._ocrDebugMode = !!enabled;
+  console.log('[ocr] Debug mode:', window._ocrDebugMode ? 'ON' : 'OFF');
+  // Show/hide the overlay container
+  const debugContainer = document.getElementById('ocr-debug-overlay');
+  if (debugContainer && !enabled) {
+    debugContainer.style.display = 'none';
+  } else if (debugContainer && enabled) {
+    debugContainer.style.display = '';
+  }
+};
+
+window.showOCRDebug = function () {
+  if (!window._ocrDebugInfo) {
+    console.log('[ocr] No debug info available. Enable debug mode and run OCR first.');
+    return;
+  }
+  const info = window._ocrDebugInfo;
+  console.group('[OCR Debug Info]');
+  console.log('Layout:', info.cropInfo?.layout || 'unknown');
+  console.log('Crop region:', info.cropInfo?.region || 'none');
+  console.log('Cards detected:', info.cards?.length || 0);
+  if (info.debugCardTexts) {
+    info.debugCardTexts.forEach(ct => {
+      console.log(`  Card ${ct.card}: name="${ct.nameText}" | full="${ct.fullText.substring(0, 80)}..." | conf=${ct.confidence}%`);
+    });
+  }
+  console.log('Detected skills:', info.detectedSkills);
+  console.groupEnd();
+};
+
+// Adjust crop region via console: window.setOCRRegion('pc', {x:0.01, y:0.32, w:0.38, h:0.53})
+window.setOCRRegion = function (layout, region) {
+  const Preprocess = window.OCRPreprocess;
+  if (!Preprocess || !Preprocess.SKILL_REGIONS) {
+    console.error('[ocr] OCRPreprocess not loaded');
+    return;
+  }
+  if (!layout || !region) {
+    console.log('[ocr] Current regions:', JSON.stringify(Preprocess.SKILL_REGIONS, null, 2));
+    console.log('[ocr] Usage: window.setOCRRegion("pc", {x:0.01, y:0.32, w:0.38, h:0.53})');
+    return;
+  }
+  Preprocess.SKILL_REGIONS[layout] = region;
+  console.log(`[ocr] Updated ${layout} region:`, region);
+};
