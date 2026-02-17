@@ -24,6 +24,27 @@
   }
 
   function createAffinityHelpers(cfg) {
+    const ROLE_GROUP = Object.freeze({
+      turf: 'surface',
+      dirt: 'surface',
+      sprint: 'distance',
+      mile: 'distance',
+      medium: 'distance',
+      long: 'distance',
+      front: 'style',
+      pace: 'style',
+      late: 'style',
+      end: 'style',
+    });
+
+    const BUCKET_MULTIPLIER = Object.freeze({
+      good: 1.1,
+      average: 0.9,
+      bad: 0.8,
+      terrible: 0.7,
+      base: 1.0,
+    });
+
     function updateAffinityStyles() {
       const grades = ['good', 'average', 'bad', 'terrible'];
       Object.values(cfg).forEach((sel) => {
@@ -53,12 +74,60 @@
       return getBucketForGrade(sel.value);
     }
 
+    function getRoleMultiplier(roleKey) {
+      const map = {
+        turf: cfg.turf,
+        dirt: cfg.dirt,
+        sprint: cfg.sprint,
+        mile: cfg.mile,
+        medium: cfg.medium,
+        long: cfg.long,
+        front: cfg.front,
+        pace: cfg.pace,
+        late: cfg.late,
+        end: cfg.end,
+      };
+      const sel = map[roleKey];
+      if (!sel) return null;
+      const bucket = getBucketForGrade(sel.value);
+      return BUCKET_MULTIPLIER[bucket] ?? 1.0;
+    }
+
     function evaluateSkillScore(skill) {
       if (typeof skill.score === 'number') return skill.score;
       if (!skill.score || typeof skill.score !== 'object') return 0;
+      const baseScore =
+        typeof skill.score.base === 'number'
+          ? skill.score.base
+          : typeof skill.score.good === 'number'
+            ? skill.score.good
+            : 0;
+      const checkTypeRaw = normalize(skill.checkType);
+      if (checkTypeRaw && checkTypeRaw.includes('/')) {
+        const roles = checkTypeRaw
+          .split('/')
+          .map((part) => normalize(part))
+          .filter(Boolean);
+        const groupMax = new Map();
+        roles.forEach((roleKey) => {
+          const mult = getRoleMultiplier(roleKey);
+          if (mult === null) return;
+          const group = ROLE_GROUP[roleKey] || roleKey;
+          const prev = groupMax.get(group);
+          if (prev === undefined || mult > prev) groupMax.set(group, mult);
+        });
+        if (groupMax.size > 0) {
+          let factor = 1.0;
+          groupMax.forEach((mult) => {
+            factor *= mult;
+          });
+          return Math.round(baseScore * factor);
+        }
+      }
       const bucket = getBucketForSkill(skill.checkType);
       const val = skill.score[bucket];
-      return typeof val === 'number' ? val : 0;
+      if (typeof val === 'number') return val;
+      return baseScore;
     }
 
     return {

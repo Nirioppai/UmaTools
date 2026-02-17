@@ -784,6 +784,8 @@ input:where([type='file']):focus {
   --cat-blue-rgb: 96 165 250;
   --cat-green-rgb: 52 211 153;
   --cat-red-rgb: 248 113 113;
+  --cat-purple-rgb: 168 85 247;
+  --cat-evo-rgb: 244 114 182;
   --cat-orange-rgb: 251 146 60;
   --rarity-ssr-1-rgb: 147 197 253;
   --rarity-ssr-2-rgb: 251 207 232;
@@ -819,6 +821,8 @@ input:where([type='file']):focus {
   --cat-blue: rgb(var(--cat-blue-rgb));
   --cat-green: rgb(var(--cat-green-rgb));
   --cat-red: rgb(var(--cat-red-rgb));
+  --cat-purple: rgb(var(--cat-purple-rgb));
+  --cat-evo: rgb(var(--cat-evo-rgb));
   --cat-orange: rgb(var(--cat-orange-rgb));
   --card-bg: var(--surface-1);
   --card-bg-muted: var(--surface-2);
@@ -895,6 +899,8 @@ input:where([type='file']):focus {
   --cat-blue-rgb: 147 197 253;
   --cat-green-rgb: 110 231 183;
   --cat-red-rgb: 252 165 165;
+  --cat-purple-rgb: 196 181 253;
+  --cat-evo-rgb: 249 168 212;
   --cat-orange-rgb: 253 186 116;
   --rarity-ssr-1-rgb: 125 211 252;
   --rarity-ssr-2-rgb: 248 180 216;
@@ -1975,6 +1981,20 @@ html.dark body .optimizer-row.cat-red,
   --row-border-color: rgb(var(--cat-red-rgb));
 }
 
+html.dark body .optimizer-row.cat-purple,
+  html:not(.dark) body .optimizer-row.cat-purple,
+  html.dark body .calculator-row.cat-purple,
+  html:not(.dark) body .calculator-row.cat-purple {
+  --row-border-color: rgb(var(--cat-purple-rgb));
+}
+
+html.dark body .optimizer-row.cat-evo,
+  html:not(.dark) body .optimizer-row.cat-evo,
+  html.dark body .calculator-row.cat-evo,
+  html:not(.dark) body .calculator-row.cat-evo {
+  --row-border-color: rgb(var(--cat-evo-rgb));
+}
+
 html.dark body .optimizer-row.cat-ius,
   html.dark body .optimizer-row.cat-orange,
   html:not(.dark) body .optimizer-row.cat-ius,
@@ -2064,6 +2084,16 @@ html.dark body .optimizer-row.cat-red,
   background-color: rgb(var(--cat-red-rgb) / 0.3);
 }
 
+html.dark body .optimizer-row.cat-purple,
+  html.dark body .calculator-row.cat-purple {
+  background-color: rgb(var(--cat-purple-rgb) / 0.3);
+}
+
+html.dark body .optimizer-row.cat-evo,
+  html.dark body .calculator-row.cat-evo {
+  background-color: rgb(var(--cat-evo-rgb) / 0.3);
+}
+
 html.dark body .optimizer-row.cat-ius,
   html.dark body .optimizer-row.cat-orange,
   html.dark body .calculator-row.cat-ius,
@@ -2104,6 +2134,18 @@ html.dark body .optimizer-row.linked-lower.cat-yellow,
   border-color: rgb(var(--cat-yellow-rgb) / 0.55);
 }
 
+html.dark body .optimizer-row.linked-lower.cat-purple,
+  html:not(.dark) body .optimizer-row.linked-lower.cat-purple {
+  background-color: rgb(var(--cat-purple-rgb) / 0.18);
+  border-color: rgb(var(--cat-purple-rgb) / 0.55);
+}
+
+html.dark body .optimizer-row.linked-lower.cat-evo,
+  html:not(.dark) body .optimizer-row.linked-lower.cat-evo {
+  background-color: rgb(var(--cat-evo-rgb) / 0.18);
+  border-color: rgb(var(--cat-evo-rgb) / 0.55);
+}
+
 html.dark body .optimizer-row.linked-lower.cat-ius,
   html.dark body .optimizer-row.linked-lower.cat-orange,
   html:not(.dark) body .optimizer-row.linked-lower.cat-ius,
@@ -2136,6 +2178,16 @@ html.dark body .optimizer-row.cat-gold[data-base-category='green'],
 html.dark body .optimizer-row.cat-gold[data-base-category='yellow'],
   html:not(.dark) body .optimizer-row.cat-gold[data-base-category='yellow'] {
   --base-cat-rgb: var(--cat-yellow-rgb);
+}
+
+html.dark body .optimizer-row.cat-gold[data-base-category='purple'],
+  html:not(.dark) body .optimizer-row.cat-gold[data-base-category='purple'] {
+  --base-cat-rgb: var(--cat-purple-rgb);
+}
+
+html.dark body .optimizer-row.cat-gold[data-base-category='evo'],
+  html:not(.dark) body .optimizer-row.cat-gold[data-base-category='evo'] {
+  --base-cat-rgb: var(--cat-evo-rgb);
 }
 
 html.dark body .optimizer-row.cat-gold[data-base-category='orange'],
@@ -2229,6 +2281,32 @@ html.dark body .optimizer-row.cat-red .field-control,
   border-color: rgb(var(--cat-red-rgb) / 0.75) !important;
 }
 
+html.dark body .optimizer-row.cat-purple .field-control,
+  html:not(.dark) body .optimizer-row.cat-purple .field-control,
+  html.dark body .optimizer-row.cat-purple .category-chip,
+  html:not(.dark) body .optimizer-row.cat-purple .category-chip,
+  html.dark body .optimizer-row.cat-purple .base-cost,
+  html:not(.dark) body .optimizer-row.cat-purple .base-cost,
+  html.dark body .calculator-row.cat-purple .field-control,
+  html:not(.dark) body .calculator-row.cat-purple .field-control,
+  html.dark body .calculator-row.cat-purple .category-chip,
+  html:not(.dark) body .calculator-row.cat-purple .category-chip {
+  border-color: rgb(var(--cat-purple-rgb) / 0.75) !important;
+}
+
+html.dark body .optimizer-row.cat-evo .field-control,
+  html:not(.dark) body .optimizer-row.cat-evo .field-control,
+  html.dark body .optimizer-row.cat-evo .category-chip,
+  html:not(.dark) body .optimizer-row.cat-evo .category-chip,
+  html.dark body .optimizer-row.cat-evo .base-cost,
+  html:not(.dark) body .optimizer-row.cat-evo .base-cost,
+  html.dark body .calculator-row.cat-evo .field-control,
+  html:not(.dark) body .calculator-row.cat-evo .field-control,
+  html.dark body .calculator-row.cat-evo .category-chip,
+  html:not(.dark) body .calculator-row.cat-evo .category-chip {
+  border-color: rgb(var(--cat-evo-rgb) / 0.75) !important;
+}
+
 html.dark body .optimizer-row.cat-ius .field-control,
   html:not(.dark) body .optimizer-row.cat-ius .field-control,
   html.dark body .optimizer-row.cat-orange .field-control,
@@ -2282,6 +2360,18 @@ html.dark body .skill-chip.cat-red,
   border-color: rgb(var(--cat-red-rgb) / 0.5);
 }
 
+html.dark body .skill-chip.cat-purple,
+  html:not(.dark) body .skill-chip.cat-purple {
+  background-color: rgb(var(--cat-purple-rgb) / 0.2);
+  border-color: rgb(var(--cat-purple-rgb) / 0.5);
+}
+
+html.dark body .skill-chip.cat-evo,
+  html:not(.dark) body .skill-chip.cat-evo {
+  background-color: rgb(var(--cat-evo-rgb) / 0.2);
+  border-color: rgb(var(--cat-evo-rgb) / 0.5);
+}
+
 html.dark body .skill-chip.cat-ius,
   html.dark body .skill-chip.cat-orange,
   html:not(.dark) body .skill-chip.cat-ius,
@@ -2313,6 +2403,16 @@ html.dark body .skill-chip.cat-green {
 html.dark body .skill-chip.cat-red {
   background-color: rgb(var(--cat-red-rgb) / 0.28);
   border-color: rgb(var(--cat-red-rgb) / 0.65);
+}
+
+html.dark body .skill-chip.cat-purple {
+  background-color: rgb(var(--cat-purple-rgb) / 0.28);
+  border-color: rgb(var(--cat-purple-rgb) / 0.65);
+}
+
+html.dark body .skill-chip.cat-evo {
+  background-color: rgb(var(--cat-evo-rgb) / 0.28);
+  border-color: rgb(var(--cat-evo-rgb) / 0.65);
 }
 
 html.dark body .skill-chip.cat-ius,
@@ -2357,6 +2457,16 @@ html.dark body .results-list .result-item.cat-red {
   background-color: rgb(var(--cat-red-rgb) / 0.22);
 }
 
+html.dark body .results-list .result-item.cat-purple {
+  border-left-color: rgb(var(--cat-purple-rgb));
+  background-color: rgb(var(--cat-purple-rgb) / 0.22);
+}
+
+html.dark body .results-list .result-item.cat-evo {
+  border-left-color: rgb(var(--cat-evo-rgb));
+  background-color: rgb(var(--cat-evo-rgb) / 0.22);
+}
+
 html.dark body .results-list .result-item.cat-ius,
   html.dark body .results-list .result-item.cat-orange {
   border-left-color: rgb(var(--cat-orange-rgb));
@@ -2387,6 +2497,16 @@ html.dark body .results-list .result-item.cat-gold[data-base-category='green'],
 html.dark body .results-list .result-item.cat-gold[data-base-category='yellow'],
   html:not(.dark) body .results-list .result-item.cat-gold[data-base-category='yellow'] {
   --base-cat-rgb: var(--cat-yellow-rgb);
+}
+
+html.dark body .results-list .result-item.cat-gold[data-base-category='purple'],
+  html:not(.dark) body .results-list .result-item.cat-gold[data-base-category='purple'] {
+  --base-cat-rgb: var(--cat-purple-rgb);
+}
+
+html.dark body .results-list .result-item.cat-gold[data-base-category='evo'],
+  html:not(.dark) body .results-list .result-item.cat-gold[data-base-category='evo'] {
+  --base-cat-rgb: var(--cat-evo-rgb);
 }
 
 html.dark body .results-list .result-item.cat-gold[data-base-category='orange'],

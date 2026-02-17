@@ -195,6 +195,16 @@
   background-color: rgb(var(--cat-red-rgb) / 0.1);
 }
 
+.results-list .result-item.cat-purple {
+  border-left-color: var(--cat-purple);
+  background-color: rgb(var(--cat-purple-rgb) / 0.1);
+}
+
+.results-list .result-item.cat-evo {
+  border-left-color: var(--cat-evo);
+  background-color: rgb(var(--cat-evo-rgb) / 0.1);
+}
+
 .results-list .result-item.cat-ius,
 .results-list .result-item.cat-orange {
   border-left-color: var(--cat-orange);
@@ -343,6 +353,16 @@
   --row-border-color: var(--cat-red);
   background-color: rgb(var(--cat-red-rgb) / 0.14);
 }
+.optimizer-row.cat-purple {
+  border-left: 4px solid var(--cat-purple);
+  --row-border-color: var(--cat-purple);
+  background-color: rgb(var(--cat-purple-rgb) / 0.14);
+}
+.optimizer-row.cat-evo {
+  border-left: 4px solid var(--cat-evo);
+  --row-border-color: var(--cat-evo);
+  background-color: rgb(var(--cat-evo-rgb) / 0.14);
+}
 .optimizer-row.cat-ius,
 .optimizer-row.cat-orange {
   border-left: 4px solid var(--cat-orange);
@@ -442,6 +462,18 @@
 .optimizer-row.cat-red .hint-level {
   border-color: rgb(var(--cat-red-rgb) / 0.5);
 }
+.optimizer-row.cat-purple .category-chip,
+.optimizer-row.cat-purple .skill-name,
+.optimizer-row.cat-purple .cost,
+.optimizer-row.cat-purple .hint-level {
+  border-color: rgb(var(--cat-purple-rgb) / 0.5);
+}
+.optimizer-row.cat-evo .category-chip,
+.optimizer-row.cat-evo .skill-name,
+.optimizer-row.cat-evo .cost,
+.optimizer-row.cat-evo .hint-level {
+  border-color: rgb(var(--cat-evo-rgb) / 0.5);
+}
 .optimizer-row.cat-ius .category-chip,
 .optimizer-row.cat-ius .skill-name,
 .optimizer-row.cat-ius .cost,
@@ -506,6 +538,44 @@
 
 .optimizer-row .dup-warning.visible {
   display: block;
+}
+
+/* ── Evo skill checkboxes ── */
+.optimizer-row .evo-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+.optimizer-row .evo-options[data-empty='true'] {
+  display: none;
+}
+.optimizer-row .evo-options .evo-label {
+  color: var(--muted, #6b7280);
+  font-weight: 600;
+  margin-right: 2px;
+}
+.optimizer-row .evo-options .evo-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  padding: 1px 6px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.optimizer-row .evo-options .evo-checkbox-label:hover {
+  background: rgb(var(--primary-rgb, 59 130 246) / 0.08);
+  border-color: rgb(var(--primary-rgb, 59 130 246) / 0.2);
+}
+.optimizer-row .evo-options .evo-checkbox {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  cursor: pointer;
 }
 
 .optimizer-row.linked-lower {
@@ -1032,6 +1102,16 @@
 .ocr-result-item.cat-red {
   border-left-color: var(--cat-red);
   background-color: rgb(var(--cat-red-rgb) / 0.08);
+}
+
+.ocr-result-item.cat-purple {
+  border-left-color: var(--cat-purple);
+  background-color: rgb(var(--cat-purple-rgb) / 0.08);
+}
+
+.ocr-result-item.cat-evo {
+  border-left-color: var(--cat-evo);
+  background-color: rgb(var(--cat-evo-rgb) / 0.08);
 }
 
 .ocr-result-item.cat-ius,

@@ -5,6 +5,8 @@
 (function () {
   const rowsEl = document.getElementById('rows');
   const clearAllBtn = document.getElementById('clear-all');
+  const officialEnglishToggle = document.getElementById('official-en-only');
+  const skillLanguageSelect = document.getElementById('skill-language');
   const libStatus = document.getElementById('lib-status');
   if (libStatus) libStatus.innerHTML = '<span class="loading-indicator">Loading skills...</span>';
 
@@ -63,15 +65,56 @@
 
   let skillsByCategory = {};
   let categories = [];
-  const preferredOrder = ['golden', 'yellow', 'blue', 'green', 'red', 'purple', 'ius'];
+  const preferredOrder = ['golden', 'yellow', 'blue', 'green', 'red', 'purple', 'evo', 'ius'];
   let skillIndex = new Map();
+  let skillLookupLoose = new Map();
   let allSkillNames = [];
+  const MAX_SKILL_SUGGESTIONS = 300;
+  const MAX_SKILL_SUGGESTIONS_WITH_PREFIX = 2000;
 
   // Track active skill keys for duplicate detection
   const activeSkillKeys = new Map();
 
   // Shared datalist for all skill inputs
   let sharedSkillDatalist = null;
+  let officialEnglishNameSet = new Set();
+  const externalAliasLookup = new Map();
+  let skillsCsvCache = '';
+  let loadedSkillLibraryLanguage = '';
+  let lastCSVLoadStats = {
+    loaded: 0,
+    filteredOut: 0,
+    officialFilterApplied: false,
+  };
+  const OFFICIAL_EN_PREF_KEY = 'calculatorOfficialEnglishOnly';
+  const SKILL_LANG_PREF_KEY = 'calculatorSkillLanguage';
+  const GLOBAL_SERVER_PREF_KEY = 'umatoolsServer';
+  const GLOBAL_SITE_LANG_PREF_KEY = 'umatoolsSiteLanguage';
+
+  if (officialEnglishToggle) {
+    try {
+      const saved = localStorage.getItem(OFFICIAL_EN_PREF_KEY);
+      if (saved === '0' || saved === 'false') {
+        officialEnglishToggle.checked = false;
+      } else if (saved === '1' || saved === 'true') {
+        officialEnglishToggle.checked = true;
+      }
+    } catch {}
+  }
+
+  if (skillLanguageSelect) {
+    try {
+      const savedLang =
+        (localStorage.getItem(GLOBAL_SERVER_PREF_KEY) ||
+          localStorage.getItem(SKILL_LANG_PREF_KEY) ||
+          '')
+          .trim()
+          .toLowerCase();
+      if (savedLang === 'jp') skillLanguageSelect.value = 'jp';
+      else skillLanguageSelect.value = 'en';
+    } catch {}
+  }
+  updateOfficialEnglishToggleState();
 
   // Debounce helper
   function debounce(fn, ms) {
@@ -80,6 +123,145 @@
       clearTimeout(t);
       t = setTimeout(() => fn.apply(this, args), ms);
     };
+  }
+
+  function readGlobalServerPreference() {
+    try {
+      return (localStorage.getItem(GLOBAL_SERVER_PREF_KEY) || '').trim().toLowerCase();
+    } catch {
+      return '';
+    }
+  }
+
+  function persistServerPreference(lang) {
+    try {
+      localStorage.setItem(SKILL_LANG_PREF_KEY, lang);
+    } catch {}
+    try {
+      localStorage.setItem(GLOBAL_SERVER_PREF_KEY, lang);
+    } catch {}
+  }
+
+  function getSkillLanguage() {
+    if (skillLanguageSelect) return skillLanguageSelect.value === 'jp' ? 'jp' : 'en';
+    const globalPref = readGlobalServerPreference();
+    if (globalPref === 'jp') return 'jp';
+    try {
+      const localPref = (localStorage.getItem(SKILL_LANG_PREF_KEY) || '').trim().toLowerCase();
+      return localPref === 'jp' ? 'jp' : 'en';
+    } catch {
+      return 'en';
+    }
+  }
+
+  function updateOfficialEnglishToggleState() {
+    if (!officialEnglishToggle) return;
+    officialEnglishToggle.disabled = getSkillLanguage() !== 'en';
+  }
+
+  function isOfficialEnglishOnlyEnabled() {
+    return getSkillLanguage() === 'en' && (!officialEnglishToggle || officialEnglishToggle.checked);
+  }
+
+  function normalizeOfficialSkillName(name) {
+    return normalize(name).replace(/\s+/g, ' ');
+  }
+
+  function normalizeLooseSkillKey(value) {
+    const base = normalize(value);
+    if (!base) return '';
+    const normalized = typeof base.normalize === 'function' ? base.normalize('NFKC') : base;
+    try {
+      return normalized.replace(/[\p{P}\p{S}\s]+/gu, '');
+    } catch {
+      return normalized.replace(/[^a-z0-9\u00c0-\u024f\u3040-\u30ff\u3400-\u9fff]+/g, '');
+    }
+  }
+
+  function normalizeSiteLanguage(value) {
+    return (value || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
+  }
+
+  function getSiteLanguage() {
+    const attr = (document?.documentElement?.dataset?.siteLanguage || '').toString().trim();
+    if (attr) return normalizeSiteLanguage(attr);
+    try {
+      return normalizeSiteLanguage(localStorage.getItem(GLOBAL_SITE_LANG_PREF_KEY));
+    } catch {
+      return 'en';
+    }
+  }
+
+  function hasJapaneseScript(value) {
+    return /[\u3040-\u30ff\u3400-\u9fff]/.test((value || '').toString());
+  }
+
+  function hasLatinLetters(value) {
+    return /[a-z]/i.test((value || '').toString());
+  }
+
+  function getPrimaryAliasName(skill, { preferEnglish = false } = {}) {
+    if (!skill || !Array.isArray(skill.aliasNames)) return '';
+    const aliases = [];
+    const seen = new Set();
+    skill.aliasNames.forEach((entry) => {
+      const trimmed = (entry || '').trim();
+      const key = normalize(trimmed);
+      if (!trimmed || !key || seen.has(key)) return;
+      seen.add(key);
+      aliases.push(trimmed);
+    });
+    if (!aliases.length) return '';
+    if (preferEnglish) {
+      const blocked = new Set();
+      const canonical = normalize(skill.name);
+      const localized = normalize(skill.localizedName);
+      if (canonical) blocked.add(canonical);
+      if (localized) blocked.add(localized);
+      const findPreferred = (predicate, { allowBlocked = false } = {}) =>
+        aliases.find((entry) => {
+          const key = normalize(entry);
+          if (!allowBlocked && key && blocked.has(key)) return false;
+          return predicate(entry);
+        });
+      const latinNoJP = findPreferred(
+        (entry) => hasLatinLetters(entry) && !hasJapaneseScript(entry)
+      );
+      if (latinNoJP) return latinNoJP;
+      const nonJP = findPreferred((entry) => !hasJapaneseScript(entry));
+      if (nonJP) return nonJP;
+      const latinNoJPFallback = findPreferred(
+        (entry) => hasLatinLetters(entry) && !hasJapaneseScript(entry),
+        { allowBlocked: true }
+      );
+      if (latinNoJPFallback) return latinNoJPFallback;
+      const nonJPFallback = findPreferred((entry) => !hasJapaneseScript(entry), {
+        allowBlocked: true,
+      });
+      if (nonJPFallback) return nonJPFallback;
+    }
+    return aliases[0];
+  }
+
+  function getPreferredSkillInputName(skill, fallback = '') {
+    if (!skill) return (fallback || '').trim();
+    const server = getSkillLanguage();
+    if (server !== 'jp') return (skill.name || fallback || '').trim();
+    if (getSiteLanguage() === 'jp') return (skill.name || fallback || '').trim();
+    const alias = getPrimaryAliasName(skill, { preferEnglish: true });
+    if (alias) return alias;
+    const localized = (skill.localizedName || '').trim();
+    if (localized && !hasJapaneseScript(localized)) return localized;
+    if (localized) return localized;
+    return (skill.name || fallback || '').trim();
+  }
+
+  function getEffectiveRatingScore(skill, categoryOverride = '') {
+    const rawScore = evaluateSkillScore(skill || {});
+    if (!Number.isFinite(rawScore)) return 0;
+    const canon = canonicalCategory(categoryOverride || skill?.category || '');
+    if (canon === 'purple') return 0;
+    return rawScore;
   }
 
   // Collect selected skills and calculate total score
@@ -93,9 +275,10 @@
       if (!name) return;
       const skill = findSkillByName(name);
       if (!skill) return;
-      const score = evaluateSkillScore(skill);
+      const score = getEffectiveRatingScore(skill, skill.category || '');
       skills.push({
         name: skill.name,
+        displayName: formatSkillDisplayName(skill),
         score,
         category: skill.category || '',
         checkType: skill.checkType || '',
@@ -118,7 +301,7 @@
         selectedListEl.innerHTML = skills
           .map((s) => {
             const catClass = getCategoryClass(s.category);
-            return `<span class="skill-chip ${catClass}">${s.name} <small>(+${s.score})</small></span>`;
+            return `<span class="skill-chip ${catClass}">${s.displayName || s.name} <small>(+${s.score})</small></span>`;
           })
           .join(' ');
       }
@@ -137,41 +320,100 @@
     if (c === 'blue') return 'cat-blue';
     if (c === 'green') return 'cat-green';
     if (c === 'red') return 'cat-red';
+    if (c === 'purple') return 'cat-purple';
+    if (c === 'evo') return 'cat-evo';
     if (c === 'ius') return 'cat-ius';
     return '';
   }
 
   function rebuildSkillCaches() {
     const nextIndex = new Map();
+    const nextLooseLookup = new Map();
     const names = [];
+    const seenSuggestions = new Set();
+    const isJPServer = getSkillLanguage() === 'jp';
+    const siteLanguage = getSiteLanguage();
+
+    const addLooseLookup = (value, skill) => {
+      const key = normalizeLooseSkillKey(value);
+      if (key && !nextLooseLookup.has(key)) nextLooseLookup.set(key, skill);
+    };
+
+    const addSuggestionName = (value) => {
+      const label = (value || '').trim();
+      if (!label) return;
+      const key = normalize(label);
+      if (!key || seenSuggestions.has(key)) return;
+      seenSuggestions.add(key);
+      names.push(label);
+    };
+
     Object.entries(skillsByCategory).forEach(([category, list = []]) => {
       list.forEach((skill) => {
         if (!skill || !skill.name) return;
         const key = normalize(skill.name);
         const enriched = { ...skill, category };
-        if (!nextIndex.has(key)) {
-          names.push(skill.name);
-        }
         nextIndex.set(key, enriched);
+        addLooseLookup(skill.name, enriched);
+        if (Array.isArray(skill.aliasNames) && skill.aliasNames.length) {
+          skill.aliasNames.forEach((alias) => {
+            const aliasKey = normalize(alias);
+            if (aliasKey && !nextIndex.has(aliasKey)) nextIndex.set(aliasKey, enriched);
+            addLooseLookup(alias, enriched);
+          });
+        }
+        if (skill.localizedName) {
+          const localizedKey = normalize(skill.localizedName);
+          if (localizedKey && !nextIndex.has(localizedKey)) nextIndex.set(localizedKey, enriched);
+          addLooseLookup(skill.localizedName, enriched);
+        }
+        if (isJPServer) {
+          if (siteLanguage === 'jp') {
+            addSuggestionName(skill.name);
+          } else {
+            addSuggestionName(getPreferredSkillInputName(enriched, skill.name));
+          }
+        } else {
+          addSuggestionName(skill.name);
+          if (Array.isArray(skill.aliasNames) && skill.aliasNames.length) {
+            skill.aliasNames.forEach((alias) => addSuggestionName(alias));
+          }
+          if (skill.localizedName) addSuggestionName(skill.localizedName);
+        }
       });
     });
     skillIndex = nextIndex;
-    const uniqueNames = Array.from(new Set(names));
-    uniqueNames.sort((a, b) => a.localeCompare(b));
-    allSkillNames = uniqueNames;
+    skillLookupLoose = nextLooseLookup;
+    names.sort((a, b) => a.localeCompare(b));
+    allSkillNames = names;
     rebuildSharedDatalist();
     refreshAllRows();
   }
 
   function findSkillByName(name) {
     const key = normalize(name);
-    return skillIndex.get(key) || null;
+    if (!key) return null;
+    const direct = skillIndex.get(key);
+    if (direct) return direct;
+    const looseKey = normalizeLooseSkillKey(name);
+    if (!looseKey) return null;
+    return skillLookupLoose.get(looseKey) || null;
+  }
+
+  function formatSkillDisplayName(skillOrName) {
+    const skill =
+      typeof skillOrName === 'string' ? findSkillByName(skillOrName) : skillOrName || null;
+    if (!skill) return typeof skillOrName === 'string' ? skillOrName : '';
+    if (getSkillLanguage() !== 'jp') return skill.name;
+    return getPreferredSkillInputName(skill, skill.name);
   }
 
   function formatCategoryLabel(cat) {
     if (!cat) return 'Auto';
     const canon = canonicalCategory(cat);
     if (canon === 'gold') return 'Gold';
+    if (canon === 'purple') return 'Purple';
+    if (canon === 'evo') return 'Evo';
     if (canon === 'ius') return 'Unique';
     return cat.charAt(0).toUpperCase() + cat.slice(1);
   }
@@ -265,6 +507,8 @@
     const idx = {
       type: header.indexOf('skill_type'),
       name: header.indexOf('name'),
+      alias: header.indexOf('alias_name'),
+      localized: header.indexOf('localized_name'),
       base: header.indexOf('base_value'),
       sa: header.indexOf('s_a'),
       bc: header.indexOf('b_c'),
@@ -276,14 +520,45 @@
       apt4: header.indexOf('apt_4'),
       check: header.indexOf('affinity_role'),
       checkAlt: header.indexOf('affinity'),
+      isEvo: header.indexOf('is_evo'),
+      evoParents: header.indexOf('evo_parents'),
     };
     if (idx.name === -1) return false;
+    const officialFilterRequested = isOfficialEnglishOnlyEnabled();
+    const officialFilterActive = officialFilterRequested && officialEnglishNameSet.size > 0;
+    let filteredOut = 0;
+    let loaded = 0;
     const catMap = {};
     for (let r = 1; r < rows.length; r++) {
       const cols = rows[r];
       if (!cols || !cols.length) continue;
       const name = (cols[idx.name] || '').trim();
+      const aliasRaw = idx.alias !== -1 ? (cols[idx.alias] || '').trim() : '';
+      const localizedName =
+        idx.localized !== -1 ? (cols[idx.localized] || '').trim() : '';
+      const aliasNames = aliasRaw
+        .split('|')
+        .map((entry) => entry.trim())
+        .filter(Boolean);
+      const seenAliases = new Set(aliasNames.map((entry) => normalize(entry)));
+      const enrichLookupNames = [name, ...aliasNames];
+      if (localizedName) enrichLookupNames.push(localizedName);
+      enrichLookupNames.forEach((lookupName) => {
+        const extras = externalAliasLookup.get(normalize(lookupName));
+        if (!extras || !extras.size) return;
+        extras.forEach((candidate) => {
+          const trimmed = (candidate || '').trim();
+          const key = normalize(trimmed);
+          if (!trimmed || !key || key === normalize(name) || seenAliases.has(key)) return;
+          seenAliases.add(key);
+          aliasNames.push(trimmed);
+        });
+      });
       if (!name) continue;
+      if (officialFilterActive && !officialEnglishNameSet.has(normalizeOfficialSkillName(name))) {
+        filteredOut++;
+        continue;
+      }
       const type = idx.type !== -1 ? (cols[idx.type] || '').trim().toLowerCase() : 'misc';
       const base = idx.base !== -1 ? parseInt(cols[idx.base] || '', 10) : NaN;
       const sa = idx.sa !== -1 ? parseInt(cols[idx.sa] || '', 10) : NaN;
@@ -300,6 +575,15 @@
           : idx.checkAlt !== -1
             ? (cols[idx.checkAlt] || '').trim()
             : '';
+      const evoParentsRaw = idx.evoParents !== -1 ? (cols[idx.evoParents] || '').trim() : '';
+      const evoParentNames = evoParentsRaw
+        .split('|')
+        .map((entry) => entry.trim())
+        .filter(Boolean);
+      const isEvo =
+        idx.isEvo !== -1
+          ? ['1', 'true', 'yes'].includes(String(cols[idx.isEvo] || '').trim().toLowerCase())
+          : type === 'evo';
       const score = {};
       const baseBucket = !isNaN(base) ? base : NaN;
       const goodVal = !isNaN(sa) ? sa : !isNaN(apt1) ? apt1 : baseBucket;
@@ -312,7 +596,16 @@
       if (!isNaN(badVal)) score.bad = badVal;
       if (!isNaN(terrVal)) score.terrible = terrVal;
       if (!catMap[type]) catMap[type] = [];
-      catMap[type].push({ name, score, checkType: checkTypeRaw });
+      catMap[type].push({
+        name,
+        aliasNames,
+        localizedName,
+        score,
+        checkType: checkTypeRaw,
+        isEvo,
+        evoParentNames,
+      });
+      loaded++;
     }
     skillsByCategory = catMap;
     categories = Object.keys(catMap).sort((a, b) => {
@@ -321,25 +614,117 @@
       if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
       return a.localeCompare(b);
     });
+    lastCSVLoadStats = {
+      loaded,
+      filteredOut,
+      officialFilterApplied: officialFilterActive,
+    };
     rebuildSkillCaches();
     return true;
   }
 
+  async function loadOfficialEnglishSkillSet() {
+    const candidates = ['/assets/skills_all.json', './assets/skills_all.json'];
+    let lastErr = null;
+    for (const url of candidates) {
+      try {
+        const res = await fetch(url, { cache: 'force-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const list = await res.json();
+        if (!Array.isArray(list) || !list.length) continue;
+        const nextOfficialNames = new Set();
+        externalAliasLookup.clear();
+        const collectNames = (source) => {
+          if (!source || typeof source !== 'object') return [];
+          const raw = [source?.name_en, source?.enname, source?.jpname, source?.name];
+          const names = [];
+          const seen = new Set();
+          raw.forEach((value) => {
+            const trimmed = (value || '').trim();
+            const key = normalize(trimmed);
+            if (!trimmed || !key || seen.has(key)) return;
+            seen.add(key);
+            names.push(trimmed);
+          });
+          return names;
+        };
+        const registerAliasNames = (names) => {
+          if (!Array.isArray(names) || !names.length) return;
+          names.forEach((name) => {
+            const key = normalize(name);
+            if (!key) return;
+            if (!externalAliasLookup.has(key)) externalAliasLookup.set(key, new Set());
+            const bucket = externalAliasLookup.get(key);
+            names.forEach((candidate) => {
+              const candidateKey = normalize(candidate);
+              if (!candidateKey || candidateKey === key) return;
+              bucket.add(candidate);
+            });
+          });
+        };
+        list.forEach((entry) => {
+          const name = (entry?.name_en || '').trim();
+          const geneName = (entry?.gene_version?.name_en || '').trim();
+          if (name) nextOfficialNames.add(normalizeOfficialSkillName(name));
+          if (geneName) nextOfficialNames.add(normalizeOfficialSkillName(geneName));
+          registerAliasNames(collectNames(entry));
+          registerAliasNames(collectNames(entry?.gene_version));
+        });
+        officialEnglishNameSet = nextOfficialNames;
+        return true;
+      } catch (err) {
+        lastErr = err;
+      }
+    }
+    if (lastErr) {
+      console.warn('Failed to load official English skill names', lastErr);
+    }
+    officialEnglishNameSet = new Set();
+    return false;
+  }
+
+  function updateSkillLibraryStatus() {
+    if (!libStatus) return;
+    const totalSkills = Object.values(skillsByCategory).reduce((acc, arr) => acc + arr.length, 0);
+    const parts = [`Loaded ${totalSkills} skills`];
+    if (lastCSVLoadStats.officialFilterApplied) {
+      parts.push(`Official EN only (${lastCSVLoadStats.filteredOut} filtered)`);
+    } else if (isOfficialEnglishOnlyEnabled() && officialEnglishNameSet.size === 0) {
+      parts.push('Official EN filter unavailable');
+    }
+    libStatus.textContent = parts.join(' • ');
+  }
+
+  function rebuildSkillLibraryFromCache() {
+    if (!skillsCsvCache) return false;
+    const ok = loadFromCSVContent(skillsCsvCache);
+    if (!ok) return false;
+    updateSkillLibraryStatus();
+    return true;
+  }
+
   async function loadSkillsCSV() {
-    const candidates = ['/assets/uma_skills.csv', './assets/uma_skills.csv'];
+    const lang = getSkillLanguage();
+    const candidates =
+      lang === 'jp'
+        ? ['/assets/uma_skills_jp.csv', './assets/uma_skills_jp.csv', '/assets/uma_skills.csv']
+        : [
+            '/assets/uma_skills_en.csv',
+            './assets/uma_skills_en.csv',
+            '/assets/uma_skills.csv',
+            './assets/uma_skills.csv',
+          ];
     let lastErr = null;
     for (const url of candidates) {
       try {
         const res = await fetch(url, { cache: 'force-cache' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const text = await res.text();
+        skillsCsvCache = text;
         const ok = loadFromCSVContent(text);
         if (ok) {
-          const totalSkills = Object.values(skillsByCategory).reduce(
-            (acc, arr) => acc + arr.length,
-            0
-          );
-          libStatus.textContent = `Loaded ${totalSkills} skills`;
+          loadedSkillLibraryLanguage = lang;
+          updateSkillLibraryStatus();
           return true;
         }
       } catch (e) {
@@ -361,6 +746,8 @@
     const v = (cat || '').toLowerCase();
     if (!v) return '';
     if (v === 'golden' || v === 'gold' || v.includes('gold')) return 'gold';
+    if (v === 'purple' || v === 'violet') return 'purple';
+    if (v === 'evo' || v === 'evolution' || v.includes('evo')) return 'evo';
     if (v === 'ius' || v.includes('ius')) return 'ius';
     if (v === 'yellow' || v === 'blue' || v === 'green' || v === 'red') return v;
     return v;
@@ -373,6 +760,8 @@
       'cat-blue',
       'cat-green',
       'cat-red',
+      'cat-purple',
+      'cat-evo',
       'cat-ius',
       'cat-orange',
     ];
@@ -384,6 +773,8 @@
     else if (c === 'blue') row.classList.add('cat-blue');
     else if (c === 'green') row.classList.add('cat-green');
     else if (c === 'red') row.classList.add('cat-red');
+    else if (c === 'purple') row.classList.add('cat-purple');
+    else if (c === 'evo') row.classList.add('cat-evo');
     else if (c === 'ius') row.classList.add('cat-ius');
   }
 
@@ -396,14 +787,29 @@
     return sharedSkillDatalist;
   }
 
-  function rebuildSharedDatalist() {
+  function rebuildSharedDatalist(prefix = '') {
     if (!sharedSkillDatalist) return;
     sharedSkillDatalist.innerHTML = '';
+    const normalizedPrefix = normalize(prefix);
+    const suggestionLimit = normalizedPrefix
+      ? MAX_SKILL_SUGGESTIONS_WITH_PREFIX
+      : MAX_SKILL_SUGGESTIONS;
     const frag = document.createDocumentFragment();
+    let added = 0;
     allSkillNames.forEach((name) => {
+      if (normalizedPrefix && !normalize(name).startsWith(normalizedPrefix)) return;
+      if (added >= suggestionLimit) return;
       const opt = document.createElement('option');
       opt.value = name;
+      const skill = findSkillByName(name);
+      const isCanonical = !!skill && normalize(name) === normalize(skill.name);
+      const display = isCanonical ? formatSkillDisplayName(skill) : name;
+      if (display && display !== name) {
+        opt.label = display;
+        opt.textContent = display;
+      }
       frag.appendChild(opt);
+      added++;
     });
     sharedSkillDatalist.appendChild(frag);
   }
@@ -484,7 +890,8 @@
       </div>
       <div class="skill-cell">
         <label>Skill</label>
-        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="Start typing..." />
+        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="Start typing..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <div class="skill-name-meta" data-empty="true"></div>
         <div class="dup-warning" role="status" aria-live="polite"></div>
       </div>
       <div class="score-cell">
@@ -515,13 +922,14 @@
     const skillInput = row.querySelector('.skill-name');
     const categoryChip = row.querySelector('.category-chip');
     const scoreDisplay = row.querySelector('.skill-score-display');
+    const skillNameMeta = row.querySelector('.skill-name-meta');
     const dupWarning = row.querySelector('.dup-warning');
     let dupWarningTimer = null;
 
     function getSkillIdentity(name) {
       const skill = findSkillByName(name);
       const id = skill?.skillId ?? skill?.id ?? '';
-      const canonicalName = skill?.name || name;
+      const canonicalName = skill ? getPreferredSkillInputName(skill, name) : name;
       return { id: id ? String(id) : '', name: canonicalName, skill };
     }
 
@@ -600,6 +1008,24 @@
       applyCategoryAccent(row, category);
     }
 
+    function updateSkillNameMeta(skill) {
+      if (!skillNameMeta) return;
+      if (!skill || getSkillLanguage() !== 'jp') {
+        skillNameMeta.textContent = '';
+        skillNameMeta.dataset.empty = 'true';
+        return;
+      }
+      const localized = (skill.localizedName || '').trim();
+      const unofficial = getPrimaryAliasName(skill, { preferEnglish: getSiteLanguage() !== 'jp' });
+      const parts = [];
+      if (unofficial) parts.push(`Unofficial: ${unofficial}`);
+      if (localized && normalize(localized) !== normalize(unofficial)) {
+        parts.push(`Localized: ${localized}`);
+      }
+      skillNameMeta.textContent = parts.join('  |  ');
+      skillNameMeta.dataset.empty = parts.length ? 'false' : 'true';
+    }
+
     function updateScoreDisplay(skill) {
       if (!scoreDisplay) return;
       if (skill) {
@@ -631,10 +1057,12 @@
             skillInput.value = fallback;
             const prev = findSkillByName(fallback);
             const prevCategory = prev ? prev.category : '';
+            updateSkillNameMeta(prev || null);
             setCategoryDisplay(prevCategory);
             updateScoreDisplay(prev);
           } else {
             skillInput.value = '';
+            updateSkillNameMeta(null);
             setCategoryDisplay('');
             updateScoreDisplay(null);
           }
@@ -645,6 +1073,7 @@
       }
       clearDupWarning();
       const category = skill ? skill.category : '';
+      updateSkillNameMeta(skill || null);
       setCategoryDisplay(category);
       updateScoreDisplay(skill);
       if (triggerUpdate) {
@@ -659,7 +1088,10 @@
     setCategoryDisplay(row.dataset.skillCategory || '');
 
     if (skillInput) {
-      const syncFromInput = () => syncSkillCategory({ triggerUpdate: true });
+      const syncFromInput = () => {
+        rebuildSharedDatalist(skillInput.value || '');
+        syncSkillCategory({ triggerUpdate: true });
+      };
       skillInput.addEventListener('input', syncFromInput);
       skillInput.addEventListener('change', syncFromInput);
       skillInput.addEventListener('blur', syncFromInput);
@@ -668,6 +1100,7 @@
       });
       let monitorId = null;
       const startMonitor = () => {
+        rebuildSharedDatalist(skillInput.value || '');
         if (monitorId) return;
         let lastValue = skillInput.value;
         monitorId = window.setInterval(() => {
@@ -708,6 +1141,8 @@
         skills,
         raceConfig,
         rating: ratingEngine.readRatingState(),
+        officialEnglishOnly: officialEnglishToggle ? !!officialEnglishToggle.checked : true,
+        skillLanguage: getSkillLanguage(),
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {
@@ -720,6 +1155,19 @@
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return;
       const state = JSON.parse(raw);
+      if (
+        officialEnglishToggle &&
+        Object.prototype.hasOwnProperty.call(state, 'officialEnglishOnly')
+      ) {
+        officialEnglishToggle.checked = !!state.officialEnglishOnly;
+      }
+      if (Object.prototype.hasOwnProperty.call(state, 'skillLanguage') && state.skillLanguage) {
+        const lang = (state.skillLanguage || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
+        if (skillLanguageSelect) skillLanguageSelect.value = lang;
+        persistServerPreference(lang);
+      }
+      updateOfficialEnglishToggleState();
+      rebuildSkillLibraryFromCache();
       if (state.raceConfig) {
         Object.entries(state.raceConfig).forEach(([key, val]) => {
           if (cfg[key]) cfg[key].value = val;
@@ -875,6 +1323,7 @@
   // Initialize
   async function init() {
     // Load skills library
+    await loadOfficialEnglishSkillSet();
     await loadSkillsCSV();
     if (libStatus && /loading/i.test(libStatus.textContent || '')) {
       libStatus.textContent = 'Skill library ready.';
@@ -909,6 +1358,44 @@
     // Clear all button
     if (clearAllBtn) {
       clearAllBtn.addEventListener('click', clearAllRows);
+    }
+    if (officialEnglishToggle) {
+      officialEnglishToggle.addEventListener('change', () => {
+        try {
+          localStorage.setItem(OFFICIAL_EN_PREF_KEY, officialEnglishToggle.checked ? '1' : '0');
+        } catch {}
+        if (!rebuildSkillLibraryFromCache()) return;
+        ensureOneEmptyRow();
+        updateSelectedSkillsDisplay();
+      });
+    }
+    window.addEventListener('umatools:server-change', async (event) => {
+      const nextLang =
+        (event?.detail?.server || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
+      const currentLang = loadedSkillLibraryLanguage || getSkillLanguage();
+      const forceReload = !!event?.detail?.forceReload;
+      if (skillLanguageSelect) skillLanguageSelect.value = nextLang;
+      persistServerPreference(nextLang);
+      updateOfficialEnglishToggleState();
+      if (!forceReload && nextLang === currentLang) return;
+      await loadSkillsCSV();
+      ensureOneEmptyRow();
+      updateSelectedSkillsDisplay();
+    });
+    window.addEventListener('umatools:site-language-change', () => {
+      rebuildSkillCaches();
+      ensureOneEmptyRow();
+      updateSelectedSkillsDisplay();
+    });
+    if (skillLanguageSelect) {
+      skillLanguageSelect.addEventListener('change', () => {
+        const lang = skillLanguageSelect.value === 'jp' ? 'jp' : 'en';
+        window.dispatchEvent(
+          new CustomEvent('umatools:server-change', {
+            detail: { server: lang, source: 'calculator-local', forceReload: true },
+          })
+        );
+      });
     }
 
     // Initial display update

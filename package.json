@@ -5,6 +5,9 @@
   "scripts": {
     "build:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css",
     "watch:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css --watch",
+    "sync:skills-all": "python scripts/gametora.py --what skills --out-skills assets/skills_all.json",
+    "sync:uma-skills": "node scripts/gamewith_skills.js",
+    "refresh:data": "npm run sync:skills-all && npm run sync:uma-skills",
     "format:js": "prettier --write .",
     "format:py": "python -m ruff format api",
     "format": "npm run format:js && npm run format:py",

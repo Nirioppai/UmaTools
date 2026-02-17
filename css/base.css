@@ -136,6 +136,67 @@ h1 {
   align-items: center;
   gap: 0.5rem;
 }
+.site-nav .nav-settings {
+  position: relative;
+}
+.site-nav .settings-btn {
+  border: 1px solid var(--border, #d1d5db);
+  background: var(--surface-1, #fff);
+  color: var(--text-1, #111827);
+  border-radius: 8px;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.site-nav .settings-btn:hover {
+  background: var(--surface-2, #f8fafc);
+}
+.site-nav .nav-settings-panel {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 80;
+  min-width: 210px;
+  padding: 0.55rem;
+  border-radius: 10px;
+  border: 1px solid var(--border, #d1d5db);
+  background: var(--surface-1, #fff);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
+}
+.site-nav .nav-settings-title {
+  margin: 0 0 0.45rem 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted, #6b7280);
+  font-weight: 700;
+}
+.site-nav .nav-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--muted, #6b7280);
+}
+.site-nav .nav-control + .nav-control {
+  margin-top: 0.35rem;
+}
+.site-nav .nav-control span {
+  font-weight: 600;
+}
+.site-nav .nav-control select {
+  appearance: none;
+  border: 1px solid var(--border, #d1d5db);
+  background: var(--surface-1, #fff);
+  color: var(--text-1, #111827);
+  border-radius: 8px;
+  padding: 0.24rem 1.4rem 0.24rem 0.45rem;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
 .site-nav .mode-toggle-btn.in-nav {
   position: static;
   top: auto;
@@ -1295,6 +1356,14 @@ body.dark button#clearBtn:hover {
     padding: 0.5rem 0.75rem;
     min-height: var(--navH);
   }
+  .site-nav .nav-settings-panel {
+    position: fixed;
+    top: calc(var(--navH) + 0.4rem);
+    right: 0.5rem;
+    left: auto;
+    min-width: 190px;
+    max-width: calc(100vw - 1rem);
+  }
   .site-nav.open .nav-links {
     display: flex;
     position: fixed;
@@ -1409,6 +1478,24 @@ body.dark .site-nav .nav-link {
 body.dark .site-nav .nav-link:hover {
   background: #1e1e1e;
   border-color: #334155;
+}
+body.dark .site-nav .settings-btn {
+  background: #111827;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+body.dark .site-nav .settings-btn:hover {
+  background: #1f2937;
+}
+body.dark .site-nav .nav-settings-panel {
+  background: #111827;
+  border-color: #374151;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45);
+}
+body.dark .site-nav .nav-control select {
+  background: #111827;
+  border-color: #374151;
+  color: #e5e7eb;
 }
 body.dark .site-nav .nav-link.active {
   background: #273244;
@@ -2894,6 +2981,15 @@ body.dark .aptitude-test-pill span {
 .optimizer-row .dup-warning.visible {
   display: block;
 }
+.optimizer-row .skill-name-meta {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--muted, #6b7280);
+  line-height: 1.2;
+}
+.optimizer-row .skill-name-meta[data-empty='true'] {
+  display: none;
+}
 body.dark .optimizer-row .dup-warning {
   border-color: rgba(248, 113, 113, 0.6);
   background: rgba(127, 29, 29, 0.35);
@@ -3945,6 +4041,15 @@ body.dark .calculator-top-grid .stats-rating-pane {
 }
 .calculator-row .dup-warning.visible {
   display: block;
+}
+.calculator-row .skill-name-meta {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--muted, #6b7280);
+  line-height: 1.2;
+}
+.calculator-row .skill-name-meta[data-empty='true'] {
+  display: none;
 }
 body.dark .calculator-row .dup-warning {
   border-color: rgba(248, 113, 113, 0.6);

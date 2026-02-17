@@ -12,6 +12,36 @@
     Array.isArray(window.NAV_ROUTES) && window.NAV_ROUTES.length
       ? window.NAV_ROUTES
       : DEFAULT_ROUTES;
+  const SERVER_PREF_KEY = 'umatoolsServer';
+  const SITE_LANG_PREF_KEY = 'umatoolsSiteLanguage';
+
+  function normalizeServer(value) {
+    return (value || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
+  }
+
+  function normalizeSiteLanguage(value) {
+    return (value || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
+  }
+
+  function readPref(key, normalizeFn, fallback) {
+    try {
+      return normalizeFn(localStorage.getItem(key));
+    } catch {
+      return fallback;
+    }
+  }
+
+  function writePref(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch {}
+  }
+
+  function applySiteLanguage(lang) {
+    const normalized = normalizeSiteLanguage(lang);
+    document.documentElement.lang = normalized === 'jp' ? 'ja' : 'en';
+    document.documentElement.dataset.siteLanguage = normalized;
+  }
 
   // Footer links: override per-page with window.FOOTER_LINKS if you want
   const DEFAULT_FOOTER = [
@@ -46,6 +76,41 @@
         <div class="nav-links" role="navigation" aria-label="Primary"></div>
       </div>
       <div class="nav-right">
+        <div class="nav-settings">
+          <button
+            type="button"
+            class="settings-btn"
+            id="nav-settings-toggle"
+            aria-expanded="false"
+            aria-controls="nav-settings-panel"
+            aria-haspopup="true"
+          >
+            Settings
+          </button>
+          <div
+            class="nav-settings-panel"
+            id="nav-settings-panel"
+            role="group"
+            aria-label="Global Settings"
+            hidden
+          >
+            <div class="nav-settings-title">Global Settings</div>
+            <label class="nav-control">
+              <span>Server</span>
+              <select id="nav-server-select" aria-label="Game server">
+                <option value="en">EN</option>
+                <option value="jp">JP</option>
+              </select>
+            </label>
+            <label class="nav-control">
+              <span>Site Language</span>
+              <select id="nav-site-lang-select" aria-label="Site language">
+                <option value="en">EN</option>
+                <option value="jp">JP</option>
+              </select>
+            </label>
+          </div>
+        </div>
         <div id="navModeToggleSlot"></div>
       </div>
     </div>
@@ -55,9 +120,20 @@
   const navEl = nav;
   const linksWrap = nav.querySelector('.nav-links');
   const menuBtn = nav.querySelector('.menu-btn');
+  const settingsToggleBtn = nav.querySelector('#nav-settings-toggle');
+  const settingsPanel = nav.querySelector('#nav-settings-panel');
+  let settingsOpen = false;
+
+  function setSettingsOpen(open) {
+    if (!settingsToggleBtn || !settingsPanel) return;
+    settingsOpen = !!open;
+    settingsToggleBtn.setAttribute('aria-expanded', String(settingsOpen));
+    settingsPanel.hidden = !settingsOpen;
+  }
 
   // Toggle dropdown on mobile
   menuBtn.addEventListener('click', () => {
+    setSettingsOpen(false);
     const open = navEl.classList.toggle('open');
     menuBtn.setAttribute('aria-expanded', String(open));
   });
@@ -65,10 +141,29 @@
   // Close menu when a link is chosen
   linksWrap.addEventListener('click', (e) => {
     if (e.target.closest('.nav-link')) {
+      setSettingsOpen(false);
       navEl.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
     }
   });
+
+  if (settingsToggleBtn && settingsPanel) {
+    settingsToggleBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setSettingsOpen(!settingsOpen);
+    });
+    settingsPanel.addEventListener('click', (event) => event.stopPropagation());
+    document.addEventListener('click', (event) => {
+      if (!settingsOpen) return;
+      const target = event.target;
+      if (target instanceof Element && target.closest('.nav-settings')) return;
+      setSettingsOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setSettingsOpen(false);
+    });
+  }
 
   // Inject everything after DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
@@ -120,6 +215,55 @@
       slot.appendChild(toggle);
       toggle.classList.add('in-nav');
     }
+    const serverSelect = nav.querySelector('#nav-server-select');
+    const siteLangSelect = nav.querySelector('#nav-site-lang-select');
+    if (serverSelect) {
+      serverSelect.value = readPref(SERVER_PREF_KEY, normalizeServer, 'en');
+      serverSelect.addEventListener('change', () => {
+        const next = normalizeServer(serverSelect.value);
+        serverSelect.value = next;
+        writePref(SERVER_PREF_KEY, next);
+        window.dispatchEvent(
+          new CustomEvent('umatools:server-change', {
+            detail: { server: next, source: 'nav' },
+          })
+        );
+      });
+      window.addEventListener('umatools:server-change', (event) => {
+        const next = normalizeServer(event?.detail?.server);
+        if (serverSelect.value !== next) serverSelect.value = next;
+      });
+      window.dispatchEvent(
+        new CustomEvent('umatools:server-change', {
+          detail: { server: serverSelect.value, source: 'nav-init' },
+        })
+      );
+    }
+    if (siteLangSelect) {
+      siteLangSelect.value = readPref(SITE_LANG_PREF_KEY, normalizeSiteLanguage, 'en');
+      applySiteLanguage(siteLangSelect.value);
+      siteLangSelect.addEventListener('change', () => {
+        const next = normalizeSiteLanguage(siteLangSelect.value);
+        siteLangSelect.value = next;
+        writePref(SITE_LANG_PREF_KEY, next);
+        applySiteLanguage(next);
+        window.dispatchEvent(
+          new CustomEvent('umatools:site-language-change', {
+            detail: { language: next, source: 'nav' },
+          })
+        );
+      });
+      window.addEventListener('umatools:site-language-change', (event) => {
+        const next = normalizeSiteLanguage(event?.detail?.language);
+        if (siteLangSelect.value !== next) siteLangSelect.value = next;
+        applySiteLanguage(next);
+      });
+      window.dispatchEvent(
+        new CustomEvent('umatools:site-language-change', {
+          detail: { language: siteLangSelect.value, source: 'nav-init' },
+        })
+      );
+    }
 
     // Footer at bottom
     const footer = document.createElement('footer');
@@ -145,6 +289,9 @@
     if (window.innerWidth > 640 && navEl.classList.contains('open')) {
       navEl.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
+    }
+    if (window.innerWidth <= 640 && settingsOpen) {
+      setSettingsOpen(false);
     }
   });
 })();

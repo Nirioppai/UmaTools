@@ -76,6 +76,29 @@ vercel dev --debug
 
 </details>
 
+## Data Sync
+
+Refresh only GameTora skill metadata:
+
+```bash
+npm run sync:skills-all
+```
+
+Refresh GameWith skill CSVs (`assets/uma_skills.csv`, `assets/uma_skills_en.csv`, `assets/uma_skills_jp.csv`):
+
+```bash
+npm run sync:uma-skills
+```
+
+This command also writes scrape metadata to `.cache_gamewith/gamewith_metadata.json`.
+`uma_skills_jp.csv` stores fan/unofficial EN in `alias_name` and localized EN in `localized_name`.
+
+Full skill data refresh (recommended):
+
+```bash
+npm run refresh:data
+```
+
 ## Checks
 
 ```bash

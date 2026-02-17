@@ -9,6 +9,8 @@
   const clearAllBtn = document.getElementById('clear-all');
   const budgetInput = document.getElementById('budget');
   const fastLearnerToggle = document.getElementById('fast-learner');
+  const officialEnglishToggle = document.getElementById('official-en-only');
+  const skillLanguageSelect = document.getElementById('skill-language');
   const optimizeModeSelect = document.getElementById('optimize-mode');
   const libStatus = document.getElementById('lib-status');
   if (libStatus)
@@ -100,10 +102,16 @@
 
   let skillsByCategory = {}; // category -> [{ name, score, checkType }]
   let categories = [];
-  const preferredOrder = ['golden', 'yellow', 'blue', 'green', 'red', 'purple', 'ius'];
+  const preferredOrder = ['golden', 'yellow', 'blue', 'green', 'red', 'purple', 'evo', 'ius'];
   let skillIndex = new Map(); // normalized name -> { name, score, checkType, category }
+  let skillLookupLoose = new Map(); // punctuation-insensitive lookup key -> skill
   let skillIdIndex = new Map(); // id string -> skill object
+  let evosByParentName = new Map(); // normalized parent name -> [evo skill objects]
+  let _restoringState = false; // suppress save/optimize during state restoration
+  let _initComplete = false; // prevent saves before state is loaded
   let allSkillNames = [];
+  const MAX_SKILL_SUGGESTIONS = 300;
+  const MAX_SKILL_SUGGESTIONS_WITH_PREFIX = 2000;
 
   // Performance optimization: track active skill keys for O(1) duplicate detection
   const activeSkillKeys = new Map(); // skillKey -> rowId
@@ -113,6 +121,35 @@
   const HINT_DISCOUNT_STEP = 0.1;
   const HINT_DISCOUNTS = { 0: 0.0, 1: 0.1, 2: 0.2, 3: 0.3, 4: 0.35, 5: 0.4 };
   const HINT_LEVELS = [0, 1, 2, 3, 4, 5];
+  const OFFICIAL_EN_PREF_KEY = 'optimizerOfficialEnglishOnly';
+  const SKILL_LANG_PREF_KEY = 'optimizerSkillLanguage';
+  const GLOBAL_SERVER_PREF_KEY = 'umatoolsServer';
+  const GLOBAL_SITE_LANG_PREF_KEY = 'umatoolsSiteLanguage';
+
+  if (officialEnglishToggle) {
+    try {
+      const saved = localStorage.getItem(OFFICIAL_EN_PREF_KEY);
+      if (saved === '0' || saved === 'false') {
+        officialEnglishToggle.checked = false;
+      } else if (saved === '1' || saved === 'true') {
+        officialEnglishToggle.checked = true;
+      }
+    } catch {}
+  }
+
+  if (skillLanguageSelect) {
+    try {
+      const savedLang =
+        (localStorage.getItem(GLOBAL_SERVER_PREF_KEY) ||
+          localStorage.getItem(SKILL_LANG_PREF_KEY) ||
+          '')
+          .trim()
+          .toLowerCase();
+      if (savedLang === 'jp') skillLanguageSelect.value = 'jp';
+      else skillLanguageSelect.value = 'en';
+    } catch {}
+  }
+  updateOfficialEnglishToggleState();
 
   function getFastLearnerDiscount() {
     return fastLearnerToggle && fastLearnerToggle.checked ? 0.1 : 0;
@@ -146,6 +183,27 @@
     return isGoldCategory(category) ? APTITUDE_TEST_SCORE_GOLD : APTITUDE_TEST_SCORE_NORMAL;
   }
 
+  function getEffectiveRatingScore(skill, categoryOverride = '') {
+    const rawScore = evaluateSkillScore(skill || {});
+    if (!Number.isFinite(rawScore)) return 0;
+    const canon = canonicalCategory(categoryOverride || skill?.category || '');
+    // Purple debuffs remove rating when left unpurchased; buying them removes the penalty.
+    if (canon === 'purple') return 0;
+    return rawScore;
+  }
+
+  function getPurplePenaltyValue(skill, categoryOverride = '') {
+    const rawScore = evaluateSkillScore(skill || {});
+    if (!Number.isFinite(rawScore)) return 0;
+    const canon = canonicalCategory(categoryOverride || skill?.category || '');
+    if (canon !== 'purple') return 0;
+    return rawScore < 0 ? Math.abs(rawScore) : 0;
+  }
+
+  function getTotalPurplePenalty(items) {
+    return (items || []).reduce((sum, it) => sum + (Number(it?.purplePenalty) || 0), 0);
+  }
+
   function getHintDiscountPct(lvl) {
     const discount = Object.prototype.hasOwnProperty.call(HINT_DISCOUNTS, lvl)
       ? HINT_DISCOUNTS[lvl]
@@ -163,6 +221,15 @@
   const skillCostMapExact = new Map(); // exact lowercased name -> meta
   const skillCostById = new Map(); // skillId -> base cost
   const skillMetaById = new Map(); // skillId -> { cost, versions, parents }
+  const externalAliasLookup = new Map(); // normalized name -> Set(other known aliases)
+  let officialEnglishNameSet = new Set();
+  let skillsCsvCache = '';
+  let loadedSkillLibraryLanguage = '';
+  let lastCSVLoadStats = {
+    loaded: 0,
+    filteredOut: 0,
+    officialFilterApplied: false,
+  };
   const TEAM_TRIALS_MODE = 'team_trials';
   const teamTrialsSkillMetaById = new Map();
   const teamTrialsSkillMetaByName = new Map();
@@ -174,6 +241,139 @@
       .replace(/[^a-z0-9\s]/g, '')
       .replace(/\s+/g, ' ')
       .trim();
+  }
+
+  function normalizeLooseSkillKey(value) {
+    const base = normalize(value);
+    if (!base) return '';
+    const normalized = typeof base.normalize === 'function' ? base.normalize('NFKC') : base;
+    try {
+      return normalized.replace(/[\p{P}\p{S}\s]+/gu, '');
+    } catch {
+      return normalized.replace(/[^a-z0-9\u00c0-\u024f\u3040-\u30ff\u3400-\u9fff]+/g, '');
+    }
+  }
+
+  function normalizeSiteLanguage(value) {
+    return (value || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
+  }
+
+  function readGlobalServerPreference() {
+    try {
+      return (localStorage.getItem(GLOBAL_SERVER_PREF_KEY) || '').trim().toLowerCase();
+    } catch {
+      return '';
+    }
+  }
+
+  function persistServerPreference(lang) {
+    try {
+      localStorage.setItem(SKILL_LANG_PREF_KEY, lang);
+    } catch {}
+    try {
+      localStorage.setItem(GLOBAL_SERVER_PREF_KEY, lang);
+    } catch {}
+  }
+
+  function getSkillLanguage() {
+    if (skillLanguageSelect) {
+      return skillLanguageSelect.value === 'jp' ? 'jp' : 'en';
+    }
+    const globalPref = readGlobalServerPreference();
+    if (globalPref === 'jp') return 'jp';
+    try {
+      const localPref = (localStorage.getItem(SKILL_LANG_PREF_KEY) || '').trim().toLowerCase();
+      return localPref === 'jp' ? 'jp' : 'en';
+    } catch {
+      return 'en';
+    }
+  }
+
+  function getSiteLanguage() {
+    const attr = (document?.documentElement?.dataset?.siteLanguage || '').toString().trim();
+    if (attr) return normalizeSiteLanguage(attr);
+    try {
+      return normalizeSiteLanguage(localStorage.getItem(GLOBAL_SITE_LANG_PREF_KEY));
+    } catch {
+      return 'en';
+    }
+  }
+
+  function hasJapaneseScript(value) {
+    return /[\u3040-\u30ff\u3400-\u9fff]/.test((value || '').toString());
+  }
+
+  function hasLatinLetters(value) {
+    return /[a-z]/i.test((value || '').toString());
+  }
+
+  function getPrimaryAliasName(skill, { preferEnglish = false } = {}) {
+    if (!skill || !Array.isArray(skill.aliasNames)) return '';
+    const aliases = [];
+    const seen = new Set();
+    skill.aliasNames.forEach((entry) => {
+      const trimmed = (entry || '').trim();
+      const key = normalize(trimmed);
+      if (!trimmed || !key || seen.has(key)) return;
+      seen.add(key);
+      aliases.push(trimmed);
+    });
+    if (!aliases.length) return '';
+    if (preferEnglish) {
+      const blocked = new Set();
+      const canonical = normalize(skill.name);
+      const localized = normalize(skill.localizedName);
+      if (canonical) blocked.add(canonical);
+      if (localized) blocked.add(localized);
+      const findPreferred = (predicate, { allowBlocked = false } = {}) =>
+        aliases.find((entry) => {
+          const key = normalize(entry);
+          if (!allowBlocked && key && blocked.has(key)) return false;
+          return predicate(entry);
+        });
+      const latinNoJP = findPreferred(
+        (entry) => hasLatinLetters(entry) && !hasJapaneseScript(entry)
+      );
+      if (latinNoJP) return latinNoJP;
+      const nonJP = findPreferred((entry) => !hasJapaneseScript(entry));
+      if (nonJP) return nonJP;
+      const latinNoJPFallback = findPreferred(
+        (entry) => hasLatinLetters(entry) && !hasJapaneseScript(entry),
+        { allowBlocked: true }
+      );
+      if (latinNoJPFallback) return latinNoJPFallback;
+      const nonJPFallback = findPreferred((entry) => !hasJapaneseScript(entry), {
+        allowBlocked: true,
+      });
+      if (nonJPFallback) return nonJPFallback;
+    }
+    return aliases[0];
+  }
+
+  function getPreferredSkillInputName(skill, fallback = '') {
+    if (!skill) return (fallback || '').trim();
+    const server = getSkillLanguage();
+    if (server !== 'jp') return (skill.name || fallback || '').trim();
+    if (getSiteLanguage() === 'jp') return (skill.name || fallback || '').trim();
+    const alias = getPrimaryAliasName(skill, { preferEnglish: true });
+    if (alias) return alias;
+    const localized = (skill.localizedName || '').trim();
+    if (localized && !hasJapaneseScript(localized)) return localized;
+    if (localized) return localized;
+    return (skill.name || fallback || '').trim();
+  }
+
+  function updateOfficialEnglishToggleState() {
+    if (!officialEnglishToggle) return;
+    officialEnglishToggle.disabled = getSkillLanguage() !== 'en';
+  }
+
+  function isOfficialEnglishOnlyEnabled() {
+    return getSkillLanguage() === 'en' && (!officialEnglishToggle || officialEnglishToggle.checked);
+  }
+
+  function normalizeOfficialSkillName(name) {
+    return normalize(name).replace(/\s+/g, ' ');
   }
 
   async function tryWriteClipboard(text) {
@@ -239,11 +439,49 @@
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const list = await res.json();
         if (!Array.isArray(list) || !list.length) continue;
+        const nextOfficialEnglishNames = new Set();
+        externalAliasLookup.clear();
+        const collectNames = (source) => {
+          if (!source || typeof source !== 'object') return [];
+          const raw = [source?.name_en, source?.enname, source?.jpname, source?.name];
+          const names = [];
+          const seen = new Set();
+          raw.forEach((value) => {
+            const trimmed = (value || '').trim();
+            const key = normalize(trimmed);
+            if (!trimmed || !key || seen.has(key)) return;
+            seen.add(key);
+            names.push(trimmed);
+          });
+          return names;
+        };
+        const registerAliasNames = (names) => {
+          if (!Array.isArray(names) || !names.length) return;
+          names.forEach((name) => {
+            const key = normalize(name);
+            if (!key) return;
+            if (!externalAliasLookup.has(key)) externalAliasLookup.set(key, new Set());
+            const bucket = externalAliasLookup.get(key);
+            names.forEach((candidate) => {
+              const candidateKey = normalize(candidate);
+              if (!candidateKey || candidateKey === key) return;
+              bucket.add(candidate);
+            });
+          });
+        };
         list.forEach((entry) => {
-          const name = entry?.name_en || entry?.enname;
-          if (!name) return;
-          const exactKey = normalize(name);
-          const key = normalizeCostKey(name);
+          const officialName = (entry?.name_en || '').trim();
+          const geneOfficialName = (entry?.gene_version?.name_en || '').trim();
+          if (officialName) nextOfficialEnglishNames.add(normalizeOfficialSkillName(officialName));
+          if (geneOfficialName)
+            nextOfficialEnglishNames.add(normalizeOfficialSkillName(geneOfficialName));
+          const names = collectNames(entry);
+          const geneNames = collectNames(entry?.gene_version);
+          registerAliasNames(names);
+          registerAliasNames(geneNames);
+          const indexNames = names.length ? names : [];
+          const geneIndexNames = geneNames.length ? geneNames : [];
+          const allIndexNames = Array.from(new Set(indexNames.concat(geneIndexNames)));
           const cost = (() => {
             if (entry?.gene_version && typeof entry.gene_version.cost === 'number')
               return entry.gene_version.cost;
@@ -264,10 +502,15 @@
               if (!skillCostById.has(sid)) skillCostById.set(sid, cost);
               if (!skillMetaById.has(sid)) skillMetaById.set(sid, { cost, parents, versions });
             }
-            if (!skillCostMapExact.has(exactKey)) skillCostMapExact.set(exactKey, meta);
-            if (!skillCostMapNormalized.has(key)) skillCostMapNormalized.set(key, meta);
+            allIndexNames.forEach((indexName) => {
+              const exactKey = normalize(indexName);
+              const key = normalizeCostKey(indexName);
+              if (exactKey && !skillCostMapExact.has(exactKey)) skillCostMapExact.set(exactKey, meta);
+              if (key && !skillCostMapNormalized.has(key)) skillCostMapNormalized.set(key, meta);
+            });
           }
         });
+        officialEnglishNameSet = nextOfficialEnglishNames;
         if (window.TeamTrialsOptimizer?.buildEnglishSkillIndex) {
           const teamIndex = window.TeamTrialsOptimizer.buildEnglishSkillIndex(list);
           teamTrialsSkillMetaById.clear();
@@ -407,6 +650,8 @@
   function serializeRows() {
     const rows = [];
     rowsEl.querySelectorAll('.optimizer-row').forEach((row) => {
+      // Skip auto-generated sub-rows
+      if (row.dataset.parentCircleId || row.dataset.parentEvoId) return;
       const name = row.querySelector('.skill-name')?.value?.trim();
       const costVal = row.querySelector('.cost')?.value;
       const cost = typeof costVal === 'string' && costVal.length ? parseInt(costVal, 10) : NaN;
@@ -416,7 +661,11 @@
       if (!name || isNaN(cost)) return;
       const hintSuffix = !isNaN(hintLevel) ? `|H${hintLevel}` : '';
       const reqSuffix = required ? '|R' : '';
-      rows.push(`${name}=${cost}${hintSuffix}${reqSuffix}`);
+      const evoNames = Array.from(row.querySelectorAll('.evo-checkbox:checked'))
+        .map((cb) => cb.dataset.evoName)
+        .filter(Boolean);
+      const evoSuffix = evoNames.map((n) => `|E${n}`).join('');
+      rows.push(`${name}=${cost}${hintSuffix}${reqSuffix}${evoSuffix}`);
     });
     return rows.join('\n');
   }
@@ -428,103 +677,135 @@
       .map((line) => line.trim())
       .filter(Boolean);
     if (!entries.length) throw new Error('No rows detected.');
-    Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((n) => n.remove());
-    clearAutoHighlights();
-    entries.forEach((entry) => {
-      const [nameRaw, costRaw] = entry.split('=');
-      const name = (nameRaw || '').trim();
-      let costText = (costRaw || '').trim();
-      let hintLevel = 0;
-      let required = false;
-      if (/\|R\b/i.test(costText)) {
-        required = true;
-        costText = costText.replace(/\|R\b/gi, '').trim();
-      }
-      const hintMatch = costText.match(/\|H?\s*([0-5])\s*$/i);
-      if (hintMatch) {
-        hintLevel = parseInt(hintMatch[1], 10) || 0;
-        costText = costText.slice(0, hintMatch.index).trim();
-      }
-      const cost = parseInt(costText, 10);
-      if (!name || isNaN(cost)) return;
-      const row = makeRow();
-      rowsEl.appendChild(row);
-      const nameInput = row.querySelector('.skill-name');
-      const costInput = row.querySelector('.cost');
-      const hintSelect = row.querySelector('.hint-level');
-      const requiredToggle = row.querySelector('.required-skill');
-      if (nameInput) nameInput.value = name;
-      if (costInput) costInput.value = cost;
-      if (hintSelect) hintSelect.value = String(hintLevel);
-      if (requiredToggle) {
-        requiredToggle.checked = required;
-        row.classList.toggle('required', required);
-      }
-      if (typeof row.syncSkillCategory === 'function') {
-        row.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: false });
-      } else {
-        applyCategoryAccent(row, row.dataset.skillCategory || '');
-      }
-    });
-    // After all rows are created, link gold skills to existing or auto-created lower rows.
-    const allRows = Array.from(rowsEl.querySelectorAll('.optimizer-row'));
-    const rowsBySkillId = new Map();
-    allRows.forEach((row) => {
-      const name = (row.querySelector('.skill-name')?.value || '').trim();
-      const skill = findSkillByName(name);
-      if (skill?.skillId !== undefined && skill?.skillId !== null) {
-        rowsBySkillId.set(String(skill.skillId), row);
-      }
-    });
-    allRows.forEach((row) => {
-      if (row.dataset.parentGoldId) return;
-      const name = (row.querySelector('.skill-name')?.value || '').trim();
-      const skill = findSkillByName(name);
-      if (!skill) return;
-      if (!isGoldCategory(skill.category)) return;
-      if (row.dataset.lowerRowId) return;
-      const candidateIds = [];
-      if (skill.lowerSkillId) candidateIds.push(skill.lowerSkillId);
-      if (Array.isArray(skill.parentIds) && skill.parentIds.length) {
-        candidateIds.push(...skill.parentIds);
-      }
-      let linkedRow = null;
-      candidateIds.some((cid) => {
-        const found = rowsBySkillId.get(String(cid));
-        if (found && found !== row) {
-          linkedRow = found;
-          return true;
+    _restoringState = true;
+    try {
+      Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((n) => n.remove());
+      clearAutoHighlights();
+      entries.forEach((entry) => {
+        const [nameRaw, costRaw] = entry.split('=');
+        const name = (nameRaw || '').trim();
+        let costText = (costRaw || '').trim();
+        let hintLevel = 0;
+        let required = false;
+        // Parse evo suffixes
+        const evoMatches = costText.match(/\|E([^|]+)/g) || [];
+        const checkedEvos = evoMatches.map((m) => m.slice(2).trim()).filter(Boolean);
+        costText = costText.replace(/\|E[^|]*/g, '').trim();
+        if (/\|R\b/i.test(costText)) {
+          required = true;
+          costText = costText.replace(/\|R\b/gi, '').trim();
         }
-        return false;
-      });
-      if (linkedRow) {
-        const lowerId = linkedRow.dataset.rowId || '';
-        row.dataset.lowerRowId = lowerId;
-        linkedRow.dataset.parentGoldId = row.dataset.rowId || '';
-        linkedRow.classList.add('linked-lower');
-        const linkedInput = linkedRow.querySelector('.skill-name');
-        if (linkedInput) linkedInput.placeholder = 'Lower skill...';
-        const linkedRemove = linkedRow.querySelector('.remove');
-        if (linkedRemove) {
-          linkedRemove.disabled = true;
-          linkedRemove.title = 'Remove the gold row to unlink';
-          linkedRemove.style.pointerEvents = 'none';
-          linkedRemove.style.opacity = '0.4';
+        const hintMatch = costText.match(/\|H?\s*([0-5])\s*$/i);
+        if (hintMatch) {
+          hintLevel = parseInt(hintMatch[1], 10) || 0;
+          costText = costText.slice(0, hintMatch.index).trim();
         }
-        if (typeof linkedRow.syncSkillCategory === 'function') {
-          linkedRow.syncSkillCategory({
-            triggerOptimize: false,
-            allowLinking: false,
-            updateCost: true,
-          });
+        const cost = parseInt(costText, 10);
+        if (!name || isNaN(cost)) return;
+        const row = makeRow();
+        rowsEl.appendChild(row);
+        const nameInput = row.querySelector('.skill-name');
+        const costInput = row.querySelector('.cost');
+        const hintSelect = row.querySelector('.hint-level');
+        const requiredToggle = row.querySelector('.required-skill');
+        if (nameInput) nameInput.value = name;
+        if (costInput) costInput.value = cost;
+        if (hintSelect) hintSelect.value = String(hintLevel);
+        if (requiredToggle) {
+          requiredToggle.checked = required;
+          row.classList.toggle('required', required);
+        }
+        // Store pending evo selections on the row for later restoration
+        if (checkedEvos.length) {
+          row.dataset.pendingEvos = JSON.stringify(checkedEvos);
         }
         if (typeof row.syncSkillCategory === 'function') {
-          row.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
+          row.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: false });
+        } else {
+          applyCategoryAccent(row, row.dataset.skillCategory || '');
         }
-      } else if (typeof row.syncSkillCategory === 'function') {
-        row.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
-      }
-    });
+      });
+      // After all rows are created, link gold skills to existing or auto-created lower rows.
+      const allRows = Array.from(rowsEl.querySelectorAll('.optimizer-row'));
+      const rowsBySkillId = new Map();
+      allRows.forEach((row) => {
+        const name = (row.querySelector('.skill-name')?.value || '').trim();
+        const skill = findSkillByName(name);
+        if (skill?.skillId !== undefined && skill?.skillId !== null) {
+          rowsBySkillId.set(String(skill.skillId), row);
+        }
+      });
+      allRows.forEach((row) => {
+        if (row.dataset.parentGoldId) return;
+        const name = (row.querySelector('.skill-name')?.value || '').trim();
+        const skill = findSkillByName(name);
+        if (!skill) return;
+        if (!isGoldCategory(skill.category)) return;
+        if (row.dataset.lowerRowId) return;
+        const candidateIds = [];
+        if (skill.lowerSkillId) candidateIds.push(skill.lowerSkillId);
+        if (Array.isArray(skill.parentIds) && skill.parentIds.length) {
+          candidateIds.push(...skill.parentIds);
+        }
+        let linkedRow = null;
+        candidateIds.some((cid) => {
+          const found = rowsBySkillId.get(String(cid));
+          if (found && found !== row) {
+            linkedRow = found;
+            return true;
+          }
+          return false;
+        });
+        if (linkedRow) {
+          const lowerId = linkedRow.dataset.rowId || '';
+          row.dataset.lowerRowId = lowerId;
+          linkedRow.dataset.parentGoldId = row.dataset.rowId || '';
+          linkedRow.classList.add('linked-lower');
+          const linkedInput = linkedRow.querySelector('.skill-name');
+          if (linkedInput) linkedInput.placeholder = 'Lower skill...';
+          const linkedRemove = linkedRow.querySelector('.remove');
+          if (linkedRemove) {
+            linkedRemove.disabled = true;
+            linkedRemove.title = 'Remove the gold row to unlink';
+            linkedRemove.style.pointerEvents = 'none';
+            linkedRemove.style.opacity = '0.4';
+          }
+          if (typeof linkedRow.syncSkillCategory === 'function') {
+            linkedRow.syncSkillCategory({
+              triggerOptimize: false,
+              allowLinking: false,
+              updateCost: true,
+            });
+          }
+          if (typeof row.syncSkillCategory === 'function') {
+            row.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: true });
+          }
+        } else if (typeof row.syncSkillCategory === 'function') {
+          row.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
+        }
+      });
+      // Restore evo checkbox selections from serialized |E suffixes
+      Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((row) => {
+        if (!row.dataset.pendingEvos) return;
+        let evos;
+        try { evos = JSON.parse(row.dataset.pendingEvos); } catch { return; }
+        delete row.dataset.pendingEvos;
+        if (!Array.isArray(evos) || !evos.length) return;
+        // Ensure evo checkboxes are populated (syncSkillCategory with linking creates them)
+        if (typeof row.syncSkillCategory === 'function') {
+          row.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: false });
+        }
+        evos.forEach((evoName) => {
+          const cb = row.querySelector(`.evo-checkbox[data-evo-name="${CSS.escape(evoName)}"]`);
+          if (cb && !cb.checked) {
+            cb.checked = true;
+            cb.dispatchEvent(new Event('change'));
+          }
+        });
+      });
+    } finally {
+      _restoringState = false;
+    }
     ensureOneEmptyRow();
     saveState();
     autoOptimizeDebounced();
@@ -928,12 +1209,34 @@
     return { compressToEncodedURIComponent, decompressFromEncodedURIComponent };
   })();
 
-  function readFromURL() {
+  function getURLParams() {
     const hash = (location.hash || '').replace(/^#/, '');
-    const p = new URLSearchParams(hash || location.search);
+    return new URLSearchParams(hash || location.search);
+  }
+
+  function normalizeSkillLanguage(value) {
+    return (value || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
+  }
+
+  function applyLanguageFromURLParams(params) {
+    if (!params) return false;
+    const raw = params.get('sl') || params.get('lang');
+    if (!raw) return false;
+    const nextLang = normalizeSkillLanguage(raw);
+    const changed = getSkillLanguage() !== nextLang;
+    if (skillLanguageSelect) skillLanguageSelect.value = nextLang;
+    persistServerPreference(nextLang);
+    updateOfficialEnglishToggleState();
+    return changed;
+  }
+
+  function readFromURL() {
+    const p = getURLParams();
     const buildParam = p.get('b') || p.get('build');
     if (!buildParam) return false;
     try {
+      applyLanguageFromURLParams(p);
+
       // Restore budget
       const budget = p.get('k') || p.get('budget');
       if (budget) budgetInput.value = parseInt(budget, 10) || 0;
@@ -943,6 +1246,13 @@
       if (fastLearnerToggle && fl !== null) {
         fastLearnerToggle.checked = fl === '1' || fl === 'true';
       }
+
+      // Restore official English filter
+      const officialOnly = p.get('oe') || p.get('official');
+      if (officialEnglishToggle && officialOnly !== null) {
+        officialEnglishToggle.checked = !(officialOnly === '0' || officialOnly === 'false');
+      }
+      updateOfficialEnglishToggleState();
 
       // Restore optimize mode
       const mode = p.get('m') || p.get('mode');
@@ -996,6 +1306,9 @@
         }
       }
 
+      // Rebuild skill library if filter changed via URL.
+      rebuildSkillLibraryFromCache();
+
       // Load skills
       const decoded = decodeBuildFromURL(buildParam);
       if (!decoded) return false;
@@ -1032,6 +1345,13 @@
     // Add fast learner
     if (fastLearnerToggle?.checked) {
       p.set('f', '1');
+    }
+
+    if (getSkillLanguage() === 'en' && officialEnglishToggle && !officialEnglishToggle.checked) {
+      p.set('oe', '0');
+    }
+    if (getSkillLanguage() === 'jp') {
+      p.set('sl', 'jp');
     }
 
     // Add optimize mode
@@ -1114,7 +1434,16 @@
     const requiredSummary = expandRequired(items);
     if (requiredSummary.requiredCost > budget) {
       setAutoStatus('Required skills exceed the current budget.', true);
-      renderResults({ best: 0, chosen: [], used: 0, error: 'required_unreachable' }, budget);
+      renderResults(
+        {
+          best: 0,
+          chosen: [],
+          used: 0,
+          error: 'required_unreachable',
+          purpleTotalPenalty: getTotalPurplePenalty(items),
+        },
+        budget
+      );
       return;
     }
     const includeGeneral = targets.includes('general');
@@ -1155,19 +1484,19 @@
       const teamResult = optimizeTeamTrialsCandidates(candidates, budget);
       if (teamResult.error) {
         setAutoStatus('Team Trials optimization failed for the current constraints.', true);
-        renderResults(teamResult, budget);
+        renderResults({ ...teamResult, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
         return;
       }
       if (!teamResult.chosen?.length) {
         setAutoStatus('Budget too low to purchase any matching Team Trials candidates.', true);
-        renderResults(teamResult, budget);
+        renderResults({ ...teamResult, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
         return;
       }
       applyAutoHighlights(
         teamResult.chosen.map((it) => it.id),
         candidates.map((it) => it.id)
       );
-      renderResults(teamResult, budget);
+      renderResults({ ...teamResult, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
       setAutoStatus(
         `Highlighted ${teamResult.chosen.length}/${candidates.length} matching skills (cost ${teamResult.used}/${budget}).`
       );
@@ -1181,7 +1510,7 @@
     );
     if (result.error === 'required_unreachable') {
       setAutoStatus('Required skills exceed the current budget.', true);
-      renderResults(result, budget);
+      renderResults({ ...result, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
       return;
     }
     if (!result.chosen.length) {
@@ -1193,6 +1522,7 @@
       chosen: requiredSummary.requiredItems.concat(result.chosen),
       used: result.used + requiredSummary.requiredCost,
       best: result.best + requiredSummary.requiredScore,
+      purpleTotalPenalty: getTotalPurplePenalty(items),
     };
     applyAutoHighlights(
       mergedResult.chosen.map((it) => it.id),
@@ -1231,17 +1561,26 @@
 
   function tryAutoOptimize() {
     const budget = parseInt(budgetInput.value, 10);
-    if (isNaN(budget) || budget < 0) return;
+    if (isNaN(budget) || budget < 0) { clearResults(); return; }
     const { items, rowsMeta } = collectItems();
-    if (!items.length) return;
+    if (!items.length) { clearResults(); return; }
     if (getOptimizeMode() === TEAM_TRIALS_MODE) {
       const teamResult = optimizeTeamTrialsCandidates(items, budget);
-      renderResults(teamResult, budget);
+      renderResults({ ...teamResult, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
       return;
     }
     const requiredSummary = expandRequired(items);
     if (requiredSummary.requiredCost > budget) {
-      renderResults({ best: 0, chosen: [], used: 0, error: 'required_unreachable' }, budget);
+      renderResults(
+        {
+          best: 0,
+          chosen: [],
+          used: 0,
+          error: 'required_unreachable',
+          purpleTotalPenalty: getTotalPurplePenalty(items),
+        },
+        budget
+      );
       return;
     }
     const optionalItems = items.filter((it) => !requiredSummary.requiredIds.has(it.id));
@@ -1252,6 +1591,7 @@
       chosen: requiredSummary.requiredItems.concat(result.chosen),
       used: result.used + requiredSummary.requiredCost,
       best: result.best + requiredSummary.requiredScore,
+      purpleTotalPenalty: getTotalPurplePenalty(items),
     };
     renderResults(mergedResult, budget);
   }
@@ -1260,7 +1600,26 @@
   function rebuildSkillCaches() {
     const nextIndex = new Map();
     const nextIdIndex = new Map();
+    const nextLooseLookup = new Map();
     const names = [];
+    const seenSuggestions = new Set();
+    const isJPServer = getSkillLanguage() === 'jp';
+    const siteLanguage = getSiteLanguage();
+
+    const addLooseLookup = (value, skill) => {
+      const key = normalizeLooseSkillKey(value);
+      if (key && !nextLooseLookup.has(key)) nextLooseLookup.set(key, skill);
+    };
+
+    const addSuggestionName = (value) => {
+      const label = (value || '').trim();
+      if (!label) return;
+      const key = normalize(label);
+      if (!key || seenSuggestions.has(key)) return;
+      seenSuggestions.add(key);
+      names.push(label);
+    };
+
     Object.entries(skillsByCategory).forEach(([category, list = []]) => {
       list.forEach((skill) => {
         if (!skill || !skill.name) return;
@@ -1273,16 +1632,38 @@
         const isPairedSingle = !!skill.circleUpgrade; // ○ with paired ◎
 
         nextIndex.set(key, enriched);
+        addLooseLookup(skill.name, enriched);
+        if (Array.isArray(skill.aliasNames) && skill.aliasNames.length) {
+          skill.aliasNames.forEach((alias) => {
+            const aliasKey = normalize(alias);
+            if (aliasKey && !nextIndex.has(aliasKey)) nextIndex.set(aliasKey, enriched);
+            addLooseLookup(alias, enriched);
+          });
+        }
+        if (skill.localizedName) {
+          const localizedKey = normalize(skill.localizedName);
+          if (localizedKey && !nextIndex.has(localizedKey)) nextIndex.set(localizedKey, enriched);
+          addLooseLookup(skill.localizedName, enriched);
+        }
         if (isPairedSingle && skill.circleBaseName) {
           // Also index under the bare base name → resolves to ○ variant
           const baseKey = normalize(skill.circleBaseName);
           if (!nextIndex.has(baseKey)) nextIndex.set(baseKey, enriched);
+          addLooseLookup(skill.circleBaseName, enriched);
         }
 
-        if (!isDoubleCircle) {
+        if (!isDoubleCircle && !skill.isEvo) {
           // Show base name in datalist for paired ○, full name otherwise
           const displayName = isPairedSingle ? skill.circleBaseName : skill.name;
-          names.push(displayName); // deduped via Set below
+          if (isJPServer && siteLanguage === 'jp') {
+            addSuggestionName(displayName);
+          } else {
+            addSuggestionName(displayName);
+            if (Array.isArray(skill.aliasNames) && skill.aliasNames.length) {
+              skill.aliasNames.forEach((alias) => addSuggestionName(alias));
+            }
+            if (skill.localizedName) addSuggestionName(skill.localizedName);
+          }
         }
 
         if (skill.skillId) {
@@ -1292,23 +1673,56 @@
       });
     });
     skillIndex = nextIndex;
+    skillLookupLoose = nextLooseLookup;
     skillIdIndex = nextIdIndex;
-    const uniqueNames = Array.from(new Set(names));
-    uniqueNames.sort((a, b) => a.localeCompare(b));
-    allSkillNames = uniqueNames;
+    names.sort((a, b) => a.localeCompare(b));
+    allSkillNames = names;
     rebuildSharedDatalist();
     refreshAllRows();
   }
 
   function findSkillByName(name) {
     const key = normalize(name);
-    return skillIndex.get(key) || null;
+    if (!key) return null;
+    const direct = skillIndex.get(key);
+    if (direct) return direct;
+    const looseKey = normalizeLooseSkillKey(name);
+    if (!looseKey) return null;
+    return skillLookupLoose.get(looseKey) || null;
+  }
+
+  function formatSkillDisplayName(skillOrName) {
+    const skill =
+      typeof skillOrName === 'string' ? findSkillByName(skillOrName) : skillOrName || null;
+    if (!skill) return typeof skillOrName === 'string' ? skillOrName : '';
+    if (getSkillLanguage() !== 'jp') return skill.name;
+    return getPreferredSkillInputName(skill, skill.name);
+  }
+
+  function getEvosForSkill(skillName) {
+    const key = normalize(skillName);
+    return key ? (evosByParentName.get(key) || []) : [];
+  }
+
+  function appendLocalizedDisplayName(displayName, fallbackSkillName = '') {
+    if (getSkillLanguage() !== 'jp') return displayName;
+    if (getSiteLanguage() === 'jp') return displayName;
+    const skill = findSkillByName(displayName) || (fallbackSkillName ? findSkillByName(fallbackSkillName) : null);
+    if (!skill) return displayName;
+    const preferred = getPreferredSkillInputName(skill, displayName);
+    if (!preferred) return displayName;
+    const markerMatch = (displayName || '').match(/\s([○◎])$/);
+    const marker = markerMatch ? markerMatch[1] : '';
+    if (marker && !preferred.endsWith(marker)) return `${preferred} ${marker}`;
+    return preferred;
   }
 
   function formatCategoryLabel(cat) {
     if (!cat) return 'Auto';
     const canon = canonicalCategory(cat);
     if (canon === 'gold') return 'Gold';
+    if (canon === 'purple') return 'Purple';
+    if (canon === 'evo') return 'Evo';
     if (canon === 'ius') return 'Unique';
     return cat.charAt(0).toUpperCase() + cat.slice(1);
   }
@@ -1457,6 +1871,8 @@
     const idx = {
       type: header.indexOf('skill_type'),
       name: header.indexOf('name'),
+      alias: header.indexOf('alias_name'),
+      localized: header.indexOf('localized_name'),
       base: header.indexOf('base_value'),
       baseCost: header.indexOf('base'), // new CSV uses `base` for raw cost
       sa: header.indexOf('s_a'),
@@ -1469,14 +1885,45 @@
       apt4: header.indexOf('apt_4'),
       check: header.indexOf('affinity_role'),
       checkAlt: header.indexOf('affinity'),
+      isEvo: header.indexOf('is_evo'),
+      evoParents: header.indexOf('evo_parents'),
     };
     if (idx.name === -1) return false;
+    const officialFilterRequested = getSkillLanguage() === 'en' && isOfficialEnglishOnlyEnabled();
+    const officialFilterActive = officialFilterRequested && officialEnglishNameSet.size > 0;
+    let filteredOut = 0;
+    let loaded = 0;
     const catMap = {};
     for (let r = 1; r < rows.length; r++) {
       const cols = rows[r];
       if (!cols || !cols.length) continue;
       const name = (cols[idx.name] || '').trim();
+      const aliasRaw = idx.alias !== -1 ? (cols[idx.alias] || '').trim() : '';
+      const localizedName =
+        idx.localized !== -1 ? (cols[idx.localized] || '').trim() : '';
+      const aliasNames = aliasRaw
+        .split('|')
+        .map((entry) => entry.trim())
+        .filter(Boolean);
+      const seenAliases = new Set(aliasNames.map((entry) => normalize(entry)));
+      const enrichLookupNames = [name, ...aliasNames];
+      if (localizedName) enrichLookupNames.push(localizedName);
+      enrichLookupNames.forEach((lookupName) => {
+        const extras = externalAliasLookup.get(normalize(lookupName));
+        if (!extras || !extras.size) return;
+        extras.forEach((candidate) => {
+          const trimmed = (candidate || '').trim();
+          const key = normalize(trimmed);
+          if (!trimmed || !key || key === normalize(name) || seenAliases.has(key)) return;
+          seenAliases.add(key);
+          aliasNames.push(trimmed);
+        });
+      });
       if (!name) continue;
+      if (officialFilterActive && !officialEnglishNameSet.has(normalizeOfficialSkillName(name))) {
+        filteredOut++;
+        continue;
+      }
       const type = idx.type !== -1 ? (cols[idx.type] || '').trim().toLowerCase() : 'misc';
       const baseCost = idx.baseCost !== -1 ? parseInt(cols[idx.baseCost] || '', 10) : NaN;
       const base = idx.base !== -1 ? parseInt(cols[idx.base] || '', 10) : NaN;
@@ -1495,6 +1942,15 @@
           : idx.checkAlt !== -1
             ? (cols[idx.checkAlt] || '').trim()
             : '';
+      const evoParentsRaw = idx.evoParents !== -1 ? (cols[idx.evoParents] || '').trim() : '';
+      const evoParentNames = evoParentsRaw
+        .split('|')
+        .map((entry) => entry.trim())
+        .filter(Boolean);
+      const isEvo =
+        idx.isEvo !== -1
+          ? ['1', 'true', 'yes'].includes(String(cols[idx.isEvo] || '').trim().toLowerCase())
+          : type === 'evo';
       const score = {};
       const baseBucket = !isNaN(base) ? base : !isNaN(baseCost) ? baseCost : NaN;
       const goodVal = !isNaN(sa) ? sa : !isNaN(apt1) ? apt1 : baseBucket;
@@ -1506,9 +1962,15 @@
       if (!isNaN(avgVal)) score.average = avgVal;
       if (!isNaN(badVal)) score.bad = badVal;
       if (!isNaN(terrVal)) score.terrible = terrVal;
-      const exactKey = normalize(name);
-      const lookupKey = normalizeCostKey(name);
-      const meta = skillCostMapExact.get(exactKey) || skillCostMapNormalized.get(lookupKey) || null;
+      let meta = null;
+      const lookupNames = [name, ...aliasNames];
+      if (localizedName) lookupNames.push(localizedName);
+      for (const lookupName of lookupNames) {
+        const exactKey = normalize(lookupName);
+        const lookupKey = normalizeCostKey(lookupName);
+        meta = skillCostMapExact.get(exactKey) || skillCostMapNormalized.get(lookupKey) || null;
+        if (meta) break;
+      }
       const resolvedCost =
         meta && typeof meta.cost === 'number' ? meta.cost : isNaN(baseCost) ? undefined : baseCost;
       const isUnique = type === 'ius' || type.includes('ius');
@@ -1521,13 +1983,18 @@
       if (!catMap[type]) catMap[type] = [];
       catMap[type].push({
         name,
+        aliasNames,
+        localizedName,
         score,
         baseCost: resolvedCost,
         checkType: checkTypeRaw,
         parentIds: parents,
         skillId,
         lowerSkillId,
+        isEvo,
+        evoParentNames,
       });
+      loaded++;
     }
     // ── Link ◎/○ circle skill pairs ──
     // Build a map of base names (without ◎/○ suffix) to their variants
@@ -1557,6 +2024,21 @@
       }
     }
 
+    // ── Build reverse evo lookup: parent name → evo skills ──
+    const nextEvosByParent = new Map();
+    for (const list of Object.values(catMap)) {
+      for (const skill of list) {
+        if (!skill.isEvo || !Array.isArray(skill.evoParentNames)) continue;
+        skill.evoParentNames.forEach((parentName) => {
+          const key = normalize(parentName);
+          if (!key) return;
+          if (!nextEvosByParent.has(key)) nextEvosByParent.set(key, []);
+          nextEvosByParent.get(key).push(skill);
+        });
+      }
+    }
+    evosByParentName = nextEvosByParent;
+
     skillsByCategory = catMap;
     categories = Object.keys(catMap).sort((a, b) => {
       const ia = preferredOrder.indexOf(a),
@@ -1564,17 +2046,26 @@
       if (ia !== -1 || ib !== -1) return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
       return a.localeCompare(b);
     });
-    const totalSkills = Object.values(skillsByCategory).reduce((acc, arr) => acc + arr.length, 0);
+    lastCSVLoadStats = {
+      loaded,
+      filteredOut,
+      officialFilterApplied: officialFilterActive,
+    };
     rebuildSkillCaches();
     return true;
   }
 
   async function loadSkillsCSV() {
-    const candidates = [
-      // new canonical location (moved into assets and renamed)
-      '/assets/uma_skills.csv',
-      './assets/uma_skills.csv',
-    ];
+    const lang = getSkillLanguage();
+    const candidates =
+      lang === 'jp'
+        ? ['/assets/uma_skills_jp.csv', './assets/uma_skills_jp.csv', '/assets/uma_skills.csv']
+        : [
+            '/assets/uma_skills_en.csv',
+            './assets/uma_skills_en.csv',
+            '/assets/uma_skills.csv',
+            './assets/uma_skills.csv',
+          ];
     let lastErr = null;
     for (const url of candidates) {
       try {
@@ -1582,8 +2073,11 @@
         const res = await fetch(url, { cache: 'force-cache' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const text = await res.text();
+        skillsCsvCache = text;
         const ok = loadFromCSVContent(text);
         if (ok) {
+          loadedSkillLibraryLanguage = lang;
+          updateSkillLibraryStatus();
           return true;
         }
       } catch (e) {
@@ -1596,6 +2090,26 @@
     return false;
   }
 
+  function updateSkillLibraryStatus() {
+    if (!libStatus) return;
+    const totalSkills = Object.values(skillsByCategory).reduce((acc, arr) => acc + arr.length, 0);
+    const parts = [`Loaded ${totalSkills} skills`];
+    if (lastCSVLoadStats.officialFilterApplied) {
+      parts.push(`Official EN only (${lastCSVLoadStats.filteredOut} filtered)`);
+    } else if (isOfficialEnglishOnlyEnabled() && officialEnglishNameSet.size === 0) {
+      parts.push('Official EN filter unavailable');
+    }
+    libStatus.textContent = parts.join(' • ');
+  }
+
+  function rebuildSkillLibraryFromCache() {
+    if (!skillsCsvCache) return false;
+    const ok = loadFromCSVContent(skillsCsvCache);
+    if (!ok) return false;
+    updateSkillLibraryStatus();
+    return true;
+  }
+
   function isGoldCategory(cat) {
     const v = (cat || '').toLowerCase();
     return v === 'golden' || v === 'gold' || v.includes('gold');
@@ -1605,6 +2119,8 @@
     const v = (cat || '').toLowerCase();
     if (!v) return '';
     if (v === 'golden' || v === 'gold' || v.includes('gold')) return 'gold';
+    if (v === 'purple' || v === 'violet') return 'purple';
+    if (v === 'evo' || v === 'evolution' || v.includes('evo')) return 'evo';
     if (v === 'ius' || v.includes('ius')) return 'ius';
     if (v === 'yellow' || v === 'blue' || v === 'green' || v === 'red') return v;
     return v;
@@ -1655,6 +2171,8 @@
       'cat-blue',
       'cat-green',
       'cat-red',
+      'cat-purple',
+      'cat-evo',
       'cat-ius',
       'cat-orange',
     ];
@@ -1666,6 +2184,8 @@
     else if (c === 'blue') row.classList.add('cat-blue');
     else if (c === 'green') row.classList.add('cat-green');
     else if (c === 'red') row.classList.add('cat-red');
+    else if (c === 'purple') row.classList.add('cat-purple');
+    else if (c === 'evo') row.classList.add('cat-evo');
     else if (c === 'ius') row.classList.add('cat-ius');
   }
 
@@ -1679,14 +2199,29 @@
     return sharedSkillDatalist;
   }
 
-  function rebuildSharedDatalist() {
+  function rebuildSharedDatalist(prefix = '') {
     if (!sharedSkillDatalist) return;
     sharedSkillDatalist.innerHTML = '';
+    const normalizedPrefix = normalize(prefix);
+    const suggestionLimit = normalizedPrefix
+      ? MAX_SKILL_SUGGESTIONS_WITH_PREFIX
+      : MAX_SKILL_SUGGESTIONS;
     const frag = document.createDocumentFragment();
+    let added = 0;
     allSkillNames.forEach((name) => {
+      if (normalizedPrefix && !normalize(name).startsWith(normalizedPrefix)) return;
+      if (added >= suggestionLimit) return;
       const opt = document.createElement('option');
       opt.value = name;
+      const skill = findSkillByName(name);
+      const isCanonical = !!skill && normalize(name) === normalize(skill.name);
+      const display = isCanonical ? formatSkillDisplayName(skill) : name;
+      if (display && display !== name) {
+        opt.label = display;
+        opt.textContent = display;
+      }
       frag.appendChild(opt);
+      added++;
     });
     sharedSkillDatalist.appendChild(frag);
   }
@@ -1701,7 +2236,7 @@
   }
 
   function isTopLevelRow(row) {
-    return !row.dataset.parentGoldId && !row.dataset.parentCircleId;
+    return !row.dataset.parentGoldId && !row.dataset.parentCircleId && !row.dataset.parentEvoId;
   }
   function isRowFilled(row) {
     const name = (row.querySelector('.skill-name')?.value || '').trim();
@@ -1772,8 +2307,10 @@
       </div>
       <div class="skill-cell">
         <label>Skill</label>
-        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="Start typing..." />
+        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="Start typing..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <div class="skill-name-meta" data-empty="true"></div>
         <div class="dup-warning" role="status" aria-live="polite"></div>
+        <div class="evo-options" data-empty="true"></div>
       </div>
       <div class="hint-cell">
         <label>Hint Discount</label>
@@ -1833,6 +2370,7 @@
           }
           delete row.dataset.circleRowId;
         }
+        if (row.dataset.evoRowIds) cleanupEvoRows();
         row.remove();
         saveState();
         ensureOneEmptyRow();
@@ -1843,6 +2381,7 @@
     const categoryChip = row.querySelector('.category-chip');
     const hintSelect = row.querySelector('.hint-level');
     const dupWarning = row.querySelector('.dup-warning');
+    const skillNameMeta = row.querySelector('.skill-name-meta');
     let dupWarningTimer = null;
     const baseCostDisplay = row.querySelector('.base-cost');
     const costInput = row.querySelector('.cost');
@@ -1949,6 +2488,24 @@
       applyCategoryAccent(row, category);
     }
 
+    function updateSkillNameMeta(skill) {
+      if (!skillNameMeta) return;
+      if (!skill || getSkillLanguage() !== 'jp') {
+        skillNameMeta.textContent = '';
+        skillNameMeta.dataset.empty = 'true';
+        return;
+      }
+      const localized = (skill.localizedName || '').trim();
+      const unofficial = getPrimaryAliasName(skill, { preferEnglish: getSiteLanguage() !== 'jp' });
+      const parts = [];
+      if (unofficial) parts.push(`Unofficial: ${unofficial}`);
+      if (localized && normalize(localized) !== normalize(unofficial)) {
+        parts.push(`Localized: ${localized}`);
+      }
+      skillNameMeta.textContent = parts.join('  |  ');
+      skillNameMeta.dataset.empty = parts.length ? 'false' : 'true';
+    }
+
     function getSkillIdentity(name) {
       let skill = findSkillByName(name);
       // For any circle variant (○ or ◎), resolve to ○ and use base name
@@ -1959,10 +2516,11 @@
           if (singleSkill) skill = singleSkill;
         }
         const id = skill?.skillId ?? skill?.id ?? '';
-        return { id: id ? String(id) : '', name: skill.circleBaseName, skill };
+        const preferredName = getPreferredSkillInputName(skill, skill.circleBaseName || name);
+        return { id: id ? String(id) : '', name: preferredName || skill.circleBaseName, skill };
       }
       const id = skill?.skillId ?? skill?.id ?? '';
-      const canonicalName = skill?.name || name;
+      const canonicalName = skill ? getPreferredSkillInputName(skill, name) : name;
       return { id: id ? String(id) : '', name: canonicalName, skill };
     }
 
@@ -2171,6 +2729,152 @@
       autoOptimizeDebounced();
     }
 
+    // ── Evo skill checkboxes on gold rows ──
+    function cleanupEvoRows() {
+      const ids = (row.dataset.evoRowIds || '').split(',').filter(Boolean);
+      ids.forEach((eid) => {
+        const evoRow = rowsEl.querySelector(`.optimizer-row[data-row-id="${eid}"]`);
+        if (evoRow) {
+          if (typeof evoRow.cleanupSkillTracking === 'function') evoRow.cleanupSkillTracking();
+          evoRow.remove();
+        }
+      });
+      delete row.dataset.evoRowIds;
+    }
+
+    function createHiddenEvoRow(evoSkill) {
+      const evoRow = makeRow();
+      evoRow.classList.add('linked-lower');
+      evoRow.dataset.parentEvoId = id;
+      const evoInput = evoRow.querySelector('.skill-name');
+      if (evoInput) evoInput.value = evoSkill.name;
+      const evoCostEl = evoRow.querySelector('.cost');
+      if (evoCostEl) evoCostEl.value = 0;
+      if (typeof evoSkill.baseCost === 'number') {
+        evoRow.dataset.baseCost = String(evoSkill.baseCost);
+      }
+      const evoRemove = evoRow.querySelector('.remove');
+      if (evoRemove) {
+        evoRemove.disabled = true;
+        evoRemove.title = 'Uncheck the evo option on the gold row';
+        evoRemove.style.pointerEvents = 'none';
+        evoRemove.style.opacity = '0.4';
+      }
+      evoRow.style.display = 'none';
+      // Insert after gold's lower/circle/existing evo rows
+      let insertAfter = row;
+      const tryAdvance = (selector) => {
+        const el = rowsEl.querySelector(`.optimizer-row[data-row-id="${selector}"]`);
+        if (el) insertAfter = el;
+      };
+      if (row.dataset.lowerRowId) tryAdvance(row.dataset.lowerRowId);
+      if (row.dataset.circleRowId) tryAdvance(row.dataset.circleRowId);
+      (row.dataset.evoRowIds || '').split(',').filter(Boolean).forEach(tryAdvance);
+      rowsEl.insertBefore(evoRow, insertAfter.nextSibling);
+      // Track evo row ID
+      const ids = (row.dataset.evoRowIds || '').split(',').filter(Boolean);
+      ids.push(evoRow.dataset.rowId);
+      row.dataset.evoRowIds = ids.join(',');
+      if (typeof evoRow.syncSkillCategory === 'function') {
+        evoRow.syncSkillCategory({ triggerOptimize: false, allowLinking: false, updateCost: false });
+      }
+    }
+
+    function removeHiddenEvoRow(evoName) {
+      const ids = (row.dataset.evoRowIds || '').split(',').filter(Boolean);
+      const remaining = [];
+      ids.forEach((eid) => {
+        const evoRow = rowsEl.querySelector(`.optimizer-row[data-row-id="${eid}"]`);
+        if (evoRow) {
+          const name = evoRow.querySelector('.skill-name')?.value || '';
+          if (normalize(name) === normalize(evoName)) {
+            if (typeof evoRow.cleanupSkillTracking === 'function') evoRow.cleanupSkillTracking();
+            evoRow.remove();
+            return;
+          }
+        }
+        remaining.push(eid);
+      });
+      row.dataset.evoRowIds = remaining.join(',');
+      if (!remaining.length) delete row.dataset.evoRowIds;
+    }
+
+    function ensureEvoOptions(skill, { allowCreate = true } = {}) {
+      const evoContainer = row.querySelector('.evo-options');
+      if (!evoContainer) return;
+      // Don't show evo options on linked sub-rows
+      if (row.dataset.parentGoldId || row.dataset.parentCircleId || row.dataset.parentEvoId) {
+        cleanupEvoRows();
+        evoContainer.innerHTML = '';
+        evoContainer.dataset.empty = 'true';
+        return;
+      }
+      const isGold = skill && isGoldCategory(skill.category);
+      const evos = isGold ? getEvosForSkill(skill.name) : [];
+      if (!evos.length) {
+        cleanupEvoRows();
+        evoContainer.innerHTML = '';
+        evoContainer.dataset.empty = 'true';
+        return;
+      }
+      // Track which evos are currently checked (preserve across re-renders)
+      const currentChecked = new Set();
+      (row.dataset.evoRowIds || '').split(',').filter(Boolean).forEach((eid) => {
+        const evoRow = rowsEl.querySelector(`.optimizer-row[data-row-id="${eid}"]`);
+        if (evoRow) {
+          const n = evoRow.querySelector('.skill-name')?.value || '';
+          if (n) currentChecked.add(normalize(n));
+        }
+      });
+      // Remove evo rows whose skill no longer matches available evos
+      const availableKeys = new Set(evos.map((e) => normalize(e.name)));
+      (row.dataset.evoRowIds || '').split(',').filter(Boolean).forEach((eid) => {
+        const evoRow = rowsEl.querySelector(`.optimizer-row[data-row-id="${eid}"]`);
+        if (!evoRow) return;
+        const n = normalize(evoRow.querySelector('.skill-name')?.value || '');
+        if (n && !availableKeys.has(n)) {
+          if (typeof evoRow.cleanupSkillTracking === 'function') evoRow.cleanupSkillTracking();
+          evoRow.remove();
+          currentChecked.delete(n);
+        }
+      });
+      // Rebuild evoRowIds to remove stale entries
+      const freshIds = (row.dataset.evoRowIds || '').split(',').filter((eid) => {
+        return eid && rowsEl.querySelector(`.optimizer-row[data-row-id="${eid}"]`);
+      });
+      if (freshIds.length) row.dataset.evoRowIds = freshIds.join(',');
+      else delete row.dataset.evoRowIds;
+
+      evoContainer.innerHTML = '';
+      evoContainer.dataset.empty = 'false';
+      const label = document.createElement('span');
+      label.className = 'evo-label';
+      label.textContent = 'Evo:';
+      evoContainer.appendChild(label);
+      evos.forEach((evoSkill) => {
+        const displayName = getPreferredSkillInputName(evoSkill, evoSkill.name);
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.className = 'evo-checkbox';
+        cb.dataset.evoName = evoSkill.name;
+        cb.checked = currentChecked.has(normalize(evoSkill.name));
+        const wrapper = document.createElement('label');
+        wrapper.className = 'evo-checkbox-label';
+        wrapper.title = displayName;
+        wrapper.appendChild(cb);
+        wrapper.appendChild(document.createTextNode(displayName));
+        evoContainer.appendChild(wrapper);
+        cb.addEventListener('change', () => {
+          if (cb.checked) createHiddenEvoRow(evoSkill);
+          else removeHiddenEvoRow(evoSkill.name);
+          if (!_restoringState) {
+            saveState();
+            autoOptimizeDebounced();
+          }
+        });
+      });
+    }
+
     function syncSkillCategory({
       triggerOptimize = false,
       allowLinking = true,
@@ -2199,6 +2903,7 @@
         const isLinkedChild = !!(
           row.dataset.parentGoldId ||
           row.dataset.parentCircleId ||
+          row.dataset.parentEvoId ||
           row.dataset.parentSkillLink
         );
         if (!isLinkedChild && isDuplicateSkill(identity)) {
@@ -2208,11 +2913,13 @@
             skillInput.value = fallback;
             const prev = findSkillByName(fallback);
             const prevCategory = prev ? prev.category : '';
+            updateSkillNameMeta(prev || null);
             setCategoryDisplay(prevCategory);
             updateBaseCostDisplay(prev);
             if (updateCost) applyHintedCost(prev);
           } else {
             skillInput.value = '';
+            updateSkillNameMeta(null);
             setCategoryDisplay('');
             updateBaseCostDisplay(null);
             if (costInput) costInput.value = '';
@@ -2225,12 +2932,14 @@
       }
       clearDupWarning();
       const category = skill ? skill.category : '';
+      updateSkillNameMeta(skill || null);
       setCategoryDisplay(category);
       setBaseCategory(row, skill);
       updateBaseCostDisplay(skill);
       ensureLinkedLowerForGold(category, { allowCreate: allowLinking });
       ensureLinkedLowerForParent(skill, { allowCreate: allowLinking });
       ensureLinkedCircleUpgrade(skill, { allowCreate: allowLinking });
+      ensureEvoOptions(skill, { allowCreate: allowLinking });
       if (updateCost) applyHintedCost(skill);
       if (triggerOptimize) {
         saveState();
@@ -2280,7 +2989,10 @@
     row.cleanupSkillTracking = removeSkillKeyTracking;
     setCategoryDisplay(row.dataset.skillCategory || '');
     if (skillInput) {
-      const syncFromInput = () => syncSkillCategory({ triggerOptimize: true, updateCost: true });
+      const syncFromInput = () => {
+        rebuildSharedDatalist(skillInput.value || '');
+        syncSkillCategory({ triggerOptimize: true, updateCost: true });
+      };
       skillInput.addEventListener('input', syncFromInput);
       skillInput.addEventListener('change', syncFromInput);
       skillInput.addEventListener('blur', syncFromInput);
@@ -2289,6 +3001,7 @@
       });
       let monitorId = null;
       const startMonitor = () => {
+        rebuildSharedDatalist(skillInput.value || '');
         if (monitorId) return;
         let lastValue = skillInput.value;
         monitorId = window.setInterval(() => {
@@ -2405,39 +3118,51 @@
       const category = skill.category || '';
       const parentGoldId = row.dataset.parentGoldId || '';
       const parentCircleId = row.dataset.parentCircleId || '';
+      const parentEvoId = row.dataset.parentEvoId || '';
       const isLowerForGold = !!parentGoldId; // This row is a lower skill linked to a gold
 
       // Always calculate both scores
-      const ratingScore = evaluateSkillScore(skill);
+      const ratingScore = getEffectiveRatingScore(skill, category);
+      const purplePenalty = getPurplePenaltyValue(skill, category);
+      const optimizeRatingScore = ratingScore + purplePenalty;
       const aptitudeScore = getAptitudeTestScore(category, isLowerForGold);
 
       // For optimization: in aptitude mode, use combined score (aptitude * large multiplier + rating as tiebreaker)
       // This ensures aptitude is maximized first, then rating among equal aptitude options
       const score =
         mode === 'aptitude-test'
-          ? aptitudeScore * 100000 + ratingScore // Aptitude primary, rating secondary
-          : ratingScore;
+          ? aptitudeScore * 100000 + optimizeRatingScore // Aptitude primary, rating secondary
+          : optimizeRatingScore;
 
       const rowId = row.dataset.rowId || Math.random().toString(36).slice(2);
       const lowerRowId = row.dataset.lowerRowId || '';
       const circleRowId = row.dataset.circleRowId || '';
+      const evoRowIds = row.dataset.evoRowIds || '';
       const parentSkillIds =
         Array.isArray(skill.parentIds) && skill.parentIds.length ? skill.parentIds : [];
       const lowerSkillId = skill.lowerSkillId || '';
       const skillId = skill.skillId || skill.id || '';
+      const isEvo = canonicalCategory(category) === 'evo' || !!skill.isEvo;
+      const evoParentNames =
+        Array.isArray(skill.evoParentNames) && skill.evoParentNames.length ? skill.evoParentNames : [];
       items.push({
         id: rowId,
         name: skill.name,
         cost,
         score,
         ratingScore,
+        purplePenalty,
         aptitudeScore, // Track both scores
         baseCost: baseCostStored,
         category,
+        isEvo,
+        evoParentNames,
         parentGoldId,
         parentCircleId,
+        parentEvoId,
         lowerRowId,
         circleRowId,
+        evoRowIds,
         checkType: skill.checkType || '',
         parentSkillIds,
         lowerSkillId,
@@ -2445,7 +3170,7 @@
         hintLevel,
         required,
       });
-      rowsMeta.push({ id: rowId, category, parentGoldId, parentCircleId, lowerRowId, circleRowId });
+      rowsMeta.push({ id: rowId, category, parentGoldId, parentCircleId, parentEvoId, lowerRowId, circleRowId, evoRowIds });
     });
     return { items, rowsMeta };
   }
@@ -2453,10 +3178,35 @@
   function buildGroups(items, rowsMeta) {
     const idToIndex = new Map(items.map((it, i) => [it.id, i]));
     const skillIdToIndex = new Map();
+    const indicesByName = new Map();
+    const evoParentCache = new Map();
     items.forEach((it, i) => {
       if (it.skillId) skillIdToIndex.set(String(it.skillId), i);
       if (it.lowerSkillId) skillIdToIndex.set(String(it.lowerSkillId), i);
+      const key = normalize(it.name);
+      if (key) {
+        if (!indicesByName.has(key)) indicesByName.set(key, []);
+        indicesByName.get(key).push(i);
+      }
     });
+    function getEvoParentIndexes(itemIdx) {
+      if (evoParentCache.has(itemIdx)) return evoParentCache.get(itemIdx);
+      const src = items[itemIdx] || {};
+      const indexes = new Set();
+      if (Array.isArray(src.evoParentNames) && src.evoParentNames.length) {
+        src.evoParentNames.forEach((parentName) => {
+          const matches = indicesByName.get(normalize(parentName)) || [];
+          matches.forEach((idx) => indexes.add(idx));
+        });
+      }
+      if (Array.isArray(src.parentSkillIds) && src.parentSkillIds.length) {
+        src.parentSkillIds.forEach((pid) => {
+          if (skillIdToIndex.has(String(pid))) indexes.add(skillIdToIndex.get(String(pid)));
+        });
+      }
+      evoParentCache.set(itemIdx, indexes);
+      return indexes;
+    }
     const used = new Array(items.length).fill(false);
     const groups = [];
     for (let i = 0; i < items.length; i++) {
@@ -2464,13 +3214,96 @@
       const it = items[i];
       let handled = false;
 
+      // Evolution skills replace a parent gold at no extra SP.
+      // Skip checkbox-linked evos (parentEvoId) — they're handled by the gold block.
+      const isEvo = canonicalCategory(it.category) === 'evo' || !!it.isEvo;
+      if (isEvo && !it.parentEvoId) {
+        const evoParentIndexes = getEvoParentIndexes(i);
+        const evoParentKey = Array.from(evoParentIndexes)
+          .sort((a, b) => a - b)
+          .join(',');
+        const siblingEvoIndexes = [];
+        for (let j = 0; j < items.length; j++) {
+          if (used[j]) continue;
+          const candidate = items[j];
+          const candidateIsEvo = canonicalCategory(candidate.category) === 'evo' || !!candidate.isEvo;
+          if (!candidateIsEvo) continue;
+          const key = Array.from(getEvoParentIndexes(j))
+            .sort((a, b) => a - b)
+            .join(',');
+          if (key === evoParentKey) siblingEvoIndexes.push(j);
+        }
+        const availableParents = Array.from(evoParentIndexes).filter((idx) => !used[idx]);
+        if (availableParents.length) {
+          const options = [{ none: true, items: [] }];
+          const linkedLowerRows = new Set();
+          availableParents.forEach((parentIdx) => {
+            const parent = items[parentIdx];
+            const parentLowerIdx =
+              parent.lowerRowId && idToIndex.has(parent.lowerRowId)
+                ? idToIndex.get(parent.lowerRowId)
+                : -1;
+            const hasLinkedLower = parentLowerIdx >= 0 && !used[parentLowerIdx];
+            if (hasLinkedLower) {
+              linkedLowerRows.add(parentLowerIdx);
+              const lower = items[parentLowerIdx];
+              options.push({
+                pick: parentLowerIdx,
+                cost: lower.cost,
+                score: lower.score,
+                ratingScore: lower.ratingScore || 0,
+                aptitudeScore: lower.aptitudeScore || 0,
+                items: [parentLowerIdx],
+              });
+            }
+            options.push({
+              pick: parentIdx,
+              cost: parent.cost,
+              score: parent.score,
+              ratingScore: parent.ratingScore || 0,
+              aptitudeScore: parent.aptitudeScore || 0,
+              items: hasLinkedLower ? [parentLowerIdx, parentIdx] : [parentIdx],
+            });
+            siblingEvoIndexes.forEach((evoIdx) => {
+              const evoItem = items[evoIdx];
+              options.push({
+                combo: hasLinkedLower ? [parentLowerIdx, parentIdx, evoIdx] : [parentIdx, evoIdx],
+                cost: parent.cost, // evo replaces parent skill at no extra SP
+                score: evoItem.score,
+                ratingScore: evoItem.ratingScore || 0,
+                aptitudeScore: evoItem.aptitudeScore || 0,
+                items: hasLinkedLower ? [parentLowerIdx, parentIdx, evoIdx] : [parentIdx, evoIdx],
+              });
+            });
+          });
+          groups.push(options);
+          siblingEvoIndexes.forEach((idx) => {
+            used[idx] = true;
+          });
+          availableParents.forEach((idx) => {
+            used[idx] = true;
+          });
+          linkedLowerRows.forEach((idx) => {
+            used[idx] = true;
+          });
+          continue;
+        }
+        // Cannot purchase evo without a matching parent in the current rows.
+        groups.push([{ none: true, items: [] }]);
+        siblingEvoIndexes.forEach((idx) => {
+          used[idx] = true;
+        });
+        if (!siblingEvoIndexes.length) used[i] = true;
+        continue;
+      }
+
       // Dependency: if item has a parent (single-circle) present, offer choices (none, parent only, parent+child).
       const parentCandidates = [];
       if (Array.isArray(it.parentSkillIds) && it.parentSkillIds.length)
         parentCandidates.push(...it.parentSkillIds);
       if (it.lowerSkillId) parentCandidates.push(it.lowerSkillId);
       const pid = parentCandidates.find((pid) => skillIdToIndex.has(String(pid)));
-      if (pid !== undefined) {
+      if (pid !== undefined && !isGoldCategory(it.category)) {
         const j = skillIdToIndex.get(String(pid));
         if (!used[j]) {
           const parent = items[j];
@@ -2511,7 +3344,7 @@
         if (!used[j]) {
           // gold requires lower: offer none, lower only, or gold with lower cost included
           // For aptitude: lower skill alone counts, gold combo only counts the gold
-          groups.push([
+          const goldOptions = [
             { none: true, items: [] },
             {
               pick: j,
@@ -2529,10 +3362,61 @@
               aptitudeScore: it.aptitudeScore || 0,
               items: [j, i],
             },
-          ]);
+          ];
+          // Evo options from checkbox-linked evo rows (replace gold at same cost)
+          const evoIds = (it.evoRowIds || '').split(',').filter(Boolean);
+          evoIds.forEach((eid) => {
+            const evoIdx = idToIndex.get(eid);
+            if (evoIdx !== undefined && !used[evoIdx]) {
+              const evoItem = items[evoIdx];
+              goldOptions.push({
+                combo: [j, i, evoIdx],
+                cost: it.cost,
+                score: evoItem.score,
+                ratingScore: evoItem.ratingScore || 0,
+                aptitudeScore: evoItem.aptitudeScore || 0,
+                items: [j, i, evoIdx],
+              });
+              used[evoIdx] = true;
+            }
+          });
+          groups.push(goldOptions);
           used[i] = used[j] = true;
           continue;
         }
+      }
+      // Gold without linked lower but with checkbox-linked evos
+      if (isGold && it.evoRowIds) {
+        const goldEvoOptions = [
+          { none: true, items: [] },
+          {
+            pick: i,
+            cost: it.cost,
+            score: it.score,
+            ratingScore: it.ratingScore || 0,
+            aptitudeScore: it.aptitudeScore || 0,
+            items: [i],
+          },
+        ];
+        const evoIds = (it.evoRowIds || '').split(',').filter(Boolean);
+        evoIds.forEach((eid) => {
+          const evoIdx = idToIndex.get(eid);
+          if (evoIdx !== undefined && !used[evoIdx]) {
+            const evoItem = items[evoIdx];
+            goldEvoOptions.push({
+              combo: [i, evoIdx],
+              cost: it.cost,
+              score: evoItem.score,
+              ratingScore: evoItem.ratingScore || 0,
+              aptitudeScore: evoItem.aptitudeScore || 0,
+              items: [i, evoIdx],
+            });
+            used[evoIdx] = true;
+          }
+        });
+        groups.push(goldEvoOptions);
+        used[i] = true;
+        continue;
       }
       // ◎/○ circle pair: ○ parent with linked ◎ upgrade row (additive cost)
       if (it.circleRowId && idToIndex.has(it.circleRowId)) {
@@ -2561,6 +3445,11 @@
           used[i] = used[j] = true;
           continue;
         }
+      }
+      // Orphaned evo sub-row (parent gold missing/invalid) — skip silently
+      if (it.parentEvoId) {
+        used[i] = true;
+        continue;
       }
       // If this is a linked sub-row (circle or gold), its parent will group it.
       groups.push([
@@ -2861,6 +3750,8 @@
     // For aptitude: don't count lower skills that are part of gold combos
     let totalRatingScore = 0;
     let totalAptitudeScore = 0;
+    const totalPurplePenalty = Math.max(0, Number(result.purpleTotalPenalty) || 0);
+    let removedPurplePenalty = 0;
     const lowerIdsInGoldCombos = new Set();
     const chosenById = new Map(chosen.map((it) => [it.id, it]));
     const chosenBySkillId = new Map();
@@ -2893,12 +3784,19 @@
       if (!it.comboComponent && !lowerIdsInGoldCombos.has(it.id)) {
         totalRatingScore += it.ratingScore || 0;
         totalAptitudeScore += it.aptitudeScore || 0;
+        if (canonicalCategory(it.category || '') === 'purple') {
+          removedPurplePenalty += Math.max(0, Number(it.purplePenalty) || 0);
+        }
       }
     });
+
+    const outstandingPurplePenalty = Math.max(0, totalPurplePenalty - removedPurplePenalty);
 
     if (mode === TEAM_TRIALS_MODE && Number.isFinite(result.totalRatingScore)) {
       totalRatingScore = Math.max(0, Math.floor(result.totalRatingScore));
     }
+
+    totalRatingScore -= outstandingPurplePenalty;
 
     // Display the appropriate score in "Best Score"
     if (mode === 'aptitude-test') {
@@ -3088,15 +3986,16 @@
       if (canon) li.classList.add(`cat-${canon}`);
       const baseCategory = getBaseCategoryForResult(it);
       if (baseCategory) li.dataset.baseCategory = baseCategory;
-      const includedWith = it.comboComponent
+      const includedWithRaw = it.comboComponent
         ? it.comboParentName
         : lowerToGold.has(it.id)
           ? lowerToGold.get(it.id)?.name
           : '';
+      const includedWith = includedWithRaw ? formatSkillDisplayName(includedWithRaw) : '';
       if (mode === TEAM_TRIALS_MODE) {
         const breakdown = teamBreakdownMap.get(it.id) || {};
         if (includedWith) {
-          li.innerHTML = `<span class="res-name">${it.name}</span> <span class="res-meta">- included with ${includedWith}</span>`;
+          li.innerHTML = `<span class="res-name">${formatSkillDisplayName(it.name)}</span> <span class="res-meta">- included with ${includedWith}</span>`;
         } else {
           const rating = Number.isFinite(breakdown.ratingScore)
             ? breakdown.ratingScore
@@ -3109,7 +4008,7 @@
           const metrics = `cost ${cost}, rating ${rating}, score/SP ${ratio.toFixed(2)}, consistency ${consistency}%`;
           const nameEl = document.createElement('span');
           nameEl.className = 'res-name';
-          nameEl.textContent = it.name;
+          nameEl.textContent = formatSkillDisplayName(it.name);
           const metricsEl = document.createElement('span');
           metricsEl.className = 'res-metrics';
           metricsEl.textContent = metrics;
@@ -3157,6 +4056,8 @@
           // ○ only was chosen (no upgrade) — show base name with ○
           displayName = skill.circleBaseName + ' \u25cb';
         }
+        if (skill?.isEvo) displayName += ' (evo)';
+        displayName = appendLocalizedDisplayName(displayName, it.name);
         const meta = includedWith
           ? `- included with ${includedWith}`
           : `- cost ${it.cost}, score ${displayScore}`;
@@ -3170,6 +4071,7 @@
 
   // persistence
   function saveState() {
+    if (_restoringState || !_initComplete) return;
     const state = {
       budget: parseInt(budgetInput.value, 10) || 0,
       cfg: {},
@@ -3177,6 +4079,8 @@
       autoTargets: [],
       rating: ratingEngine.readRatingState(),
       fastLearner: !!fastLearnerToggle?.checked,
+      officialEnglishOnly: officialEnglishToggle ? !!officialEnglishToggle.checked : true,
+      skillLanguage: getSkillLanguage(),
       optimizeMode: getOptimizeMode(),
     };
     Object.entries(cfg).forEach(([k, el]) => {
@@ -3189,8 +4093,9 @@
     }
     const rows = rowsEl.querySelectorAll('.optimizer-row');
     rows.forEach((row) => {
-      // Skip circle upgrade sub-rows — they're auto-generated from ○ parent
+      // Skip circle upgrade and evo sub-rows — they're auto-generated
       if (row.dataset.parentCircleId) return;
+      if (row.dataset.parentEvoId) return;
       const nameInput = row.querySelector('.skill-name');
       const costEl = row.querySelector('.cost');
       const hintEl = row.querySelector('.hint-level');
@@ -3206,6 +4111,9 @@
         baseCost: row.dataset.baseCost || '',
         parentGoldId: row.dataset.parentGoldId || '',
         lowerRowId: row.dataset.lowerRowId || '',
+        checkedEvos: Array.from(row.querySelectorAll('.evo-checkbox:checked'))
+          .map((cb) => cb.dataset.evoName)
+          .filter(Boolean),
       });
     });
     try {
@@ -3214,14 +4122,28 @@
   }
 
   function loadState() {
+    _restoringState = true;
     try {
       const raw = localStorage.getItem('optimizerState');
-      if (!raw) return false;
+      if (!raw) { _restoringState = false; return false; }
       const state = JSON.parse(raw);
-      if (!state || !Array.isArray(state.rows)) return false;
+      if (!state || !Array.isArray(state.rows)) { _restoringState = false; return false; }
       budgetInput.value = state.budget || 0;
       if (fastLearnerToggle) fastLearnerToggle.checked = !!state.fastLearner;
       if (optimizeModeSelect && state.optimizeMode) optimizeModeSelect.value = state.optimizeMode;
+      if (
+        officialEnglishToggle &&
+        Object.prototype.hasOwnProperty.call(state, 'officialEnglishOnly')
+      ) {
+        officialEnglishToggle.checked = !!state.officialEnglishOnly;
+      }
+      if (Object.prototype.hasOwnProperty.call(state, 'skillLanguage') && state.skillLanguage) {
+        const lang = normalizeSkillLanguage(state.skillLanguage);
+        if (skillLanguageSelect) skillLanguageSelect.value = lang;
+        persistServerPreference(lang);
+      }
+      updateOfficialEnglishToggleState();
+      rebuildSkillLibraryFromCache();
       Object.entries(state.cfg || {}).forEach(([k, v]) => {
         if (cfg[k]) cfg[k].value = v;
       });
@@ -3284,18 +4206,32 @@
         }
       });
       if (!createdAny) return false;
-      // Recreate circle upgrade sub-rows (they aren't saved, only auto-generated)
+      // Recreate circle upgrade and evo sub-rows (they aren't saved, only auto-generated)
       created.forEach((row) => {
         if (row.dataset.parentGoldId || row.dataset.parentCircleId) return;
         if (typeof row.syncSkillCategory === 'function') {
           row.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
         }
       });
+      // Restore evo checkbox selections from saved state
+      state.rows.forEach((r) => {
+        if (!Array.isArray(r.checkedEvos) || !r.checkedEvos.length) return;
+        const row = created.get(r.id);
+        if (!row) return;
+        r.checkedEvos.forEach((evoName) => {
+          const cb = row.querySelector(`.evo-checkbox[data-evo-name="${CSS.escape(evoName)}"]`);
+          if (cb && !cb.checked) {
+            cb.checked = true;
+            cb.dispatchEvent(new Event('change'));
+          }
+        });
+      });
       updateHintOptionLabels();
       refreshAllRowCosts();
-      saveState();
+      _restoringState = false;
       return true;
     } catch {
+      _restoringState = false;
       return false;
     }
   }
@@ -3323,13 +4259,22 @@
       }
       if (getOptimizeMode() === TEAM_TRIALS_MODE) {
         const teamResult = optimizeTeamTrialsCandidates(items, budget);
-        renderResults(teamResult, budget);
+        renderResults({ ...teamResult, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
         saveState();
         return;
       }
       const requiredSummary = expandRequired(items);
       if (requiredSummary.requiredCost > budget) {
-        renderResults({ best: 0, chosen: [], used: 0, error: 'required_unreachable' }, budget);
+        renderResults(
+          {
+            best: 0,
+            chosen: [],
+            used: 0,
+            error: 'required_unreachable',
+            purpleTotalPenalty: getTotalPurplePenalty(items),
+          },
+          budget
+        );
         saveState();
         return;
       }
@@ -3341,6 +4286,7 @@
         chosen: requiredSummary.requiredItems.concat(result.chosen),
         used: result.used + requiredSummary.requiredCost,
         best: result.best + requiredSummary.requiredScore,
+        purpleTotalPenalty: getTotalPurplePenalty(items),
       };
       renderResults(mergedResult, budget);
       saveState();
@@ -3554,12 +4500,32 @@
     }
   }
 
-  function loadBuildFromSaved(build) {
+  async function loadBuildFromSaved(build) {
     if (!build || !build.data) {
       alert('Invalid build data.');
       return;
     }
     try {
+      if (
+        officialEnglishToggle &&
+        Object.prototype.hasOwnProperty.call(build, 'officialEnglishOnly')
+      ) {
+        officialEnglishToggle.checked = !!build.officialEnglishOnly;
+      }
+      if (build.skillLanguage) {
+        const nextLang = normalizeSkillLanguage(build.skillLanguage);
+        const changed = getSkillLanguage() !== nextLang;
+        if (skillLanguageSelect) skillLanguageSelect.value = nextLang;
+        updateOfficialEnglishToggleState();
+        persistServerPreference(nextLang);
+        if (changed) {
+          await loadSkillsCSV();
+        } else {
+          rebuildSkillLibraryFromCache();
+        }
+      } else {
+        rebuildSkillLibraryFromCache();
+      }
       loadRowsFromString(build.data);
       if (build.budget !== undefined) budgetInput.value = build.budget;
       if (build.fastLearner !== undefined && fastLearnerToggle) {
@@ -3612,6 +4578,15 @@
 
       if (build.budget) p.set('k', String(build.budget));
       if (build.fastLearner) p.set('f', '1');
+      if (
+        Object.prototype.hasOwnProperty.call(build, 'officialEnglishOnly') &&
+        !build.officialEnglishOnly
+      ) {
+        p.set('oe', '0');
+      }
+      if (normalizeSkillLanguage(build.skillLanguage) === 'jp') {
+        p.set('sl', 'jp');
+      }
       if (build.optimizeMode && build.optimizeMode !== 'rating') {
         p.set('m', build.optimizeMode);
       }
@@ -3785,6 +4760,8 @@
         timestamp: Date.now(),
         budget: budgetInput?.value || '0',
         fastLearner: fastLearnerToggle?.checked || false,
+        officialEnglishOnly: officialEnglishToggle ? !!officialEnglishToggle.checked : true,
+        skillLanguage: getSkillLanguage(),
         optimizeMode: optimizeModeSelect?.value || 'rating',
         rating: ratingEngine.readRatingState(),
         autoTargets:
@@ -4049,10 +5026,14 @@
     updateAffinityStyles();
     updateHintOptionLabels();
     refreshAllRowCosts();
+    _initComplete = true;
+    saveState();
     ensureOneEmptyRow();
     autoOptimizeDebounced();
     initTutorial();
   }
+
+  applyLanguageFromURLParams(getURLParams());
 
   // Init: prefer CSV by default
   loadSkillCostsJSON()
@@ -4070,6 +5051,57 @@
       console.error('Initialization failed', err);
       finishInit();
     });
+
+  if (officialEnglishToggle) {
+    officialEnglishToggle.addEventListener('change', () => {
+      try {
+        localStorage.setItem(OFFICIAL_EN_PREF_KEY, officialEnglishToggle.checked ? '1' : '0');
+      } catch {}
+      if (!rebuildSkillLibraryFromCache()) return;
+      updateHintOptionLabels();
+      refreshAllRowCosts();
+      ensureOneEmptyRow();
+      clearAutoHighlights();
+      autoOptimizeDebounced();
+      saveState();
+    });
+  }
+  window.addEventListener('umatools:server-change', async (event) => {
+    const nextLang = normalizeSkillLanguage(event?.detail?.server);
+    const currentLang = loadedSkillLibraryLanguage || getSkillLanguage();
+    const forceReload = !!event?.detail?.forceReload;
+    if (skillLanguageSelect) skillLanguageSelect.value = nextLang;
+    persistServerPreference(nextLang);
+    updateOfficialEnglishToggleState();
+    if (!forceReload && nextLang === currentLang) return;
+    await loadSkillsCSV();
+    updateHintOptionLabels();
+    refreshAllRowCosts();
+    ensureOneEmptyRow();
+    clearAutoHighlights();
+    autoOptimizeDebounced();
+    saveState();
+  });
+  window.addEventListener('umatools:site-language-change', () => {
+    rebuildSkillCaches();
+    updateHintOptionLabels();
+    refreshAllRowCosts();
+    ensureOneEmptyRow();
+    clearAutoHighlights();
+    autoOptimizeDebounced();
+    saveState();
+  });
+  if (skillLanguageSelect) {
+    skillLanguageSelect.addEventListener('change', () => {
+      const lang = normalizeSkillLanguage(skillLanguageSelect.value);
+      window.dispatchEvent(
+        new CustomEvent('umatools:server-change', {
+          detail: { server: lang, source: 'optimizer-local', forceReload: true },
+        })
+      );
+    });
+  }
+
   const persistIfRelevant = (e) => {
     const t = e.target;
     if (!t) return;

@@ -225,8 +225,8 @@ golden,Shadow Break,700,...
 
 ### Bulk Update
 
-1. Run `scripts/gametora.py` to scrape latest skill data
-2. Ensure names match the English Global localization exactly
+1. Run `npm run refresh:data`
+2. This refreshes `assets/skills_all.json` from GameTora and `assets/uma_skills.csv` from GameWith
 3. Rebuild: just refresh the page
 
 ---

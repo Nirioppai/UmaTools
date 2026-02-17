@@ -598,6 +598,25 @@ function normalize(str) {
   return (str || '').toString().trim().toLowerCase();
 }
 
+function splitCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') {
+      inQuotes = !inQuotes;
+    } else if (c === ',' && !inQuotes) {
+      result.push(current);
+      current = '';
+    } else {
+      current += c;
+    }
+  }
+  result.push(current);
+  return result;
+}
+
 function normalizeCostKey(str) {
   return (str || '')
     .toString()
@@ -735,7 +754,13 @@ function fuzzyMatchSkill(ocrText, maxDistance) {
 async function loadSkillDatabase() {
   if (skillDatabase) return skillDatabase;
 
-  const candidates = ['/assets/uma_skills.csv', './assets/uma_skills.csv'];
+  // Prefer CSVs with alias/localized columns; fall back to base CSV
+  const candidates = [
+    '/assets/uma_skills_en.csv',
+    './assets/uma_skills_en.csv',
+    '/assets/uma_skills.csv',
+    './assets/uma_skills.csv',
+  ];
   let lastErr = null;
 
   // Best-effort: load base costs for hint inference.
@@ -757,24 +782,45 @@ async function loadSkillDatabase() {
       const header = lines[0].split(',').map((h) => h.trim().toLowerCase());
       const nameIdx = header.indexOf('name');
       const typeIdx = header.indexOf('skill_type');
+      const aliasIdx = header.indexOf('alias_name');
+      const localizedIdx = header.indexOf('localized_name');
       if (nameIdx === -1) continue;
 
       const skills = [];
       skillNameIndex.clear();
 
       for (let i = 1; i < lines.length; i++) {
-        const cols = lines[i].split(',');
+        const cols = splitCSVLine(lines[i]);
         const name = (cols[nameIdx] || '').trim();
-        if (!name) continue;
-        if (name.length < 3 || !/[a-zA-Z]{2,}/.test(name)) continue;
+        if (!name || name.length < 2) continue;
 
         const type = typeIdx !== -1 ? (cols[typeIdx] || '').trim().toLowerCase() : '';
-        const skill = { name, type, cost: lookupSkillCost(name) };
+        const aliasRaw = aliasIdx !== -1 ? (cols[aliasIdx] || '').trim() : '';
+        const localizedName = localizedIdx !== -1 ? (cols[localizedIdx] || '').trim() : '';
+        const aliasNames = aliasRaw
+          .split('|')
+          .map((a) => a.trim())
+          .filter(Boolean);
+
+        const skill = { name, type, cost: lookupSkillCost(name), aliasNames, localizedName };
         skills.push(skill);
 
         const normName = normalize(name);
         if (!skillNameIndex.has(normName)) {
           skillNameIndex.set(normName, { name, type, cost: skill.cost });
+        }
+        // Also index aliases and localized name for quick lookup
+        for (const alias of aliasNames) {
+          const normAlias = normalize(alias);
+          if (normAlias && !skillNameIndex.has(normAlias)) {
+            skillNameIndex.set(normAlias, { name, type, cost: skill.cost });
+          }
+        }
+        if (localizedName) {
+          const normLoc = normalize(localizedName);
+          if (normLoc && !skillNameIndex.has(normLoc)) {
+            skillNameIndex.set(normLoc, { name, type, cost: skill.cost });
+          }
         }
       }
 

@@ -62,8 +62,8 @@
         .replace(/\u00A0/g, ' ')
         // Collapse whitespace
         .replace(/\s+/g, ' ')
-        // Strip non-printing / control chars (keep letters, digits, basic punct)
-        .replace(/[^\w\s'\-]/g, '')
+        // Strip non-printing / control chars (keep Unicode letters, digits, basic punct)
+        .replace(/[^\p{L}\p{N}\s'\-]/gu, '')
         .trim()
     );
   }
@@ -83,8 +83,8 @@
         .replace(/[©@#*[\]{}~^`\\]/g, '')
         // Collapse repeated spaces
         .replace(/\s{2,}/g, ' ')
-        // Strip non-printing characters
-        .replace(/[^\x20-\x7E]/g, '')
+        // Strip only control characters (preserve CJK and other Unicode)
+        .replace(/[\x00-\x1F\x7F]/g, '')
         .trim()
     );
   }
@@ -319,7 +319,7 @@
   function ocrTextQuality(text) {
     if (!text) return 0;
 
-    const alphaCount = (text.match(/[a-zA-Z]/g) || []).length;
+    const alphaCount = (text.match(/\p{L}/gu) || []).length;
     const digitCount = (text.match(/\d/g) || []).length;
     const spaceCount = (text.match(/\s/g) || []).length;
     const symbolCount = text.length - alphaCount - digitCount - spaceCount;
@@ -394,6 +394,19 @@
       }
     }
 
+    // Helper: add a single name→displayName entry to the dictionary
+    function addEntry(rawName, displayName, type, cost) {
+      const normName = normalizeForMatch(rawName);
+      if (!normName || normName.length < 2) return;
+      const tokens = normName.split(/\s+/).filter(Boolean);
+      const trigrams = getNgrams(normName, NGRAM_SIZE_TRI);
+      const entry = { name: displayName, normName, type, cost, tokens, trigrams };
+      skillDict.push(entry);
+      if (!skillDictMap.has(normName)) {
+        skillDictMap.set(normName, entry);
+      }
+    }
+
     for (const skill of skills) {
       const name = (skill.name || '').trim();
       if (!name || name.length < 2) continue;
@@ -413,22 +426,24 @@
         displayName = name.slice(0, -2);
       }
 
-      const normName = normalizeForMatch(name);
-      const tokens = normName.split(/\s+/).filter(Boolean);
-      const trigrams = getNgrams(normName, NGRAM_SIZE_TRI);
+      const type = (skill.type || '').toLowerCase();
+      const cost = skill.cost || null;
 
-      const entry = {
-        name: displayName,
-        normName,
-        type: (skill.type || '').toLowerCase(),
-        cost: skill.cost || null,
-        tokens,
-        trigrams,
-      };
+      // Primary name entry
+      addEntry(name, displayName, type, cost);
 
-      skillDict.push(entry);
-      if (!skillDictMap.has(normName)) {
-        skillDictMap.set(normName, entry);
+      // Alias entries — all resolve to the same displayName
+      const aliasNames = skill.aliasNames || [];
+      for (const alias of aliasNames) {
+        if (alias && alias.trim().length >= 2) {
+          addEntry(alias.trim(), displayName, type, cost);
+        }
+      }
+
+      // Localized name entry
+      const localizedName = (skill.localizedName || '').trim();
+      if (localizedName && localizedName.length >= 2 && localizedName !== name) {
+        addEntry(localizedName, displayName, type, cost);
       }
     }
 
@@ -451,9 +466,10 @@
     const queryNorm = normalizeForMatch(ocrText);
     const quality = ocrTextQuality(queryNorm);
 
-    // Check alpha count threshold
-    const alphaCount = (queryNorm.match(/[a-z]/g) || []).length;
-    if (alphaCount < MIN_QUERY_ALPHA) {
+    // Check letter count threshold (Unicode-aware for CJK support)
+    const alphaCount = (queryNorm.match(/\p{L}/gu) || []).length;
+    const minAlpha = CJK_RE.test(queryNorm) ? 2 : MIN_QUERY_ALPHA;
+    if (alphaCount < minAlpha) {
       return { match: null, suggestions: [], confidence: 0, reason: 'too_short' };
     }
 
@@ -592,8 +608,13 @@
   // Cost/number lines: just a number with optional +/- buttons
   const COST_LINE = /^\s*[-+]?\s*\d{1,3}\s*[+-]?\s*$/;
 
+  // Detect CJK characters (Japanese kanji/kana, Chinese, Korean)
+  const CJK_RE = /[\u3000-\u9FFF\uF900-\uFAFF\uFF00-\uFFEF]/;
+
   function isDescriptionOrNoise(line) {
     const trimmed = line.trim();
+    // Skip English-specific heuristics for lines containing CJK characters
+    if (CJK_RE.test(trimmed)) return false;
     if (DESCRIPTION_PREFIXES.test(trimmed)) return true;
     if (ROLE_TAG_PATTERN.test(trimmed)) return true;
     if (STANDALONE_ROLE.test(trimmed)) return true;
@@ -740,7 +761,7 @@
       .replace(/\s*\|\s*/g, ' I ')
       .replace(/[[\]©@*#]+/g, '')
       .replace(/\s{2,}/g, ' ')
-      .replace(/^[^A-Za-z0-9]+/, '')
+      .replace(/^[^\p{L}\p{N}]+/u, '')
       .trim();
     if (pipesAsI.length >= 3) variants.add(pipesAsI);
 
@@ -752,7 +773,7 @@
       .replace(/\u00A0/g, ' ')
       .replace(/[|[\]©@*#]+/g, '')
       .replace(/\s{2,}/g, ' ')
-      .replace(/^[^A-Za-z0-9]+/, '')
+      .replace(/^[^\p{L}\p{N}]+/u, '')
       .trim();
     if (noPipes.length >= 3) variants.add(noPipes);
 
