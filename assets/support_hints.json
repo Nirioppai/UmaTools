@@ -8874,5 +8874,172 @@
         "HintLevel": null
       }
     ]
+  },
+  {
+    "SupportSlug": "30082-nishino-flower",
+    "SupportId": "30082",
+    "SupportName": "Nishino Flower (SSR) Support Card",
+    "SupportRarity": "SSR",
+    "SupportImage": "/assets/support_thumbs/30082-nishino-flower.png",
+    "SupportHints": [
+      {
+        "SkillId": "200052",
+        "Name": "Hanshin Racecourse ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200132",
+        "Name": "Standard Distance ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200152",
+        "Name": "Firm Conditions ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201322",
+        "Name": "Pace Chaser Corners ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200702",
+        "Name": "Updrafters",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Shifting Gears",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Determined Descent",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "30083-sakura-bakushin-o",
+    "SupportId": "30083",
+    "SupportName": "Sakura Bakushin O (SSR) Support Card",
+    "SupportRarity": "SSR",
+    "SupportImage": "/assets/support_thumbs/30083-sakura-bakushin-o.png",
+    "SupportHints": [
+      {
+        "SkillId": "200962",
+        "Name": "Sprint Straightaways ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200972",
+        "Name": "Sprint Corners ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200982",
+        "Name": "Huge Lead",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200652",
+        "Name": "Sprinting Gear",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200992",
+        "Name": "Countermeasure",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201012",
+        "Name": "Intimidate",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200791",
+        "Name": "Frenzied Front Runners",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200841",
+        "Name": "Flustered Front Runners",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Groundwork",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "In High Spirits",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Light as a Feather",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Gap Closer",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "30084-tosen-jordan",
+    "SupportId": "30084",
+    "SupportName": "Tosen Jordan (SSR) Support Card",
+    "SupportRarity": "SSR",
+    "SupportImage": "/assets/support_thumbs/30084-tosen-jordan.png",
+    "SupportHints": [
+      {
+        "SkillId": "200302",
+        "Name": "Long Shot ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200562",
+        "Name": "Stamina to Spare",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200592",
+        "Name": "Position Pilfer",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201102",
+        "Name": "Medium Straightaways ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201112",
+        "Name": "Medium Corners ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201312",
+        "Name": "Pace Chaser Straightaways ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Breath of Fresh Air",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Straightaway Recovery",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Lucky Seven",
+        "HintLevel": null
+      }
+    ]
   }
 ]

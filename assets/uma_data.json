@@ -7164,5 +7164,237 @@
     ],
     "UmaEvents": [],
     "UmaImage": "/assets/character_thumbs/106901-sakura-chiyono-o.png"
+  },
+  {
+    "UmaKey": "Mihono Bourbon :: Code Glaçage",
+    "UmaName": "Mihono Bourbon",
+    "UmaNickname": "Code Glaçage",
+    "UmaSlug": "102602-mihono-bourbon",
+    "UmaId": "102602",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 100,
+        "Stamina": 68,
+        "Power": 92,
+        "Guts": 96,
+        "Wit": 94
+      },
+      "5★": {
+        "Speed": 123,
+        "Stamina": 83,
+        "Power": 112,
+        "Guts": 117,
+        "Wit": 115
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 10,
+      "Stamina": 10,
+      "Power": 10,
+      "Guts": 0,
+      "Wit": 0
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "C",
+        "Mile": "B",
+        "Medium": "A",
+        "Long": "B"
+      },
+      "Strategy": {
+        "Front": "A",
+        "Pace": "E",
+        "Late": "G",
+        "End": "G"
+      }
+    },
+    "UmaHeightCm": 160,
+    "UmaThreeSizes": {
+      "B": 86,
+      "W": 54,
+      "H": 87
+    },
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": "1: 0"
+      },
+      {
+        "ObjectiveName": "Asahi Hai Futurity Stakes",
+        "Turn": "23",
+        "Time": "Junior Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Spring Stakes",
+        "Turn": "30",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Satsuki Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Tokyo Yushun (Japanese Derby)",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Kikuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 3"
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Spring)",
+        "Turn": "56",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 3"
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 2"
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "72",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 1"
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/102602-mihono-bourbon.png"
+  },
+  {
+    "UmaKey": "Eishin Flash :: Collect・Chocolatier",
+    "UmaName": "Eishin Flash",
+    "UmaNickname": "Collect・Chocolatier",
+    "UmaSlug": "103702-eishin-flash",
+    "UmaId": "103702",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 94,
+        "Stamina": 88,
+        "Power": 84,
+        "Guts": 82,
+        "Wit": 102
+      },
+      "5★": {
+        "Speed": 115,
+        "Stamina": 107,
+        "Power": 103,
+        "Guts": 100,
+        "Wit": 125
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 8,
+      "Power": 8,
+      "Guts": 0,
+      "Wit": 14
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "F",
+        "Medium": "A",
+        "Long": "A"
+      },
+      "Strategy": {
+        "Front": "G",
+        "Pace": "B",
+        "Late": "A",
+        "End": "C"
+      }
+    },
+    "UmaHeightCm": 160,
+    "UmaThreeSizes": {
+      "B": 88,
+      "W": 58,
+      "H": 86
+    },
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": "1: 0"
+      },
+      {
+        "ObjectiveName": "Keisei Hai",
+        "Turn": "25",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Satsuki Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Tokyo Yushun (Japanese Derby)",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "46",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 0"
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "48",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 0"
+      },
+      {
+        "ObjectiveName": "Osaka Hai",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 3"
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Spring)",
+        "Turn": "56",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 3"
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Autumn)",
+        "Turn": "68",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 1"
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "72",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 1"
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/103702-eishin-flash.png"
   }
 ]
