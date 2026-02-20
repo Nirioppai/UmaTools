@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v26';
+const CACHE_VERSION = 'v27';
 const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
 
@@ -40,6 +40,10 @@ const STATIC_ASSETS = [
   '/js/umadle.js',
   '/js/search.js',
   '/js/recommend.js',
+  '/js/deck.js',
+  '/js/theme-toggle.js',
+  '/css/deck.css',
+  '/deck.html',
   '/assets/favicon.ico',
   '/assets/favicon-16x16.png',
   '/assets/favicon-32x32.png',
@@ -131,10 +135,14 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Data files: network-first so share links / fresh data always work
+  if (url.pathname.endsWith('.json') || url.pathname.endsWith('.csv')) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
   if (
     url.pathname.startsWith('/assets/') ||
-    url.pathname.endsWith('.json') ||
-    url.pathname.endsWith('.csv') ||
     url.pathname.endsWith('.png') ||
     url.pathname.endsWith('.jpg') ||
     url.pathname.endsWith('.webp') ||

@@ -130,12 +130,12 @@
   async function fetchJSON(url, fallbackUrl) {
     try {
       // Use default caching - Vercel headers control TTL
-      const r = await fetch(url, { cache: 'force-cache' });
+      const r = await fetch(url);
       if (!r.ok) throw new Error(r.statusText);
       return await r.json();
     } catch (e) {
       if (fallbackUrl) {
-        const r2 = await fetch(fallbackUrl, { cache: 'force-cache' });
+        const r2 = await fetch(fallbackUrl);
         if (!r2.ok) throw new Error(r2.statusText);
         return await r2.json();
       }
@@ -145,6 +145,18 @@
 
   let supports = [];
   let umaList = [];
+
+  let currentServer = 'en';
+  try { currentServer = localStorage.getItem('umatoolsServer') || 'en'; } catch {}
+
+  function matchesServerSupport(s) {
+    if (currentServer === 'jp') return true;
+    return s.server === 'global';
+  }
+  function matchesServerUma(u) {
+    if (currentServer === 'jp') return true;
+    return u.server === 'global';
+  }
 
   function mapSupports(data) {
     return (data ?? [])
@@ -159,7 +171,8 @@
         const img = c?.SupportImage || c?.SupportImageLocal || c?.Image || c?.Thumb || null;
         const slug = c?.SupportSlug || c?.slug || null;
         const id = c?.SupportId ?? null;
-        return { name, rawName, rarity, img, slug, id };
+        const server = c?.SupportServer || 'global';
+        return { name, rawName, rarity, img, slug, id, server };
       })
       .filter((s) => s.slug); // require slug for uniqueness
   }
@@ -171,6 +184,7 @@
         nick: u?.UmaNickname || '',
         slug: u?.UmaSlug || null,
         img: u?.UmaImage || u?.UmaImageLocal || u?.UmaThumb || u?.Thumb || null,
+        server: u?.UmaServer || 'global',
       }))
       .filter((u) => u.name);
   }
@@ -237,7 +251,7 @@
       ].filter(Boolean)
     );
 
-    const pool = supports.filter((s) => allowedR.has(s.rarity) && !ex.has(s.slug));
+    const pool = supports.filter((s) => matchesServerSupport(s) && allowedR.has(s.rarity) && !ex.has(s.slug));
     const pick = pickNRandom(pool, Math.min(5, pool.length));
 
     els.deckResults.innerHTML = pick.length
@@ -288,7 +302,7 @@
       ].filter(Boolean)
     );
 
-    const pool = supports.filter((s) => allowedR.has(s.rarity) && !ex.has(s.slug));
+    const pool = supports.filter((s) => matchesServerSupport(s) && allowedR.has(s.rarity) && !ex.has(s.slug));
     const N = Math.min(5, pool.length);
     if (!N) {
       els.deckResults.innerHTML = `<div class="inline-note">No cards available. Adjust filters or exclusions.</div>`;
@@ -373,7 +387,8 @@
   }
 
   function startUmaCaseRoll() {
-    if (!umaList.length) {
+    const umaPool = umaList.filter(matchesServerUma);
+    if (!umaPool.length) {
       els.umaResult.innerHTML = `<div class="inline-note">No Uma data available.</div>`;
       return;
     }
@@ -396,24 +411,24 @@
     const preCount = 18;
     const postCount = 6;
     const placeholdersCount = 2; // ← add one extra item after the winner
-    const filler = umaList
+    const filler = umaPool
       .slice()
       .sort(() => Math.random() - 0.5)
-      .slice(0, Math.min(preCount, umaList.length));
-    const tail = umaList
+      .slice(0, Math.min(preCount, umaPool.length));
+    const tail = umaPool
       .slice()
       .sort(() => Math.random() - 0.5)
-      .slice(0, Math.min(postCount, umaList.length));
-    const winner = umaList[Math.floor(Math.random() * umaList.length)];
+      .slice(0, Math.min(postCount, umaPool.length));
+    const winner = umaPool[Math.floor(Math.random() * umaPool.length)];
 
     // pick 2 placeholders, try to avoid duplicating the winner
     const placeholders = [];
     for (let i = 0; i < placeholdersCount; i++) {
-      let p = umaList[Math.floor(Math.random() * umaList.length)];
-      if (umaList.length > 1) {
+      let p = umaPool[Math.floor(Math.random() * umaPool.length)];
+      if (umaPool.length > 1) {
         let guard = 0;
         while (p.slug === winner.slug && guard++ < 8) {
-          p = umaList[Math.floor(Math.random() * umaList.length)];
+          p = umaPool[Math.floor(Math.random() * umaPool.length)];
         }
       }
       placeholders.push(p);
@@ -498,7 +513,7 @@
       const items = Array.from(strip.querySelectorAll('.case-item'));
       items.forEach((item) => {
         if (item.dataset.win === '1') return;
-        const u = umaList[Math.floor(Math.random() * umaList.length)];
+        const u = umaPool[Math.floor(Math.random() * umaPool.length)];
         const title = item.querySelector('.uma-title');
         const thumb = item.querySelector('.uma-thumb');
         if (title) title.textContent = u.name || '?';
@@ -544,6 +559,15 @@
 
     // UMA reel
     els.pickUmaBtn?.addEventListener('click', startUmaCaseRoll);
+
+    // Server change
+    window.addEventListener('umatools:server-change', (e) => {
+      const next = (e?.detail?.server || 'en').toLowerCase();
+      if (next !== currentServer) {
+        currentServer = next;
+        renderDeckStatic();
+      }
+    });
   }
 
   // Init

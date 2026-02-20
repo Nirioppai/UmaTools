@@ -10,7 +10,6 @@
   const budgetInput = document.getElementById('budget');
   const fastLearnerToggle = document.getElementById('fast-learner');
   const officialEnglishToggle = document.getElementById('official-en-only');
-  const skillLanguageSelect = document.getElementById('skill-language');
   const optimizeModeSelect = document.getElementById('optimize-mode');
   const libStatus = document.getElementById('lib-status');
   if (libStatus)
@@ -122,9 +121,7 @@
   const HINT_DISCOUNTS = { 0: 0.0, 1: 0.1, 2: 0.2, 3: 0.3, 4: 0.35, 5: 0.4 };
   const HINT_LEVELS = [0, 1, 2, 3, 4, 5];
   const OFFICIAL_EN_PREF_KEY = 'optimizerOfficialEnglishOnly';
-  const SKILL_LANG_PREF_KEY = 'optimizerSkillLanguage';
-  const GLOBAL_SERVER_PREF_KEY = 'umatoolsServer';
-  const GLOBAL_SITE_LANG_PREF_KEY = 'umatoolsSiteLanguage';
+  const SERVER_PREF_KEY = 'umatoolsServer';
 
   if (officialEnglishToggle) {
     try {
@@ -134,19 +131,6 @@
       } else if (saved === '1' || saved === 'true') {
         officialEnglishToggle.checked = true;
       }
-    } catch {}
-  }
-
-  if (skillLanguageSelect) {
-    try {
-      const savedLang =
-        (localStorage.getItem(GLOBAL_SERVER_PREF_KEY) ||
-          localStorage.getItem(SKILL_LANG_PREF_KEY) ||
-          '')
-          .trim()
-          .toLowerCase();
-      if (savedLang === 'jp') skillLanguageSelect.value = 'jp';
-      else skillLanguageSelect.value = 'en';
     } catch {}
   }
   updateOfficialEnglishToggleState();
@@ -258,32 +242,9 @@
     return (value || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
   }
 
-  function readGlobalServerPreference() {
-    try {
-      return (localStorage.getItem(GLOBAL_SERVER_PREF_KEY) || '').trim().toLowerCase();
-    } catch {
-      return '';
-    }
-  }
-
-  function persistServerPreference(lang) {
-    try {
-      localStorage.setItem(SKILL_LANG_PREF_KEY, lang);
-    } catch {}
-    try {
-      localStorage.setItem(GLOBAL_SERVER_PREF_KEY, lang);
-    } catch {}
-  }
-
   function getSkillLanguage() {
-    if (skillLanguageSelect) {
-      return skillLanguageSelect.value === 'jp' ? 'jp' : 'en';
-    }
-    const globalPref = readGlobalServerPreference();
-    if (globalPref === 'jp') return 'jp';
     try {
-      const localPref = (localStorage.getItem(SKILL_LANG_PREF_KEY) || '').trim().toLowerCase();
-      return localPref === 'jp' ? 'jp' : 'en';
+      return (localStorage.getItem(SERVER_PREF_KEY) || '').trim().toLowerCase() === 'jp' ? 'jp' : 'en';
     } catch {
       return 'en';
     }
@@ -293,7 +254,7 @@
     const attr = (document?.documentElement?.dataset?.siteLanguage || '').toString().trim();
     if (attr) return normalizeSiteLanguage(attr);
     try {
-      return normalizeSiteLanguage(localStorage.getItem(GLOBAL_SITE_LANG_PREF_KEY));
+      return normalizeSiteLanguage(localStorage.getItem('umatoolsSiteLanguage'));
     } catch {
       return 'en';
     }
@@ -1224,8 +1185,7 @@
     if (!raw) return false;
     const nextLang = normalizeSkillLanguage(raw);
     const changed = getSkillLanguage() !== nextLang;
-    if (skillLanguageSelect) skillLanguageSelect.value = nextLang;
-    persistServerPreference(nextLang);
+    try { localStorage.setItem(SERVER_PREF_KEY, nextLang); } catch {}
     updateOfficialEnglishToggleState();
     return changed;
   }
@@ -4139,8 +4099,7 @@
       }
       if (Object.prototype.hasOwnProperty.call(state, 'skillLanguage') && state.skillLanguage) {
         const lang = normalizeSkillLanguage(state.skillLanguage);
-        if (skillLanguageSelect) skillLanguageSelect.value = lang;
-        persistServerPreference(lang);
+        try { localStorage.setItem(SERVER_PREF_KEY, lang); } catch {}
       }
       updateOfficialEnglishToggleState();
       rebuildSkillLibraryFromCache();
@@ -4515,9 +4474,8 @@
       if (build.skillLanguage) {
         const nextLang = normalizeSkillLanguage(build.skillLanguage);
         const changed = getSkillLanguage() !== nextLang;
-        if (skillLanguageSelect) skillLanguageSelect.value = nextLang;
+        try { localStorage.setItem(SERVER_PREF_KEY, nextLang); } catch {}
         updateOfficialEnglishToggleState();
-        persistServerPreference(nextLang);
         if (changed) {
           await loadSkillsCSV();
         } else {
@@ -5070,10 +5028,8 @@
     const nextLang = normalizeSkillLanguage(event?.detail?.server);
     const currentLang = loadedSkillLibraryLanguage || getSkillLanguage();
     const forceReload = !!event?.detail?.forceReload;
-    if (skillLanguageSelect) skillLanguageSelect.value = nextLang;
-    persistServerPreference(nextLang);
     updateOfficialEnglishToggleState();
-    if (!forceReload && nextLang === currentLang) return;
+    if (nextLang === currentLang) return;
     await loadSkillsCSV();
     updateHintOptionLabels();
     refreshAllRowCosts();
@@ -5091,16 +5047,6 @@
     autoOptimizeDebounced();
     saveState();
   });
-  if (skillLanguageSelect) {
-    skillLanguageSelect.addEventListener('change', () => {
-      const lang = normalizeSkillLanguage(skillLanguageSelect.value);
-      window.dispatchEvent(
-        new CustomEvent('umatools:server-change', {
-          detail: { server: lang, source: 'optimizer-local', forceReload: true },
-        })
-      );
-    });
-  }
 
   const persistIfRelevant = (e) => {
     const t = e.target;

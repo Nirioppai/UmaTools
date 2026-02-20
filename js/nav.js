@@ -1,12 +1,28 @@
 (function () {
   const DEFAULT_ROUTES = [
-    { label: 'Optimizer', path: '/optimizer', file: '/optimizer.html' },
-    { label: 'Calculator', path: '/calculator', file: '/calculator.html' },
-    { label: 'Stamina Check', path: '/stamina', file: '/stamina.html' },
-    { label: 'Event OCR', path: '/events', file: '/events.html' },
-    { label: 'Support Hints', path: '/hints', file: '/hints.html' },
-    { label: 'Randomizer', path: '/random', file: '/random.html' },
-    { label: 'Umadle', path: '/umadle', file: '/umadle.html' },
+    {
+      label: 'Rating',
+      children: [
+        { label: 'Optimizer', path: '/optimizer', file: '/optimizer.html' },
+        { label: 'Calculator', path: '/calculator', file: '/calculator.html' },
+        { label: 'Stamina Check', path: '/stamina', file: '/stamina.html' },
+      ],
+    },
+    {
+      label: 'Tools',
+      children: [
+        { label: 'Event OCR', path: '/events', file: '/events.html' },
+        { label: 'Support Hints', path: '/hints', file: '/hints.html' },
+        { label: 'Deck Builder', path: '/deck', file: '/deck.html' },
+      ],
+    },
+    {
+      label: 'Fun',
+      children: [
+        { label: 'Randomizer', path: '/random', file: '/random.html' },
+        { label: 'Umadle', path: '/umadle', file: '/umadle.html' },
+      ],
+    },
   ];
   const ROUTES =
     Array.isArray(window.NAV_ROUTES) && window.NAV_ROUTES.length
@@ -116,7 +132,6 @@
     </div>
   `;
 
-  // Safe to reference the element we just created
   const navEl = nav;
   const linksWrap = nav.querySelector('.nav-links');
   const menuBtn = nav.querySelector('.menu-btn');
@@ -131,9 +146,18 @@
     settingsPanel.hidden = !settingsOpen;
   }
 
-  // Toggle dropdown on mobile
+  function closeAllDropdowns() {
+    for (const dd of navEl.querySelectorAll('.nav-group.open')) {
+      dd.classList.remove('open');
+      const btn = dd.querySelector('.nav-group-btn');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  // Toggle hamburger on mobile
   menuBtn.addEventListener('click', () => {
     setSettingsOpen(false);
+    closeAllDropdowns();
     const open = navEl.classList.toggle('open');
     menuBtn.setAttribute('aria-expanded', String(open));
   });
@@ -142,6 +166,7 @@
   linksWrap.addEventListener('click', (e) => {
     if (e.target.closest('.nav-link')) {
       setSettingsOpen(false);
+      closeAllDropdowns();
       navEl.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
     }
@@ -151,6 +176,7 @@
     settingsToggleBtn.addEventListener('click', (event) => {
       event.preventDefault();
       event.stopPropagation();
+      closeAllDropdowns();
       setSettingsOpen(!settingsOpen);
     });
     settingsPanel.addEventListener('click', (event) => event.stopPropagation());
@@ -161,8 +187,31 @@
       setSettingsOpen(false);
     });
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') setSettingsOpen(false);
+      if (event.key === 'Escape') {
+        setSettingsOpen(false);
+        closeAllDropdowns();
+      }
     });
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target instanceof Element && target.closest('.nav-group')) return;
+    closeAllDropdowns();
+  });
+
+  // Collect all leaf links for clean-URL fallback and active marking
+  function collectLeaves(routes) {
+    const leaves = [];
+    for (const r of routes) {
+      if (r.children) {
+        for (const child of r.children) leaves.push(child);
+      } else {
+        leaves.push(r);
+      }
+    }
+    return leaves;
   }
 
   // Inject everything after DOM is ready
@@ -175,34 +224,91 @@
       document.body.prepend(nav);
     }
 
-    // Build links
-    const links = ROUTES.map((route) => {
-      const a = document.createElement('a');
-      a.className = 'nav-link';
-      a.textContent = route.label;
-      a.href = route.path || route.file || '#';
-      if (route.file) a.dataset.file = route.file;
-      if (route.path) a.dataset.clean = route.path;
-      linksWrap.appendChild(a);
-      return a;
-    });
-
-    // Mark active route
     const here = location.pathname.replace(/\/+$/, '') || '/';
     const norm = (s) => (s || '').replace(/\/+$/, '') || '/';
-    ROUTES.forEach((r, i) => {
-      if (here === norm(r.path) || here === norm(r.file)) links[i].classList.add('active');
-    });
+    const allLinks = [];
+
+    // Build links — supports both flat and grouped routes
+    for (const route of ROUTES) {
+      if (route.children) {
+        // Dropdown group
+        const group = document.createElement('div');
+        group.className = 'nav-group';
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'nav-group-btn';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-haspopup', 'true');
+        btn.innerHTML =
+          '<span>' +
+          route.label +
+          '</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">' +
+          '<path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '</svg>';
+
+        const menu = document.createElement('div');
+        menu.className = 'nav-group-menu';
+        menu.setAttribute('role', 'menu');
+
+        let hasActive = false;
+        for (const child of route.children) {
+          const a = document.createElement('a');
+          a.className = 'nav-link';
+          a.textContent = child.label;
+          a.href = child.path || child.file || '#';
+          a.setAttribute('role', 'menuitem');
+          if (child.file) a.dataset.file = child.file;
+          if (child.path) a.dataset.clean = child.path;
+          if (here === norm(child.path) || here === norm(child.file)) {
+            a.classList.add('active');
+            hasActive = true;
+          }
+          menu.appendChild(a);
+          allLinks.push(a);
+        }
+        if (hasActive) group.classList.add('has-active');
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          setSettingsOpen(false);
+          const wasOpen = group.classList.contains('open');
+          closeAllDropdowns();
+          if (!wasOpen) {
+            group.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+
+        group.appendChild(btn);
+        group.appendChild(menu);
+        linksWrap.appendChild(group);
+      } else {
+        // Flat link (backward compat)
+        const a = document.createElement('a');
+        a.className = 'nav-link';
+        a.textContent = route.label;
+        a.href = route.path || route.file || '#';
+        if (route.file) a.dataset.file = route.file;
+        if (route.path) a.dataset.clean = route.path;
+        if (here === norm(route.path) || here === norm(route.file)) {
+          a.classList.add('active');
+        }
+        linksWrap.appendChild(a);
+        allLinks.push(a);
+      }
+    }
 
     // Prefer clean URLs, fall back to .html if needed
-    const test = ROUTES.find((r) => r.path && r.file && r.path !== '/');
+    const leaves = collectLeaves(ROUTES);
+    const test = leaves.find((r) => r.path && r.file && r.path !== '/');
     if (test) {
       fetch(test.path, { method: 'HEAD' })
         .then((res) => {
           if (!res.ok) throw 0;
         })
         .catch(() => {
-          links.forEach((a) => {
+          allLinks.forEach((a) => {
             if (a.dataset.file) a.href = a.dataset.file;
           });
         });
@@ -269,7 +375,7 @@
     const footer = document.createElement('footer');
     footer.className = 'site-footer';
     footer.innerHTML = `
-      <span>Made with ❤️</span>
+      <span>Made with <span aria-label="love">&#10084;&#65039;</span></span>
       ${FOOTER.map(
         (l) => `<a href="${l.href}" target="_blank" rel="noopener noreferrer">${l.label}</a>`
       ).join('')}
@@ -284,11 +390,12 @@
     window.dispatchEvent(new Event('nav:ready'));
   });
 
-  // Close menu if switching to desktop width
+  // Close menu/dropdowns if switching to desktop width
   window.addEventListener('resize', () => {
     if (window.innerWidth > 640 && navEl.classList.contains('open')) {
       navEl.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
+      closeAllDropdowns();
     }
     if (window.innerWidth <= 640 && settingsOpen) {
       setSettingsOpen(false);

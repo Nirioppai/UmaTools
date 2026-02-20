@@ -199,16 +199,29 @@
       </button>
 
       <section class="search-panel">
-        <form class="controls search-form" id="guess-form" autocomplete="off">
-          <input id="guess" list="umaList" type="text" placeholder="Select an Uma" />
-          <datalist id="umaList"></datalist>
-          <button class="primary" id="guess-btn" type="submit">Guess</button>
-        </form>
+        <button id="pickUmaBtn" class="pick-uma-btn" type="button">
+          <span class="pick-uma-label">Select an Uma...</span>
+        </button>
         <div id="legend" class="status">
           Legend: <b>&#10003;</b> exact match, <span class="sym up">&#9650;</span> your guess is
           lower (go up), <span class="sym down">&#9660;</span> your guess is higher (go down)
         </div>
       </section>
+
+      <!-- Character Picker Modal -->
+      <div id="umaPickerModal" class="support-modal" hidden>
+        <div class="support-modal-backdrop"></div>
+        <div class="support-modal-content">
+          <div class="support-modal-header">
+            <span class="support-modal-title">Select Character</span>
+            <button class="support-modal-close" aria-label="Close">&times;</button>
+          </div>
+          <div class="support-modal-filters">
+            <input id="umaPickerSearch" type="text" placeholder="Search by name..." autocomplete="off" />
+          </div>
+          <div id="umaPickerList" class="support-modal-list"></div>
+        </div>
+      </div>
 
       <div id="rows" class="umadle-grid"></div>
       <div id="footer" class="status"></div>
@@ -227,17 +240,6 @@
     </div>
     <script type="module" src="/js/umadle.js"></script>
 
-    <script>
-      window.NAV_ROUTES = [
-        { label: 'Optimizer', path: '/optimizer', file: '/optimizer.html' },
-        { label: 'Calculator', path: '/calculator', file: '/calculator.html' },
-        { label: 'Stamina Check', path: '/stamina', file: '/stamina.html' },
-        { label: 'Event OCR', path: '/events', file: '/events.html' },
-        { label: 'Support Hints', path: '/hints', file: '/hints.html' },
-        { label: 'Randomizer', path: '/random', file: '/random.html' },
-        { label: 'Umadle', path: '/umadle', file: '/umadle.html' },
-      ];
-    </script>
 
     <script src="/js/nav.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>

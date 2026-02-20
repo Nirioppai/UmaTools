@@ -21,7 +21,7 @@
 
   let data = [];
   try {
-    const res = await fetch(DATA_URL, { cache: 'force-cache' });
+    const res = await fetch(DATA_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     data = await res.json();
   } catch (err) {
@@ -70,25 +70,40 @@
     return '?';
   }
 
+  // Server filtering
+  let currentServer = 'en';
+  try {
+    currentServer = localStorage.getItem('umatoolsServer') || 'en';
+  } catch {}
+
+  function matchesServer(card) {
+    if (currentServer === 'jp') return true; // JP shows all cards
+    return card.server === 'global'; // EN shows only global cards
+  }
+
   // Parse raw data
   const cards = (data ?? []).map((c) => {
     const rawName = c?.SupportName ?? '';
-    const name = cleanCardName(rawName); // assumes you added cleanCardName()
+    const name = cleanCardName(rawName);
     const rarity = (
       c?.SupportRarity ||
       /\((SSR|SR|R)\)/i.exec(rawName)?.[1] ||
       'UNKNOWN'
     ).toUpperCase();
 
+    // Filter out non-skill hints (e.g. "Initial Speed bonus")
     const hints = Array.isArray(c?.SupportHints)
-      ? c.SupportHints.map((h) => (typeof h === 'string' ? h : h?.Name || '')).filter(Boolean)
+      ? c.SupportHints.filter((h) => typeof h === 'string' || h?.SkillId)
+          .map((h) => (typeof h === 'string' ? h : h?.Name || ''))
+          .filter(Boolean)
       : [];
 
-    const img = c?.SupportImage || c?.Image || c?.Thumb || null; // thumbnail if present
-    const slug = c?.SupportSlug || c?.slug || null; // unique key per card
+    const img = c?.SupportImage || c?.Image || c?.Thumb || null;
+    const slug = c?.SupportSlug || c?.slug || null;
     const id = c?.SupportId ?? null;
+    const server = c?.SupportServer || 'global';
 
-    return { name, rawName, rarity, hints, img, slug, id };
+    return { name, rawName, rarity, hints, img, slug, id, server };
   });
 
   const allHints = Array.from(new Set(cards.flatMap((c) => c.hints))).sort((a, b) =>
@@ -151,6 +166,7 @@
   }
 
   function matchCard(card) {
+    if (!matchesServer(card)) return false;
     if (!rarityAllowed(card.rarity)) return false;
     if (!selected.length) return true;
 
@@ -204,9 +220,8 @@
   }
 
   function updateCounts(list) {
-    const totalCards = cards.length;
-    const totalHints = allHints.length;
-    counts.textContent = `${list.length} card(s) matched | ${totalCards} cards total | ${totalHints} unique hints`;
+    const serverCards = cards.filter(matchesServer);
+    counts.textContent = `${list.length} card(s) matched | ${serverCards.length} cards total | ${allHints.length} unique hints`;
   }
 
   function update() {
@@ -290,6 +305,15 @@
       URL.revokeObjectURL(url);
     });
   }
+
+  // Listen for server changes from nav
+  window.addEventListener('umatools:server-change', (e) => {
+    const next = (e?.detail?.server || 'en').toLowerCase();
+    if (next !== currentServer) {
+      currentServer = next;
+      update();
+    }
+  });
 
   // Init
   readFromURL();
