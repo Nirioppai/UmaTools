@@ -153,13 +153,15 @@
     </script>
 
     <main id="main" class="container">
-      <h1>Umadle</h1>
+      <h1 data-i18n="umadle.title">Umadle</h1>
 
       <button
         id="modeToggleBtn"
         aria-label="Toggle dark/light mode"
         class="mode-toggle-btn"
         title="Toggle dark/light mode"
+        data-i18n-aria="common.toggleDarkLight"
+        data-i18n-title="common.toggleDarkLight"
       >
         <svg
           id="iconSun"
@@ -200,7 +202,7 @@
 
       <section class="search-panel">
         <button id="pickUmaBtn" class="pick-uma-btn" type="button">
-          <span class="pick-uma-label">Select an Uma...</span>
+          <span class="pick-uma-label" data-i18n="umadle.selectUma">Select an Uma...</span>
         </button>
         <div id="legend" class="status">
           Legend: <b>&#10003;</b> exact match, <span class="sym up">&#9650;</span> your guess is
@@ -213,11 +215,11 @@
         <div class="support-modal-backdrop"></div>
         <div class="support-modal-content">
           <div class="support-modal-header">
-            <span class="support-modal-title">Select Character</span>
-            <button class="support-modal-close" aria-label="Close">&times;</button>
+            <span class="support-modal-title" data-i18n="umadle.selectCharacter">Select Character</span>
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
           </div>
           <div class="support-modal-filters">
-            <input id="umaPickerSearch" type="text" placeholder="Search by name..." autocomplete="off" />
+            <input id="umaPickerSearch" type="text" placeholder="Search by name..." autocomplete="off" data-i18n-placeholder="common.searchByName" />
           </div>
           <div id="umaPickerList" class="support-modal-list"></div>
         </div>
@@ -230,14 +232,15 @@
     <!-- WIN MODAL -->
     <div id="winModal" class="modal-backdrop" aria-hidden="true">
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="winTitle">
-        <h3 id="winTitle">You got it! &#127881;</h3>
+        <h3 id="winTitle" data-i18n="umadle.youGotIt">You got it! &#127881;</h3>
         <p id="winMsg" class="muted"></p>
         <div class="btn-row">
-          <button id="winNewBtn" class="btn primary">New UMA</button>
-          <button id="winCloseBtn" class="btn">Keep Board</button>
+          <button id="winNewBtn" class="btn primary" data-i18n="umadle.newUma">New UMA</button>
+          <button id="winCloseBtn" class="btn" data-i18n="umadle.keepBoard">Keep Board</button>
         </div>
       </div>
     </div>
+    <script src="/js/i18n.js" defer></script>
     <script type="module" src="/js/umadle.js"></script>
 
 

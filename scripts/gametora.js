@@ -494,7 +494,7 @@ function buildObjectives(objData) {
   for (const obj of (objData.objectives || [])) {
     const races = obj.races || [];
     const raceNames = races.map((r) => r.name_en || "").filter(Boolean);
-    const name = raceNames.length ? raceNames.join(", ") : `Objective ${obj.order ?? "?"}`;
+    const name = raceNames.length ? raceNames.join(", ") : objectiveFallbackName(obj);
     const turn = obj.turn || 0;
     let year = "Senior Year";
     if (turn <= 24) year = "Junior Year";
@@ -507,6 +507,35 @@ function buildObjectives(objData) {
     });
   }
   return objectives;
+}
+
+const URA_RACE_TYPE = { 1: "URA Preliminary", 2: "URA Semi-Final", 3: "URA Final" };
+const OBJ_GRADE_LABEL = { 100: "G1", 200: "G2", 300: "G3", 400: "OP", 500: "Pre-OP", 700: "Pre-OP" };
+
+function objectiveFallbackName(obj) {
+  // URA Finals (target_type=3, race_type 1/2/3)
+  if (obj.target_type === 3 && obj.race_type) {
+    return URA_RACE_TYPE[obj.race_type] || `URA Race ${obj.race_type}`;
+  }
+  // Fan count (cond_type=3)
+  if (obj.cond_type === 3 && obj.cond_value) {
+    return `Earn ${Number(obj.cond_value).toLocaleString()} fans`;
+  }
+  // Win count across grade (cond_type=2)
+  if (obj.cond_type === 2) {
+    const place = formatPlacement(obj.cond_value);
+    const count = obj.cond_value_2 || 1;
+    const grade = OBJ_GRADE_LABEL[obj.cond_id] || "?";
+    const suffix = grade !== "G1" ? " or higher" : "";
+    return `${place} in ${count} ${grade}${suffix} race${count !== 1 ? "s" : ""}`;
+  }
+  return `Objective ${obj.order ?? "?"}`;
+}
+
+function formatPlacement(val) {
+  if (!val || val === 0) return "Participate";
+  if (val === 1) return "Place 1st";
+  return `Place ${val}${val === 2 ? "nd" : val === 3 ? "rd" : "th"} or better`;
 }
 
 // ---------------------------------------------------------------------------

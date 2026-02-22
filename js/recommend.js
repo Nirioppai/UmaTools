@@ -1,3 +1,5 @@
+const _t = (k, v) => (typeof window.t === 'function' ? window.t(k, v) : k);
+
 const STAT_KEYS = new Set([
   'speed',
   'stamina',
@@ -524,7 +526,7 @@ export function renderRecommendationBadge(result) {
   span.style.padding = '2px 6px';
   span.style.borderRadius = '12px';
   span.style.fontWeight = '600';
-  span.textContent = 'Recommended';
+  span.textContent = _t('events.recommended');
   if (!result || !result.label) span.style.display = 'none';
   return span;
 }

@@ -13,7 +13,7 @@
   const optimizeModeSelect = document.getElementById('optimize-mode');
   const libStatus = document.getElementById('lib-status');
   if (libStatus)
-    libStatus.innerHTML = '<span class="loading-indicator">Loading skill library...</span>';
+    libStatus.innerHTML = '<span class="loading-indicator">' + t('optimizer.loadingSkills') + '</span>';
 
   const resultsEl = document.getElementById('results');
   const bestScoreEl = document.getElementById('best-score');
@@ -144,9 +144,9 @@
   }
 
   function getOptimizeModeLabel(mode) {
-    if (mode === TEAM_TRIALS_MODE) return 'Team Trials (Consistent)';
-    if (mode === 'aptitude-test') return 'Trainer Aptitude Test';
-    return 'Rating';
+    if (mode === TEAM_TRIALS_MODE) return t('optimizer.optTeamTrials');
+    if (mode === 'aptitude-test') return t('optimizer.optAptitudeTest');
+    return t('optimizer.optRating');
   }
 
   function getRaceConfigSnapshot() {
@@ -377,7 +377,7 @@
       Array.from(select.options).forEach((opt) => {
         const lvl = parseInt(opt.value, 10);
         if (isNaN(lvl)) return;
-        opt.textContent = `Lv${lvl} (${getTotalHintDiscountPct(lvl)}% off)`;
+        opt.textContent = t('optimizer.hintLvFormat', {lvl: lvl, pct: getTotalHintDiscountPct(lvl)});
       });
     });
   }
@@ -723,11 +723,11 @@
           linkedRow.dataset.parentGoldId = row.dataset.rowId || '';
           linkedRow.classList.add('linked-lower');
           const linkedInput = linkedRow.querySelector('.skill-name');
-          if (linkedInput) linkedInput.placeholder = 'Lower skill...';
+          if (linkedInput) linkedInput.placeholder = t('optimizer.lowerSkill');
           const linkedRemove = linkedRow.querySelector('.remove');
           if (linkedRemove) {
             linkedRemove.disabled = true;
-            linkedRemove.title = 'Remove the gold row to unlink';
+            linkedRemove.title = t('optimizer.removeGoldToUnlink');
             linkedRemove.style.pointerEvents = 'none';
             linkedRemove.style.opacity = '0.4';
           }
@@ -1369,31 +1369,31 @@
 
   function autoBuildIdealSkills() {
     if (!categories.length || !Object.keys(skillsByCategory).length) {
-      setAutoStatus('Skill library is still loading. Please try again once it finishes.', true);
+      setAutoStatus(t('optimizer.libraryStillLoading'), true);
       return;
     }
     const targets = getSelectedAutoTargets();
     if (!targets.length) {
-      setAutoStatus('Select at least one target aptitude before generating a build.', true);
+      setAutoStatus(t('optimizer.selectTargetFirst'), true);
       return;
     }
     const budget = parseInt(budgetInput.value, 10);
     if (isNaN(budget) || budget <= 0) {
-      setAutoStatus('Enter a valid positive skill points budget first.', true);
+      setAutoStatus(t('optimizer.enterValidBudget'), true);
       budgetInput && budgetInput.focus();
       return;
     }
     const { items, rowsMeta } = collectItems();
     if (!items.length) {
       setAutoStatus(
-        'Add at least one recognized skill with a cost before generating a build.',
+        t('optimizer.addRecognizedSkill'),
         true
       );
       return;
     }
     const requiredSummary = expandRequired(items);
     if (requiredSummary.requiredCost > budget) {
-      setAutoStatus('Required skills exceed the current budget.', true);
+      setAutoStatus(t('optimizer.requiredExceedBudget'), true);
       renderResults(
         {
           best: 0,
@@ -1437,18 +1437,18 @@
     optionalCandidates = items.filter((it) => candidateIds.has(it.id));
     const candidates = optionalCandidates.concat(requiredSummary.requiredItems);
     if (!candidates.length) {
-      setAutoStatus('No existing rows match the selected targets with S-A affinity.', true);
+      setAutoStatus(t('optimizer.noMatchingRows'), true);
       return;
     }
     if (getOptimizeMode() === TEAM_TRIALS_MODE) {
       const teamResult = optimizeTeamTrialsCandidates(candidates, budget);
       if (teamResult.error) {
-        setAutoStatus('Team Trials optimization failed for the current constraints.', true);
+        setAutoStatus(t('optimizer.teamTrialsFailed'), true);
         renderResults({ ...teamResult, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
         return;
       }
       if (!teamResult.chosen?.length) {
-        setAutoStatus('Budget too low to purchase any matching Team Trials candidates.', true);
+        setAutoStatus(t('optimizer.budgetTooLow'), true);
         renderResults({ ...teamResult, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
         return;
       }
@@ -1458,7 +1458,7 @@
       );
       renderResults({ ...teamResult, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
       setAutoStatus(
-        `Highlighted ${teamResult.chosen.length}/${candidates.length} matching skills (cost ${teamResult.used}/${budget}).`
+        t('optimizer.highlightedSkills', {chosen: teamResult.chosen.length, total: candidates.length, used: teamResult.used, budget: budget})
       );
       return;
     }
@@ -1469,12 +1469,12 @@
       budget - requiredSummary.requiredCost
     );
     if (result.error === 'required_unreachable') {
-      setAutoStatus('Required skills exceed the current budget.', true);
+      setAutoStatus(t('optimizer.requiredExceedBudget'), true);
       renderResults({ ...result, purpleTotalPenalty: getTotalPurplePenalty(items) }, budget);
       return;
     }
     if (!result.chosen.length) {
-      setAutoStatus('Budget too low to purchase any of the matching skills you entered.', true);
+      setAutoStatus(t('optimizer.budgetTooLowSkills'), true);
       return;
     }
     const mergedResult = {
@@ -1490,7 +1490,7 @@
     );
     renderResults(mergedResult, budget);
     setAutoStatus(
-      `Highlighted ${mergedResult.chosen.length}/${candidates.length} matching skills (cost ${mergedResult.used}/${budget}).`
+      t('optimizer.highlightedSkills', {chosen: mergedResult.chosen.length, total: candidates.length, used: mergedResult.used, budget: budget})
     );
   }
 
@@ -1728,7 +1728,7 @@
     };
     categories = Object.keys(skillsByCategory);
     rebuildSkillCaches();
-    libStatus.textContent = `Using fallback skills (${reason})`;
+    libStatus.textContent = t('optimizer.usingFallback', {reason: reason});
   }
 
   async function loadSkillsLib() {
@@ -2045,7 +2045,7 @@
       }
     }
     console.error('Failed to load CSV from known locations', lastErr);
-    libStatus.textContent = 'Failed to load CSV (using fallback)';
+    libStatus.textContent = t('optimizer.csvFallback');
     applyFallbackSkills('CSV not found / blocked');
     return false;
   }
@@ -2053,11 +2053,11 @@
   function updateSkillLibraryStatus() {
     if (!libStatus) return;
     const totalSkills = Object.values(skillsByCategory).reduce((acc, arr) => acc + arr.length, 0);
-    const parts = [`Loaded ${totalSkills} skills`];
+    const parts = [t('optimizer.loadedSkills', {count: totalSkills})];
     if (lastCSVLoadStats.officialFilterApplied) {
-      parts.push(`Official EN only (${lastCSVLoadStats.filteredOut} filtered)`);
+      parts.push(t('optimizer.officialEnFiltered', {count: lastCSVLoadStats.filteredOut}));
     } else if (isOfficialEnglishOnlyEnabled() && officialEnglishNameSet.size === 0) {
-      parts.push('Official EN filter unavailable');
+      parts.push(t('optimizer.officialEnUnavailable'));
     }
     libStatus.textContent = parts.join(' • ');
   }
@@ -2262,40 +2262,40 @@
     row.dataset.rowId = id;
     row.innerHTML = `
       <div class="type-cell">
-        <label>Type</label>
-        <div class="category-chip" data-empty="true">Auto</div>
+        <label>${t('optimizer.type')}</label>
+        <div class="category-chip" data-empty="true">${t('optimizer.auto')}</div>
       </div>
       <div class="skill-cell">
-        <label>Skill</label>
-        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="Start typing..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <label>${t('optimizer.skill')}</label>
+        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="${t('optimizer.startTyping')}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
         <div class="skill-name-meta" data-empty="true"></div>
         <div class="dup-warning" role="status" aria-live="polite"></div>
         <div class="evo-options" data-empty="true"></div>
       </div>
       <div class="hint-cell">
-        <label>Hint Discount</label>
+        <label>${t('optimizer.hintDiscount')}</label>
         <div class="hint-controls">
           <select class="hint-level field-control">
-            ${HINT_LEVELS.map((lvl) => `<option value="${lvl}">Lv${lvl} (${getTotalHintDiscountPct(lvl)}% off)</option>`).join('')}
+            ${HINT_LEVELS.map((lvl) => `<option value="${lvl}">${t('optimizer.hintLvFormat', {lvl: lvl, pct: getTotalHintDiscountPct(lvl)})}</option>`).join('')}
           </select>
           <div class="base-cost" data-empty="true">Base ?</div>
         </div>
       </div>
       <div class="cost-cell">
-        <label>Cost</label>
-        <input type="number" min="0" step="1" class="cost field-control" placeholder="Cost" />
+        <label>${t('optimizer.cost')}</label>
+        <input type="number" min="0" step="1" class="cost field-control" placeholder="${t('optimizer.cost')}" />
       </div>
       <div class="actions-cell">
         <div class="required-cell">
-          <label>Must Buy</label>
+          <label>${t('optimizer.mustBuy')}</label>
           <label class="required-toggle">
             <input type="checkbox" class="required-skill" />
-            Lock
+            ${t('optimizer.lock')}
           </label>
         </div>
         <div class="remove-cell">
           <label class="remove-label">&nbsp;</label>
-          <button type="button" class="btn remove">Remove</button>
+          <button type="button" class="btn remove">${t('optimizer.removeRow')}</button>
         </div>
       </div>
     `;
@@ -2365,10 +2365,10 @@
       else delete row.dataset.baseCost;
       const displayScore = !isNaN(baseScore) ? baseScore : evaluateSkillScore(skill || {});
       if (!isNaN(displayScore)) {
-        baseCostDisplay.textContent = `Score ${displayScore}`;
+        baseCostDisplay.textContent = t('optimizer.scoreDisplay', {score: displayScore});
         baseCostDisplay.dataset.empty = 'false';
       } else {
-        baseCostDisplay.textContent = 'Score ?';
+        baseCostDisplay.textContent = t('optimizer.scoreUnknown');
         baseCostDisplay.dataset.empty = 'true';
       }
     }
@@ -2441,7 +2441,7 @@
           categoryChip.textContent = formatCategoryLabel(category);
           categoryChip.dataset.empty = 'false';
         } else {
-          categoryChip.textContent = 'Auto';
+          categoryChip.textContent = t('optimizer.auto');
           categoryChip.dataset.empty = 'true';
         }
       }
@@ -2575,11 +2575,11 @@
       linked.dataset.parentGoldId = id;
       const lid = linked.dataset.rowId;
       const linkedInput = linked.querySelector('.skill-name');
-      if (linkedInput) linkedInput.placeholder = 'Lower skill...';
+      if (linkedInput) linkedInput.placeholder = t('optimizer.lowerSkill');
       const linkedRemove = linked.querySelector('.remove');
       if (linkedRemove) {
         linkedRemove.disabled = true;
-        linkedRemove.title = 'Remove the gold row to unlink';
+        linkedRemove.title = t('optimizer.removeGoldToUnlink');
         linkedRemove.style.pointerEvents = 'none';
         linkedRemove.style.opacity = '0.4';
       }
@@ -2613,11 +2613,11 @@
       linked.dataset.parentSkillLink = id;
       const lid = linked.dataset.rowId;
       const linkedInput = linked.querySelector('.skill-name');
-      if (linkedInput) linkedInput.placeholder = 'Lower skill...';
+      if (linkedInput) linkedInput.placeholder = t('optimizer.lowerSkill');
       const linkedRemove = linked.querySelector('.remove');
       if (linkedRemove) {
         linkedRemove.disabled = true;
-        linkedRemove.title = 'Remove the parent row to unlink';
+        linkedRemove.title = t('optimizer.removeParentToUnlink');
         linkedRemove.style.pointerEvents = 'none';
         linkedRemove.style.opacity = '0.4';
       }
@@ -2657,11 +2657,11 @@
       linked.dataset.parentCircleId = id;
       const lid = linked.dataset.rowId;
       const linkedInput = linked.querySelector('.skill-name');
-      if (linkedInput) linkedInput.placeholder = '\u25ce upgrade...';
+      if (linkedInput) linkedInput.placeholder = t('optimizer.circleUpgrade');
       const linkedRemove = linked.querySelector('.remove');
       if (linkedRemove) {
         linkedRemove.disabled = true;
-        linkedRemove.title = 'Remove the \u25cb row to unlink';
+        linkedRemove.title = t('optimizer.removeCircleToUnlink');
         linkedRemove.style.pointerEvents = 'none';
         linkedRemove.style.opacity = '0.4';
       }
@@ -2716,7 +2716,7 @@
       const evoRemove = evoRow.querySelector('.remove');
       if (evoRemove) {
         evoRemove.disabled = true;
-        evoRemove.title = 'Uncheck the evo option on the gold row';
+        evoRemove.title = t('optimizer.uncheckEvo');
         evoRemove.style.pointerEvents = 'none';
         evoRemove.style.opacity = '0.4';
       }
@@ -2809,7 +2809,7 @@
       evoContainer.dataset.empty = 'false';
       const label = document.createElement('span');
       label.className = 'evo-label';
-      label.textContent = 'Evo:';
+      label.textContent = t('optimizer.evo');
       evoContainer.appendChild(label);
       evos.forEach((evoSkill) => {
         const displayName = getPreferredSkillInputName(evoSkill, evoSkill.name);
@@ -3808,7 +3808,7 @@
         const warnings = Array.isArray(result?.warnings) ? result.warnings : [];
         if (!strengths.length) {
           const li = document.createElement('li');
-          li.textContent = 'No additional strengths were generated.';
+          li.textContent = t('optimizer.noStrengths');
           teamExplainStrengthsEl.appendChild(li);
         } else {
           strengths.forEach((text) => {
@@ -3819,7 +3819,7 @@
         }
         if (!risks.length) {
           const li = document.createElement('li');
-          li.textContent = 'No major risks detected.';
+          li.textContent = t('optimizer.noRisks');
           teamExplainRisksEl.appendChild(li);
         } else {
           risks.forEach((text) => {
@@ -3830,7 +3830,7 @@
         }
         if (!warnings.length) {
           const li = document.createElement('li');
-          li.textContent = 'No optimizer warnings.';
+          li.textContent = t('optimizer.noWarnings');
           teamWarningsEl.appendChild(li);
         } else {
           warnings.forEach((text) => {
@@ -3845,16 +3845,16 @@
     }
 
     if (result.error) {
-      let message = 'Required skills cannot fit within the current budget.';
+      let message = t('optimizer.requiredCannotFit');
       if (result.error === 'team_trials_unavailable')
-        message = 'Team Trials optimizer module is unavailable.';
+        message = t('optimizer.teamTrialsUnavailable');
       else if (result.error === 'team_trials_failed')
-        message = 'Team Trials optimizer failed to produce a result.';
-      else if (result.error === 'no_items') message = 'No candidate skills were provided.';
+        message = t('optimizer.teamTrialsNoResult');
+      else if (result.error === 'no_items') message = t('optimizer.noCandidates');
       else if (result.error === 'no_applicable_skills')
-        message = 'No skills match the selected Team Trials targets/aptitudes.';
+        message = t('optimizer.noMatchTargets');
       else if (result.error !== 'required_unreachable')
-        message = 'Optimization failed for the current constraints.';
+        message = t('optimizer.optimizationFailed');
       const li = document.createElement('li');
       li.className = 'result-item';
       li.textContent = message;
@@ -3955,7 +3955,7 @@
       if (mode === TEAM_TRIALS_MODE) {
         const breakdown = teamBreakdownMap.get(it.id) || {};
         if (includedWith) {
-          li.innerHTML = `<span class="res-name">${formatSkillDisplayName(it.name)}</span> <span class="res-meta">- included with ${includedWith}</span>`;
+          li.innerHTML = `<span class="res-name">${formatSkillDisplayName(it.name)}</span> <span class="res-meta">${t('optimizer.includedWith', {name: includedWith})}</span>`;
         } else {
           const rating = Number.isFinite(breakdown.ratingScore)
             ? breakdown.ratingScore
@@ -3981,7 +3981,7 @@
             const detailsEl = document.createElement('details');
             detailsEl.className = 'res-explain';
             const summaryEl = document.createElement('summary');
-            summaryEl.textContent = 'View explanation';
+            summaryEl.textContent = t('optimizer.viewExplanation');
             detailsEl.appendChild(summaryEl);
 
             if (tierNote) {
@@ -4019,8 +4019,8 @@
         if (skill?.isEvo) displayName += ' (evo)';
         displayName = appendLocalizedDisplayName(displayName, it.name);
         const meta = includedWith
-          ? `- included with ${includedWith}`
-          : `- cost ${it.cost}, score ${displayScore}`;
+          ? t('optimizer.includedWith', {name: includedWith})
+          : t('optimizer.costScoreDisplay', {cost: it.cost, score: displayScore});
         li.innerHTML = `<span class="res-name">${displayName}</span> <span class="res-meta">${meta}</span>`;
       }
       selectedListEl.appendChild(li);
@@ -4129,7 +4129,7 @@
           row.dataset.parentGoldId = r.parentGoldId;
           row.classList.add('linked-lower');
           const linkedInput = row.querySelector('.skill-name');
-          if (linkedInput) linkedInput.placeholder = 'Lower skill...';
+          if (linkedInput) linkedInput.placeholder = t('optimizer.lowerSkill');
         }
         const skillInput = row.querySelector('.skill-name');
         if (skillInput) skillInput.value = r.name || '';
@@ -4208,12 +4208,12 @@
     optimizeBtn.addEventListener('click', () => {
       const budget = parseInt(budgetInput.value, 10);
       if (isNaN(budget) || budget < 0) {
-        alert('Please enter a valid skill points budget.');
+        alert(t('optimizer.invalidBudget'));
         return;
       }
       const { items, rowsMeta } = collectItems();
       if (!items.length) {
-        alert('Add at least one skill with a valid cost.');
+        alert(t('optimizer.addAtLeastOne'));
         return;
       }
       if (getOptimizeMode() === TEAM_TRIALS_MODE) {
@@ -4258,7 +4258,7 @@
     shareBuildBtn.addEventListener('click', async () => {
       const data = serializeRows();
       if (!data) {
-        setAutoStatus('No build to share.', true);
+        setAutoStatus(t('optimizer.noBuildToShare'), true);
         return;
       }
       try {
@@ -4273,10 +4273,10 @@
         if (!copied) {
           await copyViaFallback(shareURL);
         }
-        setAutoStatus('Shareable link copied to clipboard!');
+        setAutoStatus(t('optimizer.linkCopied'));
       } catch (err) {
         console.error('Share failed', err);
-        alert('Unable to copy shareable link. Copy the URL from the address bar.');
+        alert(t('optimizer.copyError'));
       }
     });
   }
@@ -4284,7 +4284,7 @@
     saveBuildBtn.addEventListener('click', () => {
       const buildData = serializeRows();
       if (!buildData) {
-        setAutoStatus('No build to save.', true);
+        setAutoStatus(t('optimizer.noBuildToSave'), true);
         return;
       }
       saveBuildNameInput.value = '';
@@ -4461,7 +4461,7 @@
 
   async function loadBuildFromSaved(build) {
     if (!build || !build.data) {
-      alert('Invalid build data.');
+      alert(t('optimizer.invalidBuild'));
       return;
     }
     try {
@@ -4511,23 +4511,23 @@
       refreshAllRowCosts();
       saveState();
       autoOptimizeDebounced();
-      setAutoStatus(`Build "${build.name}" loaded successfully!`);
+      setAutoStatus(t('optimizer.buildLoaded', {name: build.name}));
       closeBuildsListModal();
     } catch (err) {
       console.error('Failed to load build', err);
-      alert('Failed to load build data.');
+      alert(t('optimizer.failedLoadBuild'));
     }
   }
 
   async function shareBuildFromSaved(build) {
     if (!build || !build.data) {
-      alert('Invalid build data.');
+      alert(t('optimizer.invalidBuild'));
       return;
     }
     try {
       const encoded = encodeBuildToURL(build.data);
       if (!encoded) {
-        alert('Failed to encode build data.');
+        alert(t('optimizer.failedEncode'));
         return;
       }
 
@@ -4585,10 +4585,10 @@
       if (!copied) {
         await copyViaFallback(shareURL);
       }
-      setAutoStatus(`Link for "${build.name}" copied to clipboard!`);
+      setAutoStatus(t('optimizer.buildLinkCopied', {name: build.name}));
     } catch (err) {
       console.error('Share failed', err);
-      alert('Failed to create shareable link.');
+      alert(t('optimizer.failedCreateLink'));
     }
   }
 
@@ -4598,7 +4598,7 @@
     const builds = getSavedBuilds();
     if (builds.length === 0) {
       buildsListContainer.innerHTML =
-        '<div class="empty-builds">No saved builds yet. Save your current build to get started!</div>';
+        '<div class="empty-builds">' + t('optimizer.noSavedBuilds') + '</div>';
       return;
     }
     builds.forEach((build) => {
@@ -4638,23 +4638,23 @@
       actions.className = 'build-item-actions';
       const loadBtn = document.createElement('button');
       loadBtn.className = 'btn btn-secondary';
-      loadBtn.textContent = 'Load';
+      loadBtn.textContent = t('optimizer.load');
       loadBtn.addEventListener('click', () => loadBuildFromSaved(build));
       const shareBtn = document.createElement('button');
       shareBtn.className = 'btn btn-secondary';
-      shareBtn.textContent = 'Share';
+      shareBtn.textContent = t('optimizer.share');
       shareBtn.addEventListener('click', () => shareBuildFromSaved(build));
       const deleteBtn = document.createElement('button');
       deleteBtn.className = 'btn btn-secondary';
-      deleteBtn.textContent = 'Delete';
+      deleteBtn.textContent = t('optimizer.delete');
       deleteBtn.style.color = 'var(--error-color, #d32f2f)';
       deleteBtn.addEventListener('click', () => {
-        if (confirm(`Delete "${build.name}"? This cannot be undone.`)) {
+        if (confirm(t('optimizer.confirmDelete', {name: build.name}))) {
           if (deleteBuild(build.id)) {
             renderBuildsList();
-            setAutoStatus(`Build "${build.name}" deleted.`);
+            setAutoStatus(t('optimizer.buildDeleted', {name: build.name}));
           } else {
-            alert('Failed to delete build.');
+            alert(t('optimizer.failedDeleteBuild'));
           }
         }
       });
@@ -4696,7 +4696,7 @@
     saveModalSave.addEventListener('click', () => {
       const name = saveBuildNameInput?.value?.trim();
       if (!name) {
-        alert('Please enter a build name.');
+        alert(t('optimizer.enterBuildName'));
         if (saveBuildNameInput && saveBuildNameInput.focus) {
           saveBuildNameInput.focus({ preventScroll: true });
         }
@@ -4705,7 +4705,7 @@
 
       const buildData = serializeRows();
       if (!buildData) {
-        alert('No build data to save.');
+        alert(t('optimizer.noBuildData'));
         return;
       }
 
@@ -4752,7 +4752,7 @@
         }
         try {
           localStorage.setItem('umatools-saved-builds', JSON.stringify(builds));
-          setAutoStatus(`Build "${name}" saved successfully!`);
+          setAutoStatus(t('optimizer.buildSaved', {name: name}));
           closeSaveBuildModal();
         } catch (storageErr) {
           if (storageErr.name === 'QuotaExceededError' || storageErr.code === 22) {
@@ -4760,21 +4760,19 @@
               builds = builds.slice(0, 10);
               try {
                 localStorage.setItem('umatools-saved-builds', JSON.stringify(builds));
-                alert(
-                  `Storage limit reached. Kept only your 10 most recent builds. Build "${name}" saved.`
-                );
+                alert(t('optimizer.buildSavedTrimmed', {name: name}));
                 closeSaveBuildModal();
                 return;
               } catch {}
             }
-            alert('Storage quota exceeded. Please delete some saved builds to make room.');
+            alert(t('optimizer.storageQuota'));
           } else {
             throw storageErr;
           }
         }
       } catch (err) {
         console.error('Failed to save build', err);
-        alert('Failed to save build. Your browser may have storage disabled or limits exceeded.');
+        alert(t('optimizer.saveFailed'));
       }
     });
   }
@@ -4807,9 +4805,7 @@
       reader.onload = () => {
         const ok = loadFromCSVContent(reader.result || '');
         if (!ok)
-          alert(
-            'CSV not recognized. Expected headers like: skill_type,name,base/base_value,S_A/B_C/D_E_F/G or apt_1..apt_4,affinity'
-          );
+          alert(t('optimizer.csvNotRecognized'));
         saveState();
       };
       reader.readAsText(file);
@@ -4976,7 +4972,7 @@
       }
     }
     if (libStatus && /loading/i.test(libStatus.textContent || '')) {
-      libStatus.textContent = 'Skill library ready.';
+      libStatus.textContent = t('optimizer.skillReady');
     }
     ratingEngine.initRatingInputs();
     scheduleRatingSpriteLoad();

@@ -7,7 +7,7 @@
   const clearAllBtn = document.getElementById('clear-all');
   const officialEnglishToggle = document.getElementById('official-en-only');
   const libStatus = document.getElementById('lib-status');
-  if (libStatus) libStatus.innerHTML = '<span class="loading-indicator">Loading skills...</span>';
+  if (libStatus) libStatus.innerHTML = '<span class="loading-indicator">' + t('calculator.loadingSkills') + '</span>';
 
   const skillCountEl = document.getElementById('skill-count');
   const totalSkillScoreEl = document.getElementById('total-skill-score');
@@ -259,7 +259,7 @@
 
     if (selectedListEl) {
       if (!skills.length) {
-        selectedListEl.innerHTML = '<span class="muted">No skills selected yet.</span>';
+        selectedListEl.innerHTML = '<span class="muted">' + t('calculator.noSkills') + '</span>';
       } else {
         selectedListEl.innerHTML = skills
           .map((s) => {
@@ -695,7 +695,7 @@
       }
     }
     console.error('Failed to load CSV from known locations', lastErr);
-    libStatus.textContent = 'Failed to load CSV (using fallback)';
+    libStatus.textContent = t('calculator.csvFallback');
     applyFallbackSkills('CSV not found / blocked');
     return false;
   }
@@ -853,7 +853,7 @@
       </div>
       <div class="skill-cell">
         <label>Skill</label>
-        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="Start typing..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <input type="text" class="skill-name field-control" list="skills-datalist-shared" placeholder="${t('calculator.startTyping')}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
         <div class="skill-name-meta" data-empty="true"></div>
         <div class="dup-warning" role="status" aria-live="polite"></div>
       </div>
@@ -1245,36 +1245,36 @@
     const tutorial = window.UmaTutorial.create({
       pageKey: 'calculator',
       openButton: '#tutorial-open',
-      panelTitle: 'Calculator quick tour',
+      panelTitle: t('calculator.tutorialTitle'),
       steps: [
         {
-          title: 'Quick walkthrough',
-          shortTitle: 'Quick walkthrough',
-          text: 'This tutorial is non-blocking and skippable. Re-open it any time from Help / Tutorial.',
+          title: t('calculator.tutStep1'),
+          shortTitle: t('calculator.tutStep1'),
+          text: t('calculator.tutStep1Text'),
           target: '#tutorial-open',
         },
         {
-          title: 'Match race configuration',
-          shortTitle: 'Race configuration',
-          text: 'Set track, distance, and strategy affinities to match your Uma so category scoring is accurate.',
+          title: t('calculator.tutStep2'),
+          shortTitle: t('calculator.tutStep2Short'),
+          text: t('calculator.tutStep2Text'),
           target: '.race-config-pane',
         },
         {
-          title: 'Enter stats and star level',
-          shortTitle: 'Stats and stars',
-          text: 'Fill final stats, star rarity, and unique skill level to project your true rating.',
+          title: t('calculator.tutStep3'),
+          shortTitle: t('calculator.tutStep3Short'),
+          text: t('calculator.tutStep3Text'),
           target: '#rating-card',
         },
         {
-          title: 'Add skills to the calculator',
-          shortTitle: 'Add skills',
-          text: 'Type skills into these rows to include them in the rating calculation.',
+          title: t('calculator.tutStep4'),
+          shortTitle: t('calculator.tutStep4Short'),
+          text: t('calculator.tutStep4Text'),
           target: '#rows',
         },
         {
-          title: 'Review selected skills and totals',
-          shortTitle: 'Selected skills',
-          text: 'See your selected skills, count, and score summary here.',
+          title: t('calculator.tutStep5'),
+          shortTitle: t('calculator.tutStep5Short'),
+          text: t('calculator.tutStep5Text'),
           target: '#selected-skills-section',
         },
       ],
@@ -1288,7 +1288,7 @@
     await loadOfficialEnglishSkillSet();
     await loadSkillsCSV();
     if (libStatus && /loading/i.test(libStatus.textContent || '')) {
-      libStatus.textContent = 'Skill library ready.';
+      libStatus.textContent = t('calculator.skillReady');
     }
 
     // Initialize UI
@@ -1351,6 +1351,10 @@
     updateSelectedSkillsDisplay();
     initTutorial();
   }
+
+  window.addEventListener('i18n:changed', function () {
+    if (typeof window.applyI18n === 'function') window.applyI18n();
+  });
 
   init();
 })();

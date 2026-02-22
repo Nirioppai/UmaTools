@@ -97,17 +97,17 @@
     if (statusMsg) statusMsg.textContent = msg;
   }
 
-  showStatus('Loading data\u2026');
+  showStatus(t('deck.loadingData'));
 
   try {
     const [charRes, supRes] = await Promise.all([fetch(CHAR_URL), fetch(SUPPORT_URL)]);
-    if (!charRes.ok) throw new Error('Failed to load character data');
-    if (!supRes.ok) throw new Error('Failed to load support data');
+    if (!charRes.ok) throw new Error(t('deck.failedCharData'));
+    if (!supRes.ok) throw new Error(t('deck.failedSupportData'));
     characters = await charRes.json();
     supports = await supRes.json();
     showStatus('');
   } catch (err) {
-    showStatus('Failed to load data. Please refresh.');
+    showStatus(t('deck.failedLoadData'));
     console.error(err);
     return;
   }
@@ -167,7 +167,7 @@
       charDisplay.innerHTML = `
         <div class="deck-support-slot" data-action="open-char-picker">
           <div class="slot-placeholder">+</div>
-          <div class="slot-placeholder-text">Select Character</div>
+          <div class="slot-placeholder-text">${t('deck.selectChar')}</div>
         </div>`;
       return;
     }
@@ -177,6 +177,7 @@
     const stats = c.UmaBaseStats?.[starKey] || c.UmaBaseStats?.['5\u2605'] || {};
     const bonuses = c.UmaStatBonuses || {};
     const statNames = ['Speed', 'Stamina', 'Power', 'Guts', 'Wit'];
+    const statLabel = { Speed: t('common.speed'), Stamina: t('common.stamina'), Power: t('common.power'), Guts: t('common.guts'), Wit: t('common.wisdom') };
 
     let statsHtml = '<div class="deck-stats-grid">';
     for (const s of statNames) {
@@ -185,7 +186,7 @@
       const bonusStr = bonus ? `+${bonus}%` : '';
       statsHtml += `
         <div class="deck-stat">
-          <div class="stat-label">${escHtml(s)}</div>
+          <div class="stat-label">${escHtml(statLabel[s] || s)}</div>
           <div class="stat-value">${escHtml(String(val))}</div>
           ${bonusStr ? `<div class="stat-bonus">${escHtml(bonusStr)}</div>` : ''}
         </div>`;
@@ -228,7 +229,7 @@
           ${statsHtml}
           ${aptHtml}
         </div>
-        <button class="remove-btn" title="Remove character" data-action="remove-char">&times;</button>
+        <button class="remove-btn" title="${t('deck.removeChar')}" data-action="remove-char">&times;</button>
       </div>`;
   }
 
@@ -261,8 +262,8 @@
 
         html += `
           <div class="deck-support-slot filled" data-idx="${i}">
-            <button class="slot-swap" title="Swap card" data-idx="${i}">&#x21C4;</button>
-            <button class="slot-remove" title="Remove" data-idx="${i}">&times;</button>
+            <button class="slot-swap" title="${t('deck.swapCard')}" data-idx="${i}">&#x21C4;</button>
+            <button class="slot-remove" title="${t('common.remove')}" data-idx="${i}">&times;</button>
             ${imgHtml}
             <div class="support-name">${escHtml(name)}</div>
             ${typeBadge}
@@ -272,7 +273,7 @@
         html += `
           <div class="deck-support-slot" data-action="open-picker">
             <div class="slot-placeholder">+</div>
-            <div class="slot-placeholder-text">Add Card</div>
+            <div class="slot-placeholder-text">${t('deck.addCard')}</div>
           </div>`;
       }
     }
@@ -337,7 +338,8 @@
     if (selectedChar) {
       const bonuses = selectedChar.UmaStatBonuses || {};
       const statNames = ['Speed', 'Stamina', 'Power', 'Guts', 'Wit'];
-      const bonusParts = statNames.filter((s) => bonuses[s]).map((s) => `${s} +${bonuses[s]}%`);
+      const statLabel = { Speed: t('common.speed'), Stamina: t('common.stamina'), Power: t('common.power'), Guts: t('common.guts'), Wit: t('common.wisdom') };
+      const bonusParts = statNames.filter((s) => bonuses[s]).map((s) => `${(statLabel[s] || s)} +${bonuses[s]}%`);
       if (bonusParts.length) {
         html += `
           <div class="deck-summary-row">
@@ -401,7 +403,7 @@
 
     if (!html) {
       html =
-        '<div class="deck-empty">Add a character and support cards to see the summary.</div>';
+        `<div class="deck-empty">${t('deck.emptySummary')}</div>`;
     }
 
     summaryContent.innerHTML = html;
@@ -573,7 +575,7 @@
   function renderSavedDecks() {
     const decks = getSavedDecks();
     if (decks.length === 0) {
-      savedDecksList.innerHTML = '<div class="modal-card-empty">No saved decks yet</div>';
+      savedDecksList.innerHTML = `<div class="modal-card-empty">${t('deck.noSavedDecks')}</div>`;
       return;
     }
 
@@ -582,7 +584,7 @@
       const d = decks[i];
       const charName = d.char
         ? (findCharBySlug(d.char)?.UmaName || d.char)
-        : 'No character';
+        : t('deck.noCharacter');
       const supCount = (d.supports || []).length;
 
       html += `<div class="saved-deck-item" data-idx="${i}">
@@ -696,7 +698,7 @@
     const filtered = getFilteredSupports();
 
     if (filtered.length === 0) {
-      supportModalList.innerHTML = '<div class="modal-card-empty">No cards match filters</div>';
+      supportModalList.innerHTML = `<div class="modal-card-empty">${t('deck.noCardsMatch')}</div>`;
       return;
     }
 
@@ -726,7 +728,7 @@
   function openPickerModal(replaceIdx) {
     pendingReplaceIdx = typeof replaceIdx === 'number' ? replaceIdx : -1;
     if (pendingReplaceIdx === -1 && selectedSupports.length >= MAX_SUPPORTS) {
-      showStatus('Maximum 6 support cards.');
+      showStatus(t('deck.maxSupports'));
       return;
     }
     filterSearch = '';
@@ -808,7 +810,7 @@
 
     const effects = effectsCard.SupportEffects || [];
     if (effects.length === 0) {
-      effectsPanelBody.innerHTML = '<div class="modal-card-empty">No effect data</div>';
+      effectsPanelBody.innerHTML = `<div class="modal-card-empty">${t('deck.noEffectData')}</div>`;
       return;
     }
 
@@ -855,7 +857,7 @@
   function renderCharModalList() {
     const filtered = getFilteredCharacters();
     if (filtered.length === 0) {
-      charModalList.innerHTML = '<div class="modal-card-empty">No characters match</div>';
+      charModalList.innerHTML = `<div class="modal-card-empty">${t('deck.noCharsMatch')}</div>`;
       return;
     }
 
@@ -1017,8 +1019,8 @@
     }
     const url = `${location.origin}${location.pathname}?${params.toString()}`;
     navigator.clipboard.writeText(url).then(
-      () => showStatus('Link copied!'),
-      () => showStatus('Failed to copy link.'),
+      () => showStatus(t('common.copied')),
+      () => showStatus(t('deck.copyLinkFailed')),
     );
     setTimeout(() => showStatus(''), 2000);
   });

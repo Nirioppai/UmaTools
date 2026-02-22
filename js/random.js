@@ -113,7 +113,7 @@
         </div>
         <div class="uma-winner-copy">
           <h3>${u?.name || 'Unknown'}${nick}</h3>
-          <div class="subtle">Press "Pick Random Uma" to roll again.</div>
+          <div class="subtle">${t('random.rollAgain')}</div>
         </div>
       </div>
     `;
@@ -256,7 +256,7 @@
 
     els.deckResults.innerHTML = pick.length
       ? pick.map(cardMarkup).join('')
-      : `<div class="inline-note">No cards available. Adjust filters or exclusions.</div>`;
+      : `<div class="inline-note">${t('random.noCards')}</div>`;
   }
 
   function cardMarkup(s, extraClass = '') {
@@ -305,7 +305,7 @@
     const pool = supports.filter((s) => matchesServerSupport(s) && allowedR.has(s.rarity) && !ex.has(s.slug));
     const N = Math.min(5, pool.length);
     if (!N) {
-      els.deckResults.innerHTML = `<div class="inline-note">No cards available. Adjust filters or exclusions.</div>`;
+      els.deckResults.innerHTML = `<div class="inline-note">${t('random.noCards')}</div>`;
       return;
     }
 
@@ -389,7 +389,7 @@
   function startUmaCaseRoll() {
     const umaPool = umaList.filter(matchesServerUma);
     if (!umaPool.length) {
-      els.umaResult.innerHTML = `<div class="inline-note">No Uma data available.</div>`;
+      els.umaResult.innerHTML = `<div class="inline-note">${t('random.noUmaData')}</div>`;
       return;
     }
     if (umaRolling) return;
@@ -542,7 +542,7 @@
       if (!val) return;
       const slug = parseSlugFromOption(val);
       if (!slug) {
-        alert("Couldn't find that support. Please pick one from the list.");
+        alert(t('random.notFound'));
         return;
       }
       const ex = new Set(store.getExclusions());
@@ -586,7 +586,7 @@
       renderDeckStatic(); // initial deck render
       wireEvents(); // <-- attach all listeners
       // Uma area starts idle until user rolls
-      els.umaResult.innerHTML = `<div class="inline-note">Click "Pick Random Uma" to roll.</div>`;
+      els.umaResult.innerHTML = `<div class="inline-note">${t('random.clickToPick')}</div>`;
     } catch (e) {
       console.error(e);
       els.deckResults.innerHTML = `<div class="inline-note">Failed to load data.</div>`;

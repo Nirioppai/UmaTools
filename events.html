@@ -153,13 +153,15 @@
     </script>
 
     <main id="main" class="container">
-      <h1>Uma Event Helper</h1>
+      <h1 data-i18n="events.title">Uma Event Helper</h1>
 
       <button
         id="modeToggleBtn"
         aria-label="Toggle dark/light mode"
         class="mode-toggle-btn"
         title="Toggle dark/light mode"
+        data-i18n-aria="common.toggleDarkLight"
+        data-i18n-title="common.toggleDarkLight"
       >
         <svg
           id="iconSun"
@@ -202,20 +204,21 @@
 
       <section class="search-panel">
         <form id="search-form" class="search-form">
-          <input id="query" type="text" placeholder="Search an event name..." autocomplete="off" />
-          <button id="search-btn" type="submit">Search</button>
+          <input id="query" type="text" placeholder="Search an event name..." autocomplete="off" data-i18n-placeholder="events.searchPlaceholder" />
+          <button id="search-btn" type="submit" data-i18n="common.search">Search</button>
         </form>
         <div id="status" class="status"></div>
       </section>
 
       <div class="ocr-controls">
-        <button id="captureBtn" class="capture-btn">Capture Screen for OCR</button>
-        <label class="scan-time-label" for="searchDelayButtons">Scan Time:</label>
+        <button id="captureBtn" class="capture-btn" data-i18n="events.captureOCR">Capture Screen for OCR</button>
+        <label class="scan-time-label" for="searchDelayButtons" data-i18n="events.scanTime">Scan Time:</label>
         <div
           id="searchDelayButtons"
           class="delay-buttons"
           role="group"
           aria-label="Select OCR scan time"
+          data-i18n-aria="events.selectScanTime"
         >
           <button data-delay="3000" class="delay-btn active" type="button">3s</button>
           <button data-delay="5000" class="delay-btn" type="button">5s</button>
@@ -227,6 +230,7 @@
       <video id="captureVideo" autoplay muted></video>
       <div id="result" class="result"></div>
     </main>
+    <script src="/js/i18n.js" defer></script>
     <script src="/js/ocr.js" defer data-cfasync="false"></script>
     <script>
       window.API_BASE = '/api';

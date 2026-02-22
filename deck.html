@@ -153,13 +153,15 @@
     </script>
 
     <main id="main" class="container">
-      <h1>Deck Builder</h1>
+      <h1 data-i18n="deck.title">Deck Builder</h1>
 
       <button
         id="modeToggleBtn"
         aria-label="Toggle dark/light mode"
         class="mode-toggle-btn"
         title="Toggle dark/light mode"
+        data-i18n-aria="common.toggleDarkLight"
+        data-i18n-title="common.toggleDarkLight"
       >
         <svg
           id="iconSun"
@@ -202,7 +204,7 @@
 
       <!-- Character Section -->
       <section class="deck-section">
-        <div class="deck-section-title">Character</div>
+        <div class="deck-section-title" data-i18n="deck.character">Character</div>
         <div id="charDisplay"></div>
       </section>
 
@@ -211,11 +213,11 @@
         <div class="support-modal-backdrop"></div>
         <div class="support-modal-content">
           <div class="support-modal-header">
-            <span class="support-modal-title">Select Character</span>
-            <button class="support-modal-close" aria-label="Close">&times;</button>
+            <span class="support-modal-title" data-i18n="deck.selectCharacter">Select Character</span>
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
           </div>
           <div class="support-modal-filters">
-            <input id="charSearch" type="text" placeholder="Search by name..." autocomplete="off" />
+            <input id="charSearch" type="text" placeholder="Search by name..." autocomplete="off" data-i18n-placeholder="common.searchByName" />
           </div>
           <div id="charModalList" class="support-modal-list"></div>
         </div>
@@ -232,11 +234,11 @@
         <div class="support-modal-backdrop"></div>
         <div class="support-modal-content">
           <div class="support-modal-header">
-            <span class="support-modal-title">Select Support Card</span>
-            <button class="support-modal-close" aria-label="Close">&times;</button>
+            <span class="support-modal-title" data-i18n="deck.selectSupportCard">Select Support Card</span>
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
           </div>
           <div class="support-modal-filters">
-            <input id="supportSearch" type="text" placeholder="Search by name..." autocomplete="off" />
+            <input id="supportSearch" type="text" placeholder="Search by name..." autocomplete="off" data-i18n-placeholder="common.searchByName" />
             <div class="filter-row">
               <div class="filter-group" id="typeFilters"></div>
               <div class="filter-group" id="rarityFilters"></div>
@@ -252,10 +254,10 @@
         <div class="effects-panel-content">
           <div class="effects-panel-header">
             <span id="effectsPanelTitle" class="effects-panel-title"></span>
-            <button class="effects-panel-close" aria-label="Close">&times;</button>
+            <button class="effects-panel-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
           </div>
           <div class="effects-panel-level">
-            <label for="effectsLevelSlider">Level:</label>
+            <label for="effectsLevelSlider" data-i18n="deck.levelLabel">Level:</label>
             <input id="effectsLevelSlider" type="range" min="0" max="4" value="4" />
             <span id="effectsLevelLabel">MLB</span>
           </div>
@@ -265,15 +267,15 @@
 
       <!-- Combined Summary -->
       <section class="deck-section" id="summarySection" style="display: none">
-        <div class="deck-section-title">Combined Summary</div>
+        <div class="deck-section-title" data-i18n="deck.combinedSummary">Combined Summary</div>
         <div id="summaryContent" class="deck-summary"></div>
       </section>
 
       <!-- Actions -->
       <div class="deck-actions">
-        <button id="openSavedBtn" class="primary">Saved Decks</button>
-        <button id="shareLinkBtn">Copy Share Link</button>
-        <button id="clearAllBtn">Clear All</button>
+        <button id="openSavedBtn" class="primary" data-i18n="deck.savedDecks">Saved Decks</button>
+        <button id="shareLinkBtn" data-i18n="deck.copyShareLink">Copy Share Link</button>
+        <button id="clearAllBtn" data-i18n="deck.clearAll">Clear All</button>
       </div>
 
       <!-- Saved Decks Modal -->
@@ -281,13 +283,13 @@
         <div class="support-modal-backdrop"></div>
         <div class="support-modal-content">
           <div class="support-modal-header">
-            <span class="support-modal-title">Saved Decks</span>
-            <button class="support-modal-close" aria-label="Close">&times;</button>
+            <span class="support-modal-title" data-i18n="deck.savedDecks">Saved Decks</span>
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
           </div>
           <div class="saved-modal-actions">
             <div class="saved-modal-save-row">
-              <input id="saveDeckName" type="text" placeholder="Deck name..." autocomplete="off" />
-              <button id="saveDeckBtn" class="saved-modal-save-btn">Save</button>
+              <input id="saveDeckName" type="text" placeholder="Deck name..." autocomplete="off" data-i18n-placeholder="deck.deckName" />
+              <button id="saveDeckBtn" class="saved-modal-save-btn" data-i18n="common.save">Save</button>
             </div>
           </div>
           <div id="savedDecksList" class="support-modal-list saved-decks-list"></div>
@@ -297,6 +299,7 @@
       <div id="statusMsg" class="inline-note muted"></div>
     </main>
 
+    <script src="/js/i18n.js" defer></script>
     <script src="/js/deck.js" defer></script>
     <script src="/js/nav.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>

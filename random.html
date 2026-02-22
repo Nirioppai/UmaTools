@@ -158,6 +158,8 @@
       aria-label="Toggle dark/light mode"
       class="mode-toggle-btn"
       title="Toggle dark/light mode"
+      data-i18n-aria="common.toggleDarkLight"
+      data-i18n-title="common.toggleDarkLight"
     >
       <svg
         id="iconSun"
@@ -199,12 +201,12 @@
     </button>
 
     <main id="main" class="container">
-      <h1>Randomizer</h1>
+      <h1 data-i18n="random.title">Randomizer</h1>
 
       <!-- Support Deck Randomizer -->
       <section id="supportRandomizer" class="result">
         <div class="choice">
-          <h3>Support Deck (5 cards)</h3>
+          <h3 data-i18n="random.supportDeck">Support Deck (5 cards)</h3>
           <div class="toolbar" role="group" aria-label="Support filters">
             <label><input type="checkbox" id="fSSR" checked /> SSR</label>
             <label><input type="checkbox" id="fSR" checked /> SR</label>
@@ -213,10 +215,10 @@
             <div style="flex: 1 1 220px"></div>
 
             <label class="toggle" style="margin-right: 0.75rem"
-              ><input type="checkbox" id="speed2x" /> 2&times; speed</label
+              ><input type="checkbox" id="speed2x" /> <span data-i18n="random.doubleSpeed">2&times; speed</span></label
             >
-            <button class="btn primary" id="rollBtn" type="button">Roll 5</button>
-            <button class="btn" id="clearExBtn" type="button">Clear Exclusions</button>
+            <button class="btn primary" id="rollBtn" type="button" data-i18n="random.roll5">Roll 5</button>
+            <button class="btn" id="clearExBtn" type="button" data-i18n="random.clearExclusions">Clear Exclusions</button>
           </div>
 
           <div class="toolbar" role="group" aria-label="Exclude cards">
@@ -224,9 +226,10 @@
               list="supportList"
               id="excludeInput"
               placeholder="Exclude a support (choose from list)"
+              data-i18n-placeholder="random.excludePlaceholder"
             />
             <datalist id="supportList"></datalist>
-            <button class="btn" id="addExBtn" type="button">Add to Exclusions</button>
+            <button class="btn" id="addExBtn" type="button" data-i18n="random.addExclusions">Add to Exclusions</button>
           </div>
 
           <div id="excludeChips" class="chips" aria-live="polite"></div>
@@ -240,12 +243,12 @@
       <!-- Uma Randomizer -->
       <section id="umaRandomizer" class="result">
         <div class="choice">
-          <h3>Random Uma</h3>
+          <h3 data-i18n="random.randomUma">Random Uma</h3>
           <div class="toolbar">
             <label class="toggle" style="margin-right: 0.75rem"
-              ><input type="checkbox" id="speed2xUma" /> 2&times; speed</label
+              ><input type="checkbox" id="speed2xUma" /> <span data-i18n="random.doubleSpeed">2&times; speed</span></label
             >
-            <button class="btn primary" id="pickUmaBtn" type="button">Pick Random Uma</button>
+            <button class="btn primary" id="pickUmaBtn" type="button" data-i18n="random.pickRandomUma">Pick Random Uma</button>
           </div>
         </div>
 
@@ -253,6 +256,7 @@
       </section>
     </main>
 
+    <script src="/js/i18n.js" defer></script>
     <script src="/js/random.js" defer></script>
 
     <script src="/js/nav.js" defer></script>

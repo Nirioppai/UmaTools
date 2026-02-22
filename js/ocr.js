@@ -410,12 +410,12 @@ async function scanFrame() {
   const match = matchTemplateInRegion(frameData, probeRectPx, tpl);
 
   if (match.score >= MATCH_THRESHOLD) {
-    setSuggestion(`UI found (${Math.round(match.score * 100)}%). Reading title…`);
+    setSuggestion(t('events.uiFoundReading', {score: Math.round(match.score * 100)}));
     if (!mayTrigger()) return;
 
     const title = (await ocrEventRect(eventRectPx)).trim();
     if (title) {
-      setSuggestion(`Detected: “${title}” — searching…`);
+      setSuggestion(t('events.detectedSearching', {title: title}));
       if (typeof window.performSearch === 'function') {
         window.performSearch(title); // search.js renders the results
       } else if (typeof performSearch === 'function') {
@@ -424,10 +424,10 @@ async function scanFrame() {
         console.warn('[ocr] performSearch() not found.');
       }
     } else {
-      setSuggestion('UI found, but OCR produced no text.');
+      setSuggestion(t('events.uiFoundNoText'));
     }
   } else {
-    setSuggestion('Waiting for UI…');
+    setSuggestion(t('events.waitingForUI'));
   }
 }
 
@@ -437,7 +437,7 @@ let cameraContainer = null;
 
 async function startScreenCapture() {
   try {
-    setSuggestion('Select a window or screen to capture…');
+    setSuggestion(t('events.selectWindow'));
 
     mediaStream = await navigator.mediaDevices.getDisplayMedia({
       video: { frameRate: { ideal: 5 } },
@@ -452,9 +452,9 @@ async function startScreenCapture() {
       cameraContainer.style.display = 'block';
     }
 
-    setSuggestion("Screen shared. Click 'Capture Frame' to OCR the current view.");
+    setSuggestion(t('events.screenShared'));
 
-    captureBtn.textContent = '⏹ Stop Capture';
+    captureBtn.textContent = '⏹ ' + t('events.stopCapture');
     captureBtn.onclick = stopScreenCapture;
     isCapturing = true;
 
@@ -466,7 +466,7 @@ async function startScreenCapture() {
     videoEl.onloadedmetadata = () => {
       videoEl.play().catch((err) => {
         console.error('Video play error:', err);
-        setSuggestion('Failed to start video preview.');
+        setSuggestion(t('events.failedVideoPreview'));
       });
     };
 
@@ -474,9 +474,9 @@ async function startScreenCapture() {
   } catch (err) {
     console.error('Screen capture error:', err);
     if (err.name === 'NotAllowedError') {
-      setSuggestion('Screen capture cancelled.');
+      setSuggestion(t('events.captureCancelled'));
     } else {
-      setSuggestion('Screen capture failed. Please try again.');
+      setSuggestion(t('events.captureFailedRetry'));
     }
     stopScreenCapture();
   }
@@ -501,7 +501,7 @@ async function stopScreenCapture() {
       captureFrameBtn.style.display = 'none';
     }
 
-    captureBtn.textContent = '🖥 Screen Capture';
+    captureBtn.textContent = '🖥 ' + t('events.screenCaptureBtn');
     captureBtn.onclick = startScreenCapture;
     isCapturing = false;
     setSuggestion('');
@@ -512,7 +512,7 @@ async function stopScreenCapture() {
 
 async function startCapture() {
   try {
-    setSuggestion('Loading OCR engine\u2026');
+    setSuggestion(t('events.loadingEngine'));
     await createScheduler();
     await loadTemplate(PROBE_TEMPLATE_DATAURL);
 
@@ -524,14 +524,14 @@ async function startCapture() {
 
     if (captureTimer) clearInterval(captureTimer);
     const delay = getScanDelay();
-    setSuggestion('Screen capture started. Waiting for UI…');
+    setSuggestion(t('events.captureStarted'));
 
     captureBtn.style.display = 'none';
     if (!stopBtn) {
       stopBtn = document.createElement('button');
       stopBtn.id = 'stopCaptureBtn';
       stopBtn.className = 'capture-btn';
-      stopBtn.textContent = 'Stop Capture';
+      stopBtn.textContent = t('events.stopCapture');
       stopBtn.onclick = stopCapture;
       captureBtn.parentNode.insertBefore(stopBtn, captureBtn.nextSibling);
     }
@@ -549,7 +549,7 @@ async function startCapture() {
     mediaStream.getVideoTracks()[0].addEventListener('ended', stopCapture);
   } catch (err) {
     console.error('capture/template error:', err);
-    setSuggestion('Screen capture failed (permissions or template).');
+    setSuggestion(t('events.captureFailedPerms'));
     stopCapture();
   }
 }
@@ -562,7 +562,7 @@ async function stopCapture() {
       mediaStream.getTracks().forEach((track) => track.stop());
       mediaStream = null;
     }
-    setSuggestion('Capture stopped.');
+    setSuggestion(t('events.captureStopped'));
     videoEl.srcObject = null;
   } finally {
     // Ensure scheduler is always terminated
@@ -875,7 +875,7 @@ if (screenshotUploadInput) {
       await processSkillOCR(file);
     } catch (err) {
       console.error('[ocr] Skill OCR failed:', err);
-      alert('Failed to process image. Please try again.');
+      alert(t('events.ocrFailed'));
     } finally {
       screenshotUploadInput.value = '';
     }
@@ -889,7 +889,7 @@ if (videoEl) {
   const captureFrameBtn = document.createElement('button');
   captureFrameBtn.id = 'capture-frame-btn';
   captureFrameBtn.className = 'btn';
-  captureFrameBtn.textContent = '📸 Capture Frame';
+  captureFrameBtn.textContent = '📸 ' + t('events.captureFrame');
   captureFrameBtn.style.display = 'none';
 
   const container =
@@ -922,7 +922,7 @@ if (videoEl) {
         await processSkillOCR(blob);
       } catch (err) {
         console.error('[ocr] Skill OCR from screen capture failed:', err);
-        alert('Failed to process captured frame. Please try again.');
+        alert(t('events.ocrCaptureFailed'));
       }
     }, 'image/png');
   });
@@ -1200,7 +1200,7 @@ async function processSkillOCR(imageBlob) {
     return;
   }
 
-  resultsList.innerHTML = '<div class="loading-indicator">Processing image...</div>';
+  resultsList.innerHTML = '<div class="loading-indicator">' + t('events.processingImage') + '</div>';
   resultsPanel.style.display = 'block';
 
   try {
@@ -1239,7 +1239,7 @@ async function processSkillOCR(imageBlob) {
   } catch (err) {
     console.error('[ocr] Skill OCR error:', err);
     resultsList.innerHTML =
-      '<div class="error-message">Failed to process image. Please try again.</div>';
+      '<div class="error-message">' + t('events.ocrFailed') + '</div>';
     throw err;
   }
 }
@@ -1469,7 +1469,7 @@ function displayOCRResults(detectedSkills) {
 
   if (detectedSkills.length === 0) {
     resultsList.innerHTML =
-      '<div class="no-results">No skills detected. Try a different image, adjust the crop, or use Manual Search below.</div>';
+      '<div class="no-results">' + t('events.noSkillsDetected') + '</div>';
     return;
   }
 
@@ -1480,7 +1480,7 @@ function displayOCRResults(detectedSkills) {
     if (!cb.checked) uncheckedSet.add(i);
   });
 
-  let html = '<div class="ocr-results-hint">Click on a skill to edit its name or hint level</div>';
+  let html = '<div class="ocr-results-hint">' + t('events.clickToEdit') + '</div>';
   detectedSkills.forEach((skill, index) => {
     const confidencePct = Math.round((skill.confidence || 0) * 100);
     const level = window.OCRMatcher
@@ -1501,7 +1501,7 @@ function displayOCRResults(detectedSkills) {
         <div class="ocr-result-info">
           <div class="ocr-result-name">${escapeHTML(skill.name)}<span class="ocr-edit-icon" aria-hidden="true">&#9998;</span></div>
           <div class="ocr-result-meta">
-            <span class="ocr-result-hint">Hint Lv ${skill.hint}</span>
+            <span class="ocr-result-hint">${t('events.hintLv')} ${skill.hint}</span>
             ${skill.type ? `<span class="ocr-type">${escapeHTML(skill.type)}</span>` : ''}
           </div>
         </div>
@@ -1512,7 +1512,7 @@ function displayOCRResults(detectedSkills) {
     if (showSuggestions) {
       html += `
       <div class="ocr-suggestions" data-skill-index="${index}">
-        <span class="ocr-suggestions-label">Did you mean?</span>
+        <span class="ocr-suggestions-label">${t('events.didYouMean')}</span>
         <div class="ocr-suggestions-list">`;
       suggestions.forEach((sug, si) => {
         html += `<button type="button" class="ocr-suggestion-btn" data-skill-index="${index}" data-suggestion-index="${si}" title="${escapeHTML(sug.type || '')} (${sug.score}% match)">${escapeHTML(sug.name)}<span class="sug-score">${sug.score}%</span></button>`;
@@ -1594,7 +1594,7 @@ if (ocrAddAllBtn) {
         // Show success state
         ocrAddAllBtn.classList.remove('loading');
         ocrAddAllBtn.classList.add('success');
-        ocrAddAllBtn.textContent = 'Skills Applied!';
+        ocrAddAllBtn.textContent = t('events.skillsApplied');
 
         // Hide panel and reset button after delay
         setTimeout(() => {
@@ -1608,7 +1608,7 @@ if (ocrAddAllBtn) {
       }, 50);
     } else {
       console.error('[ocr] applyOCRSkills function not found');
-      alert('Calculator integration not available. Please refresh the page.');
+      alert(t('events.calcNotAvailable'));
     }
   });
 }
@@ -1629,7 +1629,7 @@ if (ocrAddSelectedBtn) {
     });
 
     if (selectedSkills.length === 0) {
-      alert('Please select at least one skill to add.');
+      alert(t('events.selectOneSkill'));
       return;
     }
 
@@ -1646,7 +1646,7 @@ if (ocrAddSelectedBtn) {
         // Show success state
         ocrAddSelectedBtn.classList.remove('loading');
         ocrAddSelectedBtn.classList.add('success');
-        ocrAddSelectedBtn.textContent = 'Skills Applied!';
+        ocrAddSelectedBtn.textContent = t('events.skillsApplied');
 
         // Hide panel and reset button after delay
         setTimeout(() => {
@@ -1660,7 +1660,7 @@ if (ocrAddSelectedBtn) {
       }, 50);
     } else {
       console.error('[ocr] applyOCRSkills function not found');
-      alert('Calculator integration not available. Please refresh the page.');
+      alert(t('events.calcNotAvailable'));
     }
   });
 }
@@ -1777,7 +1777,7 @@ function saveCorrectionModal() {
 
   const name = correctionSkillName ? correctionSkillName.value.trim() : '';
   if (!name) {
-    alert('Skill name is required');
+    alert(t('events.skillNameRequired'));
     return;
   }
 
@@ -1791,12 +1791,12 @@ function saveCorrectionModal() {
       : 0;
 
   if (cost !== null && (cost < 0 || cost > 999)) {
-    alert('Cost must be between 0 and 999');
+    alert(t('events.costRange'));
     return;
   }
 
   if (hint < 0 || hint > 5) {
-    alert('Hint level must be between 0 and 5');
+    alert(t('events.hintRange'));
     return;
   }
 

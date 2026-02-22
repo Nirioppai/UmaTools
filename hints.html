@@ -153,13 +153,15 @@
     </script>
 
     <main id="main" class="container">
-      <h1>Support Hint Finder</h1>
+      <h1 data-i18n="hints.title">Support Hint Finder</h1>
 
       <button
         id="modeToggleBtn"
         aria-label="Toggle dark/light mode"
         class="mode-toggle-btn"
         title="Toggle dark/light mode"
+        data-i18n-aria="common.toggleDarkLight"
+        data-i18n-title="common.toggleDarkLight"
       >
         <svg
           id="iconSun"
@@ -200,7 +202,7 @@
         </svg>
       </button>
 
-      <p class="subtle">
+      <p class="subtle" data-i18n="hints.instruction">
         Type a skill hint (e.g., <em>Medium Corners</em>), press Enter to add it.
       </p>
 
@@ -211,11 +213,12 @@
             list="hintList"
             type="text"
             placeholder="Add hint (e.g., Medium Corners &#9675;)"
+            data-i18n-placeholder="hints.placeholder"
           />
-          <button id="addBtn" class="primary">Add</button>
+          <button id="addBtn" class="primary" data-i18n="common.add">Add</button>
           <select id="modeSelect" aria-label="Match mode">
-            <option value="AND">Match ALL (AND)</option>
-            <option value="OR">Match ANY (OR)</option>
+            <option value="AND" data-i18n="hints.matchAll">Match ALL (AND)</option>
+            <option value="OR" data-i18n="hints.matchAny">Match ANY (OR)</option>
           </select>
         </div>
 
@@ -226,7 +229,7 @@
         </div>
 
         <div class="row">
-          <button id="clearBtn">Clear</button>
+          <button id="clearBtn" data-i18n="common.clear">Clear</button>
         </div>
       </div>
 
@@ -238,6 +241,7 @@
 
       <div id="results" class="grid"></div>
     </main>
+    <script src="/js/i18n.js" defer></script>
     <script src="/js/hints.js" defer></script>
 
     <script src="/js/nav.js" defer></script>

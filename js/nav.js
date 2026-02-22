@@ -2,25 +2,28 @@
   const DEFAULT_ROUTES = [
     {
       label: 'Rating',
+      i18nKey: 'nav.rating',
       children: [
-        { label: 'Optimizer', path: '/optimizer', file: '/optimizer.html' },
-        { label: 'Calculator', path: '/calculator', file: '/calculator.html' },
-        { label: 'Stamina Check', path: '/stamina', file: '/stamina.html' },
+        { label: 'Optimizer', i18nKey: 'nav.optimizer', path: '/optimizer', file: '/optimizer.html' },
+        { label: 'Calculator', i18nKey: 'nav.calculator', path: '/calculator', file: '/calculator.html' },
+        { label: 'Stamina Check', i18nKey: 'nav.staminaCheck', path: '/stamina', file: '/stamina.html' },
       ],
     },
     {
       label: 'Tools',
+      i18nKey: 'nav.tools',
       children: [
-        { label: 'Event OCR', path: '/events', file: '/events.html' },
-        { label: 'Support Hints', path: '/hints', file: '/hints.html' },
-        { label: 'Deck Builder', path: '/deck', file: '/deck.html' },
+        { label: 'Event OCR', i18nKey: 'nav.eventOCR', path: '/events', file: '/events.html' },
+        { label: 'Support Hints', i18nKey: 'nav.supportHints', path: '/hints', file: '/hints.html' },
+        { label: 'Deck Builder', i18nKey: 'nav.deckBuilder', path: '/deck', file: '/deck.html' },
       ],
     },
     {
       label: 'Fun',
+      i18nKey: 'nav.fun',
       children: [
-        { label: 'Randomizer', path: '/random', file: '/random.html' },
-        { label: 'Umadle', path: '/umadle', file: '/umadle.html' },
+        { label: 'Randomizer', i18nKey: 'nav.randomizer', path: '/random', file: '/random.html' },
+        { label: 'Umadle', i18nKey: 'nav.umadle', path: '/umadle', file: '/umadle.html' },
       ],
     },
   ];
@@ -75,21 +78,22 @@
   // Build navbar element (not in DOM yet)
   const nav = document.createElement('nav');
   nav.className = 'site-nav';
-  nav.setAttribute('aria-label', 'Primary');
+  var _t = function (key) { return typeof window.t === 'function' ? window.t(key) : key; };
+  nav.setAttribute('aria-label', _t('nav.primary'));
   nav.innerHTML = `
     <div class="nav-inner">
       <div class="nav-left">
-        <a class="brand" href="/" aria-label="Uma Tools Home">
+        <a class="brand" href="/" data-i18n-aria="nav.home" aria-label="${_t('nav.home')}">
           <span class="brand-text">UmaTools</span>
         </a>
-        <button class="menu-btn" aria-label="Menu" aria-expanded="false">
+        <button class="menu-btn" data-i18n-aria="nav.menu" aria-label="${_t('nav.menu')}" aria-expanded="false">
           <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"
               fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
         </button>
-        <div class="nav-links" role="navigation" aria-label="Primary"></div>
+        <div class="nav-links" role="navigation" data-i18n-aria="nav.primary" aria-label="${_t('nav.primary')}"></div>
       </div>
       <div class="nav-right">
         <div class="nav-settings">
@@ -100,26 +104,28 @@
             aria-expanded="false"
             aria-controls="nav-settings-panel"
             aria-haspopup="true"
+            data-i18n="nav.settings"
           >
-            Settings
+            ${_t('nav.settings')}
           </button>
           <div
             class="nav-settings-panel"
             id="nav-settings-panel"
             role="group"
-            aria-label="Global Settings"
+            data-i18n-aria="nav.globalSettings"
+            aria-label="${_t('nav.globalSettings')}"
             hidden
           >
-            <div class="nav-settings-title">Global Settings</div>
+            <div class="nav-settings-title" data-i18n="nav.globalSettings">${_t('nav.globalSettings')}</div>
             <label class="nav-control">
-              <span>Server</span>
+              <span data-i18n="nav.server">${_t('nav.server')}</span>
               <select id="nav-server-select" aria-label="Game server">
                 <option value="en">EN</option>
                 <option value="jp">JP</option>
               </select>
             </label>
             <label class="nav-control">
-              <span>Site Language</span>
+              <span data-i18n="nav.siteLanguage">${_t('nav.siteLanguage')}</span>
               <select id="nav-site-lang-select" aria-label="Site language">
                 <option value="en">EN</option>
                 <option value="jp">JP</option>
@@ -240,9 +246,10 @@
         btn.className = 'nav-group-btn';
         btn.setAttribute('aria-expanded', 'false');
         btn.setAttribute('aria-haspopup', 'true');
+        const groupLabel = route.i18nKey ? _t(route.i18nKey) : route.label;
         btn.innerHTML =
-          '<span>' +
-          route.label +
+          '<span' + (route.i18nKey ? ' data-i18n="' + route.i18nKey + '"' : '') + '>' +
+          groupLabel +
           '</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">' +
           '<path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
           '</svg>';
@@ -255,7 +262,8 @@
         for (const child of route.children) {
           const a = document.createElement('a');
           a.className = 'nav-link';
-          a.textContent = child.label;
+          a.textContent = child.i18nKey ? _t(child.i18nKey) : child.label;
+          if (child.i18nKey) a.setAttribute('data-i18n', child.i18nKey);
           a.href = child.path || child.file || '#';
           a.setAttribute('role', 'menuitem');
           if (child.file) a.dataset.file = child.file;
@@ -287,7 +295,8 @@
         // Flat link (backward compat)
         const a = document.createElement('a');
         a.className = 'nav-link';
-        a.textContent = route.label;
+        a.textContent = route.i18nKey ? _t(route.i18nKey) : route.label;
+        if (route.i18nKey) a.setAttribute('data-i18n', route.i18nKey);
         a.href = route.path || route.file || '#';
         if (route.file) a.dataset.file = route.file;
         if (route.path) a.dataset.clean = route.path;
@@ -375,7 +384,7 @@
     const footer = document.createElement('footer');
     footer.className = 'site-footer';
     footer.innerHTML = `
-      <span>Made with <span aria-label="love">&#10084;&#65039;</span></span>
+      <span><span data-i18n="nav.madeWith">${_t('nav.madeWith')}</span> <span aria-label="love">&#10084;&#65039;</span></span>
       ${FOOTER.map(
         (l) => `<a href="${l.href}" target="_blank" rel="noopener noreferrer">${l.label}</a>`
       ).join('')}
@@ -385,6 +394,14 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch(() => {});
     }
+
+    // Re-apply i18n to nav elements when language changes
+    window.addEventListener('i18n:changed', () => {
+      if (typeof window.applyI18n === 'function') {
+        window.applyI18n(navEl);
+        window.applyI18n(footer);
+      }
+    });
 
     // Signal that nav is ready so loaders can safely release.
     window.dispatchEvent(new Event('nav:ready'));

@@ -380,7 +380,7 @@
     els.uniqueSelect.innerHTML = '';
     const placeholder = document.createElement('option');
     placeholder.value = '';
-    placeholder.textContent = 'Select a unique skill';
+    placeholder.textContent = t('stamina.selectUnique');
     els.uniqueSelect.appendChild(placeholder);
 
     UNIQUE_RECOVERY_SKILLS.forEach((skill) => {
@@ -397,7 +397,7 @@
     if (!uniqueSelections.length) {
       const empty = document.createElement('div');
       empty.className = 'muted';
-      empty.textContent = 'No unique skills added.';
+      empty.textContent = t('stamina.noUnique');
       els.uniqueList.appendChild(empty);
       return;
     }
@@ -411,7 +411,7 @@
 
       const remove = document.createElement('button');
       remove.type = 'button';
-      remove.textContent = 'Remove';
+      remove.textContent = t('common.remove');
       remove.addEventListener('click', () => {
         const index = uniqueSelections.findIndex((entry) => entry.key === item.key);
         if (index >= 0) {
@@ -727,7 +727,7 @@
     refreshSelectStyles();
     const result = compute();
     if (!result.ok || !Number.isFinite(result.staminaNeeded)) {
-      setStatus('warn', 'Enter values');
+      setStatus('warn', t('common.enterValues'));
       if (els.neededStamina) els.neededStamina.textContent = '-';
       if (els.actualStamina) els.actualStamina.textContent = '-';
       if (els.bucketText) els.bucketText.textContent = '-';
@@ -751,29 +751,29 @@
     if (els.recoveryTotal) els.recoveryTotal.textContent = percent(result.recoveryTotal);
 
     if (els.distanceHint) {
-      els.distanceHint.textContent = `Distance bucket: ${result.category}`;
+      els.distanceHint.textContent = t('stamina.distanceBucketHint', { category: result.category });
     }
 
     if (staminaValue + 1 < staminaNeeded) {
-      setStatus('bad', 'Not enough');
+      setStatus('bad', t('common.notEnough'));
       const short = Math.max(staminaNeeded - staminaValue, 0).toFixed(1);
       if (els.extraNote) {
-        els.extraNote.textContent = `Need about ${short} more stamina.`;
+        els.extraNote.textContent = t('stamina.needMore', { amount: short });
       }
       persistState();
       return;
     }
 
     if (staminaNeeded >= 0 && staminaValue / staminaNeeded < 1.1) {
-      setStatus('warn', 'Borderline');
+      setStatus('warn', t('common.borderline'));
       if (els.extraNote) {
-        els.extraNote.textContent = 'Borderline stamina (close to cutoff).';
+        els.extraNote.textContent = t('stamina.borderlineNote');
       }
       persistState();
       return;
     }
 
-    setStatus('ok', 'Enough');
+    setStatus('ok', t('common.enough'));
     if (els.extraNote) els.extraNote.textContent = '';
     persistState();
   }
@@ -804,6 +804,7 @@
     refreshSelectStyles();
     isHydrated = true;
     update();
+    window.addEventListener('i18n:changed', function () { update(); });
   }
 
   if (document.readyState === 'loading') {

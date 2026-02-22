@@ -570,8 +570,8 @@
         const nextBadge = hasNext ? RATING_BADGES[idx + 1] : current;
         const needed = hasNext ? Math.max(0, nextThreshold - breakdown.total) : 0;
         const labelText = hasNext
-          ? `Next: ${nextBadge?.label || current.label} at ${nextThreshold}`
-          : 'Max rank reached';
+          ? (typeof window.t === 'function' ? window.t('common.nextRank', {badge: nextBadge?.label || current.label, threshold: nextThreshold}) : `Next: ${nextBadge?.label || current.label} at ${nextThreshold}`)
+          : (typeof window.t === 'function' ? window.t('common.maxRankReached') : 'Max rank reached');
         const neededText = hasNext ? `+${needed}` : '';
         const width = `${Math.round(progress * 100)}%`;
         progressTargets.forEach((target) => {

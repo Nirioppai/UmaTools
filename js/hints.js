@@ -16,8 +16,8 @@
   const counts = document.getElementById('counts');
   const hintList = document.getElementById('hintList');
 
-  if (counts) counts.innerHTML = `<span class="loading-indicator">Loading hints\u2026</span>`;
-  if (results) results.innerHTML = `<div class="loading-indicator">Loading supports\u2026</div>`;
+  if (counts) counts.innerHTML = `<span class="loading-indicator">${t('hints.loadingHints')}</span>`;
+  if (results) results.innerHTML = `<div class="loading-indicator">${t('hints.loadingSupports')}</div>`;
 
   let data = [];
   try {
@@ -26,9 +26,9 @@
     data = await res.json();
   } catch (err) {
     console.error('Failed to load support hints', err);
-    if (counts) counts.textContent = 'Failed to load support hints.';
+    if (counts) counts.textContent = t('hints.loadFailed');
     if (results) {
-      results.innerHTML = `<div class="inline-note">Failed to load support data. Please refresh.</div>`;
+      results.innerHTML = `<div class="inline-note">${t('hints.loadSupportFailed')}</div>`;
     }
     return;
   }
@@ -276,10 +276,10 @@
       writeToURL();
       try {
         await navigator.clipboard.writeText(location.href);
-        copyLinkBtn.textContent = 'Copied!';
-        setTimeout(() => (copyLinkBtn.textContent = 'Copy link'), 1200);
+        copyLinkBtn.textContent = t('common.copied');
+        setTimeout(() => (copyLinkBtn.textContent = t('hints.copyLink')), 1200);
       } catch {
-        alert('Copy failed—select the address bar to copy.');
+        alert(t('common.copyFailed'));
       }
     });
   }

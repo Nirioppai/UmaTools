@@ -44,7 +44,7 @@
     constructor(config) {
       this.config = config || {};
       this.pageKey = this.config.pageKey || 'default';
-      this.panelTitle = this.config.panelTitle || 'Quick setup tour';
+      this.panelTitle = this.config.panelTitle || t('tutorial.quickSetup');
       this.steps = Array.isArray(this.config.steps) ? this.config.steps : [];
       this.openButton =
         typeof this.config.openButton === 'string'
@@ -114,19 +114,19 @@
       panel.innerHTML = `
         <div class="tutorial-panel-header">
           <h2 class="tutorial-panel-title"></h2>
-          <button type="button" class="tutorial-close-btn" aria-label="Close tutorial">&times;</button>
+          <button type="button" class="tutorial-close-btn" aria-label="Close tutorial" data-i18n-aria="tutorial.closeTutorial">&times;</button>
         </div>
         <p class="tutorial-progress"></p>
         <h3 class="tutorial-current-title"></h3>
         <p class="tutorial-current-copy"></p>
-        <button type="button" class="btn btn-secondary tutorial-jump-btn" hidden>Jump to highlighted field</button>
+        <button type="button" class="btn btn-secondary tutorial-jump-btn" data-i18n="tutorial.jumpToField" hidden>Jump to highlighted field</button>
         <ol class="tutorial-checklist"></ol>
         <div class="tutorial-controls">
-          <button type="button" class="btn btn-secondary tutorial-back">Back</button>
-          <button type="button" class="btn tutorial-next">Next</button>
-          <button type="button" class="btn btn-secondary tutorial-skip">Skip</button>
+          <button type="button" class="btn btn-secondary tutorial-back" data-i18n="tutorial.back">Back</button>
+          <button type="button" class="btn tutorial-next" data-i18n="tutorial.next">Next</button>
+          <button type="button" class="btn btn-secondary tutorial-skip" data-i18n="tutorial.skip">Skip</button>
         </div>
-        <p class="tutorial-hint">Use Left/Right Arrow for steps. Press Esc to skip.</p>
+        <p class="tutorial-hint" data-i18n="tutorial.keyboardHint">Use Left/Right Arrow for steps. Press Esc to skip.</p>
         <p class="tutorial-sr-only tutorial-live" aria-live="polite"></p>
       `;
 
@@ -147,8 +147,8 @@
         <p class="tutorial-toast-title"></p>
         <p class="tutorial-toast-copy"></p>
         <div class="tutorial-toast-actions">
-          <button type="button" class="btn tutorial-toast-start">Start tour</button>
-          <button type="button" class="btn btn-secondary tutorial-toast-dismiss">Not now</button>
+          <button type="button" class="btn tutorial-toast-start" data-i18n="tutorial.startTour">Start tour</button>
+          <button type="button" class="btn btn-secondary tutorial-toast-dismiss" data-i18n="tutorial.notNow">Not now</button>
         </div>
       `;
 
@@ -329,17 +329,17 @@
       const copy = formatCopy(step.text || '', tokens).trim();
 
       if (this.progressEl) {
-        this.progressEl.textContent = `Step ${this.currentStep + 1} of ${this.steps.length}`;
+        this.progressEl.textContent = t('tutorial.stepOf', { current: this.currentStep + 1, total: this.steps.length });
       }
       if (this.currentTitleEl) this.currentTitleEl.textContent = title;
       if (this.currentCopyEl) this.currentCopyEl.textContent = copy;
       if (this.liveEl)
-        this.liveEl.textContent = `Step ${this.currentStep + 1} of ${this.steps.length}: ${title}`;
+        this.liveEl.textContent = t('tutorial.stepOf', { current: this.currentStep + 1, total: this.steps.length }) + ': ' + title;
       if (this.coachTitleEl) this.coachTitleEl.textContent = title;
       if (this.coachCopyEl) this.coachCopyEl.textContent = copy;
       if (this.backBtn) this.backBtn.disabled = this.currentStep === 0;
       if (this.nextBtn) {
-        this.nextBtn.textContent = this.currentStep >= this.steps.length - 1 ? 'Done' : 'Next';
+        this.nextBtn.textContent = this.currentStep >= this.steps.length - 1 ? t('tutorial.done') : t('tutorial.next');
       }
 
       this.renderChecklist(tokens);
@@ -557,16 +557,15 @@
       this.toast.dataset.kind = kind;
       if (kind === 'resume') {
         const stepNumber = clamp((Number(this.state.step) || 0) + 1, 1, this.steps.length);
-        if (this.toastTitleEl) this.toastTitleEl.textContent = 'Resume tutorial?';
+        if (this.toastTitleEl) this.toastTitleEl.textContent = t('tutorial.resumeTitle');
         if (this.toastCopyEl)
-          this.toastCopyEl.textContent = `Continue from step ${stepNumber} of ${this.steps.length}. You can skip anytime.`;
-        if (this.toastStartBtn) this.toastStartBtn.textContent = 'Resume';
+          this.toastCopyEl.textContent = t('tutorial.resumeCopy', { step: stepNumber, total: this.steps.length });
+        if (this.toastStartBtn) this.toastStartBtn.textContent = t('tutorial.resume');
       } else {
-        if (this.toastTitleEl) this.toastTitleEl.textContent = 'New here?';
+        if (this.toastTitleEl) this.toastTitleEl.textContent = t('tutorial.newHereTitle');
         if (this.toastCopyEl)
-          this.toastCopyEl.textContent =
-            'Take a quick 60-second setup tour. It is lightweight, skippable, and can be reopened any time.';
-        if (this.toastStartBtn) this.toastStartBtn.textContent = 'Start tour';
+          this.toastCopyEl.textContent = t('tutorial.newHereCopy');
+        if (this.toastStartBtn) this.toastStartBtn.textContent = t('tutorial.startTour');
       }
       this.toast.hidden = false;
     }
@@ -629,7 +628,7 @@
         this.openButton.setAttribute('aria-controls', controlsId);
       }
       this.openButton.setAttribute('aria-expanded', this.active ? 'true' : 'false');
-      this.openButton.setAttribute('aria-label', 'Open help and tutorial');
+      this.openButton.setAttribute('aria-label', t('tutorial.openHelp'));
     }
   }
 

@@ -1,3 +1,5 @@
+const _t = (k, v) => typeof window.t === 'function' ? window.t(k, v) : k;
+
 const DATA_URL = '/assets/uma_data.json';
 
 const STAT_KEYS = ['Speed', 'Stamina', 'Power', 'Guts', 'Wit'];
@@ -240,7 +242,7 @@ function renderGuess(rowsWrap, g, target) {
         });
 
         if (filtered.length === 0) {
-          listEl.innerHTML = '<div class="modal-card-empty">No characters match</div>';
+          listEl.innerHTML = `<div class="modal-card-empty">${escHtml(_t('umadle.noCharsMatch'))}</div>`;
           return;
         }
 
@@ -346,7 +348,7 @@ function renderGuess(rowsWrap, g, target) {
 
         if (baseEq && bonusEq && aptEq) {
           gameOver = true;
-          footer.textContent = 'You got it! All stats match.';
+          footer.textContent = t('umadle.allMatch');
           footer.style.fontWeight = '700';
           openWinModal();
         }

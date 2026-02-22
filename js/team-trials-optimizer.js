@@ -426,7 +426,7 @@
       volatileRaceDependent = false;
     if (!gs.length) {
       gScores.push(0.58);
-      reasons.push('No explicit trigger groups; using baseline consistency.');
+      reasons.push(window.t('teamTrials.noTriggerGroups'));
     }
     gs.forEach(function (g) {
       var t = condText(g);
@@ -447,20 +447,20 @@
       sAvg += ss;
       if (fixedSetupDeterministic(t)) {
         gScores.push(Math.max(0.72, gs0));
-        reasons.push('Condition tied to fixed setup (distance/surface/style).');
+        reasons.push(window.t('teamTrials.fixedSetup'));
       }
       if (hasVolatileRaceCondition(t)) {
         volatileRaceDependent = true;
-        reasons.push('Race-condition requirement varies between Team Trials races.');
+        reasons.push(window.t('teamTrials.raceConditionVaries'));
       }
-      if (/always\s*==\s*1/.test(t)) reasons.push('Always-on activation condition.');
+      if (/always\s*==\s*1/.test(t)) reasons.push(window.t('teamTrials.alwaysOn'));
       if (/is_finalcorner|is_lastspurt|is_last_straight/.test(t))
-        reasons.push('Late-race activation window present.');
+        reasons.push(window.t('teamTrials.lateRace'));
       if (/phase_random|corner_random|straight_random/.test(t))
-        reasons.push('Random timing trigger lowers reliability.');
-      if (/order\s*==\s*1/.test(t)) reasons.push('Strict placement requirement (1st only).');
+        reasons.push(window.t('teamTrials.randomTiming'));
+      if (/order\s*==\s*1/.test(t)) reasons.push(window.t('teamTrials.strictPlacement'));
       if (/blocked_|is_overtake|change_order_onetime/.test(t))
-        reasons.push('Situational trigger (block/overtake/position-change).');
+        reasons.push(window.t('teamTrials.situationalTrigger'));
     });
     var miss = 1;
     gScores.forEach(function (v) {
@@ -469,7 +469,7 @@
     var c = gScores.length ? 1 - miss : 0.58;
     if (gs.length > 1) {
       c += Math.min(0.08, (gs.length - 1) * 0.03);
-      reasons.push('Multiple activation groups increase fallback reliability.');
+      reasons.push(window.t('teamTrials.multipleGroups'));
     }
     c = clamp(c, 0.05, 0.99);
     var tierBonus = 0.5,
@@ -482,10 +482,10 @@
       c += num(tier.consistencyAdjustment, 0);
       if (tierTags.indexOf('inconsistent') !== -1) {
         c = Math.min(c, 0.45);
-        reasons.push('Tierlist marks this as inconsistent.');
+        reasons.push(window.t('teamTrials.inconsistent'));
       } else if (tierTags.indexOf('team_trials') !== -1 || tierTags.indexOf('core') !== -1) {
         c = Math.max(c, 0.65);
-        reasons.push('Tierlist marks this as Team Trials core.');
+        reasons.push(window.t('teamTrials.core'));
       }
     }
     c = clamp(c, 0.05, 0.99);
@@ -747,7 +747,7 @@
         extraPen += num(weights.greenSkillConsistencyPenalty, 0);
         expectedMul *= 1 - clamp(num(weights.greenSkillExpectedPenalty, 0), 0, 0.8);
         scoreReasons.unshift(
-          'Green skill is downweighted in Team Trials due to variable race conditions.'
+          window.t('teamTrials.greenDownweighted')
         );
       }
       if (c.hasVolatileRaceCondition) {
@@ -772,7 +772,7 @@
           0.05,
           0.99
         );
-        scoreReasons.unshift('Consistent gold skill prioritized for Team Trials rating value.');
+        scoreReasons.unshift(window.t('teamTrials.consistentGoldPrioritized'));
       }
       var expected =
         (weights.consistency * consistencyScore + weights.tier * c.tierBonus) *
@@ -1412,16 +1412,16 @@
       if (num(it.consistencyScore, 0) >= 0.65) high += 1;
       if (it.isRisky) risky.push(it.name);
     });
-    if (accel) strengths.push('Includes at least one reliable late acceleration trigger.');
-    if (speed) strengths.push('Includes at least one reliable late speed trigger.');
-    if (high >= 3) strengths.push('Multiple picks have high proc reliability (>= 0.65).');
+    if (accel) strengths.push(window.t('teamTrials.reliableAccel'));
+    if (speed) strengths.push(window.t('teamTrials.reliableSpeed'));
+    if (high >= 3) strengths.push(window.t('teamTrials.multipleHighProc'));
     if (num(total && total.consistentGoldCount, 0) > 0)
-      strengths.push('Prioritizes consistent gold skills for Team Trials rating value.');
+      strengths.push(window.t('teamTrials.prioritizesConsistent'));
     strengths.push(
-      'Average consistency score: ' + Math.round(clamp(total.consistency, 0, 1) * 100) + '%.'
+      window.t('teamTrials.averageConsistency', {score: Math.round(clamp(total.consistency, 0, 1) * 100)})
     );
     risky.forEach(function (n) {
-      risks.push('Risky pick: ' + n + ' has lower estimated reliability.');
+      risks.push(window.t('teamTrials.riskyPick', {name: n}));
     });
     (Array.isArray(warnings) ? warnings : []).forEach(function (w) {
       if (typeof w === 'string') risks.push(w);
@@ -1445,7 +1445,7 @@
         totalRatingScore: 0,
         consistencyScore: 0,
         perSkillBreakdown: [],
-        warnings: ['No candidate skills provided.'],
+        warnings: [window.t('teamTrials.noCandidates')],
         explain: { strengths: [], risks: [] },
       };
     }
@@ -1463,15 +1463,13 @@
     });
     if (filteredOutCount > 0) {
       warnings.push(
-        'Filtered ' + filteredOutCount + ' skills that do not match selected targets/aptitudes.'
+        window.t('teamTrials.filteredSkills', {count: filteredOutCount})
       );
     }
     if (requiredMismatch.length) {
       var uniqueRequiredMismatch = Array.from(new Set(requiredMismatch));
       warnings.push(
-        'Ignored required skills outside selected targets/aptitudes: ' +
-          uniqueRequiredMismatch.join(', ') +
-          '.'
+        window.t('teamTrials.ignoredRequired', {names: uniqueRequiredMismatch.join(', ')})
       );
     }
     if (!items.length) {
@@ -1483,15 +1481,15 @@
         totalRatingScore: 0,
         consistencyScore: 0,
         perSkillBreakdown: [],
-        warnings: ['No skills match the selected Team Trials targets/aptitudes.'],
+        warnings: [window.t('teamTrials.noMatchTargets')],
         explain: {
           strengths: [],
-          risks: ['No skills match the selected Team Trials targets/aptitudes.'],
+          risks: [window.t('teamTrials.noMatchTargets')],
         },
       };
     }
     if (met.missingMeta > 0)
-      warnings.push('Some skills had no EN metadata match; used fallback consistency heuristics.');
+      warnings.push(window.t('teamTrials.fallbackHeuristics'));
     var req = expandRequired(items);
     if (req.requiredCost > budget) {
       return {
@@ -1502,8 +1500,8 @@
         totalRatingScore: 0,
         consistencyScore: 0,
         perSkillBreakdown: [],
-        warnings: ['Required skills exceed the current SP budget.'],
-        explain: { strengths: [], risks: ['Required skills exceed the current SP budget.'] },
+        warnings: [window.t('teamTrials.requiredExceedBudget')],
+        explain: { strengths: [], risks: [window.t('teamTrials.requiredExceedBudget')] },
       };
     }
     var optional = items.filter(function (it) {
@@ -1529,18 +1527,18 @@
         totalRatingScore: 0,
         consistencyScore: 0,
         perSkillBreakdown: [],
-        warnings: ['No feasible Team Trials solution under current budget and constraints.'],
+        warnings: [window.t('teamTrials.noFeasibleSolution')],
         explain: {
           strengths: [],
-          risks: ['No feasible Team Trials solution under current budget and constraints.'],
+          risks: [window.t('teamTrials.noFeasibleSolution')],
         },
       };
     }
     if (!groupResult.metRequiredMask && neededMask !== 0) {
       if (neededMask & CORE_MASK_ACCEL)
-        warnings.push('Could not include a reliable late acceleration skill within budget.');
+        warnings.push(window.t('teamTrials.noReliableAccel'));
       if (neededMask & CORE_MASK_SPEED)
-        warnings.push('Could not include a reliable late speed skill within budget.');
+        warnings.push(window.t('teamTrials.noReliableSpeed'));
     }
     var chosen = [],
       seen = new Set();
@@ -1558,7 +1556,7 @@
     });
     var t = totals(chosen);
     if (t.count === 0)
-      warnings.push('No scored skills were selected after conflict/dependency filtering.');
+      warnings.push(window.t('teamTrials.noScoredSkills'));
     var perSkill = chosen.map(function (it) {
       var rating = Math.max(0, Math.floor(num(it.ratingScore, 0)));
       var cost = Math.max(0, Math.floor(num(it.cost, 0)));

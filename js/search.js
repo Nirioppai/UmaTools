@@ -1,5 +1,7 @@
 import { chooseRecommendedOption, renderRecommendationBadge } from './recommend.js';
 
+const _t = (k, v) => (typeof window.t === 'function' ? window.t(k, v) : k);
+
 const API_BASE = window.API_BASE || `${location.protocol}//${location.host}`;
 
 let LAST_QUERY_KEY = null; // normalized key for last query
@@ -180,17 +182,17 @@ async function performSearch(q) {
 
   const qClean = scrubMarkers(q);
   if (!qClean) {
-    status.textContent = 'Type an event name and press Search.';
+    status.textContent = _t('events.typeAndSearch');
     return;
   }
-  status.textContent = 'Searching…';
+  status.textContent = _t('events.searching');
 
   let payload;
   try {
     payload = await fetchEventByName(qClean, { limit: 6, min_score: 0 });
   } catch (e) {
     clear(status);
-    status.textContent = e.message || 'Search failed.';
+    status.textContent = e.message || _t('events.searchFailed');
     return;
   }
 
@@ -198,7 +200,7 @@ async function performSearch(q) {
 
   const match = payload?.match?.data;
   if (!match || !match.options) {
-    status.textContent = 'No event found.';
+    status.textContent = _t('events.noEvent');
     return;
   }
 
@@ -262,7 +264,7 @@ function renderEvent(evt, otherMatches) {
   if (Array.isArray(otherMatches) && otherMatches.length) {
     const wrap = el('div');
     wrap.style.marginTop = '12px';
-    const cap = el('div', null, 'Other matches:');
+    const cap = el('div', null, _t('events.otherMatches'));
     cap.style.fontWeight = '600';
     wrap.appendChild(cap);
     const ul = el('ul');
