@@ -91,7 +91,7 @@ The fallback bonus reflects the reality that having multiple trigger paths incre
 
 ### 3.5 Tier Tag Adjustments
 
-Tags from `assets/skill_tiers.csv` can override the computed consistency:
+Tags derived from automated skill scoring can adjust the computed consistency:
 
 | Tag                     | Effect                             |
 | ----------------------- | ---------------------------------- |
@@ -221,7 +221,7 @@ Each selected skill in the output includes detailed metadata explaining why it w
 | `consistencyScore`       | Final reliability score (0-1, displayed as percentage) |
 | `ratingScore`            | Base rating contribution                               |
 | `scorePerSP`             | Rating per skill point (cost efficiency)               |
-| `tierBonus`              | Bonus from tier list tags                              |
+| `tierBonus`              | Bonus from automated skill scoring                     |
 | `expectedValue`          | Consistency-aware composite value metric               |
 | `reasons`                | Up to 4 human-readable explanation strings             |
 | `isRisky`                | `true` if consistency < 0.42                           |
@@ -293,5 +293,5 @@ Note that `consistency` + `tier` should sum to 1.0, and `efficiency` + `rating` 
 | ----------------------------- | ------------------------------------------------------------------------------------- |
 | `js/team-trials-optimizer.js` | Full Team Trials algorithm: consistency scoring, expected value, filtering, DP solver |
 | `js/optimizer.js`             | Integration with the UI, dependency group construction, mode switching                |
-| `assets/skill_tiers.csv`      | Tier notes and tags (team_trials, core, consistent, inconsistent, markers)            |
+| `js/skill-scorer.js`          | Automated skill scoring: effect impact, applicability, cost efficiency, consistency   |
 | `assets/skills_all.json`      | Skill metadata including trigger conditions, effects, and timing data                 |

@@ -97,99 +97,7 @@
     return rows;
   }
 
-  function tierTags(context, note) {
-    var t = (lower(context) + ' ' + lower(note)).trim(),
-      tags = new Set();
-    if (!t) return [];
-    if (/\bteam trials?\b|\btt\b/.test(t)) tags.add('team_trials');
-    if (/\bcore\b|must[- ]?have|necessary|always good/.test(t)) tags.add('core');
-    if (/consistent|reliable|easy to proc|easy condition/.test(t)) tags.add('consistent');
-    if (/inconsistent|rare|unlikely|impossible|trap|random point|popularity-dependent/.test(t))
-      tags.add('inconsistent');
-    if (/recover|recovery|stamina/.test(t)) tags.add('recovery');
-    if (/accelerat/.test(t)) tags.add('accel');
-    if (/\bspeed\b|target speed/.test(t)) tags.add('speed');
-    return Array.from(tags);
-  }
 
-  function parseTierlistCSV(csvText, skillIndex) {
-    var rows = csvParse(csvText);
-    if (!rows.length) return [];
-    var h = rows[0].map(lower);
-    var iName = h.findIndex(function (x) {
-      return x.indexOf('skill') !== -1 && x.indexOf('name') !== -1;
-    });
-    if (iName < 0) iName = 0;
-    var iMark = iName + 1;
-    var iSps = h.findIndex(function (x) {
-      return x.indexOf('score/sp') !== -1 || x.indexOf('score per sp') !== -1;
-    });
-    if (iSps < 0) iSps = 2;
-    var iCtx = h.findIndex(function (x) {
-      return x.indexOf('distance') !== -1 || x.indexOf('run style') !== -1;
-    });
-    if (iCtx < 0) iCtx = 4;
-    var iWhy = h.findIndex(function (x) {
-      return x === 'why?' || x === 'why';
-    });
-    if (iWhy < 0) iWhy = 5;
-    var out = [],
-      sps = [];
-    for (var r = 1; r < rows.length; r += 1) {
-      var c = rows[r] || [],
-        name = (c[iName] || '').trim();
-      if (!name) continue;
-      var sp = parseFloat((c[iSps] || '').trim());
-      var row = {
-        skillName: name,
-        normalizedName: nName(name),
-        marker: (c[iMark] || '').trim(),
-        scorePerSp: Number.isFinite(sp) ? sp : null,
-        context: (c[iCtx] || '').trim(),
-        note: (c[iWhy] || '').trim(),
-      };
-      row.tags = tierTags(row.context, row.note);
-      if (row.scorePerSp != null) sps.push(row.scorePerSp);
-      out.push(row);
-    }
-    var min = sps.length ? Math.min.apply(Math, sps) : 0;
-    var max = sps.length ? Math.max.apply(Math, sps) : 1;
-    var range = Math.max(1e-9, max - min);
-    out.forEach(function (row) {
-      var b = row.scorePerSp == null ? 0.52 : clamp((row.scorePerSp - min) / range, 0, 1);
-      var m = lower(row.marker);
-      if (/[x\u2715]/.test(m)) b = Math.min(b, 0.24);
-      if (/[o\u25ce\u25cb]/.test(m)) b = Math.max(b, 0.62);
-      if (row.tags.indexOf('inconsistent') !== -1) b -= 0.22;
-      if (row.tags.indexOf('consistent') !== -1) b += 0.08;
-      if (row.tags.indexOf('core') !== -1 || row.tags.indexOf('team_trials') !== -1) b += 0.12;
-      row.tierBonus = clamp(b, 0, 1);
-      row.consistencyAdjustment = clamp(
-        (row.tags.indexOf('inconsistent') !== -1 ? -0.24 : 0) +
-          (row.tags.indexOf('consistent') !== -1 ? 0.1 : 0) +
-          (row.tags.indexOf('team_trials') !== -1 ? 0.12 : 0) +
-          (row.tags.indexOf('core') !== -1 ? 0.08 : 0),
-        -0.45,
-        0.35
-      );
-      if (skillIndex && skillIndex.byName && skillIndex.byName.get) {
-        var match = skillIndex.byName.get(row.normalizedName);
-        if (match && match.id) row.skillId = String(match.id);
-      }
-    });
-    return out;
-  }
-
-  function buildTierLookup(rows) {
-    var byId = new Map(),
-      byName = new Map();
-    (Array.isArray(rows) ? rows : []).forEach(function (r) {
-      if (!r) return;
-      if (r.skillId != null && !byId.has(String(r.skillId))) byId.set(String(r.skillId), r);
-      if (r.normalizedName && !byName.has(r.normalizedName)) byName.set(r.normalizedName, r);
-    });
-    return { byId: byId, byName: byName };
-  }
 
   function normalizeSkill(raw) {
     if (!raw || typeof raw !== 'object') return null;
@@ -1599,11 +1507,17 @@
     CORE_MASK_SPEED: CORE_MASK_SPEED,
     DEFAULT_WEIGHTS: DEFAULT_WEIGHTS,
     parseCSV: csvParse,
-    parseTierlistCSV: parseTierlistCSV,
-    buildTierLookup: buildTierLookup,
     normalizeSkill: normalizeSkill,
     buildEnglishSkillIndex: buildEnglishSkillIndex,
     scoreSkillConsistency: scoreSkillConsistency,
     optimizeTeamTrialsBuild: optimizeTeamTrialsBuild,
+    timingScore: timingScore,
+    breadthScore: breadthScore,
+    scenarioScore: scenarioScore,
+    effectBuckets: effectBuckets,
+    isLateWindow: isLateWindow,
+    condText: condText,
+    nName: nName,
+    clamp: clamp,
   };
 });

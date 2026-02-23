@@ -219,6 +219,7 @@
   const teamTrialsSkillMetaByName = new Map();
   const teamTrialsTierById = new Map();
   const teamTrialsTierByName = new Map();
+  let cachedRawSkillsList = null;
 
   function normalizeCostKey(str) {
     return normalize(str)
@@ -400,6 +401,7 @@
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const list = await res.json();
         if (!Array.isArray(list) || !list.length) continue;
+        cachedRawSkillsList = list;
         const nextOfficialEnglishNames = new Set();
         externalAliasLookup.clear();
         const collectNames = (source) => {
@@ -494,33 +496,46 @@
     return false;
   }
 
-  async function loadTeamTrialsTierlist() {
-    if (!window.TeamTrialsOptimizer?.parseTierlistCSV) return false;
-    const candidates = ['/assets/skill_tiers.csv', './assets/skill_tiers.csv'];
-    for (const url of candidates) {
-      try {
-        const res = await fetch(url, { cache: 'force-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const text = await res.text();
-        const rows = window.TeamTrialsOptimizer.parseTierlistCSV(text, {
-          byId: teamTrialsSkillMetaById,
-          byName: teamTrialsSkillMetaByName,
-        });
-        const lookup = window.TeamTrialsOptimizer.buildTierLookup(rows);
-        teamTrialsTierById.clear();
-        teamTrialsTierByName.clear();
-        if (lookup?.byId?.forEach) {
-          lookup.byId.forEach((v, k) => teamTrialsTierById.set(String(k), v));
-        }
-        if (lookup?.byName?.forEach) {
-          lookup.byName.forEach((v, k) => teamTrialsTierByName.set(String(k), v));
-        }
-        return true;
-      } catch (err) {
-        console.warn('Failed loading Team Trials tierlist', url, err);
-      }
+  function getScoringWeights() {
+    var defaults = window.SkillScorer?.DEFAULT_SCORING_WEIGHTS || {
+      effectImpact: 0.35, applicability: 0.15, costEfficiency: 0.20,
+      consistency: 0.20, duration: 0.10,
+    };
+    var el = function (id) {
+      var inp = document.getElementById(id);
+      return inp ? Number(inp.value) : null;
+    };
+    var ei = el('weight-effect-impact');
+    var ap = el('weight-applicability');
+    var ce = el('weight-cost-efficiency');
+    var co = el('weight-consistency');
+    var du = el('weight-duration');
+    if (ei == null || ap == null || ce == null || co == null || du == null) return defaults;
+    var sum = ei + ap + ce + co + du;
+    if (sum <= 0) return defaults;
+    return {
+      effectImpact: ei / sum,
+      applicability: ap / sum,
+      costEfficiency: ce / sum,
+      consistency: co / sum,
+      duration: du / sum,
+    };
+  }
+
+  async function loadTeamTrialsScoring() {
+    if (!window.SkillScorer || !cachedRawSkillsList) return false;
+    const weights = getScoringWeights();
+    const lookup = window.SkillScorer.scoreAllSkills(cachedRawSkillsList, weights);
+    teamTrialsTierById.clear();
+    teamTrialsTierByName.clear();
+    if (lookup?.byId?.forEach) {
+      lookup.byId.forEach((v, k) => teamTrialsTierById.set(String(k), v));
     }
-    return false;
+    if (lookup?.byName?.forEach) {
+      lookup.byName.forEach((v, k) => teamTrialsTierByName.set(String(k), v));
+    }
+    console.log(`Scored ${teamTrialsTierById.size} skills for Team Trials tiers`);
+    return true;
   }
 
   function setAutoStatus(message, isError = false) {
@@ -4788,8 +4803,60 @@
   }
   if (optimizeModeSelect) {
     optimizeModeSelect.addEventListener('change', () => {
+      const weightsPanel = document.getElementById('scoring-weights-panel');
+      if (weightsPanel) {
+        weightsPanel.style.display = optimizeModeSelect.value === TEAM_TRIALS_MODE ? '' : 'none';
+      }
       saveState();
       autoOptimizeDebounced();
+    });
+  }
+
+  // Scoring weight sliders — re-score tiers on change
+  const scoringWeightIds = [
+    'weight-effect-impact', 'weight-applicability',
+    'weight-cost-efficiency', 'weight-consistency', 'weight-duration',
+  ];
+  let scoringWeightDebounce = null;
+  scoringWeightIds.forEach((id) => {
+    const slider = document.getElementById(id);
+    if (!slider) return;
+    slider.addEventListener('input', () => {
+      const display = slider.parentElement?.querySelector('.weight-value');
+      if (display) display.textContent = slider.value + '%';
+      clearTimeout(scoringWeightDebounce);
+      scoringWeightDebounce = setTimeout(() => {
+        loadTeamTrialsScoring().then(() => {
+          if (optimizeModeSelect?.value === TEAM_TRIALS_MODE) autoOptimizeDebounced();
+        }).catch(() => {});
+      }, 300);
+    });
+  });
+  const resetWeightsBtn = document.getElementById('reset-scoring-weights');
+  if (resetWeightsBtn) {
+    resetWeightsBtn.addEventListener('click', () => {
+      const defaults = window.SkillScorer?.DEFAULT_SCORING_WEIGHTS || {
+        effectImpact: 0.35, applicability: 0.15, costEfficiency: 0.20,
+        consistency: 0.20, duration: 0.10,
+      };
+      const mapping = {
+        'weight-effect-impact': defaults.effectImpact,
+        'weight-applicability': defaults.applicability,
+        'weight-cost-efficiency': defaults.costEfficiency,
+        'weight-consistency': defaults.consistency,
+        'weight-duration': defaults.duration,
+      };
+      Object.entries(mapping).forEach(([id, val]) => {
+        const slider = document.getElementById(id);
+        if (slider) {
+          slider.value = Math.round(val * 100);
+          const display = slider.parentElement?.querySelector('.weight-value');
+          if (display) display.textContent = Math.round(val * 100) + '%';
+        }
+      });
+      loadTeamTrialsScoring().then(() => {
+        if (optimizeModeSelect?.value === TEAM_TRIALS_MODE) autoOptimizeDebounced();
+      }).catch(() => {});
     });
   }
 
@@ -4995,8 +5062,8 @@
       console.warn('Skill cost JSON load failed', err);
     })
     .then(() =>
-      loadTeamTrialsTierlist().catch((err) => {
-        console.warn('Team Trials tierlist load failed', err);
+      loadTeamTrialsScoring().catch((err) => {
+        console.warn('Team Trials scoring load failed', err);
       })
     )
     .then(() => loadSkillsCSV())

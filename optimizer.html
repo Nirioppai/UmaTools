@@ -548,6 +548,41 @@
                 </div>
               </div>
             </div>
+
+            <!-- Scoring weights (Team Trials only) -->
+            <details id="scoring-weights-panel" class="scoring-weights-panel" style="display: none; margin-top: 12px">
+              <summary style="cursor: pointer; font-weight: 600; font-size: 0.9em" data-i18n="optimizer.scoringWeights">Skill Scoring Weights</summary>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; margin-top: 8px; font-size: 0.85em">
+                <label style="display: flex; align-items: center; gap: 6px">
+                  <span style="min-width: 100px" data-i18n="optimizer.weightEffectImpact">Effect Impact</span>
+                  <input type="range" id="weight-effect-impact" min="0" max="100" value="35" step="5" style="flex: 1">
+                  <span class="weight-value" style="min-width: 32px; text-align: right">35%</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px">
+                  <span style="min-width: 100px" data-i18n="optimizer.weightApplicability">Applicability</span>
+                  <input type="range" id="weight-applicability" min="0" max="100" value="15" step="5" style="flex: 1">
+                  <span class="weight-value" style="min-width: 32px; text-align: right">15%</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px">
+                  <span style="min-width: 100px" data-i18n="optimizer.weightCostEfficiency">Cost Efficiency</span>
+                  <input type="range" id="weight-cost-efficiency" min="0" max="100" value="20" step="5" style="flex: 1">
+                  <span class="weight-value" style="min-width: 32px; text-align: right">20%</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px">
+                  <span style="min-width: 100px" data-i18n="optimizer.weightConsistency">Consistency</span>
+                  <input type="range" id="weight-consistency" min="0" max="100" value="20" step="5" style="flex: 1">
+                  <span class="weight-value" style="min-width: 32px; text-align: right">20%</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px">
+                  <span style="min-width: 100px" data-i18n="optimizer.weightDuration">Duration</span>
+                  <input type="range" id="weight-duration" min="0" max="100" value="10" step="5" style="flex: 1">
+                  <span class="weight-value" style="min-width: 32px; text-align: right">10%</span>
+                </label>
+                <div style="display: flex; align-items: center">
+                  <button id="reset-scoring-weights" class="btn btn-sm" type="button" data-i18n="common.reset">Reset</button>
+                </div>
+              </div>
+            </details>
           </div>
           <div class="ideal-builder-pane" id="optimizer-skill-builder">
             <div class="ideal-header">
@@ -1027,6 +1062,7 @@
     <script src="/js/rating-shared.js" defer></script>
     <script src="/js/tutorial.js" defer></script>
     <script src="/js/team-trials-optimizer.js" defer></script>
+    <script src="/js/skill-scorer.js" defer></script>
     <script src="/js/optimizer.js" defer></script>
     <script src="/js/ocr-preprocess.js" defer></script>
     <script src="/js/ocr-matcher.js" defer></script>
