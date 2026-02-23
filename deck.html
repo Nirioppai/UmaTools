@@ -218,6 +218,11 @@
           </div>
           <div class="support-modal-filters">
             <input id="charSearch" type="text" placeholder="Search by name..." autocomplete="off" data-i18n-placeholder="common.searchByName" />
+            <div class="filter-row">
+              <div class="filter-group-wrap"><span class="filter-group-label" data-i18n="deck.distance">Distance</span><div class="filter-group" id="charDistFilters"></div></div>
+              <div class="filter-group-wrap"><span class="filter-group-label" data-i18n="deck.surface">Surface</span><div class="filter-group" id="charSurfFilters"></div></div>
+              <div class="filter-group-wrap"><span class="filter-group-label" data-i18n="deck.strategy">Strategy</span><div class="filter-group" id="charStratFilters"></div></div>
+            </div>
           </div>
           <div id="charModalList" class="support-modal-list"></div>
         </div>
@@ -242,6 +247,10 @@
             <div class="filter-row">
               <div class="filter-group" id="typeFilters"></div>
               <div class="filter-group" id="rarityFilters"></div>
+            </div>
+            <div class="filter-row sort-row">
+              <label class="sort-label" for="supportSort" data-i18n="deck.sortBy">Sort by:</label>
+              <select id="supportSort" class="sort-select"></select>
             </div>
           </div>
           <div id="supportModalList" class="support-modal-list"></div>
@@ -274,7 +283,9 @@
       <!-- Actions -->
       <div class="deck-actions">
         <button id="openSavedBtn" class="primary" data-i18n="deck.savedDecks">Saved Decks</button>
+        <button id="openTemplatesBtn" data-i18n="deck.metaTemplates">Meta Templates</button>
         <button id="shareLinkBtn" data-i18n="deck.copyShareLink">Copy Share Link</button>
+        <button id="openOptimizerBtn" data-i18n="deck.openInOptimizer">Open in Optimizer</button>
         <button id="clearAllBtn" data-i18n="deck.clearAll">Clear All</button>
       </div>
 
@@ -293,6 +304,19 @@
             </div>
           </div>
           <div id="savedDecksList" class="support-modal-list saved-decks-list"></div>
+        </div>
+      </div>
+
+      <!-- Meta Templates Modal -->
+      <div id="templatesModal" class="support-modal" hidden>
+        <div class="support-modal-backdrop"></div>
+        <div class="support-modal-content">
+          <div class="support-modal-header">
+            <span class="support-modal-title" data-i18n="deck.metaTemplates">Meta Templates</span>
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
+          </div>
+          <p class="templates-source" data-i18n="deck.templatesSource">Based on Class 6 statistics from uma.moe</p>
+          <div id="templatesModalList" class="support-modal-list templates-list"></div>
         </div>
       </div>
 

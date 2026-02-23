@@ -760,6 +760,21 @@
           row.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
         }
       });
+      // Recreate circle upgrade and evo sub-rows for non-gold rows
+      // (the gold linking pass above only handles gold rows; circle skills need allowLinking too)
+      Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((row) => {
+        if (row.dataset.parentGoldId || row.dataset.parentCircleId || row.dataset.parentEvoId) return;
+        // Skip rows already handled by the gold linking pass (those with lowerRowId set)
+        if (row.dataset.lowerRowId) return;
+        const name = (row.querySelector('.skill-name')?.value || '').trim();
+        if (!name) return;
+        const skill = findSkillByName(name);
+        if (!skill) return;
+        if (isGoldCategory(skill.category)) return; // Already handled above
+        if (typeof row.syncSkillCategory === 'function') {
+          row.syncSkillCategory({ triggerOptimize: false, allowLinking: true, updateCost: true });
+        }
+      });
       // Restore evo checkbox selections from serialized |E suffixes
       Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((row) => {
         if (!row.dataset.pendingEvos) return;
@@ -1580,6 +1595,7 @@
     const seenSuggestions = new Set();
     const isJPServer = getSkillLanguage() === 'jp';
     const siteLanguage = getSiteLanguage();
+    const officialOnlyActive = isOfficialEnglishOnlyEnabled() && officialEnglishNameSet.size > 0;
 
     const addLooseLookup = (value, skill) => {
       const key = normalizeLooseSkillKey(value);
@@ -1635,9 +1651,22 @@
           } else {
             addSuggestionName(displayName);
             if (Array.isArray(skill.aliasNames) && skill.aliasNames.length) {
-              skill.aliasNames.forEach((alias) => addSuggestionName(alias));
+              skill.aliasNames.forEach((alias) => {
+                // Strip ○/◎ suffix from aliases for paired circle skills
+                const clean = isPairedSingle && (alias.endsWith(' ○') || alias.endsWith(' ◎'))
+                  ? alias.slice(0, -2) : alias;
+                // Skip non-official aliases when Official English Only is active
+                if (officialOnlyActive && !officialEnglishNameSet.has(normalizeOfficialSkillName(clean))) return;
+                addSuggestionName(clean);
+              });
             }
-            if (skill.localizedName) addSuggestionName(skill.localizedName);
+            if (skill.localizedName) {
+              const clean = isPairedSingle && (skill.localizedName.endsWith(' ○') || skill.localizedName.endsWith(' ◎'))
+                ? skill.localizedName.slice(0, -2) : skill.localizedName;
+              if (!officialOnlyActive || officialEnglishNameSet.has(normalizeOfficialSkillName(clean))) {
+                addSuggestionName(clean);
+              }
+            }
           }
         }
 
@@ -2491,8 +2520,12 @@
           if (singleSkill) skill = singleSkill;
         }
         const id = skill?.skillId ?? skill?.id ?? '';
-        const preferredName = getPreferredSkillInputName(skill, skill.circleBaseName || name);
-        return { id: id ? String(id) : '', name: preferredName || skill.circleBaseName, skill };
+        // Use base name (without ○/◎ suffix) — matches datalist display
+        let displayName = getPreferredSkillInputName(skill, skill.circleBaseName || name);
+        if (displayName && (displayName.endsWith(' ○') || displayName.endsWith(' ◎'))) {
+          displayName = displayName.slice(0, -2);
+        }
+        return { id: id ? String(id) : '', name: displayName || skill.circleBaseName, skill };
       }
       const id = skill?.skillId ?? skill?.id ?? '';
       const canonicalName = skill ? getPreferredSkillInputName(skill, name) : name;

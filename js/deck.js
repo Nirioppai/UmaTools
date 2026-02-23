@@ -79,11 +79,15 @@
 
   // Character modal filter state
   let charFilterSearch = '';
+  let charFilterDist = new Set();  // Distance aptitude filters (OR within)
+  let charFilterSurf = new Set();  // Surface aptitude filters (OR within)
+  let charFilterStrat = new Set(); // Strategy aptitude filters (OR within)
 
   // Modal filter state
-  let filterType = null;
+  let filterTypes = new Set(); // multi-select type filter
   let filterRarity = null;
   let filterSearch = '';
+  let sortByEffect = '';
 
   // Effects panel state
   let effectsCard = null;
@@ -110,6 +114,282 @@
     showStatus(t('deck.failedLoadData'));
     console.error(err);
     return;
+  }
+
+  // --- Lazy-load skills_all.json for hint categorization ---
+  let skillsAllMap = null; // Map<string_id, skill_object>
+
+  async function loadSkillsAll() {
+    if (skillsAllMap) return skillsAllMap;
+    try {
+      const res = await fetch('/assets/skills_all.json');
+      if (!res.ok) return null;
+      const data = await res.json();
+      skillsAllMap = new Map(data.map((s) => [String(s.id), s]));
+      return skillsAllMap;
+    } catch {
+      return null;
+    }
+  }
+
+  // --- Skill categorization ---
+  const HINT_CATEGORIES = {
+    sprint:     { label: 'Sprint',      order: 0 },
+    mile:       { label: 'Mile',        order: 1 },
+    medium:     { label: 'Medium',      order: 2 },
+    long:       { label: 'Long',        order: 3 },
+    'front-pace': { label: 'Front/Pace', order: 4 },
+    'late-end': { label: 'Late/End',    order: 5 },
+    corner:     { label: 'Corner',      order: 6 },
+    straight:   { label: 'Straight',    order: 7 },
+    dirt:       { label: 'Dirt',        order: 8 },
+    turf:       { label: 'Turf',        order: 9 },
+    debuff:     { label: 'Debuff',      order: 10 },
+    general:    { label: 'General',     order: 11 },
+  };
+
+  function categorizeSkill(skill) {
+    const types = skill?.type || [];
+    const typeSet = new Set(types);
+    if (typeSet.has('sho')) return 'sprint';
+    if (typeSet.has('mil')) return 'mile';
+    if (typeSet.has('med')) return 'medium';
+    if (typeSet.has('lng')) return 'long';
+    if (typeSet.has('run') || typeSet.has('ldr')) return 'front-pace';
+    if (typeSet.has('cha')) return 'late-end';
+    if (typeSet.has('dir')) return 'dirt';
+    if (typeSet.has('tur')) return 'turf';
+    if (typeSet.has('dbf')) return 'debuff';
+    if (typeSet.has('cor') || typeSet.has('f_c')) return 'corner';
+    if (typeSet.has('str') || typeSet.has('f_s')) return 'straight';
+    return 'general';
+  }
+
+  function getCharAptitudeCategories() {
+    if (!selectedChar?.UmaAptitudes) return new Set();
+    const good = new Set();
+    const apt = selectedChar.UmaAptitudes;
+    const addGood = (entries, map) => {
+      for (const [name, grade] of Object.entries(entries || {})) {
+        if (grade === 'S' || grade === 'A') {
+          const cats = map[name.toLowerCase()] || map[name];
+          if (cats) cats.forEach((c) => good.add(c));
+        }
+      }
+    };
+    addGood(apt.Distance, {
+      short: ['sprint'], mile: ['mile'], medium: ['medium'], long: ['long'],
+      Short: ['sprint'], Mile: ['mile'], Medium: ['medium'], Long: ['long'],
+    });
+    addGood(apt.Strategy, {
+      front: ['front-pace'], pace: ['front-pace'], late: ['late-end'], end: ['late-end'],
+      Front: ['front-pace'], Pace: ['front-pace'], Late: ['late-end'], End: ['late-end'],
+    });
+    addGood(apt.Surface, {
+      turf: ['turf'], dirt: ['dirt'], Turf: ['turf'], Dirt: ['dirt'],
+    });
+    return good;
+  }
+
+  // --- Compatibility Score ---
+  // Based on uma.moe class 6 statistics (top-tier players):
+  // Speed: 2.8 avg/deck (46%), Wit: 1.85 avg (18%), Friend: 1.03 avg (13%),
+  // Power: 1.46 avg (11%), Stamina: 1.43 avg (9%), Guts: 1.38 avg (2%)
+  // Top combos: 3Spd+2Pow+1Fri, 3Spd+2Wit+1Fri, 3Wit+2Spd+1Fri
+  const META_TYPE_RANGES = {
+    Speed:   { ideal: [2, 3], ok: [1, 4], weight: 5 },
+    Wit:     { ideal: [1, 3], ok: [0, 4], weight: 3 },
+    Friend:  { ideal: [1, 1], ok: [0, 2], weight: 4 },
+    Power:   { ideal: [1, 2], ok: [0, 3], weight: 3 },
+    Stamina: { ideal: [1, 2], ok: [0, 3], weight: 3 },
+    Guts:    { ideal: [0, 1], ok: [0, 2], weight: 1 },
+    Group:   { ideal: [0, 1], ok: [0, 1], weight: 1 },
+  };
+
+  function scoreTypeDistribution() {
+    if (selectedSupports.length === 0) return 0;
+    const typeCounts = {};
+    for (const s of selectedSupports) {
+      typeCounts[s.SupportType] = (typeCounts[s.SupportType] || 0) + 1;
+    }
+
+    let score = 0;
+    let totalWeight = 0;
+    for (const [type, meta] of Object.entries(META_TYPE_RANGES)) {
+      const count = typeCounts[type] || 0;
+      totalWeight += meta.weight;
+      if (count >= meta.ideal[0] && count <= meta.ideal[1]) {
+        score += meta.weight; // Perfect
+      } else if (count >= meta.ok[0] && count <= meta.ok[1]) {
+        score += meta.weight * 0.5; // Acceptable
+      }
+      // Outside ok range = 0 points
+    }
+
+    // Normalize to 0-25
+    return Math.round((score / totalWeight) * 25);
+  }
+
+  // Extend deck effects for scoring (includes Training Effectiveness)
+  function buildAllEffects() {
+    const totals = {};
+    for (let i = 0; i < selectedSupports.length; i++) {
+      const card = selectedSupports[i];
+      const rarity = card.SupportRarity || 'SSR';
+      const lb = supportLbStops[i] ?? 4;
+      const idx = lbToEffectIndex(lb, rarity);
+      for (const eff of card.SupportEffects || []) {
+        const val = eff.values?.[idx] ?? 0;
+        if (val === 0) continue;
+        totals[eff.name] = (totals[eff.name] || 0) + val;
+      }
+      if (uniqueActiveAtLb(card, lb) && card.SupportUnique) {
+        for (const u of card.SupportUnique.effects) {
+          totals[u.name] = (totals[u.name] || 0) + u.value;
+        }
+      }
+    }
+    return totals;
+  }
+
+  function scoreEffectStacking() {
+    const totals = buildAllEffects();
+    let score = 0;
+    const te = totals['Training Effectiveness'] || 0;
+    if (te >= 15) score += 8;
+    else if (te >= 5) score += 4;
+    const rb = totals['Race Bonus'] || 0;
+    if (rb >= 30) score += 7;
+    else if (rb >= 15) score += 4;
+    else if (rb >= 5) score += 2;
+    const fb = totals['Fan Bonus'] || 0;
+    if (fb >= 30) score += 5;
+    else if (fb >= 15) score += 3;
+    const initials = ['Initial Speed', 'Initial Stamina', 'Initial Power', 'Initial Guts', 'Initial Wit'];
+    const initCount = initials.filter((n) => totals[n] > 0).length;
+    score += Math.min(5, initCount);
+    return Math.min(25, score);
+  }
+
+  function scoreHintSynergy() {
+    const hintCounts = new Map();
+    for (const s of selectedSupports) {
+      for (const h of s.SupportHints || []) {
+        if (!h.Name || !h.SkillId) continue;
+        hintCounts.set(h.Name, (hintCounts.get(h.Name) || 0) + 1);
+      }
+    }
+    const total = hintCounts.size;
+    const shared = [...hintCounts.values()].filter((c) => c > 1).length;
+    if (total === 0) return 0;
+    let score = 0;
+    if (shared >= 8) score += 15;
+    else if (shared >= 5) score += 12;
+    else if (shared >= 3) score += 8;
+    else if (shared >= 1) score += 4;
+    if (total >= 25) score += 10;
+    else if (total >= 18) score += 8;
+    else if (total >= 12) score += 6;
+    else if (total >= 6) score += 3;
+    return Math.min(25, score);
+  }
+
+  // Distance-appropriate type weights (from class 6 distance stats)
+  // Sprint/Mile: heavy Speed+Wit; Medium: Speed+Power+Stamina; Long: Speed+Stamina+Power
+  const DISTANCE_TYPE_WEIGHTS = {
+    Short:  { Speed: 3, Wit: 3, Power: 1, Stamina: 0, Friend: 2 },
+    Mile:   { Speed: 3, Wit: 2, Power: 2, Stamina: 1, Friend: 2 },
+    Medium: { Speed: 3, Wit: 1, Power: 2, Stamina: 2, Friend: 2 },
+    Long:   { Speed: 3, Wit: 1, Power: 2, Stamina: 3, Friend: 2 },
+  };
+
+  function scoreCharacterFit() {
+    if (!selectedChar) return 12;
+    const bonuses = selectedChar.UmaStatBonuses || {};
+    const apt = selectedChar.UmaAptitudes || {};
+    const typeToStat = { Speed: 'Speed', Stamina: 'Stamina', Power: 'Power', Guts: 'Guts', Wit: 'Wit' };
+
+    // Find character's best distance for weight selection
+    let bestDist = null;
+    let bestGrade = 'G';
+    const gradeOrder = 'SABCDEFG';
+    for (const [name, grade] of Object.entries(apt.Distance || {})) {
+      if (gradeOrder.indexOf(grade) < gradeOrder.indexOf(bestGrade)) {
+        bestGrade = grade;
+        bestDist = name;
+      }
+    }
+    const distWeights = DISTANCE_TYPE_WEIGHTS[bestDist] || {};
+
+    let score = 0;
+    for (const s of selectedSupports) {
+      const stat = typeToStat[s.SupportType];
+      // Stat bonus match
+      if (stat && bonuses[stat] > 0) score += 2;
+      // Distance-appropriate type bonus
+      if (distWeights[s.SupportType]) score += distWeights[s.SupportType];
+      // Friend/Group universal value
+      if (s.SupportType === 'Friend' || s.SupportType === 'Group') score += 1;
+    }
+    return Math.min(25, Math.round(score * 25 / 20));
+  }
+
+  function computeCompatibilityScore() {
+    if (selectedSupports.length === 0) return null;
+    const breakdown = {
+      typeBalance: scoreTypeDistribution(),
+      effectStacking: scoreEffectStacking(),
+      hintSynergy: scoreHintSynergy(),
+      characterFit: scoreCharacterFit(),
+    };
+    const total = breakdown.typeBalance + breakdown.effectStacking + breakdown.hintSynergy + breakdown.characterFit;
+    const grade = total >= 90 ? 'S' : total >= 75 ? 'A' : total >= 60 ? 'B'
+      : total >= 45 ? 'C' : total >= 30 ? 'D' : 'F';
+    return { total, grade, breakdown };
+  }
+
+  // --- Synergy helpers ---
+  function getCardHintLevel(card, lbStop) {
+    const rarity = card.SupportRarity || 'SSR';
+    const idx = lbToEffectIndex(lbStop, rarity);
+    const hintEff = (card.SupportEffects || []).find((e) => e.name === 'Hint Levels');
+    return hintEff?.values?.[idx] ?? 0;
+  }
+
+  function computeHintSavings() {
+    const hintDetails = new Map();
+    for (let i = 0; i < selectedSupports.length; i++) {
+      const card = selectedSupports[i];
+      const lb = supportLbStops[i] ?? 4;
+      const cardHintLv = getCardHintLevel(card, lb);
+      for (const h of card.SupportHints || []) {
+        if (!h.Name || !h.SkillId) continue;
+        if (!hintDetails.has(h.Name)) {
+          hintDetails.set(h.Name, { sources: [], totalLevel: 0, skillId: h.SkillId });
+        }
+        const entry = hintDetails.get(h.Name);
+        entry.sources.push({ cardName: cleanCardName(card.SupportName), hintLevel: cardHintLv });
+        entry.totalLevel += cardHintLv;
+      }
+    }
+    const shared = [];
+    for (const [name, data] of hintDetails) {
+      if (data.sources.length < 2) continue;
+      const effectiveLevel = Math.min(data.totalLevel, 5);
+      const discountPct = Math.min(effectiveLevel * 10, 40);
+      shared.push({ name, sources: data.sources, effectiveLevel, discountPct, skillId: data.skillId });
+    }
+    return shared;
+  }
+
+  function getTypeCoverage() {
+    const typeCounts = {};
+    for (const s of selectedSupports) {
+      typeCounts[s.SupportType] = (typeCounts[s.SupportType] || 0) + 1;
+    }
+    const trainable = ['Speed', 'Stamina', 'Power', 'Guts', 'Wit'];
+    const covered = trainable.filter((t) => typeCounts[t] > 0);
+    return { typeCounts, covered, total: trainable.length };
   }
 
   // --- Helpers ---
@@ -334,6 +614,26 @@
 
     let html = '';
 
+    // Compatibility score
+    if (selectedSupports.length > 0) {
+      const compat = computeCompatibilityScore();
+      if (compat) {
+        const { total, grade, breakdown } = compat;
+        html += `
+          <div class="compat-score">
+            <div class="compat-grade" data-grade="${grade}">${grade}</div>
+            <div class="compat-bar"><div class="compat-fill" data-grade="${grade}" style="width: ${total}%"></div></div>
+            <div class="compat-value">${total}/100</div>
+            <div class="compat-breakdown">
+              <div class="compat-item"><span>${t('deck.typeBalance')}</span><span class="compat-item-score">${breakdown.typeBalance}/25</span></div>
+              <div class="compat-item"><span>${t('deck.effectStacking')}</span><span class="compat-item-score">${breakdown.effectStacking}/25</span></div>
+              <div class="compat-item"><span>${t('deck.hintSynergy')}</span><span class="compat-item-score">${breakdown.hintSynergy}/25</span></div>
+              <div class="compat-item"><span>${t('deck.characterFit')}</span><span class="compat-item-score">${breakdown.characterFit}/25</span></div>
+            </div>
+          </div>`;
+      }
+    }
+
     // Character stat bonuses
     if (selectedChar) {
       const bonuses = selectedChar.UmaStatBonuses || {};
@@ -343,7 +643,7 @@
       if (bonusParts.length) {
         html += `
           <div class="deck-summary-row">
-            <span class="deck-summary-label">Stat Bonuses:</span>
+            <span class="deck-summary-label">${t('deck.statBonuses')}</span>
             <span class="deck-summary-value">${escHtml(bonusParts.join(', '))}</span>
           </div>`;
       }
@@ -363,50 +663,125 @@
       if (effectRows.length) {
         html += `
           <div class="deck-summary-sub">
-            <div class="deck-summary-label">Combined Effects</div>
+            <div class="deck-summary-label">${t('deck.combinedEffects')}</div>
             <div class="deck-effects-grid">${effectRows.join('')}</div>
           </div>`;
       }
 
-      // Combined hints (skip non-skill entries like "Initial X bonus")
-      const hintCounts = new Map();
+      // Build hint source map: hintName -> { count, sources, skillId }
+      const hintSources = new Map();
       for (const s of selectedSupports) {
         for (const h of s.SupportHints || []) {
-          const name = h.Name || '';
-          if (!name || !h.SkillId) continue;
-          hintCounts.set(name, (hintCounts.get(name) || 0) + 1);
+          if (!h.Name || !h.SkillId) continue;
+          if (!hintSources.has(h.Name)) {
+            hintSources.set(h.Name, { count: 0, sources: [], skillId: h.SkillId, category: 'general' });
+          }
+          const entry = hintSources.get(h.Name);
+          entry.count++;
+          entry.sources.push(cleanCardName(s.SupportName));
         }
       }
 
-      const allHints = Array.from(hintCounts.entries()).sort((a, b) =>
-        a[0].localeCompare(b[0], 'en'),
-      );
+      // Categorize hints if skills data is loaded
+      if (skillsAllMap) {
+        for (const [, entry] of hintSources) {
+          const skill = skillsAllMap.get(entry.skillId);
+          if (skill) entry.category = categorizeSkill(skill);
+        }
+      }
+
+      const aptCategories = getCharAptitudeCategories();
+      const allHints = Array.from(hintSources.entries());
       const unique = allHints.length;
-      const shared = allHints.filter(([, c]) => c > 1).length;
+      const shared = allHints.filter(([, e]) => e.count > 1).length;
 
       html += `
         <div class="deck-summary-row">
-          <span class="deck-summary-label">Skill Hints:</span>
-          <span class="deck-summary-value">${unique} unique${shared ? `, ${shared} shared` : ''}</span>
+          <span class="deck-summary-label">${t('deck.skillHints')}</span>
+          <span class="deck-summary-value">${unique} ${t('deck.unique')}${shared ? `, ${shared} ${t('deck.shared')}` : ''}</span>
         </div>`;
 
       if (allHints.length) {
-        html += '<div class="deck-hints">';
-        for (const [name, count] of allHints) {
-          const cls = count > 1 ? 'hint-pill shared' : 'hint-pill';
-          const label = count > 1 ? `${name} (${count})` : name;
-          html += `<span class="${cls}">${escHtml(label)}</span>`;
+        // Group by category
+        const grouped = {};
+        for (const [name, entry] of allHints) {
+          const cat = entry.category;
+          if (!grouped[cat]) grouped[cat] = [];
+          grouped[cat].push({ name, ...entry });
+        }
+
+        // Sort categories by defined order
+        const sortedCats = Object.keys(grouped).sort((a, b) => {
+          return (HINT_CATEGORIES[a]?.order ?? 99) - (HINT_CATEGORIES[b]?.order ?? 99);
+        });
+
+        html += '<div class="deck-hints-grouped">';
+        for (const cat of sortedCats) {
+          const catInfo = HINT_CATEGORIES[cat] || { label: cat };
+          const hints = grouped[cat].sort((a, b) => a.name.localeCompare(b.name, 'en'));
+          html += '<div class="hint-category">';
+          html += `<span class="hint-cat-label">${escHtml(catInfo.label)}</span>`;
+          for (const h of hints) {
+            const isShared = h.count > 1;
+            const isAptMatch = aptCategories.has(cat);
+            let cls = 'hint-pill';
+            if (isShared) cls += ' shared';
+            if (isAptMatch) cls += ' apt-match';
+            const label = isShared ? `${h.name} (${h.count})` : h.name;
+            const tooltip = h.sources.join(', ');
+            html += `<span class="${cls}" title="${escHtml(tooltip)}">${escHtml(label)}</span>`;
+          }
+          html += '</div>';
         }
         html += '</div>';
       }
+
+      // Synergy analysis
+      const coverage = getTypeCoverage();
+      const sharedHints = computeHintSavings();
+
+      html += '<div class="deck-synergy">';
+      html += `<div class="deck-summary-label">${t('deck.synergyAnalysis')}</div>`;
+
+      // Type coverage
+      html += '<div class="synergy-type-coverage">';
+      html += `<span>${t('deck.typeCoverage')}: ${coverage.covered.length}/${coverage.total}</span>`;
+      for (const [type, count] of Object.entries(coverage.typeCounts)) {
+        html += `<span class="synergy-type-badge" data-type="${escHtml(type)}"><span>${escHtml(type)}</span><span class="synergy-type-count">&times;${count}</span></span>`;
+      }
+      html += '</div>';
+
+      // Shared hint details
+      if (sharedHints.length) {
+        html += `<div class="deck-summary-label" style="margin-top:0.35rem">${t('deck.sharedHintDetails')}</div>`;
+        html += '<div class="synergy-shared-hints">';
+        for (const sh of sharedHints) {
+          const srcNames = sh.sources.map((s) => s.cardName).join(', ');
+          html += `<div class="synergy-hint-row">
+            <span class="hint-pill shared">${escHtml(sh.name)}</span>
+            <span class="synergy-detail">Lv${sh.effectiveLevel} (${sh.discountPct}% off) &mdash; ${escHtml(srcNames)}</span>
+          </div>`;
+        }
+        html += '</div>';
+        const avgDiscount = Math.round(sharedHints.reduce((sum, h) => sum + h.discountPct, 0) / sharedHints.length);
+        html += `<div class="synergy-savings">${t('deck.avgHintDiscount')}: ${avgDiscount}% ${t('deck.across')} ${sharedHints.length} ${t('deck.sharedSkills')}</div>`;
+      }
+
+      html += '</div>'; // .deck-synergy
     }
 
     if (!html) {
-      html =
-        `<div class="deck-empty">${t('deck.emptySummary')}</div>`;
+      html = `<div class="deck-empty">${t('deck.emptySummary')}</div>`;
     }
 
     summaryContent.innerHTML = html;
+
+    // Lazy-load skills data for categorization on first render with supports
+    if (selectedSupports.length > 0 && !skillsAllMap) {
+      loadSkillsAll().then(() => {
+        if (skillsAllMap) renderSummary();
+      });
+    }
   }
 
   // --- Full render ---
@@ -637,6 +1012,187 @@
   });
 
   // =====================================================================
+  // Meta Templates (from uma.moe Class 6 statistics)
+  // =====================================================================
+
+  const META_TEMPLATES = [
+    {
+      id: 'sprint-spd-wit',
+      label: 'Sprint — 3 Speed + 2 Wit + 1 Friend',
+      distance: 'Sprint',
+      combo: '3 Speed + 2 Wit + 1 Friend',
+      usage: 14.2,
+      slugs: [
+        '30028-kitasan-black', '20023-sweep-tosho', '20013-eishin-flash',
+        '30010-fine-motion', '20016-matikanefukukitaru', '30036-riko-kashimoto',
+      ],
+    },
+    {
+      id: 'sprint-wit-spd',
+      label: 'Sprint — 3 Wit + 2 Speed + 1 Friend',
+      distance: 'Sprint',
+      combo: '3 Wit + 2 Speed + 1 Friend',
+      usage: 13.3,
+      slugs: [
+        '30010-fine-motion', '20016-matikanefukukitaru', '20015-marvelous-sunday',
+        '30028-kitasan-black', '20023-sweep-tosho', '30036-riko-kashimoto',
+      ],
+    },
+    {
+      id: 'mile-spd-wit',
+      label: 'Mile — 3 Speed + 2 Wit + 1 Friend',
+      distance: 'Mile',
+      combo: '3 Speed + 2 Wit + 1 Friend',
+      usage: 13.9,
+      slugs: [
+        '30028-kitasan-black', '20023-sweep-tosho', '20013-eishin-flash',
+        '20016-matikanefukukitaru', '30010-fine-motion', '30036-riko-kashimoto',
+      ],
+    },
+    {
+      id: 'mile-spd-pow',
+      label: 'Mile — 3 Speed + 2 Power + 1 Friend',
+      distance: 'Mile',
+      combo: '3 Speed + 2 Power + 1 Friend',
+      usage: 10.5,
+      slugs: [
+        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
+        '30034-rice-shower', '20003-hishi-amazon', '30036-riko-kashimoto',
+      ],
+    },
+    {
+      id: 'medium-spd-pow',
+      label: 'Medium — 3 Speed + 2 Power + 1 Friend',
+      distance: 'Medium',
+      combo: '3 Speed + 2 Power + 1 Friend',
+      usage: 11.5,
+      slugs: [
+        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
+        '30034-rice-shower', '20003-hishi-amazon', '30036-riko-kashimoto',
+      ],
+    },
+    {
+      id: 'medium-spd-sta',
+      label: 'Medium — 3 Speed + 2 Stamina + 1 Friend',
+      distance: 'Medium',
+      combo: '3 Speed + 2 Stamina + 1 Friend',
+      usage: 8.3,
+      slugs: [
+        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
+        '30016-super-creek', '20008-manhattan-cafe', '30036-riko-kashimoto',
+      ],
+    },
+    {
+      id: 'long-spd-sta',
+      label: 'Long — 3 Speed + 2 Stamina + 1 Friend',
+      distance: 'Long',
+      combo: '3 Speed + 2 Stamina + 1 Friend',
+      usage: 19.8,
+      slugs: [
+        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
+        '30016-super-creek', '20008-manhattan-cafe', '30036-riko-kashimoto',
+      ],
+    },
+    {
+      id: 'long-spd-pow',
+      label: 'Long — 3 Speed + 2 Power + 1 Friend',
+      distance: 'Long',
+      combo: '3 Speed + 2 Power + 1 Friend',
+      usage: 14.0,
+      slugs: [
+        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
+        '30034-rice-shower', '20003-hishi-amazon', '30036-riko-kashimoto',
+      ],
+    },
+    {
+      id: 'dirt-spd-wit',
+      label: 'Dirt — 3 Speed + 2 Wit + 1 Friend',
+      distance: 'Dirt',
+      combo: '3 Speed + 2 Wit + 1 Friend',
+      usage: 12.2,
+      slugs: [
+        '30028-kitasan-black', '20023-sweep-tosho', '20013-eishin-flash',
+        '20016-matikanefukukitaru', '30010-fine-motion', '30036-riko-kashimoto',
+      ],
+    },
+    {
+      id: 'dirt-spd-pow',
+      label: 'Dirt — 3 Speed + 2 Power + 1 Friend',
+      distance: 'Dirt',
+      combo: '3 Speed + 2 Power + 1 Friend',
+      usage: 11.4,
+      slugs: [
+        '30028-kitasan-black', '20023-sweep-tosho', '20013-eishin-flash',
+        '30034-rice-shower', '20024-daitaku-helios', '30036-riko-kashimoto',
+      ],
+    },
+  ];
+
+  const templatesModal = document.getElementById('templatesModal');
+  const templatesModalList = document.getElementById('templatesModalList');
+  const openTemplatesBtn = document.getElementById('openTemplatesBtn');
+
+  function renderTemplates() {
+    let html = '';
+    for (let i = 0; i < META_TEMPLATES.length; i++) {
+      const tmpl = META_TEMPLATES[i];
+      const cards = tmpl.slugs.map((slug) => findSupportBySlug(slug)).filter(Boolean);
+      const cardPills = cards
+        .map(
+          (c) =>
+            `<span class="template-card-pill"><span class="pill-type" data-type="${escHtml(c.SupportType)}">${escHtml(c.SupportType)}</span>${escHtml(c.SupportName)}</span>`
+        )
+        .join('');
+      const usageText = t('deck.templateUsage').replace('{0}', tmpl.usage);
+      html += `<div class="template-card" data-idx="${i}">
+        <div class="template-header">
+          <span class="template-title">${escHtml(tmpl.distance)}</span>
+          <span class="template-usage">${escHtml(usageText)}</span>
+        </div>
+        <div class="template-combo">${escHtml(tmpl.combo)}</div>
+        <div class="template-cards">${cardPills}</div>
+        <div class="template-actions">
+          <button class="template-load-btn" data-idx="${i}">${t('deck.loadTemplate')}</button>
+        </div>
+      </div>`;
+    }
+    templatesModalList.innerHTML = html;
+  }
+
+  function loadTemplate(index) {
+    const tmpl = META_TEMPLATES[index];
+    if (!tmpl) return;
+    const cards = tmpl.slugs.map((slug) => findSupportBySlug(slug)).filter(Boolean);
+    selectedSupports = cards.slice(0, MAX_SUPPORTS);
+    supportLbStops = selectedSupports.map(() => 4);
+    saveDeck();
+    render();
+    showStatus(`Loaded ${tmpl.distance} template`);
+    setTimeout(() => showStatus(''), 2000);
+  }
+
+  function openTemplatesModal() {
+    renderTemplates();
+    templatesModal.hidden = false;
+  }
+
+  function closeTemplatesModal() {
+    templatesModal.hidden = true;
+  }
+
+  openTemplatesBtn.addEventListener('click', openTemplatesModal);
+  templatesModal.querySelector('.support-modal-backdrop').addEventListener('click', closeTemplatesModal);
+  templatesModal.querySelector('.support-modal-close').addEventListener('click', closeTemplatesModal);
+
+  templatesModalList.addEventListener('click', (e) => {
+    const loadBtn = e.target.closest('.template-load-btn');
+    if (loadBtn) {
+      loadTemplate(parseInt(loadBtn.dataset.idx, 10));
+      closeTemplatesModal();
+    }
+  });
+
+  // =====================================================================
   // Support Card Picker Modal
   // =====================================================================
 
@@ -648,7 +1204,8 @@
       btn.textContent = t;
       btn.dataset.type = t;
       btn.addEventListener('click', () => {
-        filterType = filterType === t ? null : t;
+        if (filterTypes.has(t)) filterTypes.delete(t);
+        else filterTypes.add(t);
         updateFilterButtons();
         renderModalList();
       });
@@ -672,26 +1229,69 @@
 
   function updateFilterButtons() {
     for (const btn of typeFiltersEl.querySelectorAll('.filter-btn')) {
-      btn.classList.toggle('active', btn.dataset.type === filterType);
+      btn.classList.toggle('active', filterTypes.has(btn.dataset.type));
     }
     for (const btn of rarityFiltersEl.querySelectorAll('.filter-btn')) {
       btn.classList.toggle('active', btn.dataset.rarity === filterRarity);
     }
   }
 
+  // Sort dropdown
+  const SORTABLE_EFFECTS = [
+    'Race Bonus', 'Fan Bonus', 'Training Effectiveness',
+    'Speed Bonus', 'Stamina Bonus', 'Power Bonus', 'Guts Bonus', 'Wit Bonus',
+    'Skill Point Bonus', 'Hint Levels', 'Friendship Bonus',
+    'Initial Speed', 'Initial Stamina', 'Initial Power', 'Initial Guts', 'Initial Wit',
+  ];
+
+  const supportSortEl = document.getElementById('supportSort');
+
+  function initSortDropdown() {
+    supportSortEl.innerHTML = `<option value="">\u2014</option>`;
+    for (const name of SORTABLE_EFFECTS) {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      supportSortEl.appendChild(opt);
+    }
+    supportSortEl.addEventListener('change', () => {
+      sortByEffect = supportSortEl.value;
+      renderModalList();
+    });
+  }
+
+  initSortDropdown();
+
+  function getEffectValueAtMlb(card, effectName) {
+    const rarity = card.SupportRarity || 'SSR';
+    const idx = lbToEffectIndex(4, rarity);
+    const eff = (card.SupportEffects || []).find((e) => e.name === effectName);
+    return eff?.values?.[idx] ?? 0;
+  }
+
   function getFilteredSupports() {
     const search = filterSearch.toLowerCase();
     const selectedSlugs = new Set(selectedSupports.map((s) => s.SupportSlug));
 
-    return supports
+    const filtered = supports
       .filter((s) => {
         if (!matchesServer(s)) return false;
-        if (filterType && s.SupportType !== filterType) return false;
+        if (filterTypes.size > 0 && !filterTypes.has(s.SupportType)) return false;
         if (filterRarity && s.SupportRarity !== filterRarity) return false;
         if (search && !cleanCardName(s.SupportName).toLowerCase().includes(search)) return false;
         return true;
       })
-      .map((s) => ({ ...s, _selected: selectedSlugs.has(s.SupportSlug) }));
+      .map((s) => {
+        const copy = { ...s, _selected: selectedSlugs.has(s.SupportSlug) };
+        if (sortByEffect) copy._sortVal = getEffectValueAtMlb(s, sortByEffect);
+        return copy;
+      });
+
+    if (sortByEffect) {
+      filtered.sort((a, b) => (b._sortVal || 0) - (a._sortVal || 0));
+    }
+
+    return filtered;
   }
 
   function renderModalList() {
@@ -715,11 +1315,16 @@
         ? `<img class="modal-card-thumb" src="${escHtml(imgSrc)}" alt="" loading="lazy">`
         : `<span class="modal-card-initials">${escHtml(initialsOf(name))}</span>`;
 
+      const valBadge = sortByEffect
+        ? `<span class="modal-card-effect-val${s._sortVal ? '' : ' zero'}">${s._sortVal ?? 0}</span>`
+        : '';
+
       html += `<div class="${cls}" data-slug="${escHtml(s.SupportSlug)}">
         ${imgHtml}
         <span class="modal-card-name">${escHtml(name)}</span>
         ${typeBadge}
         <span class="modal-card-rarity">${escHtml(s.SupportRarity || '')}</span>
+        ${valBadge}
       </div>`;
     }
     supportModalList.innerHTML = html;
@@ -841,6 +1446,17 @@
   // Character Picker Modal
   // =====================================================================
 
+  function aptitudePassesFilter(apt, group, filterSet) {
+    if (filterSet.size === 0) return true;
+    const grades = apt?.[group] || {};
+    // OR within group: character passes if ANY selected aptitude is A or S
+    for (const key of filterSet) {
+      const grade = grades[key];
+      if (grade === 'S' || grade === 'A') return true;
+    }
+    return false;
+  }
+
   function getFilteredCharacters() {
     const search = charFilterSearch.toLowerCase();
     return characters.filter((c) => {
@@ -850,9 +1466,52 @@
         const nick = (c.UmaNickname || '').toLowerCase();
         if (!name.includes(search) && !nick.includes(search)) return false;
       }
+      // AND across groups: must pass all non-empty groups
+      const apt = c.UmaAptitudes;
+      if (!aptitudePassesFilter(apt, 'Distance', charFilterDist)) return false;
+      if (!aptitudePassesFilter(apt, 'Surface', charFilterSurf)) return false;
+      if (!aptitudePassesFilter(apt, 'Strategy', charFilterStrat)) return false;
       return true;
     });
   }
+
+  const charDistFiltersEl = document.getElementById('charDistFilters');
+  const charSurfFiltersEl = document.getElementById('charSurfFilters');
+  const charStratFiltersEl = document.getElementById('charStratFilters');
+
+  function initCharFilterButtons() {
+    const groups = [
+      { el: charDistFiltersEl, keys: ['Short', 'Mile', 'Medium', 'Long'], set: charFilterDist },
+      { el: charSurfFiltersEl, keys: ['Turf', 'Dirt'], set: charFilterSurf },
+      { el: charStratFiltersEl, keys: ['Front', 'Pace', 'Late', 'End'], set: charFilterStrat },
+    ];
+    for (const g of groups) {
+      g.el.innerHTML = '';
+      for (const key of g.keys) {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.textContent = key;
+        btn.dataset.key = key;
+        btn.addEventListener('click', () => {
+          if (g.set.has(key)) g.set.delete(key);
+          else g.set.add(key);
+          updateCharFilterButtons();
+          renderCharModalList();
+        });
+        g.el.appendChild(btn);
+      }
+    }
+  }
+
+  function updateCharFilterButtons() {
+    for (const [el, set] of [[charDistFiltersEl, charFilterDist], [charSurfFiltersEl, charFilterSurf], [charStratFiltersEl, charFilterStrat]]) {
+      for (const btn of el.querySelectorAll('.filter-btn')) {
+        btn.classList.toggle('active', set.has(btn.dataset.key));
+      }
+    }
+  }
+
+  initCharFilterButtons();
 
   function renderCharModalList() {
     const filtered = getFilteredCharacters();
@@ -885,6 +1544,10 @@
   function openCharModal() {
     charFilterSearch = '';
     charSearchInput.value = '';
+    charFilterDist.clear();
+    charFilterSurf.clear();
+    charFilterStrat.clear();
+    updateCharFilterButtons();
     renderCharModalList();
     charModal.hidden = false;
     charSearchInput.focus();
@@ -1042,11 +1705,72 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (!effectsPanel.hidden) closeEffectsPanel();
+      else if (!templatesModal.hidden) closeTemplatesModal();
       else if (!savedDecksModal.hidden) closeSavedDecksModal();
       else if (!supportModal.hidden) closePickerModal();
       else if (!charModal.hidden) closeCharModal();
     }
   });
+
+  // =====================================================================
+  // Open in Skill Optimizer
+  // =====================================================================
+
+  const openOptimizerBtn = document.getElementById('openOptimizerBtn');
+
+  function openInOptimizer() {
+    if (selectedSupports.length === 0) {
+      showStatus(t('deck.noSupportsForOptimizer'));
+      setTimeout(() => showStatus(''), 2000);
+      return;
+    }
+
+    // Collect all hints with effective hint levels
+    const hintMap = new Map();
+    for (let i = 0; i < selectedSupports.length; i++) {
+      const card = selectedSupports[i];
+      const lb = supportLbStops[i] ?? 4;
+      const cardHintLv = getCardHintLevel(card, lb);
+      for (const h of card.SupportHints || []) {
+        if (!h.Name || !h.SkillId) continue;
+        const existing = hintMap.get(h.Name) || 0;
+        hintMap.set(h.Name, Math.min(existing + cardHintLv, 5));
+      }
+    }
+
+    // Build optimizer-compatible row string: name=0|H{level}
+    const rows = [];
+    for (const [name, level] of hintMap) {
+      rows.push(`${name}=0${level > 0 ? `|H${level}` : ''}`);
+    }
+    const buildString = rows.join('\n');
+
+    // Base64-encode (URL-safe variant)
+    const encoded = btoa(unescape(encodeURIComponent(buildString)))
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+    const params = new URLSearchParams();
+    params.set('b', encoded);
+
+    // Pass race config from character aptitudes
+    if (selectedChar?.UmaAptitudes) {
+      const apt = selectedChar.UmaAptitudes;
+      const cfgMap = {
+        turf: apt.Surface?.Turf, dirt: apt.Surface?.Dirt,
+        sprint: apt.Distance?.Short, mile: apt.Distance?.Mile,
+        medium: apt.Distance?.Medium, long: apt.Distance?.Long,
+        front: apt.Strategy?.Front, pace: apt.Strategy?.Pace,
+        late: apt.Strategy?.Late, end: apt.Strategy?.End,
+      };
+      const cfgKeys = ['turf', 'dirt', 'sprint', 'mile', 'medium', 'long', 'front', 'pace', 'late', 'end'];
+      const cfgValues = cfgKeys.map((k) => cfgMap[k] || 'A');
+      params.set('c', cfgValues.join(','));
+    }
+
+    window.open(`/optimizer#${params.toString()}`, '_blank');
+  }
+
+  openOptimizerBtn.addEventListener('click', openInOptimizer);
 
   // =====================================================================
   // Server change listener
