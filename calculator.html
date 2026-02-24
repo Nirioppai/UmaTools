@@ -42,10 +42,10 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link rel="preload" href="/assets/skills_all.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/rating.css" />
@@ -547,7 +547,11 @@
           <button id="clear-all" class="btn" type="button" data-i18n="calculator.clearAll">Clear All Skills</button>
         </div>
 
-        <div id="rows" class="rows calculator-rows"></div>
+        <div id="rows" class="rows calculator-rows">
+          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
+          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
+          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
+        </div>
       </section>
     </main>
 

@@ -1303,6 +1303,9 @@
       }
     });
 
+    // Clear skeleton loaders
+    if (rowsEl) rowsEl.querySelectorAll('[aria-hidden]').forEach((el) => el.remove());
+
     // Load saved state
     loadState();
 

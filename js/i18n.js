@@ -112,6 +112,10 @@
       'home.umadleBadge': 'Daily challenge',
       'home.openUmadle': 'Open Umadle',
 
+      // ── Changelog ──
+      'changelog.whatsNew': "What's New",
+      'changelog.dismiss': 'Dismiss changelog',
+
       // ── 404 ──
       'error404.title': 'Page Not Found',
       'error404.message': 'Sorry, we could not find that page. Try one of the tools below or return home.',
@@ -639,6 +643,10 @@
       'home.umadleDesc': 'ウマ娘データを使った毎日の推測ゲーム。',
       'home.umadleBadge': 'デイリーチャレンジ',
       'home.openUmadle': 'ウマドルを開く',
+
+      // ── Changelog ──
+      'changelog.whatsNew': '新着情報',
+      'changelog.dismiss': '新着情報を閉じる',
 
       // ── 404 ──
       'error404.title': 'ページが見つかりません',

@@ -1004,6 +1004,24 @@ html.theme-transition body,
       box-shadow 200ms ease;
 }
 
+
+  html.theme-transition .\!card {
+  transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease !important;
+}
+
+
+  html.theme-transition .\!modal {
+  transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease !important;
+}
+
 html.theme-transition *,
   html.theme-transition *::before,
   html.theme-transition *::after {
@@ -1354,6 +1372,24 @@ body > .container,
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
+.\!card {
+  border-radius: var(--radius);
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(var(--color-border) / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(var(--color-surface) / var(--tw-bg-opacity, 1));
+  --tw-shadow: 0 18px 40px -24px rgb(var(--shadow-color) / 0.45);
+  --tw-shadow-colored: 0 18px 40px -24px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
 .card {
   border-radius: var(--radius);
   border-width: 1px;
@@ -1372,9 +1408,26 @@ body > .container,
   animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
+.\!card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 22px 40px -24px rgb(var(--shadow-rgb) / 0.55) !important;
+}
+
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 22px 40px -24px rgb(var(--shadow-rgb) / 0.55);
+}
+
+.\!card.reveal {
+  animation-name: enter;
+  animation-duration: 150ms;
+  --tw-enter-opacity: initial;
+  --tw-enter-scale: initial;
+  --tw-enter-rotate: initial;
+  --tw-enter-translate-x: initial;
+  --tw-enter-translate-y: initial;
+  --tw-enter-opacity: 0;
+  --tw-enter-scale: .95;
 }
 
 .card.reveal {
@@ -1389,9 +1442,24 @@ body > .container,
   --tw-enter-scale: .95;
 }
 
+.\!card h2,
+  .\!card h3 {
+  color: var(--text-1) !important;
+}
+
 .card h2,
   .card h3 {
   color: var(--text-1);
+}
+
+.\!card h2,
+  .\!card h3 {
+  color: var(--text-1) !important;
+}
+
+.\!card.tool-card {
+  border-width: 2px !important;
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border)) !important;
 }
 
 .card.tool-card {
@@ -1399,8 +1467,19 @@ body > .container,
   border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
 }
 
+.\!card.tool-card h3 {
+  text-align: center !important;
+}
+
 .card.tool-card h3 {
   text-align: center;
+}
+
+.\!card.tool-card .btn {
+  display: inline-flex !important;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  margin: 0.75rem auto 0 !important;
 }
 
 .card.tool-card .btn {
@@ -1842,6 +1921,14 @@ html.dark .badge.badge-R {
   box-shadow: 0 12px 24px rgb(var(--shadow-rgb) / 0.18);
 }
 
+.site-nav.\!open .nav-links {
+  display: flex !important;
+  background: var(--surface-1) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-1) !important;
+  box-shadow: 0 12px 24px rgb(var(--shadow-rgb) / 0.18) !important;
+}
+
 .site-footer {
   width: 100%;
   margin-top: auto;
@@ -2017,6 +2104,14 @@ html.dark body .optimizer-row .skill-name,
   background: var(--surface-1);
   color: var(--text-1);
   border-color: var(--border);
+}
+
+
+  html.dark body .optimizer-row .\!cost,
+  html:not(.dark) body .optimizer-row .\!cost {
+  background: var(--surface-1) !important;
+  color: var(--text-1) !important;
+  border-color: var(--border) !important;
 }
 
 html.dark body .optimizer-row .category-chip,
@@ -3056,6 +3151,15 @@ html.dark .delay-btn.destructive,
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+.modal-backdrop.\!open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.modal-backdrop.open {
   animation-name: enter;
   animation-duration: 150ms;
   --tw-enter-opacity: initial;
@@ -3064,6 +3168,29 @@ html.dark .delay-btn.destructive,
   --tw-enter-translate-x: initial;
   --tw-enter-translate-y: initial;
   --tw-enter-opacity: 0;
+}
+
+.modal-backdrop.\!open {
+  animation-name: enter;
+  animation-duration: 150ms;
+  --tw-enter-opacity: initial;
+  --tw-enter-scale: initial;
+  --tw-enter-rotate: initial;
+  --tw-enter-translate-x: initial;
+  --tw-enter-translate-y: initial;
+  --tw-enter-opacity: 0;
+}
+
+.\!modal {
+  background: var(--surface-1) !important;
+  color: var(--text-1) !important;
+  width: min(520px, 92vw) !important;
+  max-height: calc(100vh - 2rem) !important;
+  overflow: auto !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+  padding: 1.1rem 1.2rem !important;
+  box-shadow: 0 25px 50px -30px rgb(var(--shadow-rgb) / 0.7) !important;
 }
 
 .modal {
@@ -3076,6 +3203,9 @@ html.dark .delay-btn.destructive,
   border-radius: 16px;
   padding: 1.1rem 1.2rem;
   box-shadow: 0 25px 50px -30px rgb(var(--shadow-rgb) / 0.7);
+}
+
+.\!modal {
   animation-name: enter;
   animation-duration: 150ms;
   --tw-enter-opacity: initial;
@@ -3085,6 +3215,25 @@ html.dark .delay-btn.destructive,
   --tw-enter-translate-y: initial;
   --tw-enter-opacity: 0;
   --tw-enter-scale: .95;
+}
+
+.modal {
+  animation-name: enter;
+  animation-duration: 150ms;
+  --tw-enter-opacity: initial;
+  --tw-enter-scale: initial;
+  --tw-enter-rotate: initial;
+  --tw-enter-translate-x: initial;
+  --tw-enter-translate-y: initial;
+  --tw-enter-opacity: 0;
+  --tw-enter-scale: .95;
+}
+
+.\!modal .btn-row {
+  display: flex !important;
+  gap: 0.75rem !important;
+  flex-wrap: wrap !important;
+  margin-top: 1rem !important;
 }
 
 .modal .btn-row {
@@ -3132,6 +3281,13 @@ html.dark .card,
   background: var(--surface-1);
   border-color: var(--border);
   color: var(--text-1);
+}
+
+html.dark .\!card,
+  html:not(.dark) .\!card {
+  background: var(--surface-1) !important;
+  border-color: var(--border) !important;
+  color: var(--text-1) !important;
 }
 
 html.dark .btn,

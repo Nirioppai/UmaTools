@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "build:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css",
+    "minify:json": "node scripts/minify-json.js",
+    "build": "npm run build:site && npm run minify:json",
     "watch:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css --watch",
     "sync:skills-all": "node scripts/gametora.js --what skills --out-skills assets/skills_all.json",
     "sync:uma": "node scripts/gametora.js --what uma --server global --out-uma assets/uma_data.json",

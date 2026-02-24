@@ -5111,6 +5111,7 @@
   }
 
   function finishInit() {
+    if (rowsEl) rowsEl.querySelectorAll('[aria-hidden]').forEach((el) => el.remove());
     const hadURL = readFromURL();
     if (!hadURL) {
       const had = loadState();

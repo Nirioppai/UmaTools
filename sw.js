@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v27';
+const CACHE_VERSION = 'v28';
 const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
 
@@ -31,7 +31,6 @@ const STATIC_ASSETS = [
   '/js/nav.js',
   '/js/rating-shared.js',
   '/js/tutorial.js',
-  '/js/ocr.js',
   '/js/hints.js',
   '/js/random.js',
   '/js/optimizer.js',

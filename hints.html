@@ -42,10 +42,10 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link rel="preload" href="/assets/support_hints.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/hints.css" />
@@ -239,7 +239,14 @@
       <div class="inline-note muted" id="counts"></div>
       <div class="spacer"></div>
 
-      <div id="results" class="grid"></div>
+      <div id="results" class="grid">
+        <div class="skeleton-card" aria-hidden="true"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem"><div class="skeleton skeleton-thumb"></div><div style="flex:1"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-badge"></div></div></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text medium"></div></div>
+        <div class="skeleton-card" aria-hidden="true"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem"><div class="skeleton skeleton-thumb"></div><div style="flex:1"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-badge"></div></div></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div></div>
+        <div class="skeleton-card" aria-hidden="true"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem"><div class="skeleton skeleton-thumb"></div><div style="flex:1"><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-badge"></div></div></div><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div></div>
+        <div class="skeleton-card" aria-hidden="true"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem"><div class="skeleton skeleton-thumb"></div><div style="flex:1"><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-badge"></div></div></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text medium"></div></div>
+        <div class="skeleton-card" aria-hidden="true"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem"><div class="skeleton skeleton-thumb"></div><div style="flex:1"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-badge"></div></div></div><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text short"></div></div>
+        <div class="skeleton-card" aria-hidden="true"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem"><div class="skeleton skeleton-thumb"></div><div style="flex:1"><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-badge"></div></div></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text medium"></div></div>
+      </div>
     </main>
     <script src="/js/i18n.js" defer></script>
     <script src="/js/hints.js" defer></script>

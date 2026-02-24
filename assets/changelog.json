@@ -1,0 +1,9 @@
+{
+  "version": "2025-02",
+  "entries": [
+    { "en": "New Deck Builder tool for planning support card setups", "ja": "新しいデッキ編成ツールでサポカ構成を計画" },
+    { "en": "Automated Team Trials scoring with tunable weight sliders", "ja": "チューニング可能なチームレース自動スコアリング" },
+    { "en": "Circle skill (\u25ce/\u25cb) fixes for saved builds and URL imports", "ja": "\u25ce/\u25cbスキルの保存ビルド・URLインポート修正" },
+    { "en": "Improved Japanese language support", "ja": "日本語対応の改善" }
+  ]
+}

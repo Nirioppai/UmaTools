@@ -42,17 +42,16 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link rel="preload" href="/assets/skills_all.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/rating.css" />
     <link rel="stylesheet" href="/css/optimizer.css" />
     <link rel="stylesheet" href="/css/tutorial.css" />
-    <!-- Tesseract.js v5 for OCR skill detection -->
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" defer></script>
+    <!-- Tesseract.js loaded on-demand by ocr.js ensureTesseract() -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -909,7 +908,11 @@
           </div>
         </div>
 
-        <div id="rows" class="rows"></div>
+        <div id="rows" class="rows">
+          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
+          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
+          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
+        </div>
       </section>
     </main>
 
@@ -1064,41 +1067,72 @@
     <script src="/js/team-trials-optimizer.js" defer></script>
     <script src="/js/skill-scorer.js" defer></script>
     <script src="/js/optimizer.js" defer></script>
-    <script src="/js/ocr-preprocess.js" defer></script>
-    <script src="/js/ocr-matcher.js" defer></script>
-    <script src="/js/ocr.js" defer></script>
-    <script src="/js/ocr-test.js" defer></script>
+    <!-- OCR scripts lazy-loaded on first use -->
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // Connect screenshot upload button to file input
-        var uploadBtn = document.getElementById('screenshot-upload-btn');
-        var uploadInput = document.getElementById('screenshot-upload-input');
-        if (uploadBtn && uploadInput) {
-          uploadBtn.addEventListener('click', function () {
-            uploadInput.click();
+      (function () {
+        var ocrReady = null;
+        var OCR_SCRIPTS = ['/js/ocr-preprocess.js', '/js/ocr-matcher.js', '/js/ocr.js'];
+        function loadScript(src) {
+          return new Promise(function (resolve, reject) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.async = false;
+            s.onload = resolve;
+            s.onerror = function () { reject(new Error('Failed to load ' + src)); };
+            document.head.appendChild(s);
           });
+        }
+        function ensureOCR() {
+          if (!ocrReady) {
+            ocrReady = OCR_SCRIPTS.reduce(function (chain, src) {
+              return chain.then(function () { return loadScript(src); });
+            }, Promise.resolve());
+          }
+          return ocrReady;
         }
 
-        // Connect preprocessing toggle
-        var preprocessToggle = document.getElementById('preprocess-toggle');
-        if (preprocessToggle) {
-          preprocessToggle.addEventListener('change', function () {
-            if (typeof window.setOCRPreprocessing === 'function') {
-              window.setOCRPreprocessing(this.checked);
-            }
-          });
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+          var uploadBtn = document.getElementById('screenshot-upload-btn');
+          var uploadInput = document.getElementById('screenshot-upload-input');
+          var captureBtn = document.getElementById('captureBtn');
 
-        // Connect debug mode toggle
-        var debugToggle = document.getElementById('ocr-debug-toggle');
-        if (debugToggle) {
-          debugToggle.addEventListener('change', function () {
-            if (typeof window.setOCRDebugMode === 'function') {
-              window.setOCRDebugMode(this.checked);
-            }
-          });
-        }
-      });
+          if (uploadBtn && uploadInput) {
+            uploadBtn.addEventListener('click', function () {
+              ensureOCR().then(function () { uploadInput.click(); });
+            });
+          }
+          if (captureBtn) {
+            var origHandler = captureBtn.onclick;
+            captureBtn.onclick = function (e) {
+              ensureOCR().then(function () {
+                if (typeof window.startScreenCapture === 'function') {
+                  window.startScreenCapture();
+                }
+              });
+            };
+          }
+
+          // Connect preprocessing toggle
+          var preprocessToggle = document.getElementById('preprocess-toggle');
+          if (preprocessToggle) {
+            preprocessToggle.addEventListener('change', function () {
+              if (typeof window.setOCRPreprocessing === 'function') {
+                window.setOCRPreprocessing(this.checked);
+              }
+            });
+          }
+
+          // Connect debug mode toggle
+          var debugToggle = document.getElementById('ocr-debug-toggle');
+          if (debugToggle) {
+            debugToggle.addEventListener('change', function () {
+              if (typeof window.setOCRDebugMode === 'function') {
+                window.setOCRDebugMode(this.checked);
+              }
+            });
+          }
+        });
+      })();
     </script>
 
     <script src="/js/nav.js" defer></script>

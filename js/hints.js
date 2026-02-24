@@ -17,7 +17,6 @@
   const hintList = document.getElementById('hintList');
 
   if (counts) counts.innerHTML = `<span class="loading-indicator">${t('hints.loadingHints')}</span>`;
-  if (results) results.innerHTML = `<div class="loading-indicator">${t('hints.loadingSupports')}</div>`;
 
   let data = [];
   try {

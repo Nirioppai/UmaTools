@@ -42,10 +42,11 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link rel="preload" href="/assets/uma_data.json" as="fetch" crossorigin />
+    <link rel="preload" href="/assets/support_hints.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/deck.css" />
@@ -231,7 +232,14 @@
       <!-- Support Cards Section -->
       <section class="deck-section">
         <div class="deck-section-title">Support Cards (<span id="supportCount">0</span>/6)</div>
-        <div id="supportSlots" class="deck-support-slots"></div>
+        <div id="supportSlots" class="deck-support-slots">
+          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
+        </div>
       </section>
 
       <!-- Support Card Picker Modal -->
