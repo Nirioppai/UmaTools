@@ -548,6 +548,21 @@
       'skills.loading': 'Loading skill data...',
       'skills.skillCount': '{count} skills',
 
+      // ── Skill Popup ──
+      'skillPopup.description': 'Description',
+      'skillPopup.effects': 'Effects',
+      'skillPopup.availableFrom': 'Available from',
+      'skillPopup.noCards': 'No support cards found',
+      'skillPopup.hints': 'Hints',
+      'skillPopup.events': 'Events',
+      'skillPopup.characters': 'Characters',
+      'skillPopup.potential': 'Potential',
+      'skillPopup.charEvents': 'Events',
+      'skillPopup.duration': 'Duration',
+      'skillPopup.cost': 'Cost',
+      'skillPopup.english': 'English',
+      'skillPopup.japanese': 'Japanese',
+
       // ── Rating Shared ──
       'common.affinityGood': 'good',
       'common.affinityAverage': 'average',
@@ -1094,6 +1109,21 @@
       'skills.noResults': '一致するスキルがありません。',
       'skills.loading': 'スキルデータ読み込み中...',
       'skills.skillCount': '{count}件のスキル',
+
+      // ── Skill Popup ──
+      'skillPopup.description': '説明',
+      'skillPopup.effects': '効果',
+      'skillPopup.availableFrom': '入手可能',
+      'skillPopup.noCards': 'サポートカードが見つかりません',
+      'skillPopup.hints': 'ヒント',
+      'skillPopup.events': 'イベント',
+      'skillPopup.characters': 'キャラクター',
+      'skillPopup.potential': 'ポテンシャル',
+      'skillPopup.charEvents': 'イベント',
+      'skillPopup.duration': '持続時間',
+      'skillPopup.cost': 'コスト',
+      'skillPopup.english': '英語',
+      'skillPopup.japanese': '日本語',
 
       // ── Rating Shared ──
       'common.affinityGood': '得意',

@@ -729,7 +729,7 @@
             if (isAptMatch) cls += ' apt-match';
             const label = isShared ? `${h.name} (${h.count})` : h.name;
             const tooltip = h.sources.join(', ');
-            html += `<span class="${cls}" title="${escHtml(tooltip)}">${escHtml(label)}</span>`;
+            html += `<span class="${cls}" data-skill-name="${escHtml(h.name)}" tabindex="0" role="button" title="${escHtml(tooltip)}">${escHtml(label)}</span>`;
           }
           html += '</div>';
         }
@@ -758,7 +758,7 @@
         for (const sh of sharedHints) {
           const srcNames = sh.sources.map((s) => s.cardName).join(', ');
           html += `<div class="synergy-hint-row">
-            <span class="hint-pill shared">${escHtml(sh.name)}</span>
+            <span class="hint-pill shared" data-skill-name="${escHtml(sh.name)}" tabindex="0" role="button">${escHtml(sh.name)}</span>
             <span class="synergy-detail">Lv${sh.effectiveLevel} (${sh.discountPct}% off) &mdash; ${escHtml(srcNames)}</span>
           </div>`;
         }

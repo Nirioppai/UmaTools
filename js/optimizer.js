@@ -3,6 +3,8 @@
 // and maximizes total score under a budget with gold cost and mutual-exclusion constraints.
 
 (function () {
+  function attrEsc(s) { return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+
   const rowsEl = document.getElementById('rows');
   const addRowBtn = document.getElementById('add-row');
   const optimizeBtn = document.getElementById('optimize');
@@ -4047,7 +4049,7 @@
       if (mode === TEAM_TRIALS_MODE) {
         const breakdown = teamBreakdownMap.get(it.id) || {};
         if (includedWith) {
-          li.innerHTML = `<span class="res-name">${formatSkillDisplayName(it.name)}</span> <span class="res-meta">${t('optimizer.includedWith', {name: includedWith})}</span>`;
+          li.innerHTML = `<span class="res-name" data-skill-name="${attrEsc(it.name)}" tabindex="0" role="button">${formatSkillDisplayName(it.name)}</span> <span class="res-meta">${t('optimizer.includedWith', {name: includedWith})}</span>`;
         } else {
           const rating = Number.isFinite(breakdown.ratingScore)
             ? breakdown.ratingScore
@@ -4060,6 +4062,9 @@
           const metrics = `cost ${cost}, rating ${rating}, score/SP ${ratio.toFixed(2)}, consistency ${consistency}%`;
           const nameEl = document.createElement('span');
           nameEl.className = 'res-name';
+          nameEl.setAttribute('data-skill-name', it.name);
+          nameEl.setAttribute('tabindex', '0');
+          nameEl.setAttribute('role', 'button');
           nameEl.textContent = formatSkillDisplayName(it.name);
           const metricsEl = document.createElement('span');
           metricsEl.className = 'res-metrics';
@@ -4113,7 +4118,7 @@
         const meta = includedWith
           ? t('optimizer.includedWith', {name: includedWith})
           : t('optimizer.costScoreDisplay', {cost: it.cost, score: displayScore});
-        li.innerHTML = `<span class="res-name">${displayName}</span> <span class="res-meta">${meta}</span>`;
+        li.innerHTML = `<span class="res-name" data-skill-name="${attrEsc(it.name)}" tabindex="0" role="button">${displayName}</span> <span class="res-meta">${meta}</span>`;
       }
       selectedListEl.appendChild(li);
     });

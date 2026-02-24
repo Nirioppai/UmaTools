@@ -3528,6 +3528,10 @@ html.dark input#query,
   position: fixed;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .top-3 {
   top: 0.75rem;
 }

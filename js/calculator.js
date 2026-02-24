@@ -3,6 +3,8 @@
 // No optimization, budget, hints, or cost management
 
 (function () {
+  function attrEsc(s) { return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+
   const rowsEl = document.getElementById('rows');
   const clearAllBtn = document.getElementById('clear-all');
   const officialEnglishToggle = document.getElementById('official-en-only');
@@ -264,7 +266,7 @@
         selectedListEl.innerHTML = skills
           .map((s) => {
             const catClass = getCategoryClass(s.category);
-            return `<span class="skill-chip ${catClass}">${s.displayName || s.name} <small>(+${s.score})</small></span>`;
+            return `<span class="skill-chip ${catClass}" data-skill-name="${attrEsc(s.name)}" tabindex="0" role="button">${s.displayName || s.name} <small>(+${s.score})</small></span>`;
           })
           .join(' ');
       }

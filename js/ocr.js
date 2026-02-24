@@ -1499,7 +1499,7 @@ function displayOCRResults(detectedSkills) {
       <div class="ocr-result-item ocr-result-editable ${typeClass}" data-skill-index="${index}" title="Click to edit">
         <input type="checkbox" id="ocr-skill-${index}" class="ocr-skill-checkbox"${isChecked ? ' checked' : ''}>
         <div class="ocr-result-info">
-          <div class="ocr-result-name">${escapeHTML(skill.name)}<span class="ocr-edit-icon" aria-hidden="true">&#9998;</span></div>
+          <div class="ocr-result-name"><span data-skill-name="${escapeHTML(skill.name)}" tabindex="0" role="button">${escapeHTML(skill.name)}</span><span class="ocr-edit-icon" aria-hidden="true">&#9998;</span></div>
           <div class="ocr-result-meta">
             <span class="ocr-result-hint">${t('events.hintLv')} ${skill.hint}</span>
             ${skill.type ? `<span class="ocr-type">${escapeHTML(skill.type)}</span>` : ''}

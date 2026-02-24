@@ -105,6 +105,7 @@
         if (!res.ok) continue;
         var list = await res.json();
         if (!Array.isArray(list) || !list.length) continue;
+        window.__skillsAllData = list;
         var nextOfficialNames = new Set();
         var nextOfficialIds = new Set();
         var nextJpNameToId = new Map();
@@ -363,6 +364,10 @@
     return div.innerHTML;
   }
 
+  function escapeAttr(str) {
+    return escapeHtml(str).replace(/"/g, '&quot;');
+  }
+
   function renderFilters() {
     if (!filtersEl) return;
     var html = '<button class="skills-filter-btn' + (activeCategory === 'all' ? ' active' : '') +
@@ -409,7 +414,7 @@
       var effCls = skill.efficiency >= 2 ? 'eff-high' : skill.efficiency >= 1 ? 'eff-mid' : 'eff-low';
 
       html += '<tr>' +
-        '<td class="col-name">' + escapeHtml(skill.name) + '</td>' +
+        '<td class="col-name"><span data-skill-name="' + escapeAttr(skill.name) + '" tabindex="0" role="button">' + escapeHtml(skill.name) + '</span></td>' +
         '<td class="col-type"><span class="skill-cat-pill ' + catCls + '">' + escapeHtml(catLabel) + '</span></td>' +
         '<td class="col-cost">' + costStr + '</td>' +
         '<td class="col-score">' + skill.score + '</td>' +

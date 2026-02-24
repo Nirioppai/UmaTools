@@ -183,7 +183,7 @@
     const wanted = selected.map(norm).filter(Boolean);
     const hN = norm(hint);
     const isMatch = wanted.some((w) => hN.includes(w));
-    return `<span class="pill ${isMatch ? 'match' : ''}">${hint}</span>`;
+    return `<span class="pill ${isMatch ? 'match' : ''}" data-skill-name="${hint}" tabindex="0" role="button">${hint}</span>`;
   }
 
   function initialsOf(name) {
