@@ -1464,7 +1464,10 @@
       if (it.lowerRowId && candidateIds.has(it.lowerRowId)) candidateIds.add(it.id);
       if (it.circleRowId && candidateIds.has(it.circleRowId)) candidateIds.add(it.id);
     }
-    optionalCandidates = items.filter((it) => candidateIds.has(it.id));
+    optionalCandidates = adjustCircleOptionalScores(
+      items.filter((it) => candidateIds.has(it.id)),
+      requiredSummary
+    );
     const candidates = optionalCandidates.concat(requiredSummary.requiredItems);
     if (!candidates.length) {
       setAutoStatus(t('optimizer.noMatchingRows'), true);
@@ -1573,7 +1576,10 @@
       );
       return;
     }
-    const optionalItems = items.filter((it) => !requiredSummary.requiredIds.has(it.id));
+    const optionalItems = adjustCircleOptionalScores(
+      items.filter((it) => !requiredSummary.requiredIds.has(it.id)),
+      requiredSummary
+    );
     const groups = buildGroups(optionalItems, rowsMeta);
     const result = optimizeGrouped(groups, optionalItems, budget - requiredSummary.requiredCost);
     const mergedResult = {
@@ -3694,11 +3700,37 @@
       if (lowerIncludedIds.has(it.id)) return sum;
       return sum + Math.max(0, Math.floor(it.cost));
     }, 0);
+    // Circle pairs: when ○ (base) and ◎ (upgrade) are both required,
+    // skip ○'s score since ◎ replaces it. Keep ○'s cost (circle costs are additive).
+    const circleBaseScoreSkipIds = new Set();
+    requiredItems.forEach((it) => {
+      if (it.circleRowId && requiredIds.has(it.circleRowId)) {
+        circleBaseScoreSkipIds.add(it.id);
+      }
+    });
     const requiredScore = requiredItems.reduce((sum, it) => {
       if (lowerIncludedIds.has(it.id)) return sum;
+      if (circleBaseScoreSkipIds.has(it.id)) return sum;
       return sum + Math.max(0, Math.floor(it.score));
     }, 0);
     return { requiredIds, requiredItems, requiredCost, requiredScore };
+  }
+
+  // When ○ is required but ◎ is optional, adjust ◎'s optimization score to
+  // be incremental (◎ - ○) so the optimizer correctly evaluates the upgrade value
+  // instead of double-counting the base score.
+  function adjustCircleOptionalScores(optionalItems, requiredSummary) {
+    const requiredById = new Map(requiredSummary.requiredItems.map((it) => [it.id, it]));
+    return optionalItems.map((it) => {
+      if (it.parentCircleId && requiredById.has(it.parentCircleId)) {
+        const parent = requiredById.get(it.parentCircleId);
+        return {
+          ...it,
+          score: Math.max(0, it.score - parent.score),
+        };
+      }
+      return it;
+    });
   }
 
   function optimizeTeamTrialsCandidates(items, budget) {
@@ -3786,10 +3818,22 @@
       }
     });
 
+    // Identify circle ○ base skills whose ◎ upgrade is also chosen
+    const circleBaseIdsInCombos = new Set();
+    chosen.forEach((it) => {
+      if (it.parentCircleId && chosenById.has(it.parentCircleId)) {
+        circleBaseIdsInCombos.add(it.parentCircleId);
+      }
+      if (it.circleRowId && chosenById.has(it.circleRowId)) {
+        circleBaseIdsInCombos.add(it.id);
+      }
+    });
+
     // Second pass: calculate scores
     // Lower skills in gold combos don't count (gold score includes the upgrade)
+    // Circle ○ base skills don't count when ◎ upgrade is also chosen (◎ replaces ○)
     chosen.forEach((it) => {
-      if (!it.comboComponent && !lowerIdsInGoldCombos.has(it.id)) {
+      if (!it.comboComponent && !lowerIdsInGoldCombos.has(it.id) && !circleBaseIdsInCombos.has(it.id)) {
         totalRatingScore += it.ratingScore || 0;
         totalAptitudeScore += it.aptitudeScore || 0;
         if (canonicalCategory(it.category || '') === 'purple') {
@@ -4285,7 +4329,10 @@
         saveState();
         return;
       }
-      const optionalItems = items.filter((it) => !requiredSummary.requiredIds.has(it.id));
+      const optionalItems = adjustCircleOptionalScores(
+        items.filter((it) => !requiredSummary.requiredIds.has(it.id)),
+        requiredSummary
+      );
       const groups = buildGroups(optionalItems, rowsMeta);
       const result = optimizeGrouped(groups, optionalItems, budget - requiredSummary.requiredCost);
       const mergedResult = {
