@@ -64,6 +64,8 @@
       'nav.eventOCR': 'Event OCR',
       'nav.supportHints': 'Support Hints',
       'nav.deckBuilder': 'Deck Builder',
+      'nav.data': 'Data',
+      'nav.skillLibrary': 'Skill Library',
       'nav.fun': 'Fun',
       'nav.randomizer': 'Randomizer',
       'nav.umadle': 'Umadle',
@@ -533,6 +535,19 @@
       'teamTrials.noReliableSpeed': 'Could not include a reliable late speed skill within budget.',
       'teamTrials.noScoredSkills': 'No scored skills were selected after conflict/dependency filtering.',
 
+      // ── Skill Library ──
+      'skills.title': 'Skill Library',
+      'skills.searchPlaceholder': 'Search skills by name...',
+      'skills.allTypes': 'All',
+      'skills.name': 'Name',
+      'skills.type': 'Type',
+      'skills.cost': 'Cost',
+      'skills.score': 'Score',
+      'skills.efficiency': 'Efficiency',
+      'skills.noResults': 'No skills match your search.',
+      'skills.loading': 'Loading skill data...',
+      'skills.skillCount': '{count} skills',
+
       // ── Rating Shared ──
       'common.affinityGood': 'good',
       'common.affinityAverage': 'average',
@@ -596,6 +611,8 @@
       'nav.eventOCR': 'イベントOCR',
       'nav.supportHints': 'サポートヒント',
       'nav.deckBuilder': 'デッキ編成',
+      'nav.data': 'データ',
+      'nav.skillLibrary': 'スキル一覧',
       'nav.fun': 'お楽しみ',
       'nav.randomizer': 'ランダマイザー',
       'nav.umadle': 'ウマドル',
@@ -1064,6 +1081,19 @@
       'teamTrials.noReliableAccel': '予算内に信頼性の高い終盤加速スキルを含められませんでした。',
       'teamTrials.noReliableSpeed': '予算内に信頼性の高い終盤スピードスキルを含められませんでした。',
       'teamTrials.noScoredSkills': 'コンフリクト/依存関係フィルタリング後にスコア付きスキルが選択されませんでした。',
+
+      // ── Skill Library ──
+      'skills.title': 'スキル一覧',
+      'skills.searchPlaceholder': 'スキル名で検索...',
+      'skills.allTypes': 'すべて',
+      'skills.name': '名前',
+      'skills.type': 'タイプ',
+      'skills.cost': 'コスト',
+      'skills.score': 'スコア',
+      'skills.efficiency': '効率',
+      'skills.noResults': '一致するスキルがありません。',
+      'skills.loading': 'スキルデータ読み込み中...',
+      'skills.skillCount': '{count}件のスキル',
 
       // ── Rating Shared ──
       'common.affinityGood': '得意',

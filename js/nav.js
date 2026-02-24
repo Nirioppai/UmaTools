@@ -19,6 +19,13 @@
       ],
     },
     {
+      label: 'Data',
+      i18nKey: 'nav.data',
+      children: [
+        { label: 'Skill Library', i18nKey: 'nav.skillLibrary', path: '/skills', file: '/skills.html' },
+      ],
+    },
+    {
       label: 'Fun',
       i18nKey: 'nav.fun',
       children: [
