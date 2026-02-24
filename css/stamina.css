@@ -315,3 +315,13 @@
     width: 100%;
   }
 }
+
+@media (max-width: 420px) {
+  .stamina-input-grid label {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+  .stamina-stat-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}

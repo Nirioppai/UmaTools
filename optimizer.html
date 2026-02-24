@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>UmaTools - Skill Optimizer & Rating Calculator</title>
     <meta
       name="description"
@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="/css/rating.css" />
     <link rel="stylesheet" href="/css/optimizer.css" />
     <link rel="stylesheet" href="/css/skill-popup.css" />
+    <link rel="stylesheet" href="/css/scroll-nav.css" />
     <link rel="stylesheet" href="/css/tutorial.css" />
     <!-- Tesseract.js loaded on-demand by ocr.js ensureTesseract() -->
     <script type="application/ld+json">
@@ -127,6 +128,24 @@
         max-height: 80vh;
         overflow-y: auto;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      @media (max-width: 640px) {
+        .modal {
+          padding: 0;
+          align-items: stretch;
+        }
+        .modal-content {
+          width: 100%;
+          max-width: 100%;
+          height: 100%;
+          max-height: 100%;
+          border-radius: 0;
+          margin: 0;
+        }
+        .modal-close {
+          width: 44px;
+          height: 44px;
+        }
       }
       .modal-header {
         display: flex;
@@ -353,26 +372,25 @@
       </div>
 
       <!-- Budget + library status -->
-      <section class="card card-elevated" id="optimizer-budget-section">
+      <section class="card card-elevated" id="optimizer-budget-section" data-scroll-section data-scroll-label="Budget">
         <div class="toolbar toolbar-centered" style="align-items: center">
-          <label class="labelTitle" style="min-width: 220px">
+          <label class="labelTitle budget-label">
             <span data-i18n="optimizer.skillPointsBudget">Skill Points Budget</span>
             <input id="budget" type="number" min="0" step="1" value="1200" />
           </label>
-          <label class="target-check" style="margin-left: 16px">
+          <label class="target-check budget-check">
             <input id="fast-learner" type="checkbox" />
             <span data-i18n="optimizer.fastLearner">Fast Learner (-10% cost)</span>
           </label>
           <label
-            class="target-check"
-            style="margin-left: 12px"
+            class="target-check budget-check"
             title="Only include GameTora official English skill names from name_en."
             data-i18n-title="optimizer.officialEnOnlyTitle"
           >
             <input id="official-en-only" type="checkbox" checked />
             <span data-i18n="optimizer.officialEnOnly">Official EN Skills Only</span>
           </label>
-          <label class="labelTitle" style="min-width: 180px; margin-left: 16px">
+          <label class="labelTitle optimize-mode-label">
             <span data-i18n="optimizer.optimizeFor">Optimize For</span>
             <select id="optimize-mode">
               <option value="rating" selected data-i18n="optimizer.optRating">Rating</option>
@@ -390,15 +408,18 @@
         class="card card-elevated race-config-container"
         id="optimizer-race-config"
         aria-labelledby="raceConfigTitle"
+        data-scroll-section
+        data-scroll-label="Race Config"
       >
+        <details class="mobile-collapsible" open>
+          <summary class="mobile-collapsible-header">
+            <h2 id="raceConfigTitle" data-i18n="common.raceConfig">Race Configuration</h2>
+          </summary>
+          <p class="muted mobile-collapsible-hint" data-i18n="optimizer.raceConfigHint">
+            Set your target affinities so the optimizer scores skills appropriately.
+          </p>
         <div class="race-card-grid">
           <div class="race-config-pane">
-            <div class="race-card-header">
-              <h2 id="raceConfigTitle" data-i18n="common.raceConfig">Race Configuration</h2>
-              <p class="muted" data-i18n="optimizer.raceConfigHint">
-                Set your target affinities so the optimizer scores skills appropriately.
-              </p>
-            </div>
             <div class="opt-grid">
               <div class="kv-row">
                 <div class="k" data-i18n="common.track">Track</div>
@@ -552,7 +573,7 @@
             <!-- Scoring weights (Team Trials only) -->
             <details id="scoring-weights-panel" class="scoring-weights-panel" style="display: none; margin-top: 12px">
               <summary style="cursor: pointer; font-weight: 600; font-size: 0.9em" data-i18n="optimizer.scoringWeights">Skill Scoring Weights</summary>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; margin-top: 8px; font-size: 0.85em">
+              <div class="scoring-weights-grid">
                 <label style="display: flex; align-items: center; gap: 6px">
                   <span style="min-width: 100px" data-i18n="optimizer.weightEffectImpact">Effect Impact</span>
                   <input type="range" id="weight-effect-impact" min="0" max="100" value="35" step="5" style="flex: 1">
@@ -649,18 +670,21 @@
             </div>
           </div>
         </div>
+        </details>
       </section>
 
       <!-- Rating calculator -->
-      <section class="card card-elevated" id="rating-card" aria-labelledby="ratingCalcTitle">
-        <div class="toolbar rating-card-toolbar">
-          <div class="rating-card-header">
+      <section class="card card-elevated" id="rating-card" aria-labelledby="ratingCalcTitle" data-scroll-section data-scroll-label="Rating">
+        <details class="mobile-collapsible" open>
+          <summary class="mobile-collapsible-header">
             <h2 id="ratingCalcTitle" data-i18n="optimizer.ratingCalculator">Rating Calculator</h2>
-            <p class="muted" data-i18n="optimizer.ratingCalcHint">
-              Enter your Uma's final stats, star rarity, and unique skill level. The optimized skill
-              score fills in automatically to project the final evaluation.
-            </p>
-          </div>
+          </summary>
+        <p class="muted mobile-collapsible-hint" data-i18n="optimizer.ratingCalcHint">
+          Enter your Uma's final stats, star rarity, and unique skill level. The optimized skill
+          score fills in automatically to project the final evaluation.
+        </p>
+        <div class="toolbar rating-card-toolbar">
+          <div class="rating-card-header"></div>
           <div class="spacer"></div>
           <div class="rating-hero">
             <div class="pill rating-total-pill">
@@ -794,10 +818,11 @@
             <div id="rating-unique-bonus" class="value">0</div>
           </div>
         </div>
+        </details>
       </section>
 
       <!-- Results -->
-      <section class="card card-elevated" id="skills-to-buy-section" style="margin-bottom: 16px">
+      <section class="card card-elevated" id="skills-to-buy-section" style="margin-bottom: 16px" data-scroll-section data-scroll-label="Results">
         <h3 style="margin: 0.2rem 0 0.5rem 0" data-i18n="optimizer.skillsToBuy">Skills to Buy</h3>
         <div id="results" class="results">
           <div
@@ -853,7 +878,7 @@
       </section>
 
       <!-- Rows builder (auto-add; live optimize) -->
-      <section class="card card-elevated">
+      <section class="card card-elevated" id="optimizer-skill-rows" data-scroll-section data-scroll-label="Skills">
         <div class="toolbar" role="group" aria-label="Skill rows" style="justify-content: flex-end">
           <span class="muted" data-i18n="optimizer.rowTip">Tip: just enter the skill name and cost - its type auto-detects</span>
           <div class="spacer"></div>
@@ -868,7 +893,8 @@
           <input
             type="file"
             id="screenshot-upload-input"
-            accept="image/png,image/jpeg,image/jpg"
+            accept="image/*"
+            capture="environment"
             style="display: none"
             aria-label="Upload screenshot"
           />
@@ -1137,6 +1163,7 @@
       })();
     </script>
 
+    <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>

@@ -258,6 +258,18 @@
   }
 }
 
+@media (max-width: 420px) {
+  .calculator-row {
+    padding: 8px;
+    gap: 6px;
+  }
+  .calculator-row .skill-name,
+  .calculator-row .score-input {
+    font-size: 0.85rem;
+    padding: 4px 5px;
+  }
+}
+
 .calculator-row .dup-warning {
   display: none;
   margin-top: 6px;

@@ -86,5 +86,34 @@ input#query {
 
   .ocr-controls {
     flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .ocr-controls .capture-btn {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .delay-buttons {
+    justify-content: center;
+  }
+
+  .scan-time-label {
+    text-align: center;
+  }
+
+  input#query {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .reward-group .outcome-alt {
+    padding: 8px 10px;
+  }
+
+  .reward-group .outcome-title {
+    font-size: 0.95rem;
   }
 }

@@ -494,3 +494,13 @@ body.dark .modal-card-initials {
     font-size: 0.85rem;
   }
 }
+
+@media (max-width: 420px) {
+  .umadle-grid .row.card {
+    padding: 0.4rem;
+  }
+  .cell {
+    font-size: 0.78rem;
+    padding: 0.18rem 0.32rem;
+  }
+}

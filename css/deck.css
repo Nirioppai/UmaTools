@@ -1544,3 +1544,14 @@ body.dark .synergy-savings {
     min-width: 55px;
   }
 }
+
+@media (max-width: 420px) {
+  .deck-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+  }
+  .deck-picker input {
+    flex: none;
+    width: 100%;
+  }
+}

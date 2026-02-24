@@ -1272,3 +1272,169 @@
     padding: 8px 10px;
   }
 }
+
+/* ── Collapsible sections (mobile only) ── */
+.mobile-collapsible {
+  border: none;
+}
+.mobile-collapsible > summary {
+  list-style: none;
+  cursor: default;
+}
+.mobile-collapsible > summary::-webkit-details-marker {
+  display: none;
+}
+.mobile-collapsible > summary::marker {
+  content: '';
+}
+.mobile-collapsible > summary h2,
+.mobile-collapsible > summary h3 {
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .mobile-collapsible > summary {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    user-select: none;
+    min-height: 44px;
+  }
+  .mobile-collapsible > summary::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--muted, #6b7280);
+    border-bottom: 2px solid var(--muted, #6b7280);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+  .mobile-collapsible[open] > summary::after {
+    transform: rotate(-135deg);
+  }
+  .mobile-collapsible > summary h2,
+  .mobile-collapsible > summary h3 {
+    font-size: 1.05rem;
+  }
+  .mobile-collapsible-hint {
+    display: none;
+  }
+}
+
+/* ── Mobile: Budget toolbar ── */
+.budget-label {
+  min-width: 220px;
+}
+.budget-check {
+  margin-left: 16px;
+}
+.budget-check + .budget-check {
+  margin-left: 12px;
+}
+.optimize-mode-label {
+  min-width: 180px;
+  margin-left: 16px;
+}
+
+/* ── Mobile: Scoring weights grid ── */
+.scoring-weights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 16px;
+  margin-top: 8px;
+  font-size: 0.85em;
+}
+
+@media (max-width: 700px) {
+  /* Budget toolbar stacking */
+  #optimizer-budget-section .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #optimizer-budget-section .toolbar .spacer {
+    display: none;
+  }
+  .budget-label,
+  .optimize-mode-label {
+    min-width: 0;
+    width: 100%;
+    margin-left: 0;
+  }
+  .budget-check {
+    margin-left: 0;
+    align-self: stretch;
+    justify-content: flex-start;
+  }
+  .budget-check + .budget-check {
+    margin-left: 0;
+  }
+
+  /* Toolbar stacking (OCR/save/share rows) */
+  .card-elevated > .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .card-elevated > .toolbar .spacer {
+    display: none;
+  }
+  .card-elevated > .toolbar .muted {
+    text-align: center;
+    font-size: 0.82rem;
+  }
+  .card-elevated > .toolbar .btn {
+    width: 100%;
+  }
+
+  /* OCR buttons prominent on mobile */
+  #screenshot-upload-btn,
+  .card-elevated #captureBtn {
+    min-height: 48px;
+    font-size: 0.95rem;
+  }
+
+  /* Scoring weights single column on mobile */
+  .scoring-weights-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .scoring-weights-grid label {
+    flex-wrap: wrap;
+  }
+
+  /* Skill correction modal full-screen on mobile */
+  #skill-correction-backdrop {
+    padding: 0;
+  }
+  #skill-correction-modal {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    border-radius: 0;
+  }
+}
+
+/* ── Mobile: Optimizer rows at 420px ── */
+@media (max-width: 420px) {
+  .optimizer-row {
+    padding: 8px;
+    gap: 6px;
+    grid-template-columns: 1fr;
+  }
+  .optimizer-row .hint-cell {
+    grid-column: 1 / -1;
+  }
+  .optimizer-row .skill-name,
+  .optimizer-row .hint-level,
+  .optimizer-row .cost {
+    font-size: 0.85rem;
+    padding: 4px 5px;
+  }
+  .optimizer-row .category-chip {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+  }
+}

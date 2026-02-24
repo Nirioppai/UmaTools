@@ -407,3 +407,24 @@
     transform: translate(-50%, 0) scale(1);
   }
 }
+
+@media (max-width: 420px) {
+  .rating-total-pill {
+    min-height: 80px;
+    padding: 12px 14px;
+  }
+
+  .rating-total-pill .value {
+    font-size: 1.8rem;
+  }
+
+  .rating-hero .rating-badge {
+    width: 64px;
+    height: 64px;
+  }
+
+  .rating-grid label {
+    padding: 8px 10px;
+    font-size: 0.88rem;
+  }
+}

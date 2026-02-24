@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>UmaTools - Deck Builder</title>
     <meta
       name="description"
@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/deck.css" />
     <link rel="stylesheet" href="/css/skill-popup.css" />
+    <link rel="stylesheet" href="/css/scroll-nav.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -205,7 +206,7 @@
       </button>
 
       <!-- Character Section -->
-      <section class="deck-section">
+      <section class="deck-section" id="deck-character" data-scroll-section data-scroll-label="Character">
         <div class="deck-section-title" data-i18n="deck.character">Character</div>
         <div id="charDisplay"></div>
       </section>
@@ -231,7 +232,7 @@
       </div>
 
       <!-- Support Cards Section -->
-      <section class="deck-section">
+      <section class="deck-section" id="deck-support" data-scroll-section data-scroll-label="Support">
         <div class="deck-section-title">Support Cards (<span id="supportCount">0</span>/6)</div>
         <div id="supportSlots" class="deck-support-slots">
           <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
@@ -284,7 +285,7 @@
       </div>
 
       <!-- Combined Summary -->
-      <section class="deck-section" id="summarySection" style="display: none">
+      <section class="deck-section" id="summarySection" style="display: none" data-scroll-section data-scroll-label="Summary">
         <div class="deck-section-title" data-i18n="deck.combinedSummary">Combined Summary</div>
         <div id="summaryContent" class="deck-summary"></div>
       </section>
@@ -335,6 +336,7 @@
     <script src="/js/i18n.js" defer></script>
     <script src="/js/skill-popup.js" defer></script>
     <script src="/js/deck.js" defer></script>
+    <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>

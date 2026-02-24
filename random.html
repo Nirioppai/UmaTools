@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>UmaTools - Randomizer</title>
     <meta
       name="description"
@@ -48,6 +48,7 @@
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/random.css" />
+    <link rel="stylesheet" href="/css/scroll-nav.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -203,7 +204,7 @@
       <h1 data-i18n="random.title">Randomizer</h1>
 
       <!-- Support Deck Randomizer -->
-      <section id="supportRandomizer" class="result">
+      <section id="supportRandomizer" class="result" data-scroll-section data-scroll-label="Support">
         <div class="choice">
           <h3 data-i18n="random.supportDeck">Support Deck (5 cards)</h3>
           <div class="toolbar" role="group" aria-label="Support filters">
@@ -240,7 +241,7 @@
       <div class="spacer"></div>
 
       <!-- Uma Randomizer -->
-      <section id="umaRandomizer" class="result">
+      <section id="umaRandomizer" class="result" data-scroll-section data-scroll-label="Uma">
         <div class="choice">
           <h3 data-i18n="random.randomUma">Random Uma</h3>
           <div class="toolbar">
@@ -258,6 +259,7 @@
     <script src="/js/i18n.js" defer></script>
     <script src="/js/random.js" defer></script>
 
+    <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>

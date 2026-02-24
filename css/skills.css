@@ -266,4 +266,19 @@
   .skills-table td {
     padding: 0.4rem 0.5rem;
   }
+  .skills-table .col-eff {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .skills-table th,
+  .skills-table td {
+    padding: 0.35rem 0.4rem;
+    font-size: 0.75rem;
+  }
+  .skills-filter-btn {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+  }
 }

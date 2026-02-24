@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>UmaTools - Rating Calculator</title>
     <meta
       name="description"
@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="/css/rating.css" />
     <link rel="stylesheet" href="/css/calculator.css" />
     <link rel="stylesheet" href="/css/skill-popup.css" />
+    <link rel="stylesheet" href="/css/scroll-nav.css" />
     <link rel="stylesheet" href="/css/tutorial.css" />
     <script type="application/ld+json">
       {
@@ -218,7 +219,7 @@
       </div>
 
       <!-- Combined Race Config + Stats/Rating -->
-      <section class="card card-elevated calculator-top-section race-config-container">
+      <section class="card card-elevated calculator-top-section race-config-container" id="calculator-config-section" data-scroll-section data-scroll-label="Config">
         <div class="calculator-top-grid">
           <!-- Left: Race Configuration -->
           <div class="race-config-pane">
@@ -515,7 +516,7 @@
       </section>
 
       <!-- Selected Skills Display -->
-      <section class="card card-elevated" id="selected-skills-section" style="margin-bottom: 16px">
+      <section class="card card-elevated" id="selected-skills-section" style="margin-bottom: 16px" data-scroll-section data-scroll-label="Selected">
         <h3 style="margin: 0.2rem 0 0.5rem 0" data-i18n="calculator.selectedSkills">Selected Skills</h3>
         <div id="results" class="results">
           <div
@@ -530,7 +531,7 @@
       </section>
 
       <!-- Skill Rows (simplified - no cost, hint, or must buy) -->
-      <section class="card card-elevated">
+      <section class="card card-elevated" id="calculator-skill-rows" data-scroll-section data-scroll-label="Skills">
         <div class="toolbar" role="group" aria-label="Skill rows" style="justify-content: flex-end">
           <span class="muted" data-i18n="calculator.addSkillsHint">Add skills to calculate your build's rating</span>
           <div class="spacer"></div>
@@ -590,6 +591,7 @@
     <script src="/js/tutorial.js" defer></script>
     <script src="/js/calculator.js" defer></script>
 
+    <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
