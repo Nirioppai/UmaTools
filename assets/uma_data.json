@@ -7276,7 +7276,7 @@
       }
     ],
     "UmaEvents": [],
-    "UmaImage": "/assets/character_thumbs/102602-mihono-bourbon.png"
+    "UmaImage": "/assets/character_thumbs/102602-mihono-bourbon-valentine.png"
   },
   {
     "UmaKey": "Eishin Flash :: Collect・Chocolatier",
@@ -7395,6 +7395,119 @@
       }
     ],
     "UmaEvents": [],
-    "UmaImage": "/assets/character_thumbs/103702-eishin-flash.png"
+    "UmaImage": "/assets/character_thumbs/103702-eishin-flash-valentine.png"
+  },
+  {
+    "UmaKey": "Mejiro Ardan :: Clinochlore Line",
+    "UmaName": "Mejiro Ardan",
+    "UmaNickname": "Clinochlore Line",
+    "UmaSlug": "107101-mejiro-ardan",
+    "UmaId": "107101",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 92,
+        "Stamina": 89,
+        "Power": 89,
+        "Guts": 80,
+        "Wit": 100
+      },
+      "5★": {
+        "Speed": 113,
+        "Stamina": 109,
+        "Power": 109,
+        "Guts": 98,
+        "Wit": 121
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 10,
+      "Stamina": 0,
+      "Power": 0,
+      "Guts": 0,
+      "Wit": 20
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "F"
+      },
+      "Distance": {
+        "Short": "E",
+        "Mile": "B",
+        "Medium": "A",
+        "Long": "D"
+      },
+      "Strategy": {
+        "Front": "C",
+        "Pace": "A",
+        "Late": "D",
+        "End": "G"
+      }
+    },
+    "UmaHeightCm": 162,
+    "UmaThreeSizes": {
+      "B": 87,
+      "W": 56,
+      "H": 85
+    },
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": "1: 0"
+      },
+      {
+        "ObjectiveName": "Objective 2",
+        "Turn": "30",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "3: 6000"
+      },
+      {
+        "ObjectiveName": "Aoba Sho",
+        "Turn": "32",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Tokyo Yushun (Japanese Derby)",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 5"
+      },
+      {
+        "ObjectiveName": "Kikuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": "1: 0"
+      },
+      {
+        "ObjectiveName": "Osaka Hai",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 3"
+      },
+      {
+        "ObjectiveName": "Takarazuka Kinen",
+        "Turn": "60",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 3"
+      },
+      {
+        "ObjectiveName": "Mainichi Okan",
+        "Turn": "67",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 3"
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Autumn)",
+        "Turn": "68",
+        "Time": "Senior Year",
+        "ObjectiveCondition": "1: 1"
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/107101-mejiro-ardan.png"
   }
 ]

@@ -5665,6 +5665,11 @@
         "SkillId": "201172",
         "Name": "Long Straightaways ○",
         "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Lone Wolf",
+        "HintLevel": null
       }
     ]
   },
@@ -9033,6 +9038,129 @@
       {
         "SkillId": "",
         "Name": "Lucky Seven",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "30085-agnes-digital",
+    "SupportId": "30085",
+    "SupportName": "Agnes Digital (SSR) Support Card",
+    "SupportRarity": "SSR",
+    "SupportImage": "/assets/support_thumbs/30085-agnes-digital.png",
+    "SupportHints": [
+      {
+        "SkillId": "200022",
+        "Name": "Left-Handed ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201032",
+        "Name": "Mile Straightaways ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201382",
+        "Name": "Late Surger Straightaways ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201591",
+        "Name": "Uma Stan",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201702",
+        "Name": "All I've Got",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201682",
+        "Name": "Forward, March!",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Hydrate",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Focus",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Lead the Charge!",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Rainy Days ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Wet Conditions ○",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "20030-ines-fujin",
+    "SupportId": "20030",
+    "SupportName": "Ines Fujin (SR) Support Card",
+    "SupportRarity": "SR",
+    "SupportImage": "/assets/support_thumbs/20030-ines-fujin.png",
+    "SupportHints": [
+      {
+        "SkillId": "201282",
+        "Name": "Moxie",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200732",
+        "Name": "Steadfast",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201651",
+        "Name": "Slipstream",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201661",
+        "Name": "Playtime's Over!",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201082",
+        "Name": "Speed Eater",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Medium Straightaways ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Sympathy",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Standard Distance ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Final Push",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Fast-Paced",
         "HintLevel": null
       }
     ]
