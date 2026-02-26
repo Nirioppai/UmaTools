@@ -37,12 +37,11 @@ jobs:
             --out-uma assets/uma_data.json \
             --out-supports assets/support_card.json \
             --out-support-hints assets/support_hints.json \
-            --out-skills assets/skills_all.json \
-            --out-races assets/races.json
+            --out-skills assets/skills_all.json
 
       - name: Commit If Changed
         run: |
-          git add -A assets/uma_data.json assets/support_card.json assets/support_hints.json assets/skills_all.json assets/races.json
+          git add -A assets/uma_data.json assets/support_card.json assets/support_hints.json assets/skills_all.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
             exit 0

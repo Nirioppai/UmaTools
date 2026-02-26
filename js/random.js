@@ -41,15 +41,9 @@
   };
 
   const renderBadge = (rarity) =>
-    window.RarityBadge
-      ? RarityBadge.render(rarity)
-      : `<span class="badge badge-${rarity}">${rarity}</span>`;
+    `<span class="badge badge-${rarity}">${rarity}</span>`;
   const applyBadge = (el, rarity) => {
     if (!el) return;
-    if (window.RarityBadge) {
-      RarityBadge.apply(el, rarity);
-      return;
-    }
     el.className = `badge badge-${rarity}`;
     el.textContent = rarity || '';
   };

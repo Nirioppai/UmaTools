@@ -192,9 +192,7 @@
   }
 
   const renderBadge = (rarity) =>
-    window.RarityBadge
-      ? RarityBadge.render(rarity)
-      : `<span class="badge badge-${rarity}">${rarity}</span>`;
+    `<span class="badge badge-${rarity}">${rarity}</span>`;
 
   function renderResults(list) {
     results.innerHTML = list

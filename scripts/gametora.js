@@ -30,14 +30,6 @@ const EVREW_KEY_MAP = Object.freeze({
 
 const RARITY_MAP = { 1: "R", 2: "SR", 3: "SSR" };
 
-const GRADE_MAP = {
-  100: "G1", 200: "G2", 300: "G3", 400: "OP", 500: "Pre-OP",
-  700: "Debut", 800: "Ungraded", 900: "Debut",
-};
-const TERRAIN_MAP = { 1: "Turf", 2: "Dirt" };
-const SEASON_MAP = { 0: "Winter", 1: "Spring", 2: "Summer", 3: "Autumn", 4: "Winter", 5: "Spring" };
-const DISTANCE_MAP = { 1: "Short", 2: "Mile", 3: "Medium", 4: "Long" };
-
 // GameTora XOR cipher offsets/keys (reverse-engineered from frontend JS)
 const GT_NAME_OFFSET = 86;
 const GT_NAME_KEY = 106;
@@ -54,7 +46,6 @@ function parseArgs(argv) {
     outUma: path.join(DEFAULT_OUTPUT_DIR, "uma_data.json"),
     outSupports: path.join(DEFAULT_OUTPUT_DIR, "support_card.json"),
     outSupportHints: path.join(DEFAULT_OUTPUT_DIR, "support_hints.json"),
-    outRaces: path.join(DEFAULT_OUTPUT_DIR, "races.json"),
     outSkills: SKILLS_ALL_PATH,
     charThumbDir: path.join(DEFAULT_OUTPUT_DIR, "character_thumbs"),
     supportThumbDir: path.join(DEFAULT_OUTPUT_DIR, "support_thumbs"),
@@ -69,7 +60,6 @@ function parseArgs(argv) {
     else if (arg === "--out-uma") opts.outUma = argv[++i];
     else if (arg === "--out-supports") opts.outSupports = argv[++i];
     else if (arg === "--out-support-hints") opts.outSupportHints = argv[++i];
-    else if (arg === "--out-races") opts.outRaces = argv[++i];
     else if (arg === "--out-skills") opts.outSkills = argv[++i];
     else if (arg === "--char-thumb-dir") opts.charThumbDir = argv[++i];
     else if (arg === "--support-thumb-dir") opts.supportThumbDir = argv[++i];
@@ -86,12 +76,11 @@ function printHelp() {
     "Usage: node scripts/gametora.js [options]",
     "",
     "Options:",
-    "  --what <skills|uma|supports|races|all>  What to scrape (default: all)",
+    "  --what <skills|uma|supports|all>         What to scrape (default: all)",
     "  --server <global|japan>                  Server (default: global)",
     "  --out-uma <path>          Output for character data",
     "  --out-supports <path>     Output for support events",
     "  --out-support-hints <path> Output for support hints",
-    "  --out-races <path>        Output for races",
     "  --out-skills <path>       Output for skills metadata",
     "  --char-thumb-dir <path>   Where to save character thumbnails",
     "  --support-thumb-dir <path> Where to save support thumbnails",
@@ -828,36 +817,6 @@ function describeHintOther(type, value) {
 // 4. Build race data from manifest
 // ---------------------------------------------------------------------------
 
-async function buildRaces(outPath, manifest, noFetch) {
-  console.log("[races] Loading manifest data...");
-  const races = await loadManifestData(manifest, "races", noFetch);
-
-  if (!races || !races.length) {
-    console.error("[races] No race data");
-    return { count: 0 };
-  }
-
-  const result = [];
-  for (const r of races) {
-    if (!r || !r.name_en) continue;
-    result.push({
-      RaceName: r.name_en,
-      Grade: GRADE_MAP[r.grade] || String(r.grade || "Unknown"),
-      Terrain: TERRAIN_MAP[r.terrain] || String(r.terrain || "Unknown"),
-      DistanceType: DISTANCE_MAP[r.distance >= 2500 ? 4 : r.distance >= 1800 ? 3 : r.distance >= 1400 ? 2 : 1] || "Unknown",
-      DistanceMeter: r.distance ? `${r.distance}m` : "Unknown",
-      Season: SEASON_MAP[r.season] || String(r.season || "Unknown"),
-      Direction: r.direction === 1 ? "Right" : r.direction === 2 ? "Left" : "Straight",
-      Entries: r.entries || 0,
-      UrlName: r.url_name || "",
-    });
-  }
-
-  writeJsonFile(outPath, result);
-  console.log(`[races] Done: ${result.length} races`);
-  return { count: result.length };
-}
-
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
@@ -903,11 +862,6 @@ async function main() {
       metadata.results.supports = await buildSupports(
         opts.outSupports, opts.outSupportHints, manifest, opts.noFetch, opts.supportThumbDir,
       );
-    }
-
-    if (opts.what === "races" || opts.what === "all") {
-      console.log("\n=== Races ===");
-      metadata.results.races = await buildRaces(opts.outRaces, manifest, opts.noFetch);
     }
   } catch (err) {
     console.error(`[fatal] ${err.message}`);

@@ -497,7 +497,7 @@
     for (let r = 1; r < rows.length; r++) {
       const cols = rows[r];
       if (!cols || !cols.length) continue;
-      const name = (cols[idx.name] || '').trim();
+      const rawName = (cols[idx.name] || '').trim();
       const aliasRaw = idx.alias !== -1 ? (cols[idx.alias] || '').trim() : '';
       const localizedName =
         idx.localized !== -1 ? (cols[idx.localized] || '').trim() : '';
@@ -505,9 +505,20 @@
         .split('|')
         .map((entry) => entry.trim())
         .filter(Boolean);
+      // JP CSV: use localized_name (official EN) as primary, then first alias; keep JP name as alias
+      const isJPCSV = getSkillLanguage() === 'jp';
+      const jpSwapName = isJPCSV ? (localizedName || aliasNames[0] || '') : '';
+      const name = jpSwapName || rawName;
+      if (isJPCSV && jpSwapName && rawName !== name) {
+        const rawKey = normalize(rawName);
+        if (rawKey && !aliasNames.some((a) => normalize(a) === rawKey)) {
+          aliasNames.push(rawName);
+        }
+      }
       const seenAliases = new Set(aliasNames.map((entry) => normalize(entry)));
       const enrichLookupNames = [name, ...aliasNames];
-      if (localizedName) enrichLookupNames.push(localizedName);
+      if (localizedName && localizedName !== name) enrichLookupNames.push(localizedName);
+      if (rawName !== name) enrichLookupNames.push(rawName);
       enrichLookupNames.forEach((lookupName) => {
         const extras = externalAliasLookup.get(normalize(lookupName));
         if (!extras || !extras.size) return;
@@ -673,12 +684,7 @@
     const candidates =
       lang === 'jp'
         ? ['/assets/uma_skills_jp.csv', './assets/uma_skills_jp.csv', '/assets/uma_skills.csv']
-        : [
-            '/assets/uma_skills_en.csv',
-            './assets/uma_skills_en.csv',
-            '/assets/uma_skills.csv',
-            './assets/uma_skills.csv',
-          ];
+        : ['/assets/uma_skills.csv', './assets/uma_skills.csv'];
     let lastErr = null;
     for (const url of candidates) {
       try {

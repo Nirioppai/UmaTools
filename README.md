@@ -56,6 +56,8 @@ Roll a random 5-card support deck or pick a random uma. Filter by rarity, exclud
 
 UmaTools supports **English** and **Japanese** interfaces. Switch the site language via the Settings menu in the navigation bar. Server selection (EN / JP) controls which skill names, support cards, and characters are displayed.
 
+Want to help translate? See the [Translation Guide](docs/translations.md) for how the i18n system works, how to add a new language, and how to update existing translations.
+
 ---
 
 ## Documentation
@@ -67,6 +69,7 @@ For deeper technical details on how things work under the hood:
 | [Rating System](docs/rating-system.md) | Stat scoring formula (0–2500), skill score buckets, cost discounts, gold/circle skill linking, knapsack optimization, badge tiers (G through LS24, 298 tiers) |
 | [Team Trials](docs/team-trials.md) | Consistency-first skill selection, automated skill scoring, trigger analysis, green/volatile penalties, expected value scoring, tuning weights |
 | [OCR Guide](docs/ocr-guide.md) | Image preprocessing pipeline, Tesseract config, fuzzy matching algorithm, tuning thresholds, troubleshooting |
+| [Translation Guide](docs/translations.md) | i18n system, adding new languages, key naming conventions, variable interpolation, testing coverage |
 
 ---
 
@@ -111,7 +114,7 @@ Refresh only GameTora skill metadata:
 npm run sync:skills-all
 ```
 
-Refresh GameWith skill CSVs (`assets/uma_skills.csv`, `assets/uma_skills_en.csv`, `assets/uma_skills_jp.csv`):
+Refresh GameWith skill CSVs (`assets/uma_skills.csv`, `assets/uma_skills_jp.csv`):
 
 ```bash
 npm run sync:uma-skills

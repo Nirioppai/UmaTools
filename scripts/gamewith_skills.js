@@ -120,7 +120,7 @@ function printHelpAndExit(code) {
       "  - --html uses a local HTML snapshot instead of fetching.",
       "  - --metadata controls where gamewith_metadata.json is written.",
       "  - --no-fetch forces cached/local HTML usage only.",
-      "  - default output is minimal (uma_skills.csv, uma_skills_en.csv, uma_skills_jp.csv + gamewith_metadata.json).",
+      "  - default output is minimal (uma_skills.csv, uma_skills_jp.csv + gamewith_metadata.json).",
       "  - --full-output writes all debug/analysis files.",
     ].join("\n"),
   );
@@ -975,10 +975,8 @@ async function main() {
     "evo_parents",
   ];
 
-  writeCsv(path.join(outDir, "uma_skills_en.csv"), umaSkillsHeaders, finalUmaSkillsRowsEn);
-  writeCsv(path.join(outDir, "uma_skills_jp.csv"), umaSkillsHeaders, finalUmaSkillsRowsJp);
-  // Backward-compatible default path (English names)
   writeCsv(path.join(outDir, "uma_skills.csv"), umaSkillsHeaders, finalUmaSkillsRowsEn);
+  writeCsv(path.join(outDir, "uma_skills_jp.csv"), umaSkillsHeaders, finalUmaSkillsRowsJp);
 
   const extraOutputFiles = [
     "gamewith_skills_enriched.json",

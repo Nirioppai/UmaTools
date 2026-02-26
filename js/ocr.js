@@ -754,10 +754,7 @@ function fuzzyMatchSkill(ocrText, maxDistance) {
 async function loadSkillDatabase() {
   if (skillDatabase) return skillDatabase;
 
-  // Prefer CSVs with alias/localized columns; fall back to base CSV
   const candidates = [
-    '/assets/uma_skills_en.csv',
-    './assets/uma_skills_en.csv',
     '/assets/uma_skills.csv',
     './assets/uma_skills.csv',
   ];

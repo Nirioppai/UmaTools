@@ -184,7 +184,7 @@
     var lang = getSkillLanguage();
     var candidates = lang === 'jp'
       ? ['/assets/uma_skills_jp.csv', './assets/uma_skills_jp.csv', '/assets/uma_skills.csv']
-      : ['/assets/uma_skills_en.csv', './assets/uma_skills_en.csv', '/assets/uma_skills.csv', './assets/uma_skills.csv'];
+      : ['/assets/uma_skills.csv', './assets/uma_skills.csv'];
     for (var c = 0; c < candidates.length; c++) {
       try {
         var res = await fetch(candidates[c], { cache: 'force-cache' });
@@ -239,7 +239,13 @@
     for (var r = 1; r < rows.length; r++) {
       var cols = rows[r];
       if (!cols || !cols.length) continue;
-      var name = (cols[idx.name] || '').trim();
+      var rawName = (cols[idx.name] || '').trim();
+      var localizedName = idx.localized !== -1 ? (cols[idx.localized] || '').trim() : '';
+      // JP CSV: use localized_name (official EN) as primary, then first alias
+      var isJPCSV = getSkillLanguage() === 'jp';
+      var aliasFirst = idx.alias !== -1 ? (cols[idx.alias] || '').split('|')[0].trim() : '';
+      var jpSwapName = isJPCSV ? (localizedName || aliasFirst || '') : '';
+      var name = jpSwapName || rawName;
       if (!name) continue;
 
       // Filter to officially translated skills when server=EN
@@ -286,6 +292,9 @@
         if (!costFromJSON && idx.localized !== -1) {
           var loc = (cols[idx.localized] || '').trim();
           if (loc) costFromJSON = costMap.get(normalize(loc)) || costMap.get(normalizeCostKey(loc));
+        }
+        if (!costFromJSON && rawName !== name) {
+          costFromJSON = costMap.get(normalize(rawName)) || costMap.get(normalizeCostKey(rawName));
         }
         cost = costFromJSON || (!isNaN(baseCostCSV) ? baseCostCSV : undefined);
       }

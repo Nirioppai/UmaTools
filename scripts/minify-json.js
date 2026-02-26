@@ -6,7 +6,6 @@ const files = [
   'support_hints.json',
   'uma_data.json',
   'support_card.json',
-  'races.json',
 ];
 
 for (const file of files) {
