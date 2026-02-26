@@ -100,9 +100,9 @@
     <text x="729" y="44" font-size="8" fill="#93c5fd" text-anchor="end">74.4k</text>
   </g>
 
-  <!-- League ranks: LG to LS24 (76,000 - 190,400) -->
+  <!-- Legend ranks: LG to LS24 (76,000 - 190,400) -->
   <g transform="translate(30, 190)">
-    <text x="0" y="-6" font-size="10" font-weight="600" fill="#f59e0b">LEAGUE RANKS (L) — NEW</text>
+    <text x="0" y="-6" font-size="10" font-weight="600" fill="#f59e0b">LEGEND RANKS (L) — NEW</text>
     <rect x="0" y="0" width="740" height="28" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="0.5"/>
 
     <!-- LG block -->
@@ -150,7 +150,7 @@
     <text x="20" y="24" font-size="10" fill="#374151">
       <tspan font-weight="bold">18</tspan> base ranks (G → SS+)
       <tspan dx="20" font-weight="bold">80</tspan> ultimate ranks (UG → US9)
-      <tspan dx="20" font-weight="bold">200</tspan> league ranks (LG → LS24)
+      <tspan dx="20" font-weight="bold">200</tspan> legend ranks (LG → LS24)
       <tspan dx="20">= </tspan><tspan font-weight="bold" fill="#10b981">298 total tiers</tspan>
     </text>
   </g>

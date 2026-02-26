@@ -487,9 +487,9 @@ Each Ultimate family has a base rank plus 9 numbered sub-tiers (e.g., UG, UG1, U
 | 61,700 | UA8 | | 72,900 | US8 |
 | 62,500 | UA9 | | 74,400 | US9 |
 
-### League Ranks (LG through LS24) -- NEW
+### Legend Ranks (LG through LS24) -- NEW
 
-The JP 5th Anniversary update added League (L) ranks above Ultimate. Each League family has a base rank plus 24 numbered sub-tiers (e.g., LG, LG1, LG2, ... LG24).
+The JP 5th Anniversary update added Legend (L) ranks above Ultimate. Each Legend family has a base rank plus 24 numbered sub-tiers (e.g., LG, LG1, LG2, ... LG24).
 
 | Family | Base Threshold | Top Sub-Tier | Top Threshold |
 | --- | ---: | --- | ---: |
@@ -502,7 +502,7 @@ The JP 5th Anniversary update added League (L) ranks above Ultimate. Each League
 | LA | 161,100 | LA24 | 175,300 |
 | LS | 175,900 | LS24 | 190,400 |
 
-League tiers increment at ~550-650 rating per sub-tier. Full threshold data is in `RATING_BADGE_MINIMA` in `js/rating-shared.js`.
+Legend tiers increment at ~550-650 rating per sub-tier. Full threshold data is in `RATING_BADGE_MINIMA` in `js/rating-shared.js`.
 
 ### Progress Bar
 

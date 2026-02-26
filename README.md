@@ -28,7 +28,7 @@ Maximize your build's rating or Team Trials consistency under a skill-point budg
 
 ### [Rating Calculator](https://daftuyda.moe/calculator)
 
-Standalone rating projection. Enter your final stats, star rarity, unique skill level, and selected skills to see the projected rating and badge progress. Supports all ranks from G through the new League (LS24) tier.
+Standalone rating projection. Enter your final stats, star rarity, unique skill level, and selected skills to see the projected rating and badge progress. Supports all ranks from G through the new Legend (LS24) tier.
 
 ### [Deck Builder](https://daftuyda.moe/deck)
 
@@ -64,7 +64,7 @@ For deeper technical details on how things work under the hood:
 
 | Doc | What it covers |
 | --- | --- |
-| [Rating System](docs/rating-system.md) | Stat scoring formula (0–2500), skill score buckets, cost discounts, gold/circle skill linking, knapsack optimization, badge tiers (G through LS24, 298 ranks) |
+| [Rating System](docs/rating-system.md) | Stat scoring formula (0–2500), skill score buckets, cost discounts, gold/circle skill linking, knapsack optimization, badge tiers (G through LS24, 298 tiers) |
 | [Team Trials](docs/team-trials.md) | Consistency-first skill selection, automated skill scoring, trigger analysis, green/volatile penalties, expected value scoring, tuning weights |
 | [OCR Guide](docs/ocr-guide.md) | Image preprocessing pipeline, Tesseract config, fuzzy matching algorithm, tuning thresholds, troubleshooting |
 
