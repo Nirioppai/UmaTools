@@ -21,19 +21,19 @@
     <circle r="72.5" fill="none" stroke="#374151" stroke-width="1"/>
     <circle r="117.5" fill="none" stroke="#374151" stroke-width="1"/>
 
+    <!-- Percentage labels ON the donut arcs (white text with dark outline) -->
+    <!-- Timing midpoint ≈ 81° from top → upper-right quadrant -->
+    <text x="88" y="-42" text-anchor="middle" font-size="13" font-weight="bold" fill="white" stroke="#1e3a5f" stroke-width="3" paint-order="stroke">45%</text>
+    <!-- Breadth midpoint ≈ 216° from top → lower-left quadrant -->
+    <text x="-75" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="white" stroke="#4c1d95" stroke-width="3" paint-order="stroke">30%</text>
+    <!-- Scenario midpoint ≈ 315° from top → upper-left quadrant -->
+    <text x="-72" y="-55" text-anchor="middle" font-size="13" font-weight="bold" fill="white" stroke="#78350f" stroke-width="3" paint-order="stroke">25%</text>
+
     <!-- Center text -->
     <circle r="70" fill="white"/>
     <text x="0" y="-8" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2937">Consistency</text>
     <text x="0" y="12" text-anchor="middle" font-size="11" fill="#6b7280">Score [0.05 – 0.99]</text>
   </g>
-
-  <!-- Donut labels — positioned at midpoint of each arc segment -->
-  <!-- Timing midpoint ≈ 81° from top → upper-right -->
-  <text x="270" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">45%</text>
-  <!-- Breadth midpoint ≈ 216° from top → lower-left -->
-  <text x="85" y="262" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c3aed">30%</text>
-  <!-- Scenario midpoint ≈ 315° from top → upper-left -->
-  <text x="68" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#d97706">25%</text>
 
   <!-- Detail cards -->
   <g transform="translate(340, 52)">
