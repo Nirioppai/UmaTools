@@ -140,21 +140,44 @@
   }
 
   function createRatingEngine({ ratingInputs, ratingDisplays, onChange }) {
-    const STAT_BLOCK_SIZE = 50;
-    // Per-point multiplier for each 50-point stat block from 0-2500.
-    const STAT_MULTIPLIERS = [
-      0.5, 0.8, 1, 1.3, 1.6, 1.8, 2.1, 2.4, 2.6, 2.8, 2.9, 3, 3.1, 3.3, 3.4, 3.5, 3.9, 4.1, 4.2,
-      4.3, 5.2, 5.5, 6.6, 6.8, 6.9, 11, 11, 11, 11, 11, 11, 12.5, 12.5, 13.9, 17.3, 19.4, 19.4,
-      19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4,
-    ];
-    const MAX_STAT_VALUE = STAT_MULTIPLIERS.length * STAT_BLOCK_SIZE;
-    // Stat score at each 50-point boundary (stat 0, 50, 100, ..., 2500).
-    const STAT_BOUNDARY_SCORES = (() => {
-      const scores = [0];
-      STAT_MULTIPLIERS.forEach((mult) => {
-        scores.push(scores[scores.length - 1] + STAT_BLOCK_SIZE * mult);
-      });
-      return Object.freeze(scores);
+    const MAX_STAT_VALUE = 2500;
+    // Stat score lookup table, pre-computed from the umakonga formula.
+    // Three scoring ranges with different block granularities:
+    //   0-1200: 50-pt blocks (25 rates)
+    //   1201-2000: 10-pt blocks (81 rates, base 38413 at stat 1200)
+    //   2001-2500: 25-pt blocks (rate 183+, base 142796 at stat 2000)
+    // Raw per-point values are accumulated then: Math.round(raw / 10).
+    const STAT_SCORES = (() => {
+      /* eslint-disable no-nested-ternary */
+      var R1 = [5,8,10,13,16,18,21,24,26,28,29,30,31,33,34,35,39,41,42,43,52,55,66,68,68];
+      var R2 = [
+        79,80,81,83,84,85,86,88,89,90,92,93,94,96,97,98,100,101,102,103,
+        105,106,107,109,110,111,113,114,115,117,118,119,121,122,123,124,126,127,128,130,
+        131,132,134,135,136,138,139,140,141,143,144,145,147,148,149,151,152,153,155,156,
+        157,159,160,161,162,164,165,166,168,169,170,172,173,174,176,177,178,179,181,182,182,
+      ];
+      var sc = [0], raw = 0, idx = 0, c;
+      for (c = 1; c <= 1200; c++) {
+        c <= 49 ? (idx = 0) : c <= 99 ? (idx = 1) : c % 50 === 0 && idx++;
+        raw += R1[idx];
+        sc[c] = Math.round(raw / 10);
+      }
+      raw = 38413; idx = 0;
+      for (c = 1201; c <= 2000; c++) {
+        c <= 1209 ? (idx = 0) : c <= 1219 ? (idx = 1) : c % 10 === 0 && idx++;
+        raw += R2[idx];
+        sc[c] = Math.round(raw / 10);
+      }
+      raw = 142796; idx = 0;
+      var rate = 183;
+      for (c = 2001; c <= MAX_STAT_VALUE; c++) {
+        if (idx >= 25) { rate++; idx = 0; }
+        raw += rate;
+        idx++;
+        sc[c] = Math.round(raw / 10);
+      }
+      /* eslint-enable no-nested-ternary */
+      return sc;
     })();
     let lastSkillScore = 0;
 
@@ -687,15 +710,7 @@
     }
 
     function calcStatScore(statValue) {
-      const value = clampStatValue(statValue);
-      const idx = Math.floor(value / STAT_BLOCK_SIZE);
-      const rem = value % STAT_BLOCK_SIZE;
-      const last = STAT_BOUNDARY_SCORES.length - 1;
-      if (idx >= last) return STAT_BOUNDARY_SCORES[last];
-      const base = STAT_BOUNDARY_SCORES[idx];
-      if (rem === 0) return base;
-      const blockDiff = STAT_BOUNDARY_SCORES[idx + 1] - base;
-      return base + Math.round((blockDiff * rem) / STAT_BLOCK_SIZE);
+      return STAT_SCORES[clampStatValue(statValue)];
     }
 
     function calculateRatingBreakdown(skillScoreOverride) {

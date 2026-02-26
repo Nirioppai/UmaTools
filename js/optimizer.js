@@ -1225,7 +1225,9 @@
   function readFromURL() {
     const p = getURLParams();
     const buildParam = p.get('b') || p.get('build');
-    if (!buildParam) return false;
+    // Accept URLs with any meaningful param, not just skills
+    const hasAnyParam = buildParam || p.get('r') || p.get('rating') || p.get('c') || p.get('cfg') || p.get('k') || p.get('budget');
+    if (!hasAnyParam) return false;
     try {
       applyLanguageFromURLParams(p);
 
@@ -1301,10 +1303,11 @@
       // Rebuild skill library if filter changed via URL.
       rebuildSkillLibraryFromCache();
 
-      // Load skills
-      const decoded = decodeBuildFromURL(buildParam);
-      if (!decoded) return false;
-      loadRowsFromString(decoded);
+      // Load skills (if present)
+      if (buildParam) {
+        const decoded = decodeBuildFromURL(buildParam);
+        if (decoded) loadRowsFromString(decoded);
+      }
 
       // Update UI to reflect loaded state
       updateAffinityStyles();
@@ -1320,15 +1323,12 @@
 
   function writeToURL() {
     const buildString = serializeRows();
-    if (!buildString) {
-      history.replaceState(null, '', location.pathname);
-      return;
-    }
-    const encoded = encodeBuildToURL(buildString);
-    if (!encoded) return;
 
     const p = new URLSearchParams();
-    p.set('b', encoded);
+    if (buildString) {
+      const encoded = encodeBuildToURL(buildString);
+      if (encoded) p.set('b', encoded);
+    }
 
     // Add budget
     const budget = parseInt(budgetInput.value, 10) || 0;
@@ -1396,7 +1396,8 @@
       }
     }
 
-    history.replaceState(null, '', `${location.pathname}#${p.toString()}`);
+    const qs = p.toString();
+    history.replaceState(null, '', qs ? `${location.pathname}#${qs}` : location.pathname);
   }
 
   function autoBuildIdealSkills() {
@@ -4378,11 +4379,6 @@
     });
   if (shareBuildBtn) {
     shareBuildBtn.addEventListener('click', async () => {
-      const data = serializeRows();
-      if (!data) {
-        setAutoStatus(t('optimizer.noBuildToShare'), true);
-        return;
-      }
       try {
         writeToURL();
         const shareURL = location.href;
@@ -4404,11 +4400,6 @@
   }
   if (saveBuildBtn) {
     saveBuildBtn.addEventListener('click', () => {
-      const buildData = serializeRows();
-      if (!buildData) {
-        setAutoStatus(t('optimizer.noBuildToSave'), true);
-        return;
-      }
       saveBuildNameInput.value = '';
       saveBuildDescInput.value = '';
       openModal(saveBuildModal);
@@ -4553,7 +4544,6 @@
               typeof b === 'object' &&
               b.id &&
               b.name &&
-              b.data &&
               typeof b.timestamp === 'number'
             );
           });
@@ -4582,7 +4572,7 @@
   }
 
   async function loadBuildFromSaved(build) {
-    if (!build || !build.data) {
+    if (!build) {
       alert(t('optimizer.invalidBuild'));
       return;
     }
@@ -4606,7 +4596,11 @@
       } else {
         rebuildSkillLibraryFromCache();
       }
-      loadRowsFromString(build.data);
+      if (build.data) {
+        loadRowsFromString(build.data);
+      } else {
+        Array.from(rowsEl.querySelectorAll('.optimizer-row')).forEach((n) => n.remove());
+      }
       if (build.budget !== undefined) budgetInput.value = build.budget;
       if (build.fastLearner !== undefined && fastLearnerToggle) {
         fastLearnerToggle.checked = build.fastLearner;
@@ -4642,19 +4636,16 @@
   }
 
   async function shareBuildFromSaved(build) {
-    if (!build || !build.data) {
+    if (!build) {
       alert(t('optimizer.invalidBuild'));
       return;
     }
     try {
-      const encoded = encodeBuildToURL(build.data);
-      if (!encoded) {
-        alert(t('optimizer.failedEncode'));
-        return;
-      }
-
       const p = new URLSearchParams();
-      p.set('b', encoded);
+      if (build.data) {
+        const encoded = encodeBuildToURL(build.data);
+        if (encoded) p.set('b', encoded);
+      }
 
       if (build.budget) p.set('k', String(build.budget));
       if (build.fastLearner) p.set('f', '1');
@@ -4826,11 +4817,6 @@
       }
 
       const buildData = serializeRows();
-      if (!buildData) {
-        alert(t('optimizer.noBuildData'));
-        return;
-      }
-
       const description = saveBuildDescInput?.value?.trim() || '';
       const build = {
         id: Date.now().toString(),
