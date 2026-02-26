@@ -1,63 +1,68 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 340" font-family="system-ui, -apple-system, sans-serif">
-  <defs>
-    <linearGradient id="timGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#2563eb"/></linearGradient>
-    <linearGradient id="brdGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
-    <linearGradient id="scnGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
-  </defs>
+  <rect width="700" height="340" fill="white"/>
 
   <!-- Title -->
   <text x="350" y="22" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2937">Team Trials — Consistency Score Components</text>
 
-  <!-- Donut chart -->
+  <!-- Donut chart: r=95, C=596.9, stroke-width=45 -->
+  <!-- Clockwise from 12 o'clock: Timing 45% (269), Breadth 30% (179), Scenario 25% (149) -->
   <g transform="translate(160, 170)">
-    <!-- Timing: 45% = 162° -->
-    <circle r="95" fill="none" stroke="url(#timGrad)" stroke-width="45"
-            stroke-dasharray="269 329" stroke-dashoffset="0" transform="rotate(-90)"/>
-    <!-- Breadth: 30% = 108° -->
-    <circle r="95" fill="none" stroke="url(#brdGrad)" stroke-width="45"
-            stroke-dasharray="179 419" stroke-dashoffset="-269" transform="rotate(-90)"/>
-    <!-- Scenario: 25% = 90° -->
-    <circle r="95" fill="none" stroke="url(#scnGrad)" stroke-width="45"
-            stroke-dasharray="149 449" stroke-dashoffset="-448" transform="rotate(-90)"/>
+    <!-- Timing: 45% -->
+    <circle r="95" fill="none" stroke="#2563eb" stroke-width="45"
+            stroke-dasharray="269 328" stroke-dashoffset="0" transform="rotate(-90)"/>
+    <!-- Breadth: 30% -->
+    <circle r="95" fill="none" stroke="#7c3aed" stroke-width="45"
+            stroke-dasharray="179 418" stroke-dashoffset="-269" transform="rotate(-90)"/>
+    <!-- Scenario: 25% -->
+    <circle r="95" fill="none" stroke="#d97706" stroke-width="45"
+            stroke-dasharray="149 448" stroke-dashoffset="-448" transform="rotate(-90)"/>
+
+    <!-- Inner/outer rings for outline -->
+    <circle r="72.5" fill="none" stroke="#374151" stroke-width="1"/>
+    <circle r="117.5" fill="none" stroke="#374151" stroke-width="1"/>
 
     <!-- Center text -->
+    <circle r="70" fill="white"/>
     <text x="0" y="-8" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2937">Consistency</text>
     <text x="0" y="12" text-anchor="middle" font-size="11" fill="#6b7280">Score [0.05 – 0.99]</text>
   </g>
 
-  <!-- Donut labels -->
-  <text x="90" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#3b82f6">45%</text>
-  <text x="235" y="290" text-anchor="middle" font-size="13" font-weight="bold" fill="#8b5cf6">30%</text>
-  <text x="80" y="240" text-anchor="middle" font-size="13" font-weight="bold" fill="#f59e0b">25%</text>
+  <!-- Donut labels — positioned at midpoint of each arc segment -->
+  <!-- Timing midpoint ≈ 81° from top → upper-right -->
+  <text x="270" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">45%</text>
+  <!-- Breadth midpoint ≈ 216° from top → lower-left -->
+  <text x="85" y="262" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c3aed">30%</text>
+  <!-- Scenario midpoint ≈ 315° from top → upper-left -->
+  <text x="68" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#d97706">25%</text>
 
   <!-- Detail cards -->
   <g transform="translate(340, 52)">
     <!-- Timing Certainty -->
-    <rect x="0" y="0" width="330" height="72" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-    <rect x="0" y="0" width="5" height="72" rx="2.5" fill="#3b82f6"/>
+    <rect x="0" y="0" width="330" height="72" rx="8" fill="#eff6ff" stroke="#374151" stroke-width="1"/>
+    <rect x="0" y="0" width="5" height="72" rx="2.5" fill="#2563eb"/>
     <text x="18" y="20" font-size="12" font-weight="bold" fill="#1e40af">Timing Certainty (45%)</text>
-    <text x="18" y="36" font-size="9.5" fill="#374151">How reliably the skill fires in its race phase.</text>
-    <text x="18" y="50" font-size="9" fill="#6b7280">Passive: 0.98 · Last spurt: 0.88 · Random: 0.62</text>
-    <text x="18" y="63" font-size="9" fill="#6b7280">Phase-specific: 0.76 · Distance rate: 0.72–0.82</text>
+    <text x="18" y="36" font-size="9.5" fill="#1f2937">How reliably the skill fires in its race phase.</text>
+    <text x="18" y="50" font-size="9" fill="#374151">Passive: 0.98 · Last spurt: 0.88 · Random: 0.62</text>
+    <text x="18" y="63" font-size="9" fill="#374151">Phase-specific: 0.76 · Distance rate: 0.72–0.82</text>
 
     <!-- Condition Breadth -->
-    <rect x="0" y="84" width="330" height="72" rx="8" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1"/>
-    <rect x="0" y="84" width="5" height="72" rx="2.5" fill="#8b5cf6"/>
+    <rect x="0" y="84" width="330" height="72" rx="8" fill="#f5f3ff" stroke="#374151" stroke-width="1"/>
+    <rect x="0" y="84" width="5" height="72" rx="2.5" fill="#7c3aed"/>
     <text x="18" y="104" font-size="12" font-weight="bold" fill="#5b21b6">Condition Breadth (30%)</text>
-    <text x="18" y="120" font-size="9.5" fill="#374151">How many race scenarios can trigger the skill.</text>
-    <text x="18" y="134" font-size="9" fill="#6b7280">order == 1: capped 0.18 · order ≤ 5: floor 0.52</text>
-    <text x="18" y="147" font-size="9" fill="#6b7280">Each extra comparator (5+): -0.05 penalty</text>
+    <text x="18" y="120" font-size="9.5" fill="#1f2937">How many race scenarios can trigger the skill.</text>
+    <text x="18" y="134" font-size="9" fill="#374151">order == 1: capped 0.18 · order ≤ 5: floor 0.52</text>
+    <text x="18" y="147" font-size="9" fill="#374151">Each extra comparator (5+): -0.05 penalty</text>
 
     <!-- Scenario Dependence -->
-    <rect x="0" y="168" width="330" height="72" rx="8" fill="#fffbeb" stroke="#fde68a" stroke-width="1"/>
-    <rect x="0" y="168" width="5" height="72" rx="2.5" fill="#f59e0b"/>
+    <rect x="0" y="168" width="330" height="72" rx="8" fill="#fffbeb" stroke="#374151" stroke-width="1"/>
+    <rect x="0" y="168" width="5" height="72" rx="2.5" fill="#d97706"/>
     <text x="18" y="188" font-size="12" font-weight="bold" fill="#92400e">Scenario Dependence (25%)</text>
-    <text x="18" y="204" font-size="9.5" fill="#374151">Penalty for race-state triggers that may not occur.</text>
-    <text x="18" y="218" font-size="9" fill="#6b7280">blocked: -0.22 · overtake: -0.18 · surrounded: -0.20</text>
-    <text x="18" y="231" font-size="9" fill="#6b7280">Base: 0.95 minus applicable penalties</text>
+    <text x="18" y="204" font-size="9.5" fill="#1f2937">Penalty for race-state triggers that may not occur.</text>
+    <text x="18" y="218" font-size="9" fill="#374151">blocked: -0.22 · overtake: -0.18 · surrounded: -0.20</text>
+    <text x="18" y="231" font-size="9" fill="#374151">Base: 0.95 minus applicable penalties</text>
   </g>
 
   <!-- Formula -->
-  <rect x="340" y="298" width="330" height="26" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="0.5"/>
-  <text x="505" y="316" text-anchor="middle" font-size="9.5" fill="#374151" font-family="monospace">score = (T×0.45) + (B×0.30) + (S×0.25) - penalty</text>
+  <rect x="340" y="298" width="330" height="26" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1"/>
+  <text x="505" y="316" text-anchor="middle" font-size="9.5" fill="#1f2937" font-family="monospace">score = (T×0.45) + (B×0.30) + (S×0.25) - penalty</text>
 </svg>
