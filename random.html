@@ -42,9 +42,22 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/random.css" />
@@ -204,7 +217,12 @@
       <h1 data-i18n="random.title">Randomizer</h1>
 
       <!-- Support Deck Randomizer -->
-      <section id="supportRandomizer" class="result" data-scroll-section data-scroll-label="Support">
+      <section
+        id="supportRandomizer"
+        class="result"
+        data-scroll-section
+        data-scroll-label="Support"
+      >
         <div class="choice">
           <h3 data-i18n="random.supportDeck">Support Deck (5 cards)</h3>
           <div class="toolbar" role="group" aria-label="Support filters">
@@ -215,10 +233,15 @@
             <div style="flex: 1 1 220px"></div>
 
             <label class="toggle" style="margin-right: 0.75rem"
-              ><input type="checkbox" id="speed2x" /> <span data-i18n="random.doubleSpeed">2&times; speed</span></label
+              ><input type="checkbox" id="speed2x" />
+              <span data-i18n="random.doubleSpeed">2&times; speed</span></label
             >
-            <button class="btn primary" id="rollBtn" type="button" data-i18n="random.roll5">Roll 5</button>
-            <button class="btn" id="clearExBtn" type="button" data-i18n="random.clearExclusions">Clear Exclusions</button>
+            <button class="btn primary" id="rollBtn" type="button" data-i18n="random.roll5">
+              Roll 5
+            </button>
+            <button class="btn" id="clearExBtn" type="button" data-i18n="random.clearExclusions">
+              Clear Exclusions
+            </button>
           </div>
 
           <div class="toolbar" role="group" aria-label="Exclude cards">
@@ -229,7 +252,9 @@
               data-i18n-placeholder="random.excludePlaceholder"
             />
             <datalist id="supportList"></datalist>
-            <button class="btn" id="addExBtn" type="button" data-i18n="random.addExclusions">Add to Exclusions</button>
+            <button class="btn" id="addExBtn" type="button" data-i18n="random.addExclusions">
+              Add to Exclusions
+            </button>
           </div>
 
           <div id="excludeChips" class="chips" aria-live="polite"></div>
@@ -246,9 +271,17 @@
           <h3 data-i18n="random.randomUma">Random Uma</h3>
           <div class="toolbar">
             <label class="toggle" style="margin-right: 0.75rem"
-              ><input type="checkbox" id="speed2xUma" /> <span data-i18n="random.doubleSpeed">2&times; speed</span></label
+              ><input type="checkbox" id="speed2xUma" />
+              <span data-i18n="random.doubleSpeed">2&times; speed</span></label
             >
-            <button class="btn primary" id="pickUmaBtn" type="button" data-i18n="random.pickRandomUma">Pick Random Uma</button>
+            <button
+              class="btn primary"
+              id="pickUmaBtn"
+              type="button"
+              data-i18n="random.pickRandomUma"
+            >
+              Pick Random Uma
+            </button>
           </div>
         </div>
 
@@ -261,6 +294,7 @@
 
     <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>

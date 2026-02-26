@@ -1,65 +1,65 @@
 #!/usr/bin/env node
-"use strict";
+'use strict';
 
-const fs = require("node:fs");
-const path = require("node:path");
-const vm = require("node:vm");
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
 
-const DEFAULT_SOURCE_URL = "https://gamewith.jp/uma-musume/article/show/279309";
-const DEFAULT_HTML_CACHE = path.join(__dirname, "..", ".cache_gamewith", "gamewith_279309.html");
-const DEFAULT_OUTPUT_DIR = path.join(__dirname, "..", "assets");
+const DEFAULT_SOURCE_URL = 'https://gamewith.jp/uma-musume/article/show/279309';
+const DEFAULT_HTML_CACHE = path.join(__dirname, '..', '.cache_gamewith', 'gamewith_279309.html');
+const DEFAULT_OUTPUT_DIR = path.join(__dirname, '..', 'assets');
 const DEFAULT_METADATA_PATH = path.join(
   __dirname,
-  "..",
-  ".cache_gamewith",
-  "gamewith_metadata.json",
+  '..',
+  '.cache_gamewith',
+  'gamewith_metadata.json'
 );
-const SKILLS_ALL_PATH = path.join(__dirname, "..", "assets", "skills_all.json");
+const SKILLS_ALL_PATH = path.join(__dirname, '..', 'assets', 'skills_all.json');
 
 const APTITUDE_ID_TO_JP = Object.freeze({
-  "1": "芝",
-  "2": "ダート",
-  "3": "短距離",
-  "4": "マイル",
-  "5": "中距離",
-  "6": "長距離",
-  "7": "逃げ",
-  "8": "先行",
-  "9": "差し",
-  "10": "追込",
+  1: '芝',
+  2: 'ダート',
+  3: '短距離',
+  4: 'マイル',
+  5: '中距離',
+  6: '長距離',
+  7: '逃げ',
+  8: '先行',
+  9: '差し',
+  10: '追込',
 });
 
 const APTITUDE_ID_TO_EN = Object.freeze({
-  "1": "Turf",
-  "2": "Dirt",
-  "3": "Sprint",
-  "4": "Mile",
-  "5": "Medium",
-  "6": "Long",
-  "7": "Front",
-  "8": "Pace",
-  "9": "Late",
-  "10": "End",
+  1: 'Turf',
+  2: 'Dirt',
+  3: 'Sprint',
+  4: 'Mile',
+  5: 'Medium',
+  6: 'Long',
+  7: 'Front',
+  8: 'Pace',
+  9: 'Late',
+  10: 'End',
 });
 
 const AFFINITY_ROLE_BY_ID = Object.freeze({
-  "1": "Turf",
-  "2": "Dirt",
-  "3": "Sprint",
-  "4": "Mile",
-  "5": "Medium",
-  "6": "Long",
-  "7": "Front",
-  "8": "Pace",
-  "9": "Late",
-  "10": "End",
+  1: 'Turf',
+  2: 'Dirt',
+  3: 'Sprint',
+  4: 'Mile',
+  5: 'Medium',
+  6: 'Long',
+  7: 'Front',
+  8: 'Pace',
+  9: 'Late',
+  10: 'End',
 });
 
 const APTITUDE_IDS = Object.freeze(Object.keys(APTITUDE_ID_TO_JP));
-const DISTANCE_IDS = new Set(["3", "4", "5", "6"]);
-const STYLE_IDS = new Set(["7", "8", "9", "10"]);
+const DISTANCE_IDS = new Set(['3', '4', '5', '6']);
+const STYLE_IDS = new Set(['7', '8', '9', '10']);
 
-const BUCKETS = Object.freeze(["SA", "BC", "DEF", "G"]);
+const BUCKETS = Object.freeze(['SA', 'BC', 'DEF', 'G']);
 const GRADE_BUCKET_TO_ID = Object.freeze({
   SA: 1,
   BC: 2,
@@ -87,19 +87,19 @@ function parseArgs(argv) {
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
-    if (arg === "--url") {
+    if (arg === '--url') {
       opts.url = argv[++i];
-    } else if (arg === "--html") {
+    } else if (arg === '--html') {
       opts.html = argv[++i];
-    } else if (arg === "--out") {
+    } else if (arg === '--out') {
       opts.out = argv[++i];
-    } else if (arg === "--metadata") {
+    } else if (arg === '--metadata') {
       opts.metadata = argv[++i];
-    } else if (arg === "--no-fetch") {
+    } else if (arg === '--no-fetch') {
       opts.noFetch = true;
-    } else if (arg === "--full-output") {
+    } else if (arg === '--full-output') {
       opts.fullOutput = true;
-    } else if (arg === "--help" || arg === "-h") {
+    } else if (arg === '--help' || arg === '-h') {
       printHelpAndExit(0);
     } else {
       console.error(`Unknown argument: ${arg}`);
@@ -113,16 +113,16 @@ function parseArgs(argv) {
 function printHelpAndExit(code) {
   console.log(
     [
-      "Usage:",
-      "  node scripts/gamewith_skills.js [--url <url>] [--html <path>] [--out <dir>] [--metadata <path>] [--no-fetch] [--full-output]",
-      "",
-      "Notes:",
-      "  - --html uses a local HTML snapshot instead of fetching.",
-      "  - --metadata controls where gamewith_metadata.json is written.",
-      "  - --no-fetch forces cached/local HTML usage only.",
-      "  - default output is minimal (uma_skills.csv, uma_skills_jp.csv + gamewith_metadata.json).",
-      "  - --full-output writes all debug/analysis files.",
-    ].join("\n"),
+      'Usage:',
+      '  node scripts/gamewith_skills.js [--url <url>] [--html <path>] [--out <dir>] [--metadata <path>] [--no-fetch] [--full-output]',
+      '',
+      'Notes:',
+      '  - --html uses a local HTML snapshot instead of fetching.',
+      '  - --metadata controls where gamewith_metadata.json is written.',
+      '  - --no-fetch forces cached/local HTML usage only.',
+      '  - default output is minimal (uma_skills.csv, uma_skills_jp.csv + gamewith_metadata.json).',
+      '  - --full-output writes all debug/analysis files.',
+    ].join('\n')
   );
   process.exit(code);
 }
@@ -134,7 +134,7 @@ function ensureDir(dirPath) {
 async function loadHtml(opts) {
   if (opts.html) {
     return {
-      html: fs.readFileSync(path.resolve(opts.html), "utf8"),
+      html: fs.readFileSync(path.resolve(opts.html), 'utf8'),
       source: `local:${path.resolve(opts.html)}`,
     };
   }
@@ -144,7 +144,7 @@ async function loadHtml(opts) {
       throw new Error(`--no-fetch was set, but cache file is missing: ${DEFAULT_HTML_CACHE}`);
     }
     return {
-      html: fs.readFileSync(DEFAULT_HTML_CACHE, "utf8"),
+      html: fs.readFileSync(DEFAULT_HTML_CACHE, 'utf8'),
       source: `cache:${DEFAULT_HTML_CACHE}`,
     };
   }
@@ -152,7 +152,7 @@ async function loadHtml(opts) {
   try {
     const res = await fetch(opts.url, {
       headers: {
-        "user-agent": "Mozilla/5.0 (compatible; gw-codex-scraper/1.0)",
+        'user-agent': 'Mozilla/5.0 (compatible; gw-codex-scraper/1.0)',
       },
     });
 
@@ -162,7 +162,7 @@ async function loadHtml(opts) {
 
     const html = await res.text();
     ensureDir(path.dirname(DEFAULT_HTML_CACHE));
-    fs.writeFileSync(DEFAULT_HTML_CACHE, html, "utf8");
+    fs.writeFileSync(DEFAULT_HTML_CACHE, html, 'utf8');
     return {
       html,
       source: `remote:${opts.url}`,
@@ -172,7 +172,7 @@ async function loadHtml(opts) {
       throw err;
     }
     return {
-      html: fs.readFileSync(DEFAULT_HTML_CACHE, "utf8"),
+      html: fs.readFileSync(DEFAULT_HTML_CACHE, 'utf8'),
       source: `cache-fallback:${DEFAULT_HTML_CACHE}`,
     };
   }
@@ -191,17 +191,17 @@ function extractWindowAssignmentExpr(html, name, nextName) {
     const nextPrefix = `window.${nextName}=`;
     exprEnd = html.indexOf(nextPrefix, exprStart);
   } else {
-    const doubleSemi = html.indexOf(";;", exprStart);
+    const doubleSemi = html.indexOf(';;', exprStart);
     if (doubleSemi >= 0) {
-      const closeBracket = html.lastIndexOf("]", doubleSemi);
+      const closeBracket = html.lastIndexOf(']', doubleSemi);
       if (closeBracket > exprStart) {
         exprEnd = closeBracket + 1;
       }
     }
     if (exprEnd < 0) {
-      const scriptEnd = html.indexOf("</script>", exprStart);
+      const scriptEnd = html.indexOf('</script>', exprStart);
       if (scriptEnd >= 0) {
-        const semi = html.lastIndexOf(";", scriptEnd);
+        const semi = html.lastIndexOf(';', scriptEnd);
         if (semi > exprStart) {
           exprEnd = semi;
         }
@@ -214,7 +214,7 @@ function extractWindowAssignmentExpr(html, name, nextName) {
   }
 
   let expr = html.slice(exprStart, exprEnd).trim();
-  if (expr.endsWith(";")) {
+  if (expr.endsWith(';')) {
     expr = expr.slice(0, -1);
   }
   return expr;
@@ -222,11 +222,11 @@ function extractWindowAssignmentExpr(html, name, nextName) {
 
 function parseEmbeddedSimulatorData(html) {
   const extractionOrder = [
-    ["skillDatas", "over1200LernDatas"],
-    ["over1200LernDatas", "evoSkillDatas"],
-    ["evoSkillDatas", "umaDatas"],
-    ["umaDatas", "scenarioDatas"],
-    ["scenarioDatas", null],
+    ['skillDatas', 'over1200LernDatas'],
+    ['over1200LernDatas', 'evoSkillDatas'],
+    ['evoSkillDatas', 'umaDatas'],
+    ['umaDatas', 'scenarioDatas'],
+    ['scenarioDatas', null],
   ];
 
   const sandbox = { window: {} };
@@ -245,28 +245,28 @@ function parseEmbeddedSimulatorData(html) {
 }
 
 function toInt(value) {
-  const num = Number.parseInt(String(value ?? ""), 10);
+  const num = Number.parseInt(String(value ?? ''), 10);
   return Number.isFinite(num) ? num : null;
 }
 
 function splitNumericList(value) {
-  return String(value ?? "")
-    .split(",")
+  return String(value ?? '')
+    .split(',')
     .map((x) => toInt(x))
     .filter((x) => x !== null);
 }
 
 function splitCodeList(value) {
-  return String(value ?? "")
-    .split("/")
+  return String(value ?? '')
+    .split('/')
     .map((x) => x.trim())
     .filter(Boolean);
 }
 
 function stripCircleSuffix(name) {
-  return String(name ?? "")
-    .replace(/[◯〇○◎]\?/g, "")
-    .replace(/[◯〇○◎]$/g, "")
+  return String(name ?? '')
+    .replace(/[◯〇○◎]\?/g, '')
+    .replace(/[◯〇○◎]$/g, '')
     .trim();
 }
 
@@ -277,7 +277,7 @@ function expandSkillData(rawSkillDatas) {
     const apParts = splitNumericList(row.ap);
     const ptParts = splitNumericList(row.pt);
 
-    if (String(row.ap ?? "").includes(",")) {
+    if (String(row.ap ?? '').includes(',')) {
       const baseName = stripCircleSuffix(row.n);
       const singleName = `${baseName}○`;
       const doubleName = `${baseName}◎`;
@@ -332,7 +332,7 @@ function expandSkillData(rawSkillDatas) {
     }
 
     skill.p = parentId;
-    if (String(skill.c) === "2") {
+    if (String(skill.c) === '2') {
       const parent = expanded[parentId - 1];
       skill.ap = (toInt(skill.ap) ?? 0) + (toInt(parent.ap) ?? 0);
     }
@@ -352,19 +352,19 @@ function buildEvoSkillData(rawEvoSkillDatas, expandedBaseSkills) {
   const evoSkills = [];
   for (let i = 0; i < rawEvoSkillDatas.length; i += 1) {
     const row = rawEvoSkillDatas[i];
-    const beforeName = String(row.sb || "");
+    const beforeName = String(row.sb || '');
     const beforeSkill = byName.get(beforeName) || null;
 
     evoSkills.push({
       id: expandedBaseSkills.length + i + 1,
-      n: String(row.sa || ""),
-      k: "",
-      c: "2",
-      t: beforeSkill ? String(beforeSkill.t ?? "") : "1",
-      in: beforeSkill ? beforeSkill.in || "" : "",
+      n: String(row.sa || ''),
+      k: '',
+      c: '2',
+      t: beforeSkill ? String(beforeSkill.t ?? '') : '1',
+      in: beforeSkill ? beforeSkill.in || '' : '',
       ap: toInt(row.sp) ?? 0,
-      pt: "",
-      p: beforeSkill ? beforeSkill.id : "",
+      pt: '',
+      p: beforeSkill ? beforeSkill.id : '',
       appropriate: splitCodeList(row.r),
       appropriate2: splitCodeList(row.r2),
       is_evo: true,
@@ -376,23 +376,23 @@ function buildEvoSkillData(rawEvoSkillDatas, expandedBaseSkills) {
 }
 
 function normalizeSkillNameStrict(value) {
-  return String(value ?? "")
-    .normalize("NFKC")
-    .replace(/\uFE0E|\uFE0F/g, "")
+  return String(value ?? '')
+    .normalize('NFKC')
+    .replace(/\uFE0E|\uFE0F/g, '')
     .replace(/[’]/g, "'")
     .replace(/[“”]/g, '"')
-    .replace(/[‐‑‒–—―]/g, "-")
-    .replace(/[◯〇]/g, "○")
-    .replace(/○\?/g, "○")
-    .replace(/◎\?/g, "◎")
-    .replace(/\s+/g, "")
+    .replace(/[‐‑‒–—―]/g, '-')
+    .replace(/[◯〇]/g, '○')
+    .replace(/○\?/g, '○')
+    .replace(/◎\?/g, '◎')
+    .replace(/\s+/g, '')
     .trim();
 }
 
 function normalizeSkillNameLoose(value) {
   return normalizeSkillNameStrict(value).replace(
     /[!?？！☆★♪♡♥❤#＃『』「」()（）［］【】・･,，.。…~～]/g,
-    "",
+    ''
   );
 }
 
@@ -422,8 +422,8 @@ function addNameToIndexes(indexes, jpName, lookupNames, outputName) {
     return;
   }
 
-  const jpStrict = normalizeSkillNameStrict(jpName || "");
-  const jpLoose = normalizeSkillNameLoose(jpName || "");
+  const jpStrict = normalizeSkillNameStrict(jpName || '');
+  const jpLoose = normalizeSkillNameLoose(jpName || '');
   addIndexEntry(indexes.jpStrict, jpStrict, outputName);
   addIndexEntry(indexes.jpLoose, jpLoose, outputName);
 
@@ -437,17 +437,17 @@ function addNameToIndexes(indexes, jpName, lookupNames, outputName) {
 }
 
 function buildEnglishIndexes(skillsAllPath) {
-  const raw = fs.readFileSync(skillsAllPath, "utf8");
+  const raw = fs.readFileSync(skillsAllPath, 'utf8');
   const all = JSON.parse(raw);
 
   const official = createEmptyNameIndexes();
   const unofficial = createEmptyNameIndexes();
 
   for (const row of all) {
-    const jp = row.jpname || "";
-    const officialEnglish = (row.name_en || "").trim();
-    const unofficialEnglish = (row.enname || "").trim();
-    const enNames = [row.name_en || "", row.enname || ""].filter(Boolean);
+    const jp = row.jpname || '';
+    const officialEnglish = (row.name_en || '').trim();
+    const unofficialEnglish = (row.enname || '').trim();
+    const enNames = [row.name_en || '', row.enname || ''].filter(Boolean);
 
     addNameToIndexes(official, jp, enNames, officialEnglish);
     addNameToIndexes(unofficial, jp, enNames, unofficialEnglish);
@@ -462,7 +462,7 @@ function pickBestEnglishName(values) {
     if (a.length !== b.length) {
       return a.length - b.length;
     }
-    return a.localeCompare(b, "en");
+    return a.localeCompare(b, 'en');
   });
   return list[0];
 }
@@ -472,10 +472,10 @@ function resolveEnglishName(jpSkillName, indexes) {
   const loose = normalizeSkillNameLoose(jpSkillName);
 
   const checks = [
-    ["jp_strict", indexes.jpStrict.get(strict)],
-    ["en_strict", indexes.enStrict.get(strict)],
-    ["jp_loose", indexes.jpLoose.get(loose)],
-    ["en_loose", indexes.enLoose.get(loose)],
+    ['jp_strict', indexes.jpStrict.get(strict)],
+    ['en_strict', indexes.enStrict.get(strict)],
+    ['jp_loose', indexes.jpLoose.get(loose)],
+    ['en_loose', indexes.enLoose.get(loose)],
   ];
 
   for (const [matchType, values] of checks) {
@@ -491,7 +491,7 @@ function resolveEnglishName(jpSkillName, indexes) {
 
   return {
     englishName: null,
-    matchType: "unmatched",
+    matchType: 'unmatched',
     candidateCount: 0,
   };
 }
@@ -515,7 +515,7 @@ function getMultiplierForAptitudeId(selection, aptitudeId) {
 
 function computeSkillRatios(selection, appropriateIds, appropriate2Ids) {
   const ratios = [];
-  const filtered = (appropriateIds || []).filter((id) => id !== "1" && id !== "2");
+  const filtered = (appropriateIds || []).filter((id) => id !== '1' && id !== '2');
 
   if (filtered.length === 1) {
     const mult = getMultiplierForAptitudeId(selection, filtered[0]);
@@ -526,7 +526,7 @@ function computeSkillRatios(selection, appropriateIds, appropriate2Ids) {
 
   if (filtered.length > 1) {
     const distanceMults = [];
-    for (const id of ["3", "4", "5", "6"]) {
+    for (const id of ['3', '4', '5', '6']) {
       if (filtered.includes(id)) {
         const mult = getMultiplierForAptitudeId(selection, id);
         if (mult !== undefined) {
@@ -536,7 +536,7 @@ function computeSkillRatios(selection, appropriateIds, appropriate2Ids) {
     }
 
     const styleMults = [];
-    for (const id of ["7", "8", "9", "10"]) {
+    for (const id of ['7', '8', '9', '10']) {
       if (filtered.includes(id)) {
         const mult = getMultiplierForAptitudeId(selection, id);
         if (mult !== undefined) {
@@ -555,7 +555,7 @@ function computeSkillRatios(selection, appropriateIds, appropriate2Ids) {
 
   if ((appropriate2Ids || []).length > 0) {
     let hasSA = false;
-    for (const id of ["3", "4", "5", "6", "7", "8", "9", "10"]) {
+    for (const id of ['3', '4', '5', '6', '7', '8', '9', '10']) {
       if ((appropriate2Ids || []).includes(id)) {
         const aptName = APTITUDE_ID_TO_JP[id];
         if (selection[aptName] === 1) {
@@ -577,7 +577,11 @@ function applyRatios(baseValue, ratios) {
 
 function buildSummaryValues(skill) {
   const relevantFormulaIds = Array.from(
-    new Set([...(skill.appropriate || []), ...(skill.appropriate2 || [])].filter((id) => DISTANCE_IDS.has(id) || STYLE_IDS.has(id))),
+    new Set(
+      [...(skill.appropriate || []), ...(skill.appropriate2 || [])].filter(
+        (id) => DISTANCE_IDS.has(id) || STYLE_IDS.has(id)
+      )
+    )
   );
 
   const summary = {};
@@ -603,7 +607,7 @@ function buildSummaryValues(skill) {
 function buildPerAptitudeRows(skill, englishName, matchType) {
   const listedRelevant = new Set([...(skill.appropriate || []), ...(skill.appropriate2 || [])]);
   const formulaRelevant = new Set(
-    [...listedRelevant].filter((id) => DISTANCE_IDS.has(id) || STYLE_IDS.has(id)),
+    [...listedRelevant].filter((id) => DISTANCE_IDS.has(id) || STYLE_IDS.has(id))
   );
 
   const rows = [];
@@ -621,7 +625,7 @@ function buildPerAptitudeRows(skill, englishName, matchType) {
       rows.push({
         skill_id: skill.id,
         skill_jp: skill.n,
-        skill_en: englishName || "",
+        skill_en: englishName || '',
         english_match_type: matchType,
         aptitude_id: aptitudeId,
         aptitude_jp: aptitudeJp,
@@ -631,9 +635,9 @@ function buildPerAptitudeRows(skill, englishName, matchType) {
         base_value: skill.ap,
         listed_relevant: listedRelevant.has(aptitudeId) ? 1 : 0,
         formula_relevant: formulaRelevant.has(aptitudeId) ? 1 : 0,
-        applied_ratios: ratios.join("*"),
-        appropriate_ids: (skill.appropriate || []).join("/"),
-        appropriate2_ids: (skill.appropriate2 || []).join("/"),
+        applied_ratios: ratios.join('*'),
+        appropriate_ids: (skill.appropriate || []).join('/'),
+        appropriate2_ids: (skill.appropriate2 || []).join('/'),
       });
     }
   }
@@ -645,22 +649,22 @@ function buildGroupMatrixRows(skill, englishName, matchType) {
   const distanceIds = (skill.appropriate || []).filter((id) => DISTANCE_IDS.has(id));
   const styleIds = (skill.appropriate || []).filter((id) => STYLE_IDS.has(id));
 
-  const distanceBuckets = distanceIds.length > 0 ? BUCKETS : ["NA"];
-  const styleBuckets = styleIds.length > 0 ? BUCKETS : ["NA"];
+  const distanceBuckets = distanceIds.length > 0 ? BUCKETS : ['NA'];
+  const styleBuckets = styleIds.length > 0 ? BUCKETS : ['NA'];
 
   const rows = [];
   for (const distanceBucket of distanceBuckets) {
     for (const styleBucket of styleBuckets) {
       const selection = createDefaultAptitudeSelection(1);
 
-      if (distanceBucket !== "NA") {
+      if (distanceBucket !== 'NA') {
         const gradeId = GRADE_BUCKET_TO_ID[distanceBucket];
         for (const id of distanceIds) {
           selection[APTITUDE_ID_TO_JP[id]] = gradeId;
         }
       }
 
-      if (styleBucket !== "NA") {
+      if (styleBucket !== 'NA') {
         const gradeId = GRADE_BUCKET_TO_ID[styleBucket];
         for (const id of styleIds) {
           selection[APTITUDE_ID_TO_JP[id]] = gradeId;
@@ -673,15 +677,15 @@ function buildGroupMatrixRows(skill, englishName, matchType) {
       rows.push({
         skill_id: skill.id,
         skill_jp: skill.n,
-        skill_en: englishName || "",
+        skill_en: englishName || '',
         english_match_type: matchType,
         distance_bucket: distanceBucket,
         style_bucket: styleBucket,
         value,
         base_value: skill.ap,
-        distance_ids: distanceIds.join("/"),
-        style_ids: styleIds.join("/"),
-        applied_ratios: ratios.join("*"),
+        distance_ids: distanceIds.join('/'),
+        style_ids: styleIds.join('/'),
+        applied_ratios: ratios.join('*'),
       });
     }
   }
@@ -692,37 +696,37 @@ function buildGroupMatrixRows(skill, englishName, matchType) {
 function mapSkillType(skill) {
   const ap = Number(skill.ap);
   if (Number.isFinite(ap) && ap < 0) {
-    return "purple";
+    return 'purple';
   }
 
   if (skill.is_evo) {
-    return "evo";
+    return 'evo';
   }
 
-  const c = String(skill.c ?? "");
-  const t = String(skill.t ?? "");
+  const c = String(skill.c ?? '');
+  const t = String(skill.t ?? '');
 
-  if (c === "3") {
-    return "ius";
+  if (c === '3') {
+    return 'ius';
   }
-  if (c === "2") {
-    return "gold";
-  }
-
-  if (t === "1") {
-    return "yellow";
-  }
-  if (t === "2") {
-    return "blue";
-  }
-  if (t === "3") {
-    return "green";
-  }
-  if (t === "4") {
-    return "red";
+  if (c === '2') {
+    return 'gold';
   }
 
-  return "";
+  if (t === '1') {
+    return 'yellow';
+  }
+  if (t === '2') {
+    return 'blue';
+  }
+  if (t === '3') {
+    return 'green';
+  }
+  if (t === '4') {
+    return 'red';
+  }
+
+  return '';
 }
 
 function deriveAffinityRole(skill) {
@@ -737,10 +741,10 @@ function deriveAffinityRole(skill) {
 
   let roleIds = formulaRelevant;
   if (!roleIds.length) {
-    if (ids.includes("2")) {
-      roleIds = ["2"];
-    } else if (ids.includes("1")) {
-      roleIds = ["1"];
+    if (ids.includes('2')) {
+      roleIds = ['2'];
+    } else if (ids.includes('1')) {
+      roleIds = ['1'];
     } else {
       roleIds = [];
     }
@@ -748,12 +752,12 @@ function deriveAffinityRole(skill) {
 
   const labels = roleIds.map((id) => AFFINITY_ROLE_BY_ID[id]).filter(Boolean);
   if (!labels.length) {
-    return "";
+    return '';
   }
   if (labels.length === 1) {
     return labels[0];
   }
-  return labels.join("/");
+  return labels.join('/');
 }
 
 function toFixedOne(value) {
@@ -761,14 +765,14 @@ function toFixedOne(value) {
 }
 
 function splitDelimitedNames(value) {
-  return String(value ?? "")
+  return String(value ?? '')
     .split(/[|/]/)
     .map((part) => part.trim())
     .filter(Boolean);
 }
 
 function csvEscape(value) {
-  const str = String(value ?? "");
+  const str = String(value ?? '');
   if (/[",\n]/.test(str)) {
     return `"${str.replace(/"/g, '""')}"`;
   }
@@ -776,11 +780,11 @@ function csvEscape(value) {
 }
 
 function writeCsv(filePath, headers, rows) {
-  const lines = [headers.join(",")];
+  const lines = [headers.join(',')];
   for (const row of rows) {
-    lines.push(headers.map((h) => csvEscape(row[h])).join(","));
+    lines.push(headers.map((h) => csvEscape(row[h])).join(','));
   }
-  fs.writeFileSync(filePath, `${lines.join("\n")}\n`, "utf8");
+  fs.writeFileSync(filePath, `${lines.join('\n')}\n`, 'utf8');
 }
 
 async function main() {
@@ -812,14 +816,14 @@ async function main() {
     const resolved = officialResolved.englishName ? officialResolved : unofficialResolved;
     const summary = buildSummaryValues(skill);
     const hasFormulaAptitude = summary.relevantFormulaIds.length > 0;
-    const localizedName = officialResolved.englishName || "";
-    const unofficialName = unofficialResolved.englishName || "";
+    const localizedName = officialResolved.englishName || '';
+    const unofficialName = unofficialResolved.englishName || '';
     const finalNameEn = localizedName || unofficialName || skill.n;
     const finalNameJp = skill.n;
     const affinityRole = deriveAffinityRole(skill);
     const skillType = mapSkillType(skill);
     const isEvo = Boolean(skill.is_evo);
-    const evoParentJpNames = isEvo ? splitDelimitedNames(skill.evo_before_name || "") : [];
+    const evoParentJpNames = isEvo ? splitDelimitedNames(skill.evo_before_name || '') : [];
     const evoParentEnNames = isEvo
       ? Array.from(
           new Set(
@@ -827,30 +831,30 @@ async function main() {
               (jpName) =>
                 resolveEnglishName(jpName, englishIndexes.official).englishName ||
                 resolveEnglishName(jpName, englishIndexes.unofficial).englishName ||
-                jpName,
-            ),
-          ),
+                jpName
+            )
+          )
         )
       : [];
-    const aliasNameEn = finalNameJp !== finalNameEn ? finalNameJp : "";
-    const aliasNameJp = unofficialName && unofficialName !== finalNameJp ? unofficialName : "";
-    const localizedNameJp = localizedName && localizedName !== finalNameJp ? localizedName : "";
+    const aliasNameEn = finalNameJp !== finalNameEn ? finalNameJp : '';
+    const aliasNameJp = unofficialName && unofficialName !== finalNameJp ? unofficialName : '';
+    const localizedNameJp = localizedName && localizedName !== finalNameJp ? localizedName : '';
 
     const enriched = {
       id: skill.id,
       skill_jp: skill.n,
-      skill_kana: skill.k || "",
-      skill_en: resolved.englishName || "",
-      skill_en_localized: localizedName || "",
-      skill_en_unofficial: unofficialName || "",
+      skill_kana: skill.k || '',
+      skill_en: resolved.englishName || '',
+      skill_en_localized: localizedName || '',
+      skill_en_unofficial: unofficialName || '',
       english_match_type: resolved.matchType,
       english_candidate_count: resolved.candidateCount,
-      category_code: String(skill.c ?? ""),
-      color_code: String(skill.t ?? ""),
-      icon_key: skill.in || "",
+      category_code: String(skill.c ?? ''),
+      color_code: String(skill.t ?? ''),
+      icon_key: skill.in || '',
       base_value: skill.ap,
-      skill_point_cost: skill.pt ?? "",
-      parent_skill_id: skill.p ?? "",
+      skill_point_cost: skill.pt ?? '',
+      parent_skill_id: skill.p ?? '',
       appropriate_ids: skill.appropriate || [],
       appropriate2_ids: skill.appropriate2 || [],
       value_sa: summary.valuesByBucket.SA,
@@ -862,7 +866,7 @@ async function main() {
       affinity_role: affinityRole,
       skill_type: skillType,
       is_evo: isEvo,
-      evo_before_name: skill.evo_before_name || "",
+      evo_before_name: skill.evo_before_name || '',
     };
 
     enrichedSkills.push(enriched);
@@ -877,19 +881,19 @@ async function main() {
       value_bc: enriched.value_bc,
       value_def: enriched.value_def,
       value_g: enriched.value_g,
-      unique_values: enriched.unique_values.join("|"),
+      unique_values: enriched.unique_values.join('|'),
       category_code: enriched.category_code,
       color_code: enriched.color_code,
       skill_point_cost: enriched.skill_point_cost,
       parent_skill_id: enriched.parent_skill_id,
-      appropriate_ids: enriched.appropriate_ids.join("/"),
-      appropriate2_ids: enriched.appropriate2_ids.join("/"),
-      relevant_formula_ids: enriched.relevant_formula_ids.join("/"),
+      appropriate_ids: enriched.appropriate_ids.join('/'),
+      appropriate2_ids: enriched.appropriate2_ids.join('/'),
+      relevant_formula_ids: enriched.relevant_formula_ids.join('/'),
       is_evo: enriched.is_evo ? 1 : 0,
       evo_before_name: enriched.evo_before_name,
     });
 
-    if (resolved.matchType === "unmatched") {
+    if (resolved.matchType === 'unmatched') {
       unmatchedRows.push({
         skill_id: enriched.id,
         skill_jp: enriched.skill_jp,
@@ -897,8 +901,8 @@ async function main() {
         category_code: enriched.category_code,
         color_code: enriched.color_code,
         base_value: enriched.base_value,
-        appropriate_ids: enriched.appropriate_ids.join("/"),
-        appropriate2_ids: enriched.appropriate2_ids.join("/"),
+        appropriate_ids: enriched.appropriate_ids.join('/'),
+        appropriate2_ids: enriched.appropriate2_ids.join('/'),
         is_evo: enriched.is_evo ? 1 : 0,
         evo_before_name: enriched.evo_before_name,
       });
@@ -911,15 +915,15 @@ async function main() {
       skill_type: skillType,
       name: finalNameEn,
       alias_name: aliasNameEn,
-      localized_name: localizedName || "",
+      localized_name: localizedName || '',
       base_value: toFixedOne(skill.ap),
-      S_A: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.SA) : "",
-      B_C: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.BC) : "",
-      D_E_F: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.DEF) : "",
-      G: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.G) : "",
+      S_A: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.SA) : '',
+      B_C: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.BC) : '',
+      D_E_F: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.DEF) : '',
+      G: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.G) : '',
       affinity_role: affinityRole,
       is_evo: isEvo ? 1 : 0,
-      evo_parents: evoParentEnNames.join("|"),
+      evo_parents: evoParentEnNames.join('|'),
     });
 
     finalUmaSkillsRowsJp.push({
@@ -928,13 +932,13 @@ async function main() {
       alias_name: aliasNameJp,
       localized_name: localizedNameJp,
       base_value: toFixedOne(skill.ap),
-      S_A: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.SA) : "",
-      B_C: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.BC) : "",
-      D_E_F: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.DEF) : "",
-      G: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.G) : "",
+      S_A: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.SA) : '',
+      B_C: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.BC) : '',
+      D_E_F: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.DEF) : '',
+      G: hasFormulaAptitude ? toFixedOne(summary.valuesByBucket.G) : '',
       affinity_role: affinityRole,
       is_evo: isEvo ? 1 : 0,
-      evo_parents: evoParentJpNames.join("|"),
+      evo_parents: evoParentJpNames.join('|'),
     });
   }
 
@@ -957,123 +961,123 @@ async function main() {
     english_match_rate: enrichedSkills.length ? matchedCount / enrichedSkills.length : 0,
     aptitude_buckets: BUCKETS,
     simulator_grade_multipliers: GRADE_ID_TO_MULTIPLIER,
-    output_mode: opts.fullOutput ? "full" : "minimal",
+    output_mode: opts.fullOutput ? 'full' : 'minimal',
   };
 
   const umaSkillsHeaders = [
-    "skill_type",
-    "name",
-    "alias_name",
-    "localized_name",
-    "base_value",
-    "S_A",
-    "B_C",
-    "D_E_F",
-    "G",
-    "affinity_role",
-    "is_evo",
-    "evo_parents",
+    'skill_type',
+    'name',
+    'alias_name',
+    'localized_name',
+    'base_value',
+    'S_A',
+    'B_C',
+    'D_E_F',
+    'G',
+    'affinity_role',
+    'is_evo',
+    'evo_parents',
   ];
 
-  writeCsv(path.join(outDir, "uma_skills.csv"), umaSkillsHeaders, finalUmaSkillsRowsEn);
-  writeCsv(path.join(outDir, "uma_skills_jp.csv"), umaSkillsHeaders, finalUmaSkillsRowsJp);
+  writeCsv(path.join(outDir, 'uma_skills.csv'), umaSkillsHeaders, finalUmaSkillsRowsEn);
+  writeCsv(path.join(outDir, 'uma_skills_jp.csv'), umaSkillsHeaders, finalUmaSkillsRowsJp);
 
   const extraOutputFiles = [
-    "gamewith_skills_enriched.json",
-    "gamewith_skill_value_summary.csv",
-    "gamewith_skill_value_by_aptitude.csv",
-    "gamewith_skill_value_group_matrix.csv",
-    "gamewith_unmatched_skills.csv",
+    'gamewith_skills_enriched.json',
+    'gamewith_skill_value_summary.csv',
+    'gamewith_skill_value_by_aptitude.csv',
+    'gamewith_skill_value_group_matrix.csv',
+    'gamewith_unmatched_skills.csv',
   ];
 
   if (opts.fullOutput) {
     fs.writeFileSync(
-      path.join(outDir, "gamewith_skills_enriched.json"),
+      path.join(outDir, 'gamewith_skills_enriched.json'),
       `${JSON.stringify({ metadata, skills: enrichedSkills }, null, 2)}\n`,
-      "utf8",
+      'utf8'
     );
 
     writeCsv(
-      path.join(outDir, "gamewith_skill_value_summary.csv"),
+      path.join(outDir, 'gamewith_skill_value_summary.csv'),
       [
-        "skill_id",
-        "skill_jp",
-        "skill_en",
-        "english_match_type",
-        "base_value",
-        "value_sa",
-        "value_bc",
-        "value_def",
-        "value_g",
-        "unique_values",
-        "category_code",
-        "color_code",
-        "skill_point_cost",
-        "parent_skill_id",
-        "appropriate_ids",
-        "appropriate2_ids",
-        "relevant_formula_ids",
-        "is_evo",
-        "evo_before_name",
+        'skill_id',
+        'skill_jp',
+        'skill_en',
+        'english_match_type',
+        'base_value',
+        'value_sa',
+        'value_bc',
+        'value_def',
+        'value_g',
+        'unique_values',
+        'category_code',
+        'color_code',
+        'skill_point_cost',
+        'parent_skill_id',
+        'appropriate_ids',
+        'appropriate2_ids',
+        'relevant_formula_ids',
+        'is_evo',
+        'evo_before_name',
       ],
-      summaryRows,
+      summaryRows
     );
 
     writeCsv(
-      path.join(outDir, "gamewith_skill_value_by_aptitude.csv"),
+      path.join(outDir, 'gamewith_skill_value_by_aptitude.csv'),
       [
-        "skill_id",
-        "skill_jp",
-        "skill_en",
-        "english_match_type",
-        "aptitude_id",
-        "aptitude_jp",
-        "aptitude_en",
-        "grade_bucket",
-        "value",
-        "base_value",
-        "listed_relevant",
-        "formula_relevant",
-        "applied_ratios",
-        "appropriate_ids",
-        "appropriate2_ids",
+        'skill_id',
+        'skill_jp',
+        'skill_en',
+        'english_match_type',
+        'aptitude_id',
+        'aptitude_jp',
+        'aptitude_en',
+        'grade_bucket',
+        'value',
+        'base_value',
+        'listed_relevant',
+        'formula_relevant',
+        'applied_ratios',
+        'appropriate_ids',
+        'appropriate2_ids',
       ],
-      perAptitudeRows,
+      perAptitudeRows
     );
 
     writeCsv(
-      path.join(outDir, "gamewith_skill_value_group_matrix.csv"),
+      path.join(outDir, 'gamewith_skill_value_group_matrix.csv'),
       [
-        "skill_id",
-        "skill_jp",
-        "skill_en",
-        "english_match_type",
-        "distance_bucket",
-        "style_bucket",
-        "value",
-        "base_value",
-        "distance_ids",
-        "style_ids",
-        "applied_ratios",
+        'skill_id',
+        'skill_jp',
+        'skill_en',
+        'english_match_type',
+        'distance_bucket',
+        'style_bucket',
+        'value',
+        'base_value',
+        'distance_ids',
+        'style_ids',
+        'applied_ratios',
       ],
-      groupMatrixRows,
+      groupMatrixRows
     );
 
     writeCsv(
-      path.join(outDir, "gamewith_unmatched_skills.csv"),
+      path.join(outDir, 'gamewith_unmatched_skills.csv'),
       [
-        "skill_id",
-        "skill_jp",
-        "skill_kana",
-        "category_code",
-        "color_code",
-        "base_value",
-        "appropriate_ids",
-        "appropriate2_ids",
-        "is_evo",
-        "evo_before_name",
+        'skill_id',
+        'skill_jp',
+        'skill_kana',
+        'category_code',
+        'color_code',
+        'base_value',
+        'appropriate_ids',
+        'appropriate2_ids',
+        'is_evo',
+        'evo_before_name',
       ],
-      unmatchedRows,
+      unmatchedRows
     );
   } else {
     for (const fileName of extraOutputFiles) {
@@ -1084,7 +1088,7 @@ async function main() {
     }
   }
 
-  fs.writeFileSync(metadataPath, `${JSON.stringify(metadata, null, 2)}\n`, "utf8");
+  fs.writeFileSync(metadataPath, `${JSON.stringify(metadata, null, 2)}\n`, 'utf8');
 
   console.log(
     [
@@ -1098,12 +1102,12 @@ async function main() {
       `English unmatched: ${metadata.english_unmatched_count}`,
       `Output: ${outDir}`,
       `Metadata: ${metadataPath}`,
-    ].join("\n"),
+    ].join('\n')
   );
 }
 
 main().catch((err) => {
-  console.error("Failed to scrape GameWith skills.");
+  console.error('Failed to scrape GameWith skills.');
   console.error(err && err.stack ? err.stack : String(err));
   process.exit(1);
 });

@@ -4,9 +4,24 @@
       label: 'Rating',
       i18nKey: 'nav.rating',
       children: [
-        { label: 'Optimizer', i18nKey: 'nav.optimizer', path: '/optimizer', file: '/optimizer.html' },
-        { label: 'Calculator', i18nKey: 'nav.calculator', path: '/calculator', file: '/calculator.html' },
-        { label: 'Stamina Check', i18nKey: 'nav.staminaCheck', path: '/stamina', file: '/stamina.html' },
+        {
+          label: 'Optimizer',
+          i18nKey: 'nav.optimizer',
+          path: '/optimizer',
+          file: '/optimizer.html',
+        },
+        {
+          label: 'Calculator',
+          i18nKey: 'nav.calculator',
+          path: '/calculator',
+          file: '/calculator.html',
+        },
+        {
+          label: 'Stamina Check',
+          i18nKey: 'nav.staminaCheck',
+          path: '/stamina',
+          file: '/stamina.html',
+        },
       ],
     },
     {
@@ -14,7 +29,12 @@
       i18nKey: 'nav.tools',
       children: [
         { label: 'Event OCR', i18nKey: 'nav.eventOCR', path: '/events', file: '/events.html' },
-        { label: 'Support Hints', i18nKey: 'nav.supportHints', path: '/hints', file: '/hints.html' },
+        {
+          label: 'Support Hints',
+          i18nKey: 'nav.supportHints',
+          path: '/hints',
+          file: '/hints.html',
+        },
         { label: 'Deck Builder', i18nKey: 'nav.deckBuilder', path: '/deck', file: '/deck.html' },
       ],
     },
@@ -22,7 +42,12 @@
       label: 'Data',
       i18nKey: 'nav.data',
       children: [
-        { label: 'Skill Library', i18nKey: 'nav.skillLibrary', path: '/skills', file: '/skills.html' },
+        {
+          label: 'Skill Library',
+          i18nKey: 'nav.skillLibrary',
+          path: '/skills',
+          file: '/skills.html',
+        },
       ],
     },
     {
@@ -85,7 +110,9 @@
   // Build navbar element (not in DOM yet)
   const nav = document.createElement('nav');
   nav.className = 'site-nav';
-  var _t = function (key) { return typeof window.t === 'function' ? window.t(key) : key; };
+  var _t = function (key) {
+    return typeof window.t === 'function' ? window.t(key) : key;
+  };
   nav.setAttribute('aria-label', _t('nav.primary'));
   nav.innerHTML = `
     <div class="nav-inner">
@@ -255,7 +282,9 @@
         btn.setAttribute('aria-haspopup', 'true');
         const groupLabel = route.i18nKey ? _t(route.i18nKey) : route.label;
         btn.innerHTML =
-          '<span' + (route.i18nKey ? ' data-i18n="' + route.i18nKey + '"' : '') + '>' +
+          '<span' +
+          (route.i18nKey ? ' data-i18n="' + route.i18nKey + '"' : '') +
+          '>' +
           groupLabel +
           '</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">' +
           '<path d="M3 4.5L6 7.5L9 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +

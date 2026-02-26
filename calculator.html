@@ -42,9 +42,22 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <link rel="preload" href="/assets/skills_all.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
@@ -219,7 +232,12 @@
       </div>
 
       <!-- Combined Race Config + Stats/Rating -->
-      <section class="card card-elevated calculator-top-section race-config-container" id="calculator-config-section" data-scroll-section data-scroll-label="Config">
+      <section
+        class="card card-elevated calculator-top-section race-config-container"
+        id="calculator-config-section"
+        data-scroll-section
+        data-scroll-label="Config"
+      >
         <div class="calculator-top-grid">
           <!-- Left: Race Configuration -->
           <div class="race-config-pane">
@@ -516,24 +534,44 @@
       </section>
 
       <!-- Selected Skills Display -->
-      <section class="card card-elevated" id="selected-skills-section" style="margin-bottom: 16px" data-scroll-section data-scroll-label="Selected">
-        <h3 style="margin: 0.2rem 0 0.5rem 0" data-i18n="calculator.selectedSkills">Selected Skills</h3>
+      <section
+        class="card card-elevated"
+        id="selected-skills-section"
+        style="margin-bottom: 16px"
+        data-scroll-section
+        data-scroll-label="Selected"
+      >
+        <h3 style="margin: 0.2rem 0 0.5rem 0" data-i18n="calculator.selectedSkills">
+          Selected Skills
+        </h3>
         <div id="results" class="results">
           <div
             class="grid"
             style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px"
           >
-            <div class="pill"><b data-i18n="calculator.skillCount">Skills:</b> <span id="skill-count">0</span></div>
-            <div class="pill"><b data-i18n="calculator.skillScore">Skill Score:</b> <span id="total-skill-score">0</span></div>
+            <div class="pill">
+              <b data-i18n="calculator.skillCount">Skills:</b> <span id="skill-count">0</span>
+            </div>
+            <div class="pill">
+              <b data-i18n="calculator.skillScore">Skill Score:</b>
+              <span id="total-skill-score">0</span>
+            </div>
           </div>
           <div class="results-list" id="selected-list" style="margin-top: 0.75rem"></div>
         </div>
       </section>
 
       <!-- Skill Rows (simplified - no cost, hint, or must buy) -->
-      <section class="card card-elevated" id="calculator-skill-rows" data-scroll-section data-scroll-label="Skills">
+      <section
+        class="card card-elevated"
+        id="calculator-skill-rows"
+        data-scroll-section
+        data-scroll-label="Skills"
+      >
         <div class="toolbar" role="group" aria-label="Skill rows" style="justify-content: flex-end">
-          <span class="muted" data-i18n="calculator.addSkillsHint">Add skills to calculate your build's rating</span>
+          <span class="muted" data-i18n="calculator.addSkillsHint"
+            >Add skills to calculate your build's rating</span
+          >
           <div class="spacer"></div>
           <label
             class="target-check"
@@ -546,13 +584,33 @@
           <div id="lib-status" class="status" aria-live="polite"></div>
         </div>
         <div class="toolbar" style="justify-content: flex-end">
-          <button id="clear-all" class="btn" type="button" data-i18n="calculator.clearAll">Clear All Skills</button>
+          <button id="clear-all" class="btn" type="button" data-i18n="calculator.clearAll">
+            Clear All Skills
+          </button>
         </div>
 
         <div id="rows" class="rows calculator-rows">
-          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
-          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
-          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
+          <div class="skeleton-row" aria-hidden="true">
+            <div class="skeleton skeleton-text medium"></div>
+            <div class="skeleton skeleton-text long"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text medium"></div>
+          </div>
+          <div class="skeleton-row" aria-hidden="true">
+            <div class="skeleton skeleton-text medium"></div>
+            <div class="skeleton skeleton-text long"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text medium"></div>
+          </div>
+          <div class="skeleton-row" aria-hidden="true">
+            <div class="skeleton skeleton-text medium"></div>
+            <div class="skeleton skeleton-text long"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text medium"></div>
+          </div>
         </div>
       </section>
     </main>
@@ -593,6 +651,7 @@
 
     <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>

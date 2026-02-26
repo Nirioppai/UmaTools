@@ -97,8 +97,6 @@
     return rows;
   }
 
-
-
   function normalizeSkill(raw) {
     if (!raw || typeof raw !== 'object') return null;
     var en = raw.loc && raw.loc.en && typeof raw.loc.en === 'object' ? raw.loc.en : null;
@@ -654,9 +652,7 @@
       if (isGreen(it.category)) {
         extraPen += num(weights.greenSkillConsistencyPenalty, 0);
         expectedMul *= 1 - clamp(num(weights.greenSkillExpectedPenalty, 0), 0, 0.8);
-        scoreReasons.unshift(
-          window.t('teamTrials.greenDownweighted')
-        );
+        scoreReasons.unshift(window.t('teamTrials.greenDownweighted'));
       }
       if (c.hasVolatileRaceCondition) {
         extraPen += num(weights.volatileRaceConditionConsistencyPenalty, 0);
@@ -1326,10 +1322,12 @@
     if (num(total && total.consistentGoldCount, 0) > 0)
       strengths.push(window.t('teamTrials.prioritizesConsistent'));
     strengths.push(
-      window.t('teamTrials.averageConsistency', {score: Math.round(clamp(total.consistency, 0, 1) * 100)})
+      window.t('teamTrials.averageConsistency', {
+        score: Math.round(clamp(total.consistency, 0, 1) * 100),
+      })
     );
     risky.forEach(function (n) {
-      risks.push(window.t('teamTrials.riskyPick', {name: n}));
+      risks.push(window.t('teamTrials.riskyPick', { name: n }));
     });
     (Array.isArray(warnings) ? warnings : []).forEach(function (w) {
       if (typeof w === 'string') risks.push(w);
@@ -1370,14 +1368,12 @@
       return false;
     });
     if (filteredOutCount > 0) {
-      warnings.push(
-        window.t('teamTrials.filteredSkills', {count: filteredOutCount})
-      );
+      warnings.push(window.t('teamTrials.filteredSkills', { count: filteredOutCount }));
     }
     if (requiredMismatch.length) {
       var uniqueRequiredMismatch = Array.from(new Set(requiredMismatch));
       warnings.push(
-        window.t('teamTrials.ignoredRequired', {names: uniqueRequiredMismatch.join(', ')})
+        window.t('teamTrials.ignoredRequired', { names: uniqueRequiredMismatch.join(', ') })
       );
     }
     if (!items.length) {
@@ -1396,8 +1392,7 @@
         },
       };
     }
-    if (met.missingMeta > 0)
-      warnings.push(window.t('teamTrials.fallbackHeuristics'));
+    if (met.missingMeta > 0) warnings.push(window.t('teamTrials.fallbackHeuristics'));
     var req = expandRequired(items);
     if (req.requiredCost > budget) {
       return {
@@ -1443,10 +1438,8 @@
       };
     }
     if (!groupResult.metRequiredMask && neededMask !== 0) {
-      if (neededMask & CORE_MASK_ACCEL)
-        warnings.push(window.t('teamTrials.noReliableAccel'));
-      if (neededMask & CORE_MASK_SPEED)
-        warnings.push(window.t('teamTrials.noReliableSpeed'));
+      if (neededMask & CORE_MASK_ACCEL) warnings.push(window.t('teamTrials.noReliableAccel'));
+      if (neededMask & CORE_MASK_SPEED) warnings.push(window.t('teamTrials.noReliableSpeed'));
     }
     var chosen = [],
       seen = new Set();
@@ -1463,8 +1456,7 @@
       }
     });
     var t = totals(chosen);
-    if (t.count === 0)
-      warnings.push(window.t('teamTrials.noScoredSkills'));
+    if (t.count === 0) warnings.push(window.t('teamTrials.noScoredSkills'));
     var perSkill = chosen.map(function (it) {
       var rating = Math.max(0, Math.floor(num(it.ratingScore, 0)));
       var cost = Math.max(0, Math.floor(num(it.cost, 0)));

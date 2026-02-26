@@ -1,34 +1,49 @@
 #!/usr/bin/env node
-"use strict";
+'use strict';
 
-const fs = require("node:fs");
-const path = require("node:path");
+const fs = require('node:fs');
+const path = require('node:path');
 
-const DEFAULT_BASE_URL = "https://gametora.com";
-const DEFAULT_OUTPUT_DIR = path.join(__dirname, "..", "assets");
-const DEFAULT_CACHE_DIR = path.join(__dirname, "..", ".cache_gametora");
-const DEFAULT_METADATA_PATH = path.join(DEFAULT_CACHE_DIR, "gametora_metadata.json");
-const SKILLS_ALL_PATH = path.join(__dirname, "..", "assets", "skills_all.json");
+const DEFAULT_BASE_URL = 'https://gametora.com';
+const DEFAULT_OUTPUT_DIR = path.join(__dirname, '..', 'assets');
+const DEFAULT_CACHE_DIR = path.join(__dirname, '..', '.cache_gametora');
+const DEFAULT_METADATA_PATH = path.join(DEFAULT_CACHE_DIR, 'gametora_metadata.json');
+const SKILLS_ALL_PATH = path.join(__dirname, '..', 'assets', 'skills_all.json');
 
-const USER_AGENT = "Mozilla/5.0 (compatible; gametora-codex-scraper/2.0)";
+const USER_AGENT = 'Mozilla/5.0 (compatible; gametora-codex-scraper/2.0)';
 
 // GameTora image URL templates
-const GT_SUPPORT_IMG = (id) => `${DEFAULT_BASE_URL}/images/umamusume/supports/support_card_s_${id}.png`;
-const GT_CHAR_IMG = (charId, cardId) => `${DEFAULT_BASE_URL}/images/umamusume/characters/thumb/chara_stand_${charId}_${cardId}.png`;
+const GT_SUPPORT_IMG = (id) =>
+  `${DEFAULT_BASE_URL}/images/umamusume/supports/support_card_s_${id}.png`;
+const GT_CHAR_IMG = (charId, cardId) =>
+  `${DEFAULT_BASE_URL}/images/umamusume/characters/thumb/chara_stand_${charId}_${cardId}.png`;
 
-const STAT_NAMES = ["Speed", "Stamina", "Power", "Guts", "Wit"];
+const STAT_NAMES = ['Speed', 'Stamina', 'Power', 'Guts', 'Wit'];
 
 // evrew stat-key → display name
 const EVREW_KEY_MAP = Object.freeze({
-  sp: "Speed", st: "Stamina", po: "Power", gu: "Guts",
-  in: "Wit", wi: "Wit", sk: "Skill Pts", pt: "Skill Pts",
-  bo: "Bond", bo_ch: "Bond", bo_l: "Bond", bo_r: "Bond",
-  vi: "Energy", en: "Energy", hp: "Energy",
-  mo: "Motivation", fa: "Fans",
-  me: "Max Energy", he: "Motivation",
+  sp: 'Speed',
+  st: 'Stamina',
+  po: 'Power',
+  gu: 'Guts',
+  in: 'Wit',
+  wi: 'Wit',
+  sk: 'Skill Pts',
+  pt: 'Skill Pts',
+  bo: 'Bond',
+  bo_ch: 'Bond',
+  bo_l: 'Bond',
+  bo_r: 'Bond',
+  vi: 'Energy',
+  en: 'Energy',
+  hp: 'Energy',
+  mo: 'Motivation',
+  fa: 'Fans',
+  me: 'Max Energy',
+  he: 'Motivation',
 });
 
-const RARITY_MAP = { 1: "R", 2: "SR", 3: "SSR" };
+const RARITY_MAP = { 1: 'R', 2: 'SR', 3: 'SSR' };
 
 // GameTora XOR cipher offsets/keys (reverse-engineered from frontend JS)
 const GT_NAME_OFFSET = 86;
@@ -41,52 +56,60 @@ const GT_REWARD_OFFSET = 36;
 
 function parseArgs(argv) {
   const opts = {
-    what: "all",
-    server: "global",
-    outUma: path.join(DEFAULT_OUTPUT_DIR, "uma_data.json"),
-    outSupports: path.join(DEFAULT_OUTPUT_DIR, "support_card.json"),
-    outSupportHints: path.join(DEFAULT_OUTPUT_DIR, "support_hints.json"),
+    what: 'all',
+    server: 'global',
+    outUma: path.join(DEFAULT_OUTPUT_DIR, 'uma_data.json'),
+    outSupports: path.join(DEFAULT_OUTPUT_DIR, 'support_card.json'),
+    outSupportHints: path.join(DEFAULT_OUTPUT_DIR, 'support_hints.json'),
     outSkills: SKILLS_ALL_PATH,
-    charThumbDir: path.join(DEFAULT_OUTPUT_DIR, "character_thumbs"),
-    supportThumbDir: path.join(DEFAULT_OUTPUT_DIR, "support_thumbs"),
+    charThumbDir: path.join(DEFAULT_OUTPUT_DIR, 'character_thumbs'),
+    supportThumbDir: path.join(DEFAULT_OUTPUT_DIR, 'support_thumbs'),
     metadata: DEFAULT_METADATA_PATH,
     noFetch: false,
   };
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
-    if (arg === "--what") opts.what = argv[++i];
-    else if (arg === "--server") opts.server = argv[++i];
-    else if (arg === "--out-uma") opts.outUma = argv[++i];
-    else if (arg === "--out-supports") opts.outSupports = argv[++i];
-    else if (arg === "--out-support-hints") opts.outSupportHints = argv[++i];
-    else if (arg === "--out-skills") opts.outSkills = argv[++i];
-    else if (arg === "--char-thumb-dir") opts.charThumbDir = argv[++i];
-    else if (arg === "--support-thumb-dir") opts.supportThumbDir = argv[++i];
-    else if (arg === "--metadata") opts.metadata = argv[++i];
-    else if (arg === "--no-fetch") opts.noFetch = true;
-    else if (arg === "--help" || arg === "-h") { printHelp(); process.exit(0); }
-    else { console.error(`Unknown argument: ${arg}`); printHelp(); process.exit(1); }
+    if (arg === '--what') opts.what = argv[++i];
+    else if (arg === '--server') opts.server = argv[++i];
+    else if (arg === '--out-uma') opts.outUma = argv[++i];
+    else if (arg === '--out-supports') opts.outSupports = argv[++i];
+    else if (arg === '--out-support-hints') opts.outSupportHints = argv[++i];
+    else if (arg === '--out-skills') opts.outSkills = argv[++i];
+    else if (arg === '--char-thumb-dir') opts.charThumbDir = argv[++i];
+    else if (arg === '--support-thumb-dir') opts.supportThumbDir = argv[++i];
+    else if (arg === '--metadata') opts.metadata = argv[++i];
+    else if (arg === '--no-fetch') opts.noFetch = true;
+    else if (arg === '--help' || arg === '-h') {
+      printHelp();
+      process.exit(0);
+    } else {
+      console.error(`Unknown argument: ${arg}`);
+      printHelp();
+      process.exit(1);
+    }
   }
   return opts;
 }
 
 function printHelp() {
-  console.log([
-    "Usage: node scripts/gametora.js [options]",
-    "",
-    "Options:",
-    "  --what <skills|uma|supports|all>         What to scrape (default: all)",
-    "  --server <global|japan>                  Server (default: global)",
-    "  --out-uma <path>          Output for character data",
-    "  --out-supports <path>     Output for support events",
-    "  --out-support-hints <path> Output for support hints",
-    "  --out-skills <path>       Output for skills metadata",
-    "  --char-thumb-dir <path>   Where to save character thumbnails",
-    "  --support-thumb-dir <path> Where to save support thumbnails",
-    "  --metadata <path>         Metadata JSON output",
-    "  --no-fetch                Use cached JSON only",
-  ].join("\n"));
+  console.log(
+    [
+      'Usage: node scripts/gametora.js [options]',
+      '',
+      'Options:',
+      '  --what <skills|uma|supports|all>         What to scrape (default: all)',
+      '  --server <global|japan>                  Server (default: global)',
+      '  --out-uma <path>          Output for character data',
+      '  --out-supports <path>     Output for support events',
+      '  --out-support-hints <path> Output for support hints',
+      '  --out-skills <path>       Output for skills metadata',
+      '  --char-thumb-dir <path>   Where to save character thumbnails',
+      '  --support-thumb-dir <path> Where to save support thumbnails',
+      '  --metadata <path>         Metadata JSON output',
+      '  --no-fetch                Use cached JSON only',
+    ].join('\n')
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -102,19 +125,19 @@ function ensureDir(dirPath) {
  * Encoding: base64(plaintext XOR repeat("k"+key))
  */
 function gtDecrypt(encoded, key) {
-  if (!encoded || typeof encoded !== "string") return "";
-  const bytes = Buffer.from(encoded, "base64");
-  const keyBytes = Buffer.from(`k${key}`, "utf8");
+  if (!encoded || typeof encoded !== 'string') return '';
+  const bytes = Buffer.from(encoded, 'base64');
+  const keyBytes = Buffer.from(`k${key}`, 'utf8');
   const result = Buffer.alloc(bytes.length);
   for (let i = 0; i < bytes.length; i++) {
     result[i] = bytes[i] ^ keyBytes[i % keyBytes.length];
   }
-  return result.toString("utf8");
+  return result.toString('utf8');
 }
 
 function writeJsonFile(filePath, data) {
   ensureDir(path.dirname(filePath));
-  fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+  fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
 }
 
 // ---------------------------------------------------------------------------
@@ -123,11 +146,11 @@ function writeJsonFile(filePath, data) {
 
 function jsonCachePath(url) {
   const slug = url
-    .replace(/^https?:\/\//, "")
-    .replace(/[^a-zA-Z0-9.-]/g, "_")
+    .replace(/^https?:\/\//, '')
+    .replace(/[^a-zA-Z0-9.-]/g, '_')
     .slice(0, 200);
   // Avoid double .json extension if URL already ends in .json
-  const ext = slug.endsWith(".json") ? "" : ".json";
+  const ext = slug.endsWith('.json') ? '' : '.json';
   return path.join(DEFAULT_CACHE_DIR, `${slug}${ext}`);
 }
 
@@ -138,22 +161,22 @@ async function fetchJsonCached(url, noFetch = false) {
     if (!fs.existsSync(cached)) {
       throw new Error(`--no-fetch: cache miss for ${url}`);
     }
-    return JSON.parse(fs.readFileSync(cached, "utf8"));
+    return JSON.parse(fs.readFileSync(cached, 'utf8'));
   }
 
   try {
     const res = await fetch(url, {
-      headers: { "user-agent": USER_AGENT, accept: "application/json" },
+      headers: { 'user-agent': USER_AGENT, accept: 'application/json' },
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     ensureDir(DEFAULT_CACHE_DIR);
-    fs.writeFileSync(cached, JSON.stringify(data), "utf8");
+    fs.writeFileSync(cached, JSON.stringify(data), 'utf8');
     return data;
   } catch (err) {
     if (fs.existsSync(cached)) {
       console.log(`  [cache-fallback] ${url}: ${err.message}`);
-      return JSON.parse(fs.readFileSync(cached, "utf8"));
+      return JSON.parse(fs.readFileSync(cached, 'utf8'));
     }
     throw err;
   }
@@ -170,7 +193,7 @@ async function fetchJsonCached(url, noFetch = false) {
 async function downloadImage(url, destPath) {
   if (fs.existsSync(destPath)) return false;
   const res = await fetch(url, {
-    headers: { "user-agent": USER_AGENT },
+    headers: { 'user-agent': USER_AGENT },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   const buf = Buffer.from(await res.arrayBuffer());
@@ -190,7 +213,9 @@ async function downloadThumbs(items, destDir, noFetch) {
   if (noFetch) return { downloaded: 0, skipped: items.length, failed: 0 };
 
   const CONCURRENCY = 8;
-  let downloaded = 0, skipped = 0, failed = 0;
+  let downloaded = 0,
+    skipped = 0,
+    failed = 0;
   let idx = 0;
 
   async function worker() {
@@ -248,12 +273,12 @@ function loadSkillNameMap() {
   _skillNameMap = {};
   if (!fs.existsSync(SKILLS_ALL_PATH)) return _skillNameMap;
   try {
-    const all = JSON.parse(fs.readFileSync(SKILLS_ALL_PATH, "utf8"));
+    const all = JSON.parse(fs.readFileSync(SKILLS_ALL_PATH, 'utf8'));
     for (const item of all) {
-      if (!item || typeof item !== "object") continue;
+      if (!item || typeof item !== 'object') continue;
       const sid = item.id || item.skill_id || item.skillId;
       if (sid == null) continue;
-      const name = item.name_en || item.enname || item.name || item.jpname || "";
+      const name = item.name_en || item.enname || item.name || item.jpname || '';
       if (name) _skillNameMap[String(sid)] = name;
     }
   } catch {}
@@ -273,18 +298,18 @@ function formatEvrew(rewardIds, evrew, skillMap) {
     if (val == null) continue; // skip special markers (e.g. "se" scenario events)
     const label = EVREW_KEY_MAP[key] || key;
 
-    if (key === "sk") {
+    if (key === 'sk') {
       // Skill hint: ["sk", "+1", skillId]
-      const skillName = extra ? (skillMap[String(extra)] || `Skill#${extra}`) : "Unknown Skill";
+      const skillName = extra ? skillMap[String(extra)] || `Skill#${extra}` : 'Unknown Skill';
       parts.push(`${skillName} hint ${val}`);
-    } else if (key === "bo" && extra) {
+    } else if (key === 'bo' && extra) {
       // Bond: ["bo", "+5", charId] — just show as "Bond +5"
       parts.push(`${label} ${val}`);
     } else {
       parts.push(`${label} ${val}`);
     }
   }
-  return parts.join("\n");
+  return parts.join('\n');
 }
 
 // ---------------------------------------------------------------------------
@@ -293,21 +318,21 @@ function formatEvrew(rewardIds, evrew, skillMap) {
 
 async function syncSkillsAll(outPath, noFetch) {
   const manifest = await loadManifest(noFetch);
-  const url = manifestUrl(manifest, "skills");
+  const url = manifestUrl(manifest, 'skills');
   if (!url) {
-    console.error("[skills] No skills hash in manifest");
+    console.error('[skills] No skills hash in manifest');
     return null;
   }
 
   const skills = await fetchJsonCached(url, noFetch);
-  const arr = Array.isArray(skills) ? skills : (skills?.skills || skills?.items || []);
+  const arr = Array.isArray(skills) ? skills : skills?.skills || skills?.items || [];
   if (!arr.length) {
-    console.error("[skills] Empty skills payload");
+    console.error('[skills] Empty skills payload');
     return null;
   }
 
   writeJsonFile(outPath, arr);
-  const officialCount = arr.filter((r) => r && String(r.name_en || "").trim()).length;
+  const officialCount = arr.filter((r) => r && String(r.name_en || '').trim()).length;
   console.log(`[skills] Wrote ${arr.length} skills (${officialCount} official EN names)`);
   return { count: arr.length, officialCount, source: url };
 }
@@ -317,15 +342,15 @@ async function syncSkillsAll(outPath, noFetch) {
 // ---------------------------------------------------------------------------
 
 async function buildCharacters(outPath, manifest, noFetch, thumbDir) {
-  console.log("[character] Loading manifest data...");
+  console.log('[character] Loading manifest data...');
   const [charCards, profiles, objectives] = await Promise.all([
-    loadManifestData(manifest, "character-cards", noFetch),
-    loadManifestData(manifest, "char_profiles", noFetch),
-    loadManifestData(manifest, "ura-objectives", noFetch),
+    loadManifestData(manifest, 'character-cards', noFetch),
+    loadManifestData(manifest, 'char_profiles', noFetch),
+    loadManifestData(manifest, 'ura-objectives', noFetch),
   ]);
 
   if (!charCards || !charCards.length) {
-    console.error("[character] No character-cards data");
+    console.error('[character] No character-cards data');
     return { count: 0 };
   }
 
@@ -348,14 +373,20 @@ async function buildCharacters(outPath, manifest, noFetch, thumbDir) {
   let eventsByCardId = {};
   try {
     const [charCardEvts, teNamesEn, teNamesJa, evrew] = await Promise.all([
-      loadManifestData(manifest, "training_events/char_card", noFetch),
-      loadManifestData(manifest, "dict/te_names_en", noFetch),
-      loadManifestData(manifest, "dict/te_names_ja", noFetch),
-      loadManifestData(manifest, "dict/evrew", noFetch),
+      loadManifestData(manifest, 'training_events/char_card', noFetch),
+      loadManifestData(manifest, 'dict/te_names_en', noFetch),
+      loadManifestData(manifest, 'dict/te_names_ja', noFetch),
+      loadManifestData(manifest, 'dict/evrew', noFetch),
     ]);
     if (charCardEvts && evrew) {
       const skillMap = loadSkillNameMap();
-      eventsByCardId = parseTrainingEventsByEntity(charCardEvts, teNamesEn, teNamesJa, evrew, skillMap);
+      eventsByCardId = parseTrainingEventsByEntity(
+        charCardEvts,
+        teNamesEn,
+        teNamesJa,
+        evrew,
+        skillMap
+      );
     }
   } catch (err) {
     console.log(`[character] Warning: could not load training events: ${err.message}`);
@@ -365,13 +396,13 @@ async function buildCharacters(outPath, manifest, noFetch, thumbDir) {
 
   for (const card of charCards) {
     const cardId = card.card_id;
-    const name = card.name_en || "";
+    const name = card.name_en || '';
     if (!name) continue;
 
     // Title/nickname
-    let nickname = card.title_en_gl || card.title || "";
+    let nickname = card.title_en_gl || card.title || '';
     // Clean bracket prefix e.g. "[Special Dreamer]" → "Special Dreamer"
-    nickname = nickname.replace(/^\[(.+)\]$/, "$1").trim();
+    nickname = nickname.replace(/^\[(.+)\]$/, '$1').trim();
 
     const slug = card.url_name || `${cardId}-${slugify(name)}`;
 
@@ -381,16 +412,14 @@ async function buildCharacters(outPath, manifest, noFetch, thumbDir) {
       baseStats[`${card.rarity || 1}\u2605`] = arrayToStats(card.base_stats);
     }
     if (card.five_star_stats?.length >= 5) {
-      baseStats["5\u2605"] = arrayToStats(card.five_star_stats);
+      baseStats['5\u2605'] = arrayToStats(card.five_star_stats);
     }
     if (card.four_star_stats?.length >= 5) {
-      baseStats["4\u2605"] = arrayToStats(card.four_star_stats);
+      baseStats['4\u2605'] = arrayToStats(card.four_star_stats);
     }
 
     // Stat bonuses
-    const statBonuses = card.stat_bonus?.length >= 5
-      ? arrayToStats(card.stat_bonus)
-      : {};
+    const statBonuses = card.stat_bonus?.length >= 5 ? arrayToStats(card.stat_bonus) : {};
 
     // Aptitudes
     const apt = {};
@@ -404,9 +433,7 @@ async function buildCharacters(outPath, manifest, noFetch, thumbDir) {
     // Profile data
     const profile = profileMap[card.char_id];
     const enProfile = profile?.en || {};
-    const heightCm = enProfile.shoes
-      ? parseHeight(enProfile.shoes)
-      : null;
+    const heightCm = enProfile.shoes ? parseHeight(enProfile.shoes) : null;
     const threeSizes = parseThreeSizes(enProfile);
 
     // Objectives
@@ -422,7 +449,7 @@ async function buildCharacters(outPath, manifest, noFetch, thumbDir) {
       UmaNickname: nickname || null,
       UmaSlug: slug,
       UmaId: String(cardId),
-      UmaServer: card.release_en ? "global" : "jp",
+      UmaServer: card.release_en ? 'global' : 'jp',
       UmaBaseStars: card.rarity || null,
       UmaBaseStats: baseStats,
       UmaStatBonuses: statBonuses,
@@ -436,7 +463,7 @@ async function buildCharacters(outPath, manifest, noFetch, thumbDir) {
   }
 
   writeJsonFile(outPath, result);
-  const globalCount = result.filter((r) => r.UmaServer === "global").length;
+  const globalCount = result.filter((r) => r.UmaServer === 'global').length;
   console.log(`[character] Done: ${result.length} character cards (${globalCount} global)`);
 
   // Download thumbnails
@@ -449,7 +476,9 @@ async function buildCharacters(outPath, manifest, noFetch, thumbDir) {
       }));
     console.log(`[character] Downloading ${thumbItems.length} thumbnails...`);
     const stats = await downloadThumbs(thumbItems, thumbDir, noFetch);
-    console.log(`[character] Thumbs: ${stats.downloaded} new, ${stats.skipped} cached, ${stats.failed} failed`);
+    console.log(
+      `[character] Thumbs: ${stats.downloaded} new, ${stats.skipped} cached, ${stats.failed} failed`
+    );
   }
 
   return { count: result.length };
@@ -464,7 +493,13 @@ function arrayToStats(arr) {
 }
 
 function slugify(name) {
-  return (name || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "unknown";
+  return (
+    (name || '')
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '') || 'unknown'
+  );
 }
 
 function parseHeight(shoesStr) {
@@ -480,26 +515,33 @@ function parseThreeSizes(enProfile) {
 
 function buildObjectives(objData) {
   const objectives = [];
-  for (const obj of (objData.objectives || [])) {
+  for (const obj of objData.objectives || []) {
     const races = obj.races || [];
-    const raceNames = races.map((r) => r.name_en || "").filter(Boolean);
-    const name = raceNames.length ? raceNames.join(", ") : objectiveFallbackName(obj);
+    const raceNames = races.map((r) => r.name_en || '').filter(Boolean);
+    const name = raceNames.length ? raceNames.join(', ') : objectiveFallbackName(obj);
     const turn = obj.turn || 0;
-    let year = "Senior Year";
-    if (turn <= 24) year = "Junior Year";
-    else if (turn <= 48) year = "Classic Year";
+    let year = 'Senior Year';
+    if (turn <= 24) year = 'Junior Year';
+    else if (turn <= 48) year = 'Classic Year';
     objectives.push({
       ObjectiveName: name,
       Turn: String(turn),
       Time: year,
-      ObjectiveCondition: "",
+      ObjectiveCondition: '',
     });
   }
   return objectives;
 }
 
-const URA_RACE_TYPE = { 1: "URA Preliminary", 2: "URA Semi-Final", 3: "URA Final" };
-const OBJ_GRADE_LABEL = { 100: "G1", 200: "G2", 300: "G3", 400: "OP", 500: "Pre-OP", 700: "Pre-OP" };
+const URA_RACE_TYPE = { 1: 'URA Preliminary', 2: 'URA Semi-Final', 3: 'URA Final' };
+const OBJ_GRADE_LABEL = {
+  100: 'G1',
+  200: 'G2',
+  300: 'G3',
+  400: 'OP',
+  500: 'Pre-OP',
+  700: 'Pre-OP',
+};
 
 function objectiveFallbackName(obj) {
   // URA Finals (target_type=3, race_type 1/2/3)
@@ -514,17 +556,17 @@ function objectiveFallbackName(obj) {
   if (obj.cond_type === 2) {
     const place = formatPlacement(obj.cond_value);
     const count = obj.cond_value_2 || 1;
-    const grade = OBJ_GRADE_LABEL[obj.cond_id] || "?";
-    const suffix = grade !== "G1" ? " or higher" : "";
-    return `${place} in ${count} ${grade}${suffix} race${count !== 1 ? "s" : ""}`;
+    const grade = OBJ_GRADE_LABEL[obj.cond_id] || '?';
+    const suffix = grade !== 'G1' ? ' or higher' : '';
+    return `${place} in ${count} ${grade}${suffix} race${count !== 1 ? 's' : ''}`;
   }
-  return `Objective ${obj.order ?? "?"}`;
+  return `Objective ${obj.order ?? '?'}`;
 }
 
 function formatPlacement(val) {
-  if (!val || val === 0) return "Participate";
-  if (val === 1) return "Place 1st";
-  return `Place ${val}${val === 2 ? "nd" : val === 3 ? "rd" : "th"} or better`;
+  if (!val || val === 0) return 'Participate';
+  if (val === 1) return 'Place 1st';
+  return `Place ${val}${val === 2 ? 'nd' : val === 3 ? 'rd' : 'th'} or better`;
 }
 
 // ---------------------------------------------------------------------------
@@ -540,8 +582,8 @@ function decodeEventName(nameIdx, teNamesEn, teNamesJa) {
   const encodedEn = teNamesEn?.[adjustedIdx];
   const encodedJa = teNamesJa?.[adjustedIdx];
 
-  const nameEn = encodedEn ? gtDecrypt(encodedEn, GT_NAME_KEY) : "";
-  const nameJa = encodedJa ? gtDecrypt(encodedJa, GT_NAME_KEY) : "";
+  const nameEn = encodedEn ? gtDecrypt(encodedEn, GT_NAME_KEY) : '';
+  const nameJa = encodedJa ? gtDecrypt(encodedJa, GT_NAME_KEY) : '';
 
   // Prefer EN name, fall back to JA
   return nameEn || nameJa || `Event #${nameIdx}`;
@@ -571,24 +613,22 @@ function parseTrainingEventsByEntity(rawEntries, teNamesEn, teNamesJa, evrew, sk
       const choiceData = evt[1];
       if (!Array.isArray(choiceData)) continue;
 
-      const choices = choiceData.filter(
-        (c) => Array.isArray(c) && Array.isArray(c[1]),
-      );
+      const choices = choiceData.filter((c) => Array.isArray(c) && Array.isArray(c[1]));
 
       if (choices.length === 0) {
-        entityEvents.push({ EventName: eventName, EventOptions: { "": "See details" } });
+        entityEvents.push({ EventName: eventName, EventOptions: { '': 'See details' } });
         continue;
       }
 
       const options = {};
       if (choices.length === 1) {
         const rewards = formatEvrew(choices[0][1] || [], evrew, skillMap);
-        options[""] = rewards || "See details";
+        options[''] = rewards || 'See details';
       } else {
         for (let ci = 0; ci < choices.length; ci++) {
-          const label = ci === 0 ? "Top Option" : ci === 1 ? "Bottom Option" : `Option ${ci + 1}`;
+          const label = ci === 0 ? 'Top Option' : ci === 1 ? 'Bottom Option' : `Option ${ci + 1}`;
           const rewards = formatEvrew(choices[ci][1] || [], evrew, skillMap);
-          options[label] = rewards || "See details";
+          options[label] = rewards || 'See details';
         }
       }
 
@@ -631,7 +671,7 @@ function parseCardEffects(effectsArr, effectTypeLookup) {
       }
     }
 
-    const info = effectTypeLookup[typeId] || { name: `Effect #${typeId}`, symbol: "" };
+    const info = effectTypeLookup[typeId] || { name: `Effect #${typeId}`, symbol: '' };
     result.push({
       id: typeId,
       name: info.name,
@@ -647,17 +687,17 @@ function parseCardEffects(effectsArr, effectTypeLookup) {
 // ---------------------------------------------------------------------------
 
 async function buildSupports(outEventsPath, outHintsPath, manifest, noFetch, thumbDir) {
-  console.log("[support] Loading manifest data...");
+  console.log('[support] Loading manifest data...');
   const [supportCards, teNamesEn, teNamesJa, evrew, supportEffectsDef] = await Promise.all([
-    loadManifestData(manifest, "support-cards", noFetch),
-    loadManifestData(manifest, "dict/te_names_en", noFetch),
-    loadManifestData(manifest, "dict/te_names_ja", noFetch),
-    loadManifestData(manifest, "dict/evrew", noFetch),
-    loadManifestData(manifest, "support_effects", noFetch),
+    loadManifestData(manifest, 'support-cards', noFetch),
+    loadManifestData(manifest, 'dict/te_names_en', noFetch),
+    loadManifestData(manifest, 'dict/te_names_ja', noFetch),
+    loadManifestData(manifest, 'dict/evrew', noFetch),
+    loadManifestData(manifest, 'support_effects', noFetch),
   ]);
 
   if (!supportCards || !supportCards.length) {
-    console.error("[support] No support-cards data");
+    console.error('[support] No support-cards data');
     return { cards: 0, hints: 0, events: 0 };
   }
 
@@ -668,7 +708,7 @@ async function buildSupports(outEventsPath, outHintsPath, manifest, noFetch, thu
       if (eff && eff.id != null) {
         effectTypeLookup[eff.id] = {
           name: eff.name_en || eff.name || `Effect #${eff.id}`,
-          symbol: eff.symbol || "",
+          symbol: eff.symbol || '',
         };
       }
     }
@@ -681,8 +721,8 @@ async function buildSupports(outEventsPath, outHintsPath, manifest, noFetch, thu
   let eventsBySupport = {};
   try {
     const [ssrEvts, srEvts] = await Promise.all([
-      loadManifestData(manifest, "training_events/ssr", noFetch),
-      loadManifestData(manifest, "training_events/sr", noFetch),
+      loadManifestData(manifest, 'training_events/ssr', noFetch),
+      loadManifestData(manifest, 'training_events/sr', noFetch),
     ]);
     const allEvts = [...(ssrEvts || []), ...(srEvts || [])];
     if (allEvts.length && evrew) {
@@ -699,12 +739,10 @@ async function buildSupports(outEventsPath, outHintsPath, manifest, noFetch, thu
 
   for (const card of supportCards) {
     const supId = card.support_id;
-    const charName = card.char_name || "";
-    const rarity = RARITY_MAP[card.rarity] || "UNKNOWN";
+    const charName = card.char_name || '';
+    const rarity = RARITY_MAP[card.rarity] || 'UNKNOWN';
     const slug = card.url_name || `${supId}-${slugify(charName)}`;
-    const displayName = charName
-      ? `${charName} (${rarity})`
-      : `Support #${supId} (${rarity})`;
+    const displayName = charName ? `${charName} (${rarity})` : `Support #${supId} (${rarity})`;
 
     // Hints
     const hintSkills = card.hints?.hint_skills || [];
@@ -712,29 +750,33 @@ async function buildSupports(outEventsPath, outHintsPath, manifest, noFetch, thu
     const parsedHints = [];
 
     for (const sid of hintSkills) {
-      const skillName = skillMap[String(sid)] || "";
+      const skillName = skillMap[String(sid)] || '';
       parsedHints.push({ SkillId: String(sid), Name: skillName, HintLevel: null });
     }
     for (const other of hintOthers) {
-      if (other && typeof other === "object") {
+      if (other && typeof other === 'object') {
         // hint_others entries: {hint_type, hint_value}
         // These are non-skill hints (stat bonuses, training effects, etc.)
         // We'll include them with descriptive names
         const hintType = other.hint_type;
         const hintValue = other.hint_value;
         const name = describeHintOther(hintType, hintValue);
-        if (name) parsedHints.push({ SkillId: "", Name: name, HintLevel: null });
+        if (name) parsedHints.push({ SkillId: '', Name: name, HintLevel: null });
       }
     }
 
     // Support type (speed/stamina/power/guts/intelligence/friend/group → display name)
-    const typeRaw = card.type || "";
+    const typeRaw = card.type || '';
     const SUPPORT_TYPE_MAP = {
-      speed: "Speed", stamina: "Stamina", power: "Power",
-      guts: "Guts", intelligence: "Wit",
-      friend: "Friend", group: "Group",
+      speed: 'Speed',
+      stamina: 'Stamina',
+      power: 'Power',
+      guts: 'Guts',
+      intelligence: 'Wit',
+      friend: 'Friend',
+      group: 'Group',
     };
-    const supportType = SUPPORT_TYPE_MAP[typeRaw] || typeRaw || "Unknown";
+    const supportType = SUPPORT_TYPE_MAP[typeRaw] || typeRaw || 'Unknown';
 
     // Parse card effects with level breakpoints
     const parsedEffects = parseCardEffects(card.effects, effectTypeLookup);
@@ -745,7 +787,7 @@ async function buildSupports(outEventsPath, outHintsPath, manifest, noFetch, thu
       parsedUnique = {
         level: card.unique.level || 0,
         effects: card.unique.effects.map((u) => {
-          const info = effectTypeLookup[u.type] || { name: `Effect #${u.type}`, symbol: "" };
+          const info = effectTypeLookup[u.type] || { name: `Effect #${u.type}`, symbol: '' };
           return { id: u.type, name: info.name, symbol: info.symbol, value: u.value };
         }),
       };
@@ -756,7 +798,7 @@ async function buildSupports(outEventsPath, outHintsPath, manifest, noFetch, thu
       SupportId: String(supId),
       SupportName: displayName,
       SupportRarity: rarity,
-      SupportServer: card.release_en ? "global" : "jp",
+      SupportServer: card.release_en ? 'global' : 'jp',
       SupportType: supportType,
       SupportEffects: parsedEffects,
       SupportUnique: parsedUnique,
@@ -779,7 +821,9 @@ async function buildSupports(outEventsPath, outHintsPath, manifest, noFetch, thu
   writeJsonFile(outEventsPath, allEvents);
 
   const totalHints = hints.reduce((sum, h) => sum + h.SupportHints.length, 0);
-  console.log(`[support] Done: ${hints.length} cards, ${totalHints} hints, ${allEvents.length} events`);
+  console.log(
+    `[support] Done: ${hints.length} cards, ${totalHints} hints, ${allEvents.length} events`
+  );
 
   // Download thumbnails
   if (thumbDir) {
@@ -789,7 +833,9 @@ async function buildSupports(outEventsPath, outHintsPath, manifest, noFetch, thu
     }));
     console.log(`[support] Downloading ${thumbItems.length} thumbnails...`);
     const stats = await downloadThumbs(thumbItems, thumbDir, noFetch);
-    console.log(`[support] Thumbs: ${stats.downloaded} new, ${stats.skipped} cached, ${stats.failed} failed`);
+    console.log(
+      `[support] Thumbs: ${stats.downloaded} new, ${stats.skipped} cached, ${stats.failed} failed`
+    );
   }
 
   return { cards: hints.length, hints: totalHints, events: allEvents.length };
@@ -799,16 +845,16 @@ function describeHintOther(type, value) {
   // hint_type values observed in the data — map to descriptive names
   // These are non-skill bonuses provided by support cards
   const descriptions = {
-    1: "Initial Speed bonus",
-    2: "Initial Stamina bonus",
-    3: "Initial Power bonus",
-    4: "Initial Guts bonus",
-    5: "Initial Wit bonus",
-    6: "Speed training bonus",
-    7: "Stamina training bonus",
-    8: "Power training bonus",
-    9: "Guts training bonus",
-    10: "Wit training bonus",
+    1: 'Initial Speed bonus',
+    2: 'Initial Stamina bonus',
+    3: 'Initial Power bonus',
+    4: 'Initial Guts bonus',
+    5: 'Initial Wit bonus',
+    6: 'Speed training bonus',
+    7: 'Stamina training bonus',
+    8: 'Power training bonus',
+    9: 'Guts training bonus',
+    10: 'Wit training bonus',
   };
   return descriptions[type] || null;
 }
@@ -823,9 +869,9 @@ function describeHintOther(type, value) {
 
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
-  const validWhat = ["skills", "uma", "supports", "races", "all"];
+  const validWhat = ['skills', 'uma', 'supports', 'races', 'all'];
   if (!validWhat.includes(opts.what)) {
-    console.error(`Invalid --what value: ${opts.what}. Must be one of: ${validWhat.join(", ")}`);
+    console.error(`Invalid --what value: ${opts.what}. Must be one of: ${validWhat.join(', ')}`);
     process.exit(1);
   }
 
@@ -841,26 +887,35 @@ async function main() {
   try {
     // Always load manifest first (except for skills-only, which loads its own)
     let manifest = null;
-    if (opts.what !== "skills") {
-      console.log("Loading manifest...");
+    if (opts.what !== 'skills') {
+      console.log('Loading manifest...');
       manifest = await loadManifest(opts.noFetch);
       console.log(`Manifest loaded (${Object.keys(manifest).length} entries)`);
     }
 
-    if (opts.what === "skills" || opts.what === "all") {
-      console.log("\n=== Skills Metadata ===");
+    if (opts.what === 'skills' || opts.what === 'all') {
+      console.log('\n=== Skills Metadata ===');
       metadata.results.skills = await syncSkillsAll(opts.outSkills, opts.noFetch);
     }
 
-    if (opts.what === "uma" || opts.what === "all") {
-      console.log("\n=== Characters ===");
-      metadata.results.characters = await buildCharacters(opts.outUma, manifest, opts.noFetch, opts.charThumbDir);
+    if (opts.what === 'uma' || opts.what === 'all') {
+      console.log('\n=== Characters ===');
+      metadata.results.characters = await buildCharacters(
+        opts.outUma,
+        manifest,
+        opts.noFetch,
+        opts.charThumbDir
+      );
     }
 
-    if (opts.what === "supports" || opts.what === "all") {
-      console.log("\n=== Support Cards ===");
+    if (opts.what === 'supports' || opts.what === 'all') {
+      console.log('\n=== Support Cards ===');
       metadata.results.supports = await buildSupports(
-        opts.outSupports, opts.outSupportHints, manifest, opts.noFetch, opts.supportThumbDir,
+        opts.outSupports,
+        opts.outSupportHints,
+        manifest,
+        opts.noFetch,
+        opts.supportThumbDir
       );
     }
   } catch (err) {
@@ -873,7 +928,7 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("Failed to run GameTora scraper.");
+  console.error('Failed to run GameTora scraper.');
   console.error(err && err.stack ? err.stack : String(err));
   process.exit(1);
 });

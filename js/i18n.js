@@ -102,9 +102,15 @@
       'home.supportHintsBadge': 'Hint finder',
       'home.openSupportHints': 'Open Support Hints',
       'home.deckBuilder': 'Deck Builder',
-      'home.deckBuilderDesc': 'Build a training deck with 1 character and 6 support cards. See combined hints and bonuses.',
+      'home.deckBuilderDesc':
+        'Build a training deck with 1 character and 6 support cards. See combined hints and bonuses.',
       'home.deckBuilderBadge': 'Team planner',
       'home.openDeckBuilder': 'Open Deck Builder',
+      'home.skillLibrary': 'Skill Library',
+      'home.skillLibraryDesc':
+        'Browse all skills with cost, rating score, efficiency, and sources.',
+      'home.skillLibraryBadge': 'Database',
+      'home.openSkillLibrary': 'Open Skill Library',
       'home.randomizer': 'Randomizer',
       'home.randomizerDesc': 'Spin up randomized challenges or inspiration runs.',
       'home.randomizerBadge': 'Fun mode',
@@ -120,7 +126,8 @@
 
       // ── 404 ──
       'error404.title': 'Page Not Found',
-      'error404.message': 'Sorry, we could not find that page. Try one of the tools below or return home.',
+      'error404.message':
+        'Sorry, we could not find that page. Try one of the tools below or return home.',
       'error404.backHome': 'Back to home',
 
       // ── Calculator ──
@@ -130,9 +137,10 @@
       'calculator.selectedSkills': 'Selected Skills',
       'calculator.skillCount': 'Skills:',
       'calculator.skillScore': 'Skill Score:',
-      'calculator.addSkillsHint': 'Add skills to calculate your build\'s rating',
+      'calculator.addSkillsHint': "Add skills to calculate your build's rating",
       'calculator.officialEnOnly': 'Official EN Skills Only',
-      'calculator.officialEnOnlyTitle': 'Only include GameTora official English skill names from name_en.',
+      'calculator.officialEnOnlyTitle':
+        'Only include GameTora official English skill names from name_en.',
       'calculator.clearAll': 'Clear All Skills',
       'calculator.loadingSkills': 'Loading skills...',
       'calculator.skillReady': 'Skill library ready.',
@@ -141,13 +149,17 @@
       'calculator.noSkills': 'No skills selected yet.',
       'calculator.tutorialTitle': 'Quick walkthrough',
       'calculator.tutStep1': 'Match race configuration',
-      'calculator.tutStep1Text': 'Set the track, distance, and strategy aptitudes to match your uma.',
+      'calculator.tutStep1Text':
+        'Set the track, distance, and strategy aptitudes to match your uma.',
       'calculator.tutStep2': 'Enter stats and star level',
-      'calculator.tutStep2Text': 'Fill in the five stats, star level, and unique skill level from your uma.',
+      'calculator.tutStep2Text':
+        'Fill in the five stats, star level, and unique skill level from your uma.',
       'calculator.tutStep3': 'Add skills to the calculator',
-      'calculator.tutStep3Text': 'Type a skill name to search, then click it to add. The score updates automatically.',
+      'calculator.tutStep3Text':
+        'Type a skill name to search, then click it to add. The score updates automatically.',
       'calculator.tutStep4': 'Review selected skills and totals',
-      'calculator.tutStep4Text': 'Check the final projected rating and skill score in the summary section.',
+      'calculator.tutStep4Text':
+        'Check the final projected rating and skill score in the summary section.',
       'calculator.floatProjected': 'Projected',
 
       // ── Optimizer ──
@@ -174,13 +186,16 @@
       'optimizer.failedCreateLink': 'Failed to create shareable link.',
       'optimizer.enterBuildName': 'Please enter a build name.',
       'optimizer.noBuildData': 'No build data to save.',
-      'optimizer.storageQuota': 'Storage quota exceeded. Please delete some saved builds to make room.',
-      'optimizer.saveFailed': 'Failed to save build. Your browser may have storage disabled or limits exceeded.',
+      'optimizer.storageQuota':
+        'Storage quota exceeded. Please delete some saved builds to make room.',
+      'optimizer.saveFailed':
+        'Failed to save build. Your browser may have storage disabled or limits exceeded.',
       'optimizer.helpTutorial': 'Help / Tutorial',
       'optimizer.skillPointsBudget': 'Skill Points Budget',
       'optimizer.fastLearner': 'Fast Learner (-10% cost)',
       'optimizer.officialEnOnly': 'Official EN Skills Only',
-      'optimizer.officialEnOnlyTitle': 'Only include GameTora official English skill names from name_en.',
+      'optimizer.officialEnOnlyTitle':
+        'Only include GameTora official English skill names from name_en.',
       'optimizer.optimizeFor': 'Optimize For',
       'optimizer.optRating': 'Rating',
       'optimizer.optTeamTrials': 'Team Trials (Consistent)',
@@ -191,13 +206,16 @@
       'optimizer.weightCostEfficiency': 'Cost Efficiency',
       'optimizer.weightConsistency': 'Consistency',
       'optimizer.weightDuration': 'Duration',
-      'optimizer.raceConfigHint': 'Set your target affinities so the optimizer scores skills appropriately.',
+      'optimizer.raceConfigHint':
+        'Set your target affinities so the optimizer scores skills appropriately.',
       'optimizer.idealSkillBuilder': 'Ideal Skill Builder',
-      'optimizer.idealBuilderHint': 'Pick the aptitudes you care about \u2014 matching rows will be highlighted.',
+      'optimizer.idealBuilderHint':
+        'Pick the aptitudes you care about \u2014 matching rows will be highlighted.',
       'optimizer.general': 'General',
       'optimizer.generateBuild': 'Generate Build',
       'optimizer.ratingCalculator': 'Rating Calculator',
-      'optimizer.ratingCalcHint': 'Enter your Uma\'s final stats, star rarity, and unique skill level. The optimized skill score fills in automatically to project the final evaluation.',
+      'optimizer.ratingCalcHint':
+        "Enter your Uma's final stats, star rarity, and unique skill level. The optimized skill score fills in automatically to project the final evaluation.",
       'optimizer.statsScore': 'Stats Score',
       'optimizer.skillScore': 'Skill Score',
       'optimizer.uniqueBonus': 'Unique Bonus',
@@ -249,7 +267,8 @@
       // ── Stamina ──
       'stamina.title': 'Stamina Calculator',
       'stamina.statsRecovery': 'Stats & Recovery',
-      'stamina.statsRecoveryHint': 'Fill in your stat line and recovery skills to match the spreadsheet.',
+      'stamina.statsRecoveryHint':
+        'Fill in your stat line and recovery skills to match the spreadsheet.',
       'stamina.recoverySkills': 'Recovery Skills',
       'stamina.white': 'White (1.5%)',
       'stamina.other': 'Other (3.5%)',
@@ -394,7 +413,7 @@
       'random.pickRandomUma': 'Pick Random Uma',
       'random.noCards': 'No cards available. Adjust filters or exclusions.',
       'random.noUmaData': 'No Uma data available.',
-      'random.notFound': 'Couldn\'t find that support. Please pick one from the list.',
+      'random.notFound': "Couldn't find that support. Please pick one from the list.",
       'random.clickToPick': 'Click "Pick Random Uma" to roll.',
       'random.rollAgain': 'Press "Pick Random Uma" to roll again.',
 
@@ -428,20 +447,26 @@
       'tutorial.resumeCopy': 'Continue from step {step} of {total}. You can skip anytime.',
       'tutorial.resume': 'Resume',
       'tutorial.newHereTitle': 'New here?',
-      'tutorial.newHereCopy': 'Take a quick 60-second setup tour. It is lightweight, skippable, and can be reopened any time.',
+      'tutorial.newHereCopy':
+        'Take a quick 60-second setup tour. It is lightweight, skippable, and can be reopened any time.',
       'tutorial.openHelp': 'Open help and tutorial',
 
       // ── Optimizer (dynamic) ──
-      'optimizer.libraryStillLoading': 'Skill library is still loading. Please try again once it finishes.',
-      'optimizer.selectTargetFirst': 'Select at least one target aptitude before generating a build.',
+      'optimizer.libraryStillLoading':
+        'Skill library is still loading. Please try again once it finishes.',
+      'optimizer.selectTargetFirst':
+        'Select at least one target aptitude before generating a build.',
       'optimizer.enterValidBudget': 'Enter a valid positive skill points budget first.',
-      'optimizer.addRecognizedSkill': 'Add at least one recognized skill with a cost before generating a build.',
+      'optimizer.addRecognizedSkill':
+        'Add at least one recognized skill with a cost before generating a build.',
       'optimizer.requiredExceedBudget': 'Required skills exceed the current budget.',
       'optimizer.noMatchingRows': 'No existing rows match the selected targets with S-A affinity.',
       'optimizer.teamTrialsFailed': 'Team Trials optimization failed for the current constraints.',
       'optimizer.budgetTooLow': 'Budget too low to purchase any matching Team Trials candidates.',
-      'optimizer.highlightedSkills': 'Highlighted {chosen}/{total} matching skills (cost {used}/{budget}).',
-      'optimizer.budgetTooLowSkills': 'Budget too low to purchase any of the matching skills you entered.',
+      'optimizer.highlightedSkills':
+        'Highlighted {chosen}/{total} matching skills (cost {used}/{budget}).',
+      'optimizer.budgetTooLowSkills':
+        'Budget too low to purchase any of the matching skills you entered.',
       'optimizer.noBuildToShare': 'No build to share.',
       'optimizer.linkCopied': 'Shareable link copied to clipboard!',
       'optimizer.noBuildToSave': 'No build to save.',
@@ -451,8 +476,10 @@
       'optimizer.confirmDelete': 'Delete "{name}"? This cannot be undone.',
       'optimizer.buildDeleted': 'Build "{name}" deleted.',
       'optimizer.buildSaved': 'Build "{name}" saved successfully!',
-      'optimizer.buildSavedTrimmed': 'Storage limit reached. Kept only your 10 most recent builds. Build "{name}" saved.',
-      'optimizer.csvNotRecognized': 'CSV not recognized. Expected headers like: skill_type,name,base/base_value,S_A/B_C/D_E_F/G or apt_1..apt_4,affinity',
+      'optimizer.buildSavedTrimmed':
+        'Storage limit reached. Kept only your 10 most recent builds. Build "{name}" saved.',
+      'optimizer.csvNotRecognized':
+        'CSV not recognized. Expected headers like: skill_type,name,base/base_value,S_A/B_C/D_E_F/G or apt_1..apt_4,affinity',
       'optimizer.noSavedBuilds': 'No saved builds yet. Save your current build to get started!',
       'optimizer.evo': 'Evo:',
       'optimizer.scoreDisplay': 'Score {score}',
@@ -499,7 +526,8 @@
       'events.captureFailedPerms': 'Screen capture failed (permissions or template).',
       'events.captureStopped': 'Capture stopped.',
       'events.captureFrame': 'Capture Frame',
-      'events.noSkillsDetected': 'No skills detected. Try a different image, adjust the crop, or use Manual Search below.',
+      'events.noSkillsDetected':
+        'No skills detected. Try a different image, adjust the crop, or use Manual Search below.',
       'events.clickToEdit': 'Click on a skill to edit its name or hint level',
       'events.hintLv': 'Hint Lv',
       'events.didYouMean': 'Did you mean?',
@@ -507,7 +535,8 @@
       // ── Team Trials (dynamic) ──
       'teamTrials.noTriggerGroups': 'No explicit trigger groups; using baseline consistency.',
       'teamTrials.fixedSetup': 'Condition tied to fixed setup (distance/surface/style).',
-      'teamTrials.raceConditionVaries': 'Race-condition requirement varies between Team Trials races.',
+      'teamTrials.raceConditionVaries':
+        'Race-condition requirement varies between Team Trials races.',
       'teamTrials.alwaysOn': 'Always-on activation condition.',
       'teamTrials.lateRace': 'Late-race activation window present.',
       'teamTrials.randomTiming': 'Random timing trigger lowers reliability.',
@@ -516,24 +545,33 @@
       'teamTrials.multipleGroups': 'Multiple activation groups increase fallback reliability.',
       'teamTrials.inconsistent': 'Scored as inconsistent activation.',
       'teamTrials.core': 'Scored as Team Trials core skill.',
-      'teamTrials.greenDownweighted': 'Green skill is downweighted in Team Trials due to variable race conditions.',
-      'teamTrials.consistentGoldPrioritized': 'Consistent gold skill prioritized for Team Trials rating value.',
+      'teamTrials.greenDownweighted':
+        'Green skill is downweighted in Team Trials due to variable race conditions.',
+      'teamTrials.consistentGoldPrioritized':
+        'Consistent gold skill prioritized for Team Trials rating value.',
       'teamTrials.reliableAccel': 'Includes at least one reliable late acceleration trigger.',
       'teamTrials.reliableSpeed': 'Includes at least one reliable late speed trigger.',
       'teamTrials.multipleHighProc': 'Multiple picks have high proc reliability (>= 0.65).',
-      'teamTrials.prioritizesConsistent': 'Prioritizes consistent gold skills for Team Trials rating value.',
+      'teamTrials.prioritizesConsistent':
+        'Prioritizes consistent gold skills for Team Trials rating value.',
       'teamTrials.averageConsistency': 'Average consistency score: {score}%.',
       'teamTrials.riskyPick': 'Risky pick: {name} has lower estimated reliability.',
       'teamTrials.noCandidates': 'No candidate skills provided.',
-      'teamTrials.filteredSkills': 'Filtered {count} skills that do not match selected targets/aptitudes.',
-      'teamTrials.ignoredRequired': 'Ignored required skills outside selected targets/aptitudes: {names}.',
+      'teamTrials.filteredSkills':
+        'Filtered {count} skills that do not match selected targets/aptitudes.',
+      'teamTrials.ignoredRequired':
+        'Ignored required skills outside selected targets/aptitudes: {names}.',
       'teamTrials.noMatchTargets': 'No skills match the selected Team Trials targets/aptitudes.',
-      'teamTrials.fallbackHeuristics': 'Some skills had no EN metadata match; used fallback consistency heuristics.',
+      'teamTrials.fallbackHeuristics':
+        'Some skills had no EN metadata match; used fallback consistency heuristics.',
       'teamTrials.requiredExceedBudget': 'Required skills exceed the current SP budget.',
-      'teamTrials.noFeasibleSolution': 'No feasible Team Trials solution under current budget and constraints.',
-      'teamTrials.noReliableAccel': 'Could not include a reliable late acceleration skill within budget.',
+      'teamTrials.noFeasibleSolution':
+        'No feasible Team Trials solution under current budget and constraints.',
+      'teamTrials.noReliableAccel':
+        'Could not include a reliable late acceleration skill within budget.',
       'teamTrials.noReliableSpeed': 'Could not include a reliable late speed skill within budget.',
-      'teamTrials.noScoredSkills': 'No scored skills were selected after conflict/dependency filtering.',
+      'teamTrials.noScoredSkills':
+        'No scored skills were selected after conflict/dependency filtering.',
 
       // ── Skill Library ──
       'skills.title': 'Skill Library',
@@ -664,9 +702,14 @@
       'home.supportHintsBadge': 'ヒント検索',
       'home.openSupportHints': 'サポートヒントを開く',
       'home.deckBuilder': 'デッキ編成',
-      'home.deckBuilderDesc': 'キャラ1体とサポカ6枚でデッキを組みます。ヒントとボーナスの一覧も確認できます。',
+      'home.deckBuilderDesc':
+        'キャラ1体とサポカ6枚でデッキを組みます。ヒントとボーナスの一覧も確認できます。',
       'home.deckBuilderBadge': 'デッキ編成',
       'home.openDeckBuilder': 'デッキ編成を開く',
+      'home.skillLibrary': 'スキル一覧',
+      'home.skillLibraryDesc': 'コスト・評価点・効率・取得元でスキルを検索・閲覧できます。',
+      'home.skillLibraryBadge': 'データベース',
+      'home.openSkillLibrary': 'スキル一覧を開く',
       'home.randomizer': 'ランダマイザー',
       'home.randomizerDesc': 'ランダムなチャレンジやインスピレーションランを生成します。',
       'home.randomizerBadge': 'おたのしみ',
@@ -682,7 +725,8 @@
 
       // ── 404 ──
       'error404.title': 'ページが見つかりません',
-      'error404.message': '申し訳ございません。ページが見つかりませんでした。以下のツールをお試しいただくか、ホームに戻ってください。',
+      'error404.message':
+        '申し訳ございません。ページが見つかりませんでした。以下のツールをお試しいただくか、ホームに戻ってください。',
       'error404.backHome': 'ホームに戻る',
 
       // ── Calculator ──
@@ -707,9 +751,11 @@
       'calculator.tutStep2': 'ステータスと星レベルを入力',
       'calculator.tutStep2Text': '5つのステータス、星レベル、固有スキルレベルを入力します。',
       'calculator.tutStep3': 'スキルを追加する',
-      'calculator.tutStep3Text': 'スキル名を入力して検索し、クリックで追加します。スコアは自動更新されます。',
+      'calculator.tutStep3Text':
+        'スキル名を入力して検索し、クリックで追加します。スコアは自動更新されます。',
       'calculator.tutStep4': 'スキルと合計を確認',
-      'calculator.tutStep4Text': 'サマリーセクションで最終的な予想レーティングとスキルスコアを確認します。',
+      'calculator.tutStep4Text':
+        'サマリーセクションで最終的な予想レーティングとスキルスコアを確認します。',
       'calculator.floatProjected': '予想',
 
       // ── Optimizer ──
@@ -729,7 +775,8 @@
       'optimizer.viewExplanation': '説明を見る',
       'optimizer.invalidBudget': '有効なスキルポイント予算を入力してください。',
       'optimizer.addAtLeastOne': '有効なコストのスキルを1つ以上追加してください。',
-      'optimizer.copyError': '共有リンクのコピーに失敗しました。アドレスバーからURLをコピーしてください。',
+      'optimizer.copyError':
+        '共有リンクのコピーに失敗しました。アドレスバーからURLをコピーしてください。',
       'optimizer.invalidBuild': '無効なビルドデータです。',
       'optimizer.failedLoadBuild': 'ビルドデータの読み込みに失敗しました。',
       'optimizer.failedEncode': 'ビルドデータのエンコードに失敗しました。',
@@ -737,7 +784,8 @@
       'optimizer.enterBuildName': 'ビルド名を入力してください。',
       'optimizer.noBuildData': '保存するビルドデータがありません。',
       'optimizer.storageQuota': 'ストレージ容量超過。保存済みビルドを削除してください。',
-      'optimizer.saveFailed': 'ビルドの保存に失敗しました。ブラウザのストレージが無効か制限を超えている可能性があります。',
+      'optimizer.saveFailed':
+        'ビルドの保存に失敗しました。ブラウザのストレージが無効か制限を超えている可能性があります。',
       'optimizer.helpTutorial': 'ヘルプ / チュートリアル',
       'optimizer.skillPointsBudget': 'スキルポイント予算',
       'optimizer.fastLearner': '切れ者 (-10%コスト)',
@@ -759,7 +807,8 @@
       'optimizer.general': '汎用',
       'optimizer.generateBuild': 'ビルド生成',
       'optimizer.ratingCalculator': 'レーティング計算機',
-      'optimizer.ratingCalcHint': 'ウマの最終ステータス、星レア度、固有スキルレベルを入力。最適化スキルスコアは自動で反映されます。',
+      'optimizer.ratingCalcHint':
+        'ウマの最終ステータス、星レア度、固有スキルレベルを入力。最適化スキルスコアは自動で反映されます。',
       'optimizer.statsScore': 'ステータススコア',
       'optimizer.skillScore': 'スキルスコア',
       'optimizer.uniqueBonus': '固有ボーナス',
@@ -990,7 +1039,8 @@
       'tutorial.resumeCopy': 'ステップ {step} / {total} から続行します。いつでもスキップできます。',
       'tutorial.resume': '再開',
       'tutorial.newHereTitle': '初めてですか？',
-      'tutorial.newHereCopy': '60秒のクイックセットアップツアーです。軽量でスキップ可能、いつでも再開できます。',
+      'tutorial.newHereCopy':
+        '60秒のクイックセットアップツアーです。軽量でスキップ可能、いつでも再開できます。',
       'tutorial.openHelp': 'ヘルプとチュートリアルを開く',
 
       // ── Optimizer (dynamic) ──
@@ -1002,7 +1052,8 @@
       'optimizer.noMatchingRows': '選択したターゲットにS-A適性で一致する行がありません。',
       'optimizer.teamTrialsFailed': '現在の条件でチームレース最適化に失敗しました。',
       'optimizer.budgetTooLow': 'チームレース候補を購入するには予算が不足しています。',
-      'optimizer.highlightedSkills': '{chosen}/{total} の一致スキルをハイライト（コスト {used}/{budget}）。',
+      'optimizer.highlightedSkills':
+        '{chosen}/{total} の一致スキルをハイライト（コスト {used}/{budget}）。',
       'optimizer.budgetTooLowSkills': '入力されたスキルを購入するには予算が不足しています。',
       'optimizer.noBuildToShare': '共有するビルドがありません。',
       'optimizer.linkCopied': '共有リンクをクリップボードにコピーしました！',
@@ -1013,9 +1064,12 @@
       'optimizer.confirmDelete': '「{name}」を削除しますか？この操作は取り消せません。',
       'optimizer.buildDeleted': 'ビルド「{name}」を削除しました。',
       'optimizer.buildSaved': 'ビルド「{name}」を保存しました！',
-      'optimizer.buildSavedTrimmed': 'ストレージ上限に達しました。最新10件のみ保持。ビルド「{name}」を保存しました。',
-      'optimizer.csvNotRecognized': 'CSVが認識できません。skill_type, name, base/base_value等のヘッダーが必要です',
-      'optimizer.noSavedBuilds': '保存済みビルドはまだありません。現在のビルドを保存して始めましょう！',
+      'optimizer.buildSavedTrimmed':
+        'ストレージ上限に達しました。最新10件のみ保持。ビルド「{name}」を保存しました。',
+      'optimizer.csvNotRecognized':
+        'CSVが認識できません。skill_type, name, base/base_value等のヘッダーが必要です',
+      'optimizer.noSavedBuilds':
+        '保存済みビルドはまだありません。現在のビルドを保存して始めましょう！',
       'optimizer.evo': 'Evo:',
       'optimizer.scoreDisplay': 'スコア {score}',
       'optimizer.load': '読込',
@@ -1042,7 +1096,8 @@
       'optimizer.teamTrialsUnavailable': 'チームレースオプティマイザーモジュールが利用できません。',
       'optimizer.teamTrialsNoResult': 'チームレースオプティマイザーが結果を生成できませんでした。',
       'optimizer.noCandidates': '候補スキルが提供されていません。',
-      'optimizer.noMatchTargets': '選択したチームレースターゲット/適性に一致するスキルがありません。',
+      'optimizer.noMatchTargets':
+        '選択したチームレースターゲット/適性に一致するスキルがありません。',
       'optimizer.optimizationFailed': '現在の条件で最適化に失敗しました。',
 
       // ── Events/OCR (dynamic) ──
@@ -1061,7 +1116,8 @@
       'events.captureFailedPerms': '画面キャプチャに失敗（権限またはテンプレート）。',
       'events.captureStopped': 'キャプチャ停止。',
       'events.captureFrame': 'フレームキャプチャ',
-      'events.noSkillsDetected': 'スキルが検出されませんでした。別の画像を試すか、切り抜きを調整するか、下の手動検索をご利用ください。',
+      'events.noSkillsDetected':
+        'スキルが検出されませんでした。別の画像を試すか、切り抜きを調整するか、下の手動検索をご利用ください。',
       'events.clickToEdit': 'スキルをクリックして名前やヒントレベルを編集',
       'events.hintLv': 'ヒント Lv',
       'events.didYouMean': 'もしかして？',
@@ -1079,23 +1135,29 @@
       'teamTrials.inconsistent': '不安定な発動と評価。',
       'teamTrials.core': 'チームレースコアスキルと評価。',
       'teamTrials.greenDownweighted': '緑スキルはレース条件の変動によりチームレースで低評価。',
-      'teamTrials.consistentGoldPrioritized': '安定した金スキルがチームレースのレーティング価値で優先。',
+      'teamTrials.consistentGoldPrioritized':
+        '安定した金スキルがチームレースのレーティング価値で優先。',
       'teamTrials.reliableAccel': '信頼性の高い終盤加速トリガーを1つ以上含む。',
       'teamTrials.reliableSpeed': '信頼性の高い終盤スピードトリガーを1つ以上含む。',
       'teamTrials.multipleHighProc': '複数の選択肢が高い発動信頼性（0.65以上）。',
-      'teamTrials.prioritizesConsistent': 'チームレースのレーティング価値で安定した金スキルを優先。',
+      'teamTrials.prioritizesConsistent':
+        'チームレースのレーティング価値で安定した金スキルを優先。',
       'teamTrials.averageConsistency': '平均安定度スコア: {score}%。',
       'teamTrials.riskyPick': 'リスク選択: {name} は推定信頼性が低い。',
       'teamTrials.noCandidates': '候補スキルが提供されていません。',
       'teamTrials.filteredSkills': '選択したターゲット/適性に一致しない{count}件のスキルを除外。',
       'teamTrials.ignoredRequired': '選択したターゲット/適性外の必須スキルを無視: {names}。',
-      'teamTrials.noMatchTargets': '選択したチームレースターゲット/適性に一致するスキルがありません。',
-      'teamTrials.fallbackHeuristics': 'ENメタデータに一致しないスキルがあり、フォールバックヒューリスティクスを使用。',
+      'teamTrials.noMatchTargets':
+        '選択したチームレースターゲット/適性に一致するスキルがありません。',
+      'teamTrials.fallbackHeuristics':
+        'ENメタデータに一致しないスキルがあり、フォールバックヒューリスティクスを使用。',
       'teamTrials.requiredExceedBudget': '必須スキルが現在のSP予算を超えています。',
       'teamTrials.noFeasibleSolution': '現在の予算と条件でチームレースの実行可能な解がありません。',
       'teamTrials.noReliableAccel': '予算内に信頼性の高い終盤加速スキルを含められませんでした。',
-      'teamTrials.noReliableSpeed': '予算内に信頼性の高い終盤スピードスキルを含められませんでした。',
-      'teamTrials.noScoredSkills': 'コンフリクト/依存関係フィルタリング後にスコア付きスキルが選択されませんでした。',
+      'teamTrials.noReliableSpeed':
+        '予算内に信頼性の高い終盤スピードスキルを含められませんでした。',
+      'teamTrials.noScoredSkills':
+        'コンフリクト/依存関係フィルタリング後にスコア付きスキルが選択されませんでした。',
 
       // ── Skill Library ──
       'skills.title': 'スキル一覧',

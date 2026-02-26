@@ -63,23 +63,23 @@ Each language block is organized into sections separated by comments:
 
 Keys use a `section.camelCase` naming convention:
 
-| Pattern | Example | Used for |
-|---------|---------|----------|
-| `common.*` | `common.speed` | Shared terms across pages |
-| `nav.*` | `nav.optimizer` | Navigation menu |
-| `home.*` | `home.title` | Landing page |
-| `calculator.*` | `calculator.addSkill` | Rating Calculator page |
-| `optimizer.*` | `optimizer.buildLoaded` | Skill Optimizer page |
-| `stamina.*` | `stamina.title` | Stamina Check page |
-| `events.*` | `events.title` | Event OCR page |
-| `hints.*` | `hints.title` | Support Hints page |
-| `deck.*` | `deck.title` | Deck Builder page |
-| `random.*` | `random.title` | Randomizer page |
-| `umadle.*` | `umadle.title` | Umadle page |
-| `tutorial.*` | `tutorial.next` | Tutorial overlay |
-| `skillLib.*` | `skillLib.title` | Skill Library page |
-| `skillPopup.*` | `skillPopup.name` | Skill description popup |
-| `ratingShared.*` | `ratingShared.badge` | Shared rating components |
+| Pattern          | Example                 | Used for                  |
+| ---------------- | ----------------------- | ------------------------- |
+| `common.*`       | `common.speed`          | Shared terms across pages |
+| `nav.*`          | `nav.optimizer`         | Navigation menu           |
+| `home.*`         | `home.title`            | Landing page              |
+| `calculator.*`   | `calculator.addSkill`   | Rating Calculator page    |
+| `optimizer.*`    | `optimizer.buildLoaded` | Skill Optimizer page      |
+| `stamina.*`      | `stamina.title`         | Stamina Check page        |
+| `events.*`       | `events.title`          | Event OCR page            |
+| `hints.*`        | `hints.title`           | Support Hints page        |
+| `deck.*`         | `deck.title`            | Deck Builder page         |
+| `random.*`       | `random.title`          | Randomizer page           |
+| `umadle.*`       | `umadle.title`          | Umadle page               |
+| `tutorial.*`     | `tutorial.next`         | Tutorial overlay          |
+| `skillLib.*`     | `skillLib.title`        | Skill Library page        |
+| `skillPopup.*`   | `skillPopup.name`       | Skill description popup   |
+| `ratingShared.*` | `ratingShared.badge`    | Shared rating components  |
 
 ---
 
@@ -89,8 +89,12 @@ Keys use a `section.camelCase` naming convention:
 
 ```js
 var TRANSLATIONS = {
-  en: { /* ... */ },
-  ja: { /* ... */ },
+  en: {
+    /* ... */
+  },
+  ja: {
+    /* ... */
+  },
   ko: {
     // ── Common ──
     'common.speed': '스피드',
@@ -141,13 +145,13 @@ Keep the key name identical across all languages. Only the value changes.
 
 Static text in HTML is translated via `data-i18n*` attributes. The `applyI18n()` function runs on page load and replaces content automatically.
 
-| Attribute | What it sets | Example |
-|-----------|-------------|---------|
-| `data-i18n` | `textContent` | `<h1 data-i18n="hints.title">Support Hint Finder</h1>` |
-| `data-i18n-html` | `innerHTML` | `<p data-i18n-html="home.desc">Text with <b>HTML</b></p>` |
-| `data-i18n-placeholder` | `placeholder` | `<input data-i18n-placeholder="common.searchByName" />` |
-| `data-i18n-aria` | `aria-label` | `<button data-i18n-aria="common.close">×</button>` |
-| `data-i18n-title` | `title` | `<button data-i18n-title="common.toggleDarkLight">🌙</button>` |
+| Attribute               | What it sets  | Example                                                        |
+| ----------------------- | ------------- | -------------------------------------------------------------- |
+| `data-i18n`             | `textContent` | `<h1 data-i18n="hints.title">Support Hint Finder</h1>`         |
+| `data-i18n-html`        | `innerHTML`   | `<p data-i18n-html="home.desc">Text with <b>HTML</b></p>`      |
+| `data-i18n-placeholder` | `placeholder` | `<input data-i18n-placeholder="common.searchByName" />`        |
+| `data-i18n-aria`        | `aria-label`  | `<button data-i18n-aria="common.close">×</button>`             |
+| `data-i18n-title`       | `title`       | `<button data-i18n-title="common.toggleDarkLight">🌙</button>` |
 
 The English text in the HTML serves as the default before JS runs. Always keep it in sync with the `en` translation value.
 
@@ -178,15 +182,15 @@ When translating these strings, keep the `{placeholder}` names exactly as-is —
 
 Common variables you'll encounter:
 
-| Variable | Type | Used in |
-|----------|------|---------|
-| `{amount}` | Number | Stamina calculations |
-| `{count}` | Number | List counts |
-| `{name}` | String | Build names |
-| `{score}` | Number | Scores |
-| `{current}`, `{total}` | Number | Progress (e.g., "Step 3 of 5") |
-| `{lvl}`, `{pct}` | Number | Hint level/discount |
-| `{chosen}`, `{used}`, `{budget}` | Number | Optimizer results |
+| Variable                         | Type   | Used in                        |
+| -------------------------------- | ------ | ------------------------------ |
+| `{amount}`                       | Number | Stamina calculations           |
+| `{count}`                        | Number | List counts                    |
+| `{name}`                         | String | Build names                    |
+| `{score}`                        | Number | Scores                         |
+| `{current}`, `{total}`           | Number | Progress (e.g., "Step 3 of 5") |
+| `{lvl}`, `{pct}`                 | Number | Hint level/discount            |
+| `{chosen}`, `{used}`, `{budget}` | Number | Optimizer results              |
 
 ---
 
@@ -202,7 +206,7 @@ To verify coverage, open the browser console and run:
 
 ```js
 // Find keys in EN that are missing from JA
-Object.keys(I18n.TRANSLATIONS.en).filter(k => !(k in I18n.TRANSLATIONS.ja));
+Object.keys(I18n.TRANSLATIONS.en).filter((k) => !(k in I18n.TRANSLATIONS.ja));
 ```
 
 An empty array `[]` means full coverage.
@@ -211,22 +215,22 @@ An empty array `[]` means full coverage.
 
 ## 9. Key Sections Reference
 
-| Section | Key count | Scope |
-|---------|-----------|-------|
-| Common | ~43 | Shared labels (stats, buttons, terms) |
-| Nav | ~22 | Navigation menu and settings |
-| Home | ~20 | Landing page cards |
-| Calculator | ~27 | Rating Calculator page |
-| Optimizer | ~96 | Skill Optimizer (largest section) |
-| Stamina | ~46 | Stamina Check page |
-| Events/OCR | ~23 | Event OCR page |
-| Hints | ~12 | Support Hints page |
-| Deck | ~55 | Deck Builder page |
-| Random | ~16 | Randomizer page |
-| Umadle | ~14 | Umadle page |
-| Tutorial | ~19 | Tutorial overlay |
-| Skill Library | ~13 | Skill Library page |
-| Skill Popup | ~12 | Skill description popup |
-| Rating Shared | ~5 | Shared rating components |
+| Section       | Key count | Scope                                 |
+| ------------- | --------- | ------------------------------------- |
+| Common        | ~43       | Shared labels (stats, buttons, terms) |
+| Nav           | ~22       | Navigation menu and settings          |
+| Home          | ~20       | Landing page cards                    |
+| Calculator    | ~27       | Rating Calculator page                |
+| Optimizer     | ~96       | Skill Optimizer (largest section)     |
+| Stamina       | ~46       | Stamina Check page                    |
+| Events/OCR    | ~23       | Event OCR page                        |
+| Hints         | ~12       | Support Hints page                    |
+| Deck          | ~55       | Deck Builder page                     |
+| Random        | ~16       | Randomizer page                       |
+| Umadle        | ~14       | Umadle page                           |
+| Tutorial      | ~19       | Tutorial overlay                      |
+| Skill Library | ~13       | Skill Library page                    |
+| Skill Popup   | ~12       | Skill description popup               |
+| Rating Shared | ~5        | Shared rating components              |
 
 Total: **~520 keys** per language.

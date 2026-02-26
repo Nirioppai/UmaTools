@@ -16,7 +16,8 @@
   const counts = document.getElementById('counts');
   const hintList = document.getElementById('hintList');
 
-  if (counts) counts.innerHTML = `<span class="loading-indicator">${t('hints.loadingHints')}</span>`;
+  if (counts)
+    counts.innerHTML = `<span class="loading-indicator">${t('hints.loadingHints')}</span>`;
 
   let data = [];
   try {
@@ -191,8 +192,7 @@
     return (parts[0]?.[0] || '') + (parts[1]?.[0] || '');
   }
 
-  const renderBadge = (rarity) =>
-    `<span class="badge badge-${rarity}">${rarity}</span>`;
+  const renderBadge = (rarity) => `<span class="badge badge-${rarity}">${rarity}</span>`;
 
   function renderResults(list) {
     results.innerHTML = list

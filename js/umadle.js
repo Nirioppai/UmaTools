@@ -1,4 +1,4 @@
-const _t = (k, v) => typeof window.t === 'function' ? window.t(k, v) : k;
+const _t = (k, v) => (typeof window.t === 'function' ? window.t(k, v) : k);
 
 const DATA_URL = '/assets/uma_data.json';
 

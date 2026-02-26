@@ -410,12 +410,12 @@ async function scanFrame() {
   const match = matchTemplateInRegion(frameData, probeRectPx, tpl);
 
   if (match.score >= MATCH_THRESHOLD) {
-    setSuggestion(t('events.uiFoundReading', {score: Math.round(match.score * 100)}));
+    setSuggestion(t('events.uiFoundReading', { score: Math.round(match.score * 100) }));
     if (!mayTrigger()) return;
 
     const title = (await ocrEventRect(eventRectPx)).trim();
     if (title) {
-      setSuggestion(t('events.detectedSearching', {title: title}));
+      setSuggestion(t('events.detectedSearching', { title: title }));
       if (typeof window.performSearch === 'function') {
         window.performSearch(title); // search.js renders the results
       } else if (typeof performSearch === 'function') {
@@ -754,10 +754,7 @@ function fuzzyMatchSkill(ocrText, maxDistance) {
 async function loadSkillDatabase() {
   if (skillDatabase) return skillDatabase;
 
-  const candidates = [
-    '/assets/uma_skills.csv',
-    './assets/uma_skills.csv',
-  ];
+  const candidates = ['/assets/uma_skills.csv', './assets/uma_skills.csv'];
   let lastErr = null;
 
   // Best-effort: load base costs for hint inference.
@@ -1197,7 +1194,8 @@ async function processSkillOCR(imageBlob) {
     return;
   }
 
-  resultsList.innerHTML = '<div class="loading-indicator">' + t('events.processingImage') + '</div>';
+  resultsList.innerHTML =
+    '<div class="loading-indicator">' + t('events.processingImage') + '</div>';
   resultsPanel.style.display = 'block';
 
   try {
@@ -1235,8 +1233,7 @@ async function processSkillOCR(imageBlob) {
     window.ocrDetectedSkills = detectedSkills;
   } catch (err) {
     console.error('[ocr] Skill OCR error:', err);
-    resultsList.innerHTML =
-      '<div class="error-message">' + t('events.ocrFailed') + '</div>';
+    resultsList.innerHTML = '<div class="error-message">' + t('events.ocrFailed') + '</div>';
     throw err;
   }
 }
@@ -1465,8 +1462,7 @@ function displayOCRResults(detectedSkills) {
   }
 
   if (detectedSkills.length === 0) {
-    resultsList.innerHTML =
-      '<div class="no-results">' + t('events.noSkillsDetected') + '</div>';
+    resultsList.innerHTML = '<div class="no-results">' + t('events.noSkillsDetected') + '</div>';
     return;
   }
 

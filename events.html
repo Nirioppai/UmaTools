@@ -42,9 +42,22 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/events.css" />
@@ -203,15 +216,25 @@
 
       <section class="search-panel">
         <form id="search-form" class="search-form">
-          <input id="query" type="text" placeholder="Search an event name..." autocomplete="off" data-i18n-placeholder="events.searchPlaceholder" />
+          <input
+            id="query"
+            type="text"
+            placeholder="Search an event name..."
+            autocomplete="off"
+            data-i18n-placeholder="events.searchPlaceholder"
+          />
           <button id="search-btn" type="submit" data-i18n="common.search">Search</button>
         </form>
         <div id="status" class="status"></div>
       </section>
 
       <div class="ocr-controls">
-        <button id="captureBtn" class="capture-btn" data-i18n="events.captureOCR">Capture Screen for OCR</button>
-        <label class="scan-time-label" for="searchDelayButtons" data-i18n="events.scanTime">Scan Time:</label>
+        <button id="captureBtn" class="capture-btn" data-i18n="events.captureOCR">
+          Capture Screen for OCR
+        </button>
+        <label class="scan-time-label" for="searchDelayButtons" data-i18n="events.scanTime"
+          >Scan Time:</label
+        >
         <div
           id="searchDelayButtons"
           class="delay-buttons"
@@ -238,6 +261,7 @@
     <script type="module" src="/js/recommend.js"></script>
 
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>

@@ -317,7 +317,6 @@ body.dark .star-btn.active {
   margin: 0 auto;
 }
 
-
 /* Character nickname in modal */
 .modal-card-nick {
   color: var(--muted, #6b7280);
@@ -582,7 +581,9 @@ body.dark .apt-badge {
 /* --- Empty support slots as clickable buttons --- */
 .deck-support-slot:not(.filled) {
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .deck-support-slot:not(.filled):hover {
@@ -603,21 +604,63 @@ body.dark .apt-badge {
   margin-top: 0.15rem;
 }
 
-.support-type-badge[data-type='Speed'] { background: #dbeafe; color: #1e40af; }
-.support-type-badge[data-type='Stamina'] { background: #fce7f3; color: #9d174d; }
-.support-type-badge[data-type='Power'] { background: #ffedd5; color: #9a3412; }
-.support-type-badge[data-type='Guts'] { background: #fef3c7; color: #92400e; }
-.support-type-badge[data-type='Wit'] { background: #d1fae5; color: #065f46; }
-.support-type-badge[data-type='Friend'] { background: #ede9fe; color: #5b21b6; }
-.support-type-badge[data-type='Group'] { background: #e0e7ff; color: #3730a3; }
+.support-type-badge[data-type='Speed'] {
+  background: #dbeafe;
+  color: #1e40af;
+}
+.support-type-badge[data-type='Stamina'] {
+  background: #fce7f3;
+  color: #9d174d;
+}
+.support-type-badge[data-type='Power'] {
+  background: #ffedd5;
+  color: #9a3412;
+}
+.support-type-badge[data-type='Guts'] {
+  background: #fef3c7;
+  color: #92400e;
+}
+.support-type-badge[data-type='Wit'] {
+  background: #d1fae5;
+  color: #065f46;
+}
+.support-type-badge[data-type='Friend'] {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+.support-type-badge[data-type='Group'] {
+  background: #e0e7ff;
+  color: #3730a3;
+}
 
-body.dark .support-type-badge[data-type='Speed'] { background: #1e3a5f; color: #93c5fd; }
-body.dark .support-type-badge[data-type='Stamina'] { background: #4a1942; color: #f9a8d4; }
-body.dark .support-type-badge[data-type='Power'] { background: #431407; color: #fdba74; }
-body.dark .support-type-badge[data-type='Guts'] { background: #451a03; color: #fcd34d; }
-body.dark .support-type-badge[data-type='Wit'] { background: #064e3b; color: #6ee7b7; }
-body.dark .support-type-badge[data-type='Friend'] { background: #2e1065; color: #c4b5fd; }
-body.dark .support-type-badge[data-type='Group'] { background: #1e1b4b; color: #a5b4fc; }
+body.dark .support-type-badge[data-type='Speed'] {
+  background: #1e3a5f;
+  color: #93c5fd;
+}
+body.dark .support-type-badge[data-type='Stamina'] {
+  background: #4a1942;
+  color: #f9a8d4;
+}
+body.dark .support-type-badge[data-type='Power'] {
+  background: #431407;
+  color: #fdba74;
+}
+body.dark .support-type-badge[data-type='Guts'] {
+  background: #451a03;
+  color: #fcd34d;
+}
+body.dark .support-type-badge[data-type='Wit'] {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+body.dark .support-type-badge[data-type='Friend'] {
+  background: #2e1065;
+  color: #c4b5fd;
+}
+body.dark .support-type-badge[data-type='Group'] {
+  background: #1e1b4b;
+  color: #a5b4fc;
+}
 
 /* --- Support Card Picker Modal --- */
 .support-modal {
@@ -1290,13 +1333,27 @@ body.dark .template-card-pill {
   margin-right: 0.2rem;
 }
 
-.template-card-pill .pill-type[data-type="Speed"] { color: #3b82f6; }
-.template-card-pill .pill-type[data-type="Stamina"] { color: #f59e0b; }
-.template-card-pill .pill-type[data-type="Power"] { color: #ef4444; }
-.template-card-pill .pill-type[data-type="Guts"] { color: #f97316; }
-.template-card-pill .pill-type[data-type="Wit"] { color: #10b981; }
-.template-card-pill .pill-type[data-type="Friend"] { color: #8b5cf6; }
-.template-card-pill .pill-type[data-type="Group"] { color: #ec4899; }
+.template-card-pill .pill-type[data-type='Speed'] {
+  color: #3b82f6;
+}
+.template-card-pill .pill-type[data-type='Stamina'] {
+  color: #f59e0b;
+}
+.template-card-pill .pill-type[data-type='Power'] {
+  color: #ef4444;
+}
+.template-card-pill .pill-type[data-type='Guts'] {
+  color: #f97316;
+}
+.template-card-pill .pill-type[data-type='Wit'] {
+  color: #10b981;
+}
+.template-card-pill .pill-type[data-type='Friend'] {
+  color: #8b5cf6;
+}
+.template-card-pill .pill-type[data-type='Group'] {
+  color: #ec4899;
+}
 
 .template-actions {
   display: flex;
@@ -1345,12 +1402,24 @@ body.dark .compat-score {
   line-height: 1;
 }
 
-.compat-grade[data-grade='S'] { color: #eab308; }
-.compat-grade[data-grade='A'] { color: #059669; }
-.compat-grade[data-grade='B'] { color: #2563eb; }
-.compat-grade[data-grade='C'] { color: #d97706; }
-.compat-grade[data-grade='D'] { color: #dc2626; }
-.compat-grade[data-grade='F'] { color: #9ca3af; }
+.compat-grade[data-grade='S'] {
+  color: #eab308;
+}
+.compat-grade[data-grade='A'] {
+  color: #059669;
+}
+.compat-grade[data-grade='B'] {
+  color: #2563eb;
+}
+.compat-grade[data-grade='C'] {
+  color: #d97706;
+}
+.compat-grade[data-grade='D'] {
+  color: #dc2626;
+}
+.compat-grade[data-grade='F'] {
+  color: #9ca3af;
+}
 
 .compat-bar {
   flex: 1;
@@ -1371,12 +1440,24 @@ body.dark .compat-bar {
   transition: width 0.3s;
 }
 
-.compat-fill[data-grade='S'] { background: #eab308; }
-.compat-fill[data-grade='A'] { background: #059669; }
-.compat-fill[data-grade='B'] { background: #2563eb; }
-.compat-fill[data-grade='C'] { background: #d97706; }
-.compat-fill[data-grade='D'] { background: #dc2626; }
-.compat-fill[data-grade='F'] { background: #9ca3af; }
+.compat-fill[data-grade='S'] {
+  background: #eab308;
+}
+.compat-fill[data-grade='A'] {
+  background: #059669;
+}
+.compat-fill[data-grade='B'] {
+  background: #2563eb;
+}
+.compat-fill[data-grade='C'] {
+  background: #d97706;
+}
+.compat-fill[data-grade='D'] {
+  background: #dc2626;
+}
+.compat-fill[data-grade='F'] {
+  background: #9ca3af;
+}
 
 .compat-value {
   font-size: 0.85rem;

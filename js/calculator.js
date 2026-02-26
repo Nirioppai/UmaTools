@@ -3,13 +3,17 @@
 // No optimization, budget, hints, or cost management
 
 (function () {
-  function attrEsc(s) { return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function attrEsc(s) {
+    return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  }
 
   const rowsEl = document.getElementById('rows');
   const clearAllBtn = document.getElementById('clear-all');
   const officialEnglishToggle = document.getElementById('official-en-only');
   const libStatus = document.getElementById('lib-status');
-  if (libStatus) libStatus.innerHTML = '<span class="loading-indicator">' + t('calculator.loadingSkills') + '</span>';
+  if (libStatus)
+    libStatus.innerHTML =
+      '<span class="loading-indicator">' + t('calculator.loadingSkills') + '</span>';
 
   const skillCountEl = document.getElementById('skill-count');
   const totalSkillScoreEl = document.getElementById('total-skill-score');
@@ -113,7 +117,9 @@
 
   function getSkillLanguage() {
     try {
-      return (localStorage.getItem(SERVER_PREF_KEY) || '').trim().toLowerCase() === 'jp' ? 'jp' : 'en';
+      return (localStorage.getItem(SERVER_PREF_KEY) || '').trim().toLowerCase() === 'jp'
+        ? 'jp'
+        : 'en';
     } catch {
       return 'en';
     }
@@ -499,15 +505,14 @@
       if (!cols || !cols.length) continue;
       const rawName = (cols[idx.name] || '').trim();
       const aliasRaw = idx.alias !== -1 ? (cols[idx.alias] || '').trim() : '';
-      const localizedName =
-        idx.localized !== -1 ? (cols[idx.localized] || '').trim() : '';
+      const localizedName = idx.localized !== -1 ? (cols[idx.localized] || '').trim() : '';
       const aliasNames = aliasRaw
         .split('|')
         .map((entry) => entry.trim())
         .filter(Boolean);
       // JP CSV: use localized_name (official EN) as primary, then first alias; keep JP name as alias
       const isJPCSV = getSkillLanguage() === 'jp';
-      const jpSwapName = isJPCSV ? (localizedName || aliasNames[0] || '') : '';
+      const jpSwapName = isJPCSV ? localizedName || aliasNames[0] || '' : '';
       const name = jpSwapName || rawName;
       if (isJPCSV && jpSwapName && rawName !== name) {
         const rawKey = normalize(rawName);
@@ -558,7 +563,11 @@
         .filter(Boolean);
       const isEvo =
         idx.isEvo !== -1
-          ? ['1', 'true', 'yes'].includes(String(cols[idx.isEvo] || '').trim().toLowerCase())
+          ? ['1', 'true', 'yes'].includes(
+              String(cols[idx.isEvo] || '')
+                .trim()
+                .toLowerCase()
+            )
           : type === 'evo';
       const score = {};
       const baseBucket = !isNaN(base) ? base : NaN;
@@ -1133,8 +1142,11 @@
         officialEnglishToggle.checked = !!state.officialEnglishOnly;
       }
       if (Object.prototype.hasOwnProperty.call(state, 'skillLanguage') && state.skillLanguage) {
-        const lang = (state.skillLanguage || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
-        try { localStorage.setItem(SERVER_PREF_KEY, lang); } catch {}
+        const lang =
+          (state.skillLanguage || '').toString().trim().toLowerCase() === 'jp' ? 'jp' : 'en';
+        try {
+          localStorage.setItem(SERVER_PREF_KEY, lang);
+        } catch {}
       }
       updateOfficialEnglishToggleState();
       rebuildSkillLibraryFromCache();

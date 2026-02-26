@@ -1,12 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const files = [
-  'skills_all.json',
-  'support_hints.json',
-  'uma_data.json',
-  'support_card.json',
-];
+const files = ['skills_all.json', 'support_hints.json', 'uma_data.json', 'support_card.json'];
 
 for (const file of files) {
   const p = path.join(__dirname, '..', 'assets', file);

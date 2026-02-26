@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v28';
+const CACHE_VERSION = 'v29';
 const STATIC_CACHE = `umatools-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `umatools-runtime-${CACHE_VERSION}`;
 
@@ -40,9 +40,18 @@ const STATIC_ASSETS = [
   '/js/search.js',
   '/js/recommend.js',
   '/js/deck.js',
+  '/js/skills.js',
+  '/js/skill-popup.js',
+  '/js/scroll-nav.js',
+  '/js/i18n.js',
+  '/js/changelog.js',
   '/js/theme-toggle.js',
   '/css/deck.css',
+  '/css/skills.css',
+  '/css/skill-popup.css',
+  '/css/scroll-nav.css',
   '/deck.html',
+  '/skills.html',
   '/assets/favicon.ico',
   '/assets/favicon-16x16.png',
   '/assets/favicon-32x32.png',

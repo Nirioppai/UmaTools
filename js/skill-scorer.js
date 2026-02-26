@@ -13,40 +13,40 @@
   // Effect type weights — how valuable each effect category is for Team Trials
   // ---------------------------------------------------------------------------
   var EFFECT_TYPE_WEIGHTS = {
-    '31': 1.4,   // Acceleration (direct)
-    '28': 1.3,   // Acceleration (variant)
-    '8':  1.2,   // Acceleration (variant)
-    '27': 1.0,   // Target Speed (direct)
-    '22': 0.95,  // Target Speed (variant)
-    '21': 0.90,  // Target Speed (variant)
-    '1':  0.85,  // Speed (raw)
-    '3':  0.80,  // Speed (variant)
-    '29': 0.60,  // Deceleration protection
-    '9':  0.55,  // Stamina recovery
-    '2':  0.50,  // HP recovery
-    '5':  0.45,  // HP recovery (variant)
-    '4':  0.40,  // HP recovery (variant)
-    '32': 0.35,  // Opponent debuff
-    '10': 0.30,  // Lane change
-    '14': 0.30,  // Pace control
-    '35': 0.25,  // Special/competition
-    '37': 0.25,
-    '38': 0.25,
-    '41': 0.25,
-    '42': 0.25,
-    '13': 0.20,  // Field of View
-    '6':  0.15,  // Other
+    31: 1.4, // Acceleration (direct)
+    28: 1.3, // Acceleration (variant)
+    8: 1.2, // Acceleration (variant)
+    27: 1.0, // Target Speed (direct)
+    22: 0.95, // Target Speed (variant)
+    21: 0.9, // Target Speed (variant)
+    1: 0.85, // Speed (raw)
+    3: 0.8, // Speed (variant)
+    29: 0.6, // Deceleration protection
+    9: 0.55, // Stamina recovery
+    2: 0.5, // HP recovery
+    5: 0.45, // HP recovery (variant)
+    4: 0.4, // HP recovery (variant)
+    32: 0.35, // Opponent debuff
+    10: 0.3, // Lane change
+    14: 0.3, // Pace control
+    35: 0.25, // Special/competition
+    37: 0.25,
+    38: 0.25,
+    41: 0.25,
+    42: 0.25,
+    13: 0.2, // Field of View
+    6: 0.15, // Other
   };
 
   // Reference values per effect category for normalization
   var EFFECT_CATEGORY = {
-    accel:    { types: ['31', '28', '8'], ref: 3500 },
+    accel: { types: ['31', '28', '8'], ref: 3500 },
     velocity: { types: ['27', '22', '21', '1', '3'], ref: 3500 },
     recovery: { types: ['9', '2', '5', '4'], ref: 550 },
-    decel:    { types: ['29'], ref: 3500 },
-    debuff:   { types: ['32'], ref: 3500 },
-    stat:     { types: [], ref: 150000 },  // 500+ type IDs
-    misc:     { types: ['10', '14', '13', '6', '35', '37', '38', '41', '42'], ref: 1000 },
+    decel: { types: ['29'], ref: 3500 },
+    debuff: { types: ['32'], ref: 3500 },
+    stat: { types: [], ref: 150000 }, // 500+ type IDs
+    misc: { types: ['10', '14', '13', '6', '35', '37', '38', '41', '42'], ref: 1000 },
   };
 
   // Build a quick lookup: effect type → reference value
@@ -60,9 +60,9 @@
   var DEFAULT_SCORING_WEIGHTS = {
     effectImpact: 0.35,
     applicability: 0.15,
-    costEfficiency: 0.20,
-    consistency: 0.20,
-    duration: 0.10,
+    costEfficiency: 0.2,
+    consistency: 0.2,
+    duration: 0.1,
   };
 
   var DISTANCE_TAGS = ['sho', 'mil', 'med', 'lng'];
@@ -74,7 +74,9 @@
   var STYLE_TAG_LABELS = { run: 'Front', ldr: 'Pace', btw: 'Late', cha: 'End' };
 
   // Helpers from TeamTrialsOptimizer (resolved at call time)
-  function TTO() { return (typeof window !== 'undefined' && window.TeamTrialsOptimizer) || {}; }
+  function TTO() {
+    return (typeof window !== 'undefined' && window.TeamTrialsOptimizer) || {};
+  }
 
   function clamp(v, lo, hi) {
     var fn = TTO().clamp;
@@ -82,17 +84,26 @@
   }
   function nName(v) {
     var fn = TTO().nName;
-    return fn ? fn(v) : String(v || '').trim().toLowerCase()
-      .replace(/[\u25ce\u25cb\u00d7]/g, '')
-      .replace(/[\[\]\(\)!'".,:;+*/\\-]/g, ' ')
-      .replace(/\s+/g, ' ').trim();
+    return fn
+      ? fn(v)
+      : String(v || '')
+          .trim()
+          .toLowerCase()
+          .replace(/[\u25ce\u25cb\u00d7]/g, '')
+          .replace(/[\[\]\(\)!'".,:;+*/\\-]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
   }
   function condText(g) {
     var fn = TTO().condText;
-    return fn ? fn(g) : [
-      (g && typeof g.condition === 'string') ? g.condition : '',
-      (g && typeof g.precondition === 'string') ? g.precondition : ''
-    ].filter(Boolean).join(' & ');
+    return fn
+      ? fn(g)
+      : [
+          g && typeof g.condition === 'string' ? g.condition : '',
+          g && typeof g.precondition === 'string' ? g.precondition : '',
+        ]
+          .filter(Boolean)
+          .join(' & ');
   }
 
   // ---------------------------------------------------------------------------
@@ -114,7 +125,7 @@
   }
 
   function groupImpactScore(group) {
-    var effects = (group && Array.isArray(group.effects)) ? group.effects : [];
+    var effects = group && Array.isArray(group.effects) ? group.effects : [];
     if (!effects.length) return 0;
     var score = 0;
     effects.forEach(function (e) {
@@ -124,7 +135,7 @@
       var normVal = clamp(Math.abs(e.value || 0) / ref, 0, 2.0);
       score += w * normVal;
     });
-    var baseTime = (group && typeof group.base_time === 'number') ? group.base_time : 0;
+    var baseTime = group && typeof group.base_time === 'number' ? group.base_time : 0;
     var durationFactor = clamp(baseTime / 30000, 0.3, 2.5);
     return score * durationFactor;
   }
@@ -142,38 +153,61 @@
   // Applicability scoring
   // ---------------------------------------------------------------------------
   function applicabilityFromTags(typeTags) {
-    var tags = new Set(Array.isArray(typeTags) ? typeTags.map(function (t) { return String(t).toLowerCase(); }) : []);
+    var tags = new Set(
+      Array.isArray(typeTags)
+        ? typeTags.map(function (t) {
+            return String(t).toLowerCase();
+          })
+        : []
+    );
     var isUniversal = tags.has('nac');
 
-    var distMatches = DISTANCE_TAGS.filter(function (t) { return tags.has(t); });
-    var surfMatches = SURFACE_TAGS.filter(function (t) { return tags.has(t); });
-    var styleMatches = STYLE_TAGS.filter(function (t) { return tags.has(t); });
+    var distMatches = DISTANCE_TAGS.filter(function (t) {
+      return tags.has(t);
+    });
+    var surfMatches = SURFACE_TAGS.filter(function (t) {
+      return tags.has(t);
+    });
+    var styleMatches = STYLE_TAGS.filter(function (t) {
+      return tags.has(t);
+    });
 
-    var distScore = (isUniversal || distMatches.length === 0) ? 1.0 : distMatches.length / DISTANCE_TAGS.length;
-    var surfScore = (isUniversal || surfMatches.length === 0) ? 1.0 : surfMatches.length / SURFACE_TAGS.length;
-    var styleScore = (isUniversal || styleMatches.length === 0) ? 1.0 : styleMatches.length / STYLE_TAGS.length;
+    var distScore =
+      isUniversal || distMatches.length === 0 ? 1.0 : distMatches.length / DISTANCE_TAGS.length;
+    var surfScore =
+      isUniversal || surfMatches.length === 0 ? 1.0 : surfMatches.length / SURFACE_TAGS.length;
+    var styleScore =
+      isUniversal || styleMatches.length === 0 ? 1.0 : styleMatches.length / STYLE_TAGS.length;
 
     return distScore * 0.4 + surfScore * 0.2 + styleScore * 0.4;
   }
 
   function conditionApplicability(conditionGroups) {
     if (!Array.isArray(conditionGroups) || !conditionGroups.length) return 1.0;
-    var DIST_MAP = { '1': 'sprint', '2': 'mile', '3': 'medium', '4': 'long' };
-    var SURF_MAP = { '1': 'turf', '2': 'dirt' };
-    var STYLE_MAP = { '1': 'front', '2': 'pace', '3': 'late', '4': 'end' };
+    var DIST_MAP = { 1: 'sprint', 2: 'mile', 3: 'medium', 4: 'long' };
+    var SURF_MAP = { 1: 'turf', 2: 'dirt' };
+    var STYLE_MAP = { 1: 'front', 2: 'pace', 3: 'late', 4: 'end' };
 
     function countAllowed(text, key, valueMap) {
       var re = new RegExp('(?:^|[^a-z0-9_])' + key + '\\s*==\\s*(\\d+)', 'ig');
-      var m, allowed = new Set();
+      var m,
+        allowed = new Set();
       while ((m = re.exec(text))) allowed.add(m[1]);
       if (!allowed.size) return Object.keys(valueMap).length; // unrestricted
       return allowed.size;
     }
 
-    var bestDist = 0, bestSurf = 0, bestStyle = 0;
+    var bestDist = 0,
+      bestSurf = 0,
+      bestStyle = 0;
     conditionGroups.forEach(function (g) {
       var t = condText(g);
-      if (!t) { bestDist = 4; bestSurf = 2; bestStyle = 4; return; }
+      if (!t) {
+        bestDist = 4;
+        bestSurf = 2;
+        bestStyle = 4;
+        return;
+      }
       bestDist = Math.max(bestDist, countAllowed(t, 'distance_type', DIST_MAP));
       bestSurf = Math.max(bestSurf, countAllowed(t, 'ground_type', SURF_MAP));
       bestStyle = Math.max(bestStyle, countAllowed(t, 'running_style', STYLE_MAP));
@@ -262,7 +296,8 @@
   // them unreliable. Savvy skills are exempt — they provide FoV/wisdom buffs
   // with consistent strategy-based conditions.
   // ---------------------------------------------------------------------------
-  var VOLATILE_RACE_RE = /(rotation|season|ground_condition|weather|post_number)\s*(==|!=|>=|<=|>|<)/i;
+  var VOLATILE_RACE_RE =
+    /(rotation|season|ground_condition|weather|post_number)\s*(==|!=|>=|<=|>|<)/i;
   var SAVVY_NAME_RE = /savvy|コツ/i;
 
   function isGreenPassive(conditionGroups) {
@@ -270,7 +305,7 @@
     return conditionGroups.every(function (g) {
       if (!g) return false;
       // Passive: base_time is -1 or 0
-      var passive = (g.base_time === -1 || g.base_time === 0);
+      var passive = g.base_time === -1 || g.base_time === 0;
       if (!passive) return false;
       // Must have a volatile race condition
       var t = condText(g);
@@ -284,7 +319,7 @@
 
   // Green penalty: reduces composite score for passive stat-boost skills
   // that depend on random race conditions, except Savvy skills
-  var GREEN_PASSIVE_PENALTY = 0.20;
+  var GREEN_PASSIVE_PENALTY = 0.2;
 
   // ---------------------------------------------------------------------------
   // Tag derivation
@@ -296,7 +331,9 @@
     if (breakdown.consistency >= 0.65) tags.push('consistent');
     if (breakdown.consistency < 0.35) tags.push('inconsistent');
 
-    var eff = tto.effectBuckets ? tto.effectBuckets(skill) : { accel: false, speed: false, recovery: false };
+    var eff = tto.effectBuckets
+      ? tto.effectBuckets(skill)
+      : { accel: false, speed: false, recovery: false };
     if (eff.accel) tags.push('accel');
     if (eff.speed) tags.push('speed');
     if (eff.recovery) tags.push('recovery');
@@ -310,7 +347,7 @@
   function deriveConsistencyAdjustment(tags) {
     var adj = 0;
     if (tags.indexOf('inconsistent') !== -1) adj -= 0.24;
-    if (tags.indexOf('consistent') !== -1) adj += 0.10;
+    if (tags.indexOf('consistent') !== -1) adj += 0.1;
     if (tags.indexOf('team_trials') !== -1) adj += 0.12;
     if (tags.indexOf('core') !== -1) adj += 0.08;
     return clamp(adj, -0.45, 0.35);
@@ -323,7 +360,7 @@
     if (composite >= 0.72) return '\u25ce'; // ◎
     if (composite >= 0.52) return '\u25cb'; // ◯
     if (composite >= 0.36) return '\u25b2'; // ▲
-    if (composite >= 0.20) return '\u25b3'; // △
+    if (composite >= 0.2) return '\u25b3'; // △
     return '\u2715'; // ✕
   }
 
@@ -331,12 +368,24 @@
   // Context string from type tags
   // ---------------------------------------------------------------------------
   function deriveContext(typeTags) {
-    var tags = new Set(Array.isArray(typeTags) ? typeTags.map(function (t) { return String(t).toLowerCase(); }) : []);
+    var tags = new Set(
+      Array.isArray(typeTags)
+        ? typeTags.map(function (t) {
+            return String(t).toLowerCase();
+          })
+        : []
+    );
     if (tags.has('nac')) return '/';
     var parts = [];
-    DISTANCE_TAGS.forEach(function (t) { if (tags.has(t)) parts.push(DISTANCE_TAG_LABELS[t]); });
-    STYLE_TAGS.forEach(function (t) { if (tags.has(t)) parts.push(STYLE_TAG_LABELS[t]); });
-    SURFACE_TAGS.forEach(function (t) { if (tags.has(t)) parts.push(SURFACE_TAG_LABELS[t]); });
+    DISTANCE_TAGS.forEach(function (t) {
+      if (tags.has(t)) parts.push(DISTANCE_TAG_LABELS[t]);
+    });
+    STYLE_TAGS.forEach(function (t) {
+      if (tags.has(t)) parts.push(STYLE_TAG_LABELS[t]);
+    });
+    SURFACE_TAGS.forEach(function (t) {
+      if (tags.has(t)) parts.push(SURFACE_TAG_LABELS[t]);
+    });
     return parts.length ? parts.join('/') : '/';
   }
 
@@ -389,7 +438,9 @@
   // ---------------------------------------------------------------------------
   function scoreSkill(normalizedSkill, weights) {
     var w = weights || DEFAULT_SCORING_WEIGHTS;
-    var groups = Array.isArray(normalizedSkill.conditionGroups) ? normalizedSkill.conditionGroups : [];
+    var groups = Array.isArray(normalizedSkill.conditionGroups)
+      ? normalizedSkill.conditionGroups
+      : [];
     var typeTags = Array.isArray(normalizedSkill.typeTags) ? normalizedSkill.typeTags : [];
     var cost = normalizedSkill.cost || 0;
 
@@ -408,8 +459,12 @@
     };
 
     // Normalize weights to sum to 1
-    var total = (w.effectImpact || 0) + (w.applicability || 0) + (w.costEfficiency || 0)
-      + (w.consistency || 0) + (w.duration || 0);
+    var total =
+      (w.effectImpact || 0) +
+      (w.applicability || 0) +
+      (w.costEfficiency || 0) +
+      (w.consistency || 0) +
+      (w.duration || 0);
     if (total <= 0) total = 1;
     var nw = {
       effectImpact: (w.effectImpact || 0) / total,
@@ -421,11 +476,12 @@
 
     var composite = clamp(
       nw.effectImpact * effectImpact +
-      nw.applicability * applicability +
-      nw.costEfficiency * costEfficiency +
-      nw.consistency * consistency +
-      nw.duration * duration,
-      0, 1
+        nw.applicability * applicability +
+        nw.costEfficiency * costEfficiency +
+        nw.consistency * consistency +
+        nw.duration * duration,
+      0,
+      1
     );
 
     // Penalize green passive skills (volatile race-condition stat boosts)
@@ -489,7 +545,8 @@
 
     (Array.isArray(rawSkillArray) ? rawSkillArray : []).forEach(function (raw) {
       // Score the gene_version (inheritable) skill — this is what players actually acquire
-      var gene = raw && raw.gene_version && typeof raw.gene_version === 'object' ? raw.gene_version : null;
+      var gene =
+        raw && raw.gene_version && typeof raw.gene_version === 'object' ? raw.gene_version : null;
       var hasGene = gene && gene.cost != null;
 
       // Also score the parent (unique/gold) skill
@@ -513,9 +570,11 @@
         });
         // Preserve loc data for EN overrides
         if (raw.loc && raw.loc.en && raw.loc.en.gene_version) {
-          geneRaw.loc = { en: Object.assign({}, raw.loc.en.gene_version, {
-            type: (raw.loc && raw.loc.en) ? raw.loc.en.type : undefined,
-          }) };
+          geneRaw.loc = {
+            en: Object.assign({}, raw.loc.en.gene_version, {
+              type: raw.loc && raw.loc.en ? raw.loc.en.type : undefined,
+            }),
+          };
         }
         var geneNorm = normalizeSkillFn(geneRaw);
         if (geneNorm && geneNorm.id) {

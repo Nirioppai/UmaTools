@@ -15,7 +15,9 @@
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
   opacity: 0;
   transform: translateX(20px);
-  transition: opacity 0.25s, transform 0.25s;
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
   pointer-events: none;
 }
 .scroll-nav.visible {
@@ -35,7 +37,9 @@
   background: transparent;
   color: var(--text-2, #374151);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 .scroll-nav-btn:hover {
   background: var(--surface-2, #f3f4f6);

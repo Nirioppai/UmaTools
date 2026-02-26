@@ -52,7 +52,20 @@
 
   // Breakpoint levels (index in the 11-value effects array) for each LB stop
   // Lv1,5,10,15,20,25,30,35,40,45,50 → indices 0-10
-  const LB_UNLOCK_INDEX = { 0: 0, 1: 0, 5: 1, 10: 2, 15: 3, 20: 4, 25: 5, 30: 6, 35: 7, 40: 8, 45: 9, 50: 10 };
+  const LB_UNLOCK_INDEX = {
+    0: 0,
+    1: 0,
+    5: 1,
+    10: 2,
+    15: 3,
+    20: 4,
+    25: 5,
+    30: 6,
+    35: 7,
+    40: 8,
+    45: 9,
+    50: 10,
+  };
 
   function uniqueActiveAtLb(card, lbStop) {
     if (!card.SupportUnique) return false;
@@ -74,13 +87,13 @@
   let selectedChar = null;
   let charStarLevel = 5;
   let selectedSupports = []; // card objects
-  let supportLbStops = [];   // per-card LB stop (0-4), parallel to selectedSupports
+  let supportLbStops = []; // per-card LB stop (0-4), parallel to selectedSupports
   let currentServer = 'en';
 
   // Character modal filter state
   let charFilterSearch = '';
-  let charFilterDist = new Set();  // Distance aptitude filters (OR within)
-  let charFilterSurf = new Set();  // Surface aptitude filters (OR within)
+  let charFilterDist = new Set(); // Distance aptitude filters (OR within)
+  let charFilterSurf = new Set(); // Surface aptitude filters (OR within)
   let charFilterStrat = new Set(); // Strategy aptitude filters (OR within)
 
   // Modal filter state
@@ -134,18 +147,18 @@
 
   // --- Skill categorization ---
   const HINT_CATEGORIES = {
-    sprint:     { label: 'Sprint',      order: 0 },
-    mile:       { label: 'Mile',        order: 1 },
-    medium:     { label: 'Medium',      order: 2 },
-    long:       { label: 'Long',        order: 3 },
+    sprint: { label: 'Sprint', order: 0 },
+    mile: { label: 'Mile', order: 1 },
+    medium: { label: 'Medium', order: 2 },
+    long: { label: 'Long', order: 3 },
     'front-pace': { label: 'Front/Pace', order: 4 },
-    'late-end': { label: 'Late/End',    order: 5 },
-    corner:     { label: 'Corner',      order: 6 },
-    straight:   { label: 'Straight',    order: 7 },
-    dirt:       { label: 'Dirt',        order: 8 },
-    turf:       { label: 'Turf',        order: 9 },
-    debuff:     { label: 'Debuff',      order: 10 },
-    general:    { label: 'General',     order: 11 },
+    'late-end': { label: 'Late/End', order: 5 },
+    corner: { label: 'Corner', order: 6 },
+    straight: { label: 'Straight', order: 7 },
+    dirt: { label: 'Dirt', order: 8 },
+    turf: { label: 'Turf', order: 9 },
+    debuff: { label: 'Debuff', order: 10 },
+    general: { label: 'General', order: 11 },
   };
 
   function categorizeSkill(skill) {
@@ -178,15 +191,30 @@
       }
     };
     addGood(apt.Distance, {
-      short: ['sprint'], mile: ['mile'], medium: ['medium'], long: ['long'],
-      Short: ['sprint'], Mile: ['mile'], Medium: ['medium'], Long: ['long'],
+      short: ['sprint'],
+      mile: ['mile'],
+      medium: ['medium'],
+      long: ['long'],
+      Short: ['sprint'],
+      Mile: ['mile'],
+      Medium: ['medium'],
+      Long: ['long'],
     });
     addGood(apt.Strategy, {
-      front: ['front-pace'], pace: ['front-pace'], late: ['late-end'], end: ['late-end'],
-      Front: ['front-pace'], Pace: ['front-pace'], Late: ['late-end'], End: ['late-end'],
+      front: ['front-pace'],
+      pace: ['front-pace'],
+      late: ['late-end'],
+      end: ['late-end'],
+      Front: ['front-pace'],
+      Pace: ['front-pace'],
+      Late: ['late-end'],
+      End: ['late-end'],
     });
     addGood(apt.Surface, {
-      turf: ['turf'], dirt: ['dirt'], Turf: ['turf'], Dirt: ['dirt'],
+      turf: ['turf'],
+      dirt: ['dirt'],
+      Turf: ['turf'],
+      Dirt: ['dirt'],
     });
     return good;
   }
@@ -197,13 +225,13 @@
   // Power: 1.46 avg (11%), Stamina: 1.43 avg (9%), Guts: 1.38 avg (2%)
   // Top combos: 3Spd+2Pow+1Fri, 3Spd+2Wit+1Fri, 3Wit+2Spd+1Fri
   const META_TYPE_RANGES = {
-    Speed:   { ideal: [2, 3], ok: [1, 4], weight: 5 },
-    Wit:     { ideal: [1, 3], ok: [0, 4], weight: 3 },
-    Friend:  { ideal: [1, 1], ok: [0, 2], weight: 4 },
-    Power:   { ideal: [1, 2], ok: [0, 3], weight: 3 },
+    Speed: { ideal: [2, 3], ok: [1, 4], weight: 5 },
+    Wit: { ideal: [1, 3], ok: [0, 4], weight: 3 },
+    Friend: { ideal: [1, 1], ok: [0, 2], weight: 4 },
+    Power: { ideal: [1, 2], ok: [0, 3], weight: 3 },
     Stamina: { ideal: [1, 2], ok: [0, 3], weight: 3 },
-    Guts:    { ideal: [0, 1], ok: [0, 2], weight: 1 },
-    Group:   { ideal: [0, 1], ok: [0, 1], weight: 1 },
+    Guts: { ideal: [0, 1], ok: [0, 2], weight: 1 },
+    Group: { ideal: [0, 1], ok: [0, 1], weight: 1 },
   };
 
   function scoreTypeDistribution() {
@@ -265,7 +293,13 @@
     const fb = totals['Fan Bonus'] || 0;
     if (fb >= 30) score += 5;
     else if (fb >= 15) score += 3;
-    const initials = ['Initial Speed', 'Initial Stamina', 'Initial Power', 'Initial Guts', 'Initial Wit'];
+    const initials = [
+      'Initial Speed',
+      'Initial Stamina',
+      'Initial Power',
+      'Initial Guts',
+      'Initial Wit',
+    ];
     const initCount = initials.filter((n) => totals[n] > 0).length;
     score += Math.min(5, initCount);
     return Math.min(25, score);
@@ -297,17 +331,23 @@
   // Distance-appropriate type weights (from class 6 distance stats)
   // Sprint/Mile: heavy Speed+Wit; Medium: Speed+Power+Stamina; Long: Speed+Stamina+Power
   const DISTANCE_TYPE_WEIGHTS = {
-    Short:  { Speed: 3, Wit: 3, Power: 1, Stamina: 0, Friend: 2 },
-    Mile:   { Speed: 3, Wit: 2, Power: 2, Stamina: 1, Friend: 2 },
+    Short: { Speed: 3, Wit: 3, Power: 1, Stamina: 0, Friend: 2 },
+    Mile: { Speed: 3, Wit: 2, Power: 2, Stamina: 1, Friend: 2 },
     Medium: { Speed: 3, Wit: 1, Power: 2, Stamina: 2, Friend: 2 },
-    Long:   { Speed: 3, Wit: 1, Power: 2, Stamina: 3, Friend: 2 },
+    Long: { Speed: 3, Wit: 1, Power: 2, Stamina: 3, Friend: 2 },
   };
 
   function scoreCharacterFit() {
     if (!selectedChar) return 12;
     const bonuses = selectedChar.UmaStatBonuses || {};
     const apt = selectedChar.UmaAptitudes || {};
-    const typeToStat = { Speed: 'Speed', Stamina: 'Stamina', Power: 'Power', Guts: 'Guts', Wit: 'Wit' };
+    const typeToStat = {
+      Speed: 'Speed',
+      Stamina: 'Stamina',
+      Power: 'Power',
+      Guts: 'Guts',
+      Wit: 'Wit',
+    };
 
     // Find character's best distance for weight selection
     let bestDist = null;
@@ -331,7 +371,7 @@
       // Friend/Group universal value
       if (s.SupportType === 'Friend' || s.SupportType === 'Group') score += 1;
     }
-    return Math.min(25, Math.round(score * 25 / 20));
+    return Math.min(25, Math.round((score * 25) / 20));
   }
 
   function computeCompatibilityScore() {
@@ -342,9 +382,23 @@
       hintSynergy: scoreHintSynergy(),
       characterFit: scoreCharacterFit(),
     };
-    const total = breakdown.typeBalance + breakdown.effectStacking + breakdown.hintSynergy + breakdown.characterFit;
-    const grade = total >= 90 ? 'S' : total >= 75 ? 'A' : total >= 60 ? 'B'
-      : total >= 45 ? 'C' : total >= 30 ? 'D' : 'F';
+    const total =
+      breakdown.typeBalance +
+      breakdown.effectStacking +
+      breakdown.hintSynergy +
+      breakdown.characterFit;
+    const grade =
+      total >= 90
+        ? 'S'
+        : total >= 75
+          ? 'A'
+          : total >= 60
+            ? 'B'
+            : total >= 45
+              ? 'C'
+              : total >= 30
+                ? 'D'
+                : 'F';
     return { total, grade, breakdown };
   }
 
@@ -377,7 +431,13 @@
       if (data.sources.length < 2) continue;
       const effectiveLevel = Math.min(data.totalLevel, 5);
       const discountPct = Math.min(effectiveLevel * 10, 40);
-      shared.push({ name, sources: data.sources, effectiveLevel, discountPct, skillId: data.skillId });
+      shared.push({
+        name,
+        sources: data.sources,
+        effectiveLevel,
+        discountPct,
+        skillId: data.skillId,
+      });
     }
     return shared;
   }
@@ -457,7 +517,13 @@
     const stats = c.UmaBaseStats?.[starKey] || c.UmaBaseStats?.['5\u2605'] || {};
     const bonuses = c.UmaStatBonuses || {};
     const statNames = ['Speed', 'Stamina', 'Power', 'Guts', 'Wit'];
-    const statLabel = { Speed: t('common.speed'), Stamina: t('common.stamina'), Power: t('common.power'), Guts: t('common.guts'), Wit: t('common.wisdom') };
+    const statLabel = {
+      Speed: t('common.speed'),
+      Stamina: t('common.stamina'),
+      Power: t('common.power'),
+      Guts: t('common.guts'),
+      Wit: t('common.wisdom'),
+    };
 
     let statsHtml = '<div class="deck-stats-grid">';
     for (const s of statNames) {
@@ -638,8 +704,16 @@
     if (selectedChar) {
       const bonuses = selectedChar.UmaStatBonuses || {};
       const statNames = ['Speed', 'Stamina', 'Power', 'Guts', 'Wit'];
-      const statLabel = { Speed: t('common.speed'), Stamina: t('common.stamina'), Power: t('common.power'), Guts: t('common.guts'), Wit: t('common.wisdom') };
-      const bonusParts = statNames.filter((s) => bonuses[s]).map((s) => `${(statLabel[s] || s)} +${bonuses[s]}%`);
+      const statLabel = {
+        Speed: t('common.speed'),
+        Stamina: t('common.stamina'),
+        Power: t('common.power'),
+        Guts: t('common.guts'),
+        Wit: t('common.wisdom'),
+      };
+      const bonusParts = statNames
+        .filter((s) => bonuses[s])
+        .map((s) => `${statLabel[s] || s} +${bonuses[s]}%`);
       if (bonusParts.length) {
         html += `
           <div class="deck-summary-row">
@@ -674,7 +748,12 @@
         for (const h of s.SupportHints || []) {
           if (!h.Name || !h.SkillId) continue;
           if (!hintSources.has(h.Name)) {
-            hintSources.set(h.Name, { count: 0, sources: [], skillId: h.SkillId, category: 'general' });
+            hintSources.set(h.Name, {
+              count: 0,
+              sources: [],
+              skillId: h.SkillId,
+              category: 'general',
+            });
           }
           const entry = hintSources.get(h.Name);
           entry.count++;
@@ -763,7 +842,9 @@
           </div>`;
         }
         html += '</div>';
-        const avgDiscount = Math.round(sharedHints.reduce((sum, h) => sum + h.discountPct, 0) / sharedHints.length);
+        const avgDiscount = Math.round(
+          sharedHints.reduce((sum, h) => sum + h.discountPct, 0) / sharedHints.length
+        );
         html += `<div class="synergy-savings">${t('deck.avgHintDiscount')}: ${avgDiscount}% ${t('deck.across')} ${sharedHints.length} ${t('deck.sharedSkills')}</div>`;
       }
 
@@ -851,10 +932,13 @@
         // Parse LB stops from URL, default to MLB
         const lbParam = params.get('lb');
         if (lbParam) {
-          supportLbStops = lbParam.split(',').map((v) => {
-            const n = parseInt(v, 10);
-            return n >= 0 && n <= 4 ? n : 4;
-          }).slice(0, selectedSupports.length);
+          supportLbStops = lbParam
+            .split(',')
+            .map((v) => {
+              const n = parseInt(v, 10);
+              return n >= 0 && n <= 4 ? n : 4;
+            })
+            .slice(0, selectedSupports.length);
         } else {
           supportLbStops = selectedSupports.map(() => 4);
         }
@@ -925,7 +1009,7 @@
     if (!deck) return;
 
     selectedChar = deck.char ? findCharBySlug(deck.char) : null;
-    charStarLevel = (deck.stars && STAR_LEVELS.includes(deck.stars)) ? deck.stars : 5;
+    charStarLevel = deck.stars && STAR_LEVELS.includes(deck.stars) ? deck.stars : 5;
     selectedSupports = (deck.supports || [])
       .map((slug) => findSupportBySlug(slug))
       .filter(Boolean)
@@ -957,9 +1041,7 @@
     let html = '';
     for (let i = 0; i < decks.length; i++) {
       const d = decks[i];
-      const charName = d.char
-        ? (findCharBySlug(d.char)?.UmaName || d.char)
-        : t('deck.noCharacter');
+      const charName = d.char ? findCharBySlug(d.char)?.UmaName || d.char : t('deck.noCharacter');
       const supCount = (d.supports || []).length;
 
       html += `<div class="saved-deck-item" data-idx="${i}">
@@ -987,8 +1069,12 @@
   }
 
   openSavedBtn.addEventListener('click', openSavedDecksModal);
-  savedDecksModal.querySelector('.support-modal-backdrop').addEventListener('click', closeSavedDecksModal);
-  savedDecksModal.querySelector('.support-modal-close').addEventListener('click', closeSavedDecksModal);
+  savedDecksModal
+    .querySelector('.support-modal-backdrop')
+    .addEventListener('click', closeSavedDecksModal);
+  savedDecksModal
+    .querySelector('.support-modal-close')
+    .addEventListener('click', closeSavedDecksModal);
 
   saveDeckBtn.addEventListener('click', saveCurrentDeck);
   saveDeckName.addEventListener('keydown', (e) => {
@@ -1023,8 +1109,12 @@
       combo: '3 Speed + 2 Wit + 1 Friend',
       usage: 14.2,
       slugs: [
-        '30028-kitasan-black', '20023-sweep-tosho', '20013-eishin-flash',
-        '30010-fine-motion', '20016-matikanefukukitaru', '30036-riko-kashimoto',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '20013-eishin-flash',
+        '30010-fine-motion',
+        '20016-matikanefukukitaru',
+        '30036-riko-kashimoto',
       ],
     },
     {
@@ -1034,8 +1124,12 @@
       combo: '3 Wit + 2 Speed + 1 Friend',
       usage: 13.3,
       slugs: [
-        '30010-fine-motion', '20016-matikanefukukitaru', '20015-marvelous-sunday',
-        '30028-kitasan-black', '20023-sweep-tosho', '30036-riko-kashimoto',
+        '30010-fine-motion',
+        '20016-matikanefukukitaru',
+        '20015-marvelous-sunday',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '30036-riko-kashimoto',
       ],
     },
     {
@@ -1045,8 +1139,12 @@
       combo: '3 Speed + 2 Wit + 1 Friend',
       usage: 13.9,
       slugs: [
-        '30028-kitasan-black', '20023-sweep-tosho', '20013-eishin-flash',
-        '20016-matikanefukukitaru', '30010-fine-motion', '30036-riko-kashimoto',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '20013-eishin-flash',
+        '20016-matikanefukukitaru',
+        '30010-fine-motion',
+        '30036-riko-kashimoto',
       ],
     },
     {
@@ -1056,8 +1154,12 @@
       combo: '3 Speed + 2 Power + 1 Friend',
       usage: 10.5,
       slugs: [
-        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
-        '30034-rice-shower', '20003-hishi-amazon', '30036-riko-kashimoto',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '20020-king-halo',
+        '30034-rice-shower',
+        '20003-hishi-amazon',
+        '30036-riko-kashimoto',
       ],
     },
     {
@@ -1067,8 +1169,12 @@
       combo: '3 Speed + 2 Power + 1 Friend',
       usage: 11.5,
       slugs: [
-        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
-        '30034-rice-shower', '20003-hishi-amazon', '30036-riko-kashimoto',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '20020-king-halo',
+        '30034-rice-shower',
+        '20003-hishi-amazon',
+        '30036-riko-kashimoto',
       ],
     },
     {
@@ -1078,8 +1184,12 @@
       combo: '3 Speed + 2 Stamina + 1 Friend',
       usage: 8.3,
       slugs: [
-        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
-        '30016-super-creek', '20008-manhattan-cafe', '30036-riko-kashimoto',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '20020-king-halo',
+        '30016-super-creek',
+        '20008-manhattan-cafe',
+        '30036-riko-kashimoto',
       ],
     },
     {
@@ -1089,8 +1199,12 @@
       combo: '3 Speed + 2 Stamina + 1 Friend',
       usage: 19.8,
       slugs: [
-        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
-        '30016-super-creek', '20008-manhattan-cafe', '30036-riko-kashimoto',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '20020-king-halo',
+        '30016-super-creek',
+        '20008-manhattan-cafe',
+        '30036-riko-kashimoto',
       ],
     },
     {
@@ -1100,8 +1214,12 @@
       combo: '3 Speed + 2 Power + 1 Friend',
       usage: 14.0,
       slugs: [
-        '30028-kitasan-black', '20023-sweep-tosho', '20020-king-halo',
-        '30034-rice-shower', '20003-hishi-amazon', '30036-riko-kashimoto',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '20020-king-halo',
+        '30034-rice-shower',
+        '20003-hishi-amazon',
+        '30036-riko-kashimoto',
       ],
     },
     {
@@ -1111,8 +1229,12 @@
       combo: '3 Speed + 2 Wit + 1 Friend',
       usage: 12.2,
       slugs: [
-        '30028-kitasan-black', '20023-sweep-tosho', '20013-eishin-flash',
-        '20016-matikanefukukitaru', '30010-fine-motion', '30036-riko-kashimoto',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '20013-eishin-flash',
+        '20016-matikanefukukitaru',
+        '30010-fine-motion',
+        '30036-riko-kashimoto',
       ],
     },
     {
@@ -1122,8 +1244,12 @@
       combo: '3 Speed + 2 Power + 1 Friend',
       usage: 11.4,
       slugs: [
-        '30028-kitasan-black', '20023-sweep-tosho', '20013-eishin-flash',
-        '30034-rice-shower', '20024-daitaku-helios', '30036-riko-kashimoto',
+        '30028-kitasan-black',
+        '20023-sweep-tosho',
+        '20013-eishin-flash',
+        '30034-rice-shower',
+        '20024-daitaku-helios',
+        '30036-riko-kashimoto',
       ],
     },
   ];
@@ -1181,8 +1307,12 @@
   }
 
   openTemplatesBtn.addEventListener('click', openTemplatesModal);
-  templatesModal.querySelector('.support-modal-backdrop').addEventListener('click', closeTemplatesModal);
-  templatesModal.querySelector('.support-modal-close').addEventListener('click', closeTemplatesModal);
+  templatesModal
+    .querySelector('.support-modal-backdrop')
+    .addEventListener('click', closeTemplatesModal);
+  templatesModal
+    .querySelector('.support-modal-close')
+    .addEventListener('click', closeTemplatesModal);
 
   templatesModalList.addEventListener('click', (e) => {
     const loadBtn = e.target.closest('.template-load-btn');
@@ -1238,10 +1368,22 @@
 
   // Sort dropdown
   const SORTABLE_EFFECTS = [
-    'Race Bonus', 'Fan Bonus', 'Training Effectiveness',
-    'Speed Bonus', 'Stamina Bonus', 'Power Bonus', 'Guts Bonus', 'Wit Bonus',
-    'Skill Point Bonus', 'Hint Levels', 'Friendship Bonus',
-    'Initial Speed', 'Initial Stamina', 'Initial Power', 'Initial Guts', 'Initial Wit',
+    'Race Bonus',
+    'Fan Bonus',
+    'Training Effectiveness',
+    'Speed Bonus',
+    'Stamina Bonus',
+    'Power Bonus',
+    'Guts Bonus',
+    'Wit Bonus',
+    'Skill Point Bonus',
+    'Hint Levels',
+    'Friendship Bonus',
+    'Initial Speed',
+    'Initial Stamina',
+    'Initial Power',
+    'Initial Guts',
+    'Initial Wit',
   ];
 
   const supportSortEl = document.getElementById('supportSort');
@@ -1504,7 +1646,11 @@
   }
 
   function updateCharFilterButtons() {
-    for (const [el, set] of [[charDistFiltersEl, charFilterDist], [charSurfFiltersEl, charFilterSurf], [charStratFiltersEl, charFilterStrat]]) {
+    for (const [el, set] of [
+      [charDistFiltersEl, charFilterDist],
+      [charSurfFiltersEl, charFilterSurf],
+      [charStratFiltersEl, charFilterStrat],
+    ]) {
       for (const btn of el.querySelectorAll('.filter-btn')) {
         btn.classList.toggle('active', set.has(btn.dataset.key));
       }
@@ -1600,7 +1746,10 @@
       return;
     }
     // Click anywhere on the character card or empty slot opens picker
-    if (e.target.closest('.deck-character-card') || e.target.closest('[data-action="open-char-picker"]')) {
+    if (
+      e.target.closest('.deck-character-card') ||
+      e.target.closest('[data-action="open-char-picker"]')
+    ) {
       openCharModal();
     }
   });
@@ -1683,7 +1832,7 @@
     const url = `${location.origin}${location.pathname}?${params.toString()}`;
     navigator.clipboard.writeText(url).then(
       () => showStatus(t('common.copied')),
-      () => showStatus(t('deck.copyLinkFailed')),
+      () => showStatus(t('deck.copyLinkFailed'))
     );
     setTimeout(() => showStatus(''), 2000);
   });
@@ -1747,7 +1896,9 @@
 
     // Base64-encode (URL-safe variant)
     const encoded = btoa(unescape(encodeURIComponent(buildString)))
-      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
 
     const params = new URLSearchParams();
     params.set('b', encoded);
@@ -1756,13 +1907,29 @@
     if (selectedChar?.UmaAptitudes) {
       const apt = selectedChar.UmaAptitudes;
       const cfgMap = {
-        turf: apt.Surface?.Turf, dirt: apt.Surface?.Dirt,
-        sprint: apt.Distance?.Short, mile: apt.Distance?.Mile,
-        medium: apt.Distance?.Medium, long: apt.Distance?.Long,
-        front: apt.Strategy?.Front, pace: apt.Strategy?.Pace,
-        late: apt.Strategy?.Late, end: apt.Strategy?.End,
+        turf: apt.Surface?.Turf,
+        dirt: apt.Surface?.Dirt,
+        sprint: apt.Distance?.Short,
+        mile: apt.Distance?.Mile,
+        medium: apt.Distance?.Medium,
+        long: apt.Distance?.Long,
+        front: apt.Strategy?.Front,
+        pace: apt.Strategy?.Pace,
+        late: apt.Strategy?.Late,
+        end: apt.Strategy?.End,
       };
-      const cfgKeys = ['turf', 'dirt', 'sprint', 'mile', 'medium', 'long', 'front', 'pace', 'late', 'end'];
+      const cfgKeys = [
+        'turf',
+        'dirt',
+        'sprint',
+        'mile',
+        'medium',
+        'long',
+        'front',
+        'pace',
+        'late',
+        'end',
+      ];
       const cfgValues = cfgKeys.map((k) => cfgMap[k] || 'A');
       params.set('c', cfgValues.join(','));
     }

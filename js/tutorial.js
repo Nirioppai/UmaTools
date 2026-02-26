@@ -329,17 +329,24 @@
       const copy = formatCopy(step.text || '', tokens).trim();
 
       if (this.progressEl) {
-        this.progressEl.textContent = t('tutorial.stepOf', { current: this.currentStep + 1, total: this.steps.length });
+        this.progressEl.textContent = t('tutorial.stepOf', {
+          current: this.currentStep + 1,
+          total: this.steps.length,
+        });
       }
       if (this.currentTitleEl) this.currentTitleEl.textContent = title;
       if (this.currentCopyEl) this.currentCopyEl.textContent = copy;
       if (this.liveEl)
-        this.liveEl.textContent = t('tutorial.stepOf', { current: this.currentStep + 1, total: this.steps.length }) + ': ' + title;
+        this.liveEl.textContent =
+          t('tutorial.stepOf', { current: this.currentStep + 1, total: this.steps.length }) +
+          ': ' +
+          title;
       if (this.coachTitleEl) this.coachTitleEl.textContent = title;
       if (this.coachCopyEl) this.coachCopyEl.textContent = copy;
       if (this.backBtn) this.backBtn.disabled = this.currentStep === 0;
       if (this.nextBtn) {
-        this.nextBtn.textContent = this.currentStep >= this.steps.length - 1 ? t('tutorial.done') : t('tutorial.next');
+        this.nextBtn.textContent =
+          this.currentStep >= this.steps.length - 1 ? t('tutorial.done') : t('tutorial.next');
       }
 
       this.renderChecklist(tokens);
@@ -559,12 +566,14 @@
         const stepNumber = clamp((Number(this.state.step) || 0) + 1, 1, this.steps.length);
         if (this.toastTitleEl) this.toastTitleEl.textContent = t('tutorial.resumeTitle');
         if (this.toastCopyEl)
-          this.toastCopyEl.textContent = t('tutorial.resumeCopy', { step: stepNumber, total: this.steps.length });
+          this.toastCopyEl.textContent = t('tutorial.resumeCopy', {
+            step: stepNumber,
+            total: this.steps.length,
+          });
         if (this.toastStartBtn) this.toastStartBtn.textContent = t('tutorial.resume');
       } else {
         if (this.toastTitleEl) this.toastTitleEl.textContent = t('tutorial.newHereTitle');
-        if (this.toastCopyEl)
-          this.toastCopyEl.textContent = t('tutorial.newHereCopy');
+        if (this.toastCopyEl) this.toastCopyEl.textContent = t('tutorial.newHereCopy');
         if (this.toastStartBtn) this.toastStartBtn.textContent = t('tutorial.startTour');
       }
       this.toast.hidden = false;

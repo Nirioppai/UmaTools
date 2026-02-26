@@ -40,7 +40,10 @@
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
   white-space: nowrap;
 }
 .skills-filter-btn:hover {
@@ -53,37 +56,37 @@
 }
 
 /* ── Category-colored filter buttons ── */
-.skills-filter-btn[data-cat="golden"],
-.skills-filter-btn[data-cat="gold"] {
+.skills-filter-btn[data-cat='golden'],
+.skills-filter-btn[data-cat='gold'] {
   --cat-rgb: var(--cat-gold-rgb);
 }
-.skills-filter-btn[data-cat="yellow"] {
+.skills-filter-btn[data-cat='yellow'] {
   --cat-rgb: var(--cat-yellow-rgb);
 }
-.skills-filter-btn[data-cat="blue"] {
+.skills-filter-btn[data-cat='blue'] {
   --cat-rgb: var(--cat-blue-rgb);
 }
-.skills-filter-btn[data-cat="green"] {
+.skills-filter-btn[data-cat='green'] {
   --cat-rgb: var(--cat-green-rgb);
 }
-.skills-filter-btn[data-cat="red"] {
+.skills-filter-btn[data-cat='red'] {
   --cat-rgb: var(--cat-red-rgb);
 }
-.skills-filter-btn[data-cat="purple"] {
+.skills-filter-btn[data-cat='purple'] {
   --cat-rgb: var(--cat-purple-rgb);
 }
-.skills-filter-btn[data-cat="evo"] {
+.skills-filter-btn[data-cat='evo'] {
   --cat-rgb: var(--cat-evo-rgb);
 }
-.skills-filter-btn[data-cat="ius"],
-.skills-filter-btn[data-cat="orange"] {
+.skills-filter-btn[data-cat='ius'],
+.skills-filter-btn[data-cat='orange'] {
   --cat-rgb: var(--cat-orange-rgb);
 }
-.skills-filter-btn[data-cat]:not(.active):not([data-cat="all"]) {
+.skills-filter-btn[data-cat]:not(.active):not([data-cat='all']) {
   border-color: rgb(var(--cat-rgb) / 0.5);
   color: rgb(var(--cat-rgb));
 }
-.skills-filter-btn[data-cat]:not([data-cat="all"]).active {
+.skills-filter-btn[data-cat]:not([data-cat='all']).active {
   background: rgb(var(--cat-rgb));
   border-color: rgb(var(--cat-rgb));
   color: #fff;
@@ -142,8 +145,12 @@
   margin-left: 0.3rem;
   font-size: 0.65rem;
 }
-.skills-table th.sorted-asc::after { content: '\25B2'; }
-.skills-table th.sorted-desc::after { content: '\25BC'; }
+.skills-table th.sorted-asc::after {
+  content: '\25B2';
+}
+.skills-table th.sorted-desc::after {
+  content: '\25BC';
+}
 
 /* ── Right-align numeric columns ── */
 .skills-table th.col-cost,
@@ -214,9 +221,16 @@
 }
 
 /* ── Efficiency highlight ── */
-.eff-high { color: rgb(var(--cat-gold-rgb)); font-weight: 600; }
-.eff-mid  { color: var(--text-1, #1f2937); }
-.eff-low  { color: var(--muted, #6b7280); }
+.eff-high {
+  color: rgb(var(--cat-gold-rgb));
+  font-weight: 600;
+}
+.eff-mid {
+  color: var(--text-1, #1f2937);
+}
+.eff-low {
+  color: var(--muted, #6b7280);
+}
 
 /* ── No results ── */
 .skills-empty {
@@ -246,7 +260,9 @@
   animation: skills-spin 0.6s linear infinite;
 }
 @keyframes skills-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Responsive ── */

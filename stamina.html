@@ -42,9 +42,22 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/stamina.css" />
@@ -451,7 +464,9 @@
             </div>
 
             <div class="stamina-block">
-              <div class="target-group-title" data-i18n="stamina.recoverySkills">Recovery Skills</div>
+              <div class="target-group-title" data-i18n="stamina.recoverySkills">
+                Recovery Skills
+              </div>
               <div class="stamina-input-grid">
                 <label
                   ><span data-i18n="stamina.white">White (1.5%)</span>
@@ -491,7 +506,9 @@
                   ><span data-i18n="stamina.level">Level</span>
                   <input id="unique-level" type="number" min="1" max="6" step="1" value="1" />
                 </label>
-                <button id="unique-add" class="btn" type="button" data-i18n="common.add">Add</button>
+                <button id="unique-add" class="btn" type="button" data-i18n="common.add">
+                  Add
+                </button>
               </div>
               <div id="unique-list" class="unique-list"></div>
             </div>
@@ -499,10 +516,18 @@
         </div>
       </section>
 
-      <section class="card card-elevated" id="stamina-results" aria-labelledby="staminaResultTitle" data-scroll-section data-scroll-label="Results">
+      <section
+        class="card card-elevated"
+        id="stamina-results"
+        aria-labelledby="staminaResultTitle"
+        data-scroll-section
+        data-scroll-label="Results"
+      >
         <div class="rating-card-header">
           <h2 id="staminaResultTitle" data-i18n="stamina.results">Results</h2>
-          <p class="muted" data-i18n="stamina.resultsHint">Outputs match the spreadsheet calculations for stamina needed.</p>
+          <p class="muted" data-i18n="stamina.resultsHint">
+            Outputs match the spreadsheet calculations for stamina needed.
+          </p>
         </div>
         <div class="stamina-summary">
           <div class="rating-summary">
@@ -561,6 +586,7 @@
 
     <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>

@@ -11,7 +11,9 @@
   color: var(--muted, #6b7280);
   font-size: 0.95rem;
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .pick-uma-btn:hover {

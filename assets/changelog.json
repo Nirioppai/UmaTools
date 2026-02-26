@@ -1,9 +1,17 @@
 {
-  "version": "2025-02",
+  "version": "2026-02",
+  "summary": {
+    "en": "Major update \u2014 complete UI redesign, new tools, and OCR improvements",
+    "ja": "\u5927\u578b\u30a2\u30c3\u30d7\u30c7\u30fc\u30c8 \u2014 UI\u5168\u9762\u30ea\u30c7\u30b6\u30a4\u30f3\u3001\u65b0\u30c4\u30fc\u30eb\u3001OCR\u6539\u5584"
+  },
   "entries": [
-    { "en": "New Deck Builder tool for planning support card setups", "ja": "新しいデッキ編成ツールでサポカ構成を計画" },
-    { "en": "Automated Team Trials scoring with tunable weight sliders", "ja": "チューニング可能なチームレース自動スコアリング" },
-    { "en": "Circle skill (\u25ce/\u25cb) fixes for saved builds and URL imports", "ja": "\u25ce/\u25cbスキルの保存ビルド・URLインポート修正" },
-    { "en": "Improved Japanese language support", "ja": "日本語対応の改善" }
+    { "en": "Complete UI redesign with dark mode, new navigation, and Tailwind CSS", "ja": "UI\u5168\u9762\u30ea\u30c7\u30b6\u30a4\u30f3 \u2014 \u30c0\u30fc\u30af\u30e2\u30fc\u30c9\u3001\u65b0\u30ca\u30d3\u3001Tailwind CSS" },
+    { "en": "New Skill Library page \u2014 browse all skills with cost, score, and efficiency", "ja": "\u65b0\u3057\u3044\u30b9\u30ad\u30eb\u30e9\u30a4\u30d6\u30e9\u30ea\u30da\u30fc\u30b8 \u2014 \u30b3\u30b9\u30c8\u30fb\u30b9\u30b3\u30a2\u30fb\u52b9\u7387\u3067\u30b9\u30ad\u30eb\u3092\u95b2\u89a7" },
+    { "en": "New Deck Builder \u2014 plan training decks with combined hints and bonuses", "ja": "\u65b0\u3057\u3044\u30c7\u30c3\u30ad\u7de8\u6210 \u2014 \u30d2\u30f3\u30c8\u30fb\u30dc\u30fc\u30ca\u30b9\u4ed8\u304d\u30c7\u30c3\u30ad\u8a08\u753b" },
+    { "en": "Interactive tutorial system for each tool", "ja": "\u5404\u30c4\u30fc\u30eb\u306e\u30a4\u30f3\u30bf\u30e9\u30af\u30c6\u30a3\u30d6\u30c1\u30e5\u30fc\u30c8\u30ea\u30a2\u30eb" },
+    { "en": "Legend rank support (LG through LS24) for rating badges", "ja": "\u30ec\u30b8\u30a7\u30f3\u30c9\u30e9\u30f3\u30af\u5bfe\u5fdc\uff08LG\u301cLS24\uff09" },
+    { "en": "OCR accuracy improvements and preprocessing updates", "ja": "OCR\u7cbe\u5ea6\u5411\u4e0a\u3068\u524d\u51e6\u7406\u306e\u6539\u5584" },
+    { "en": "SEO optimizations with structured data and sitemap", "ja": "SEO\u6700\u9069\u5316 \u2014 \u69cb\u9020\u5316\u30c7\u30fc\u30bf\u3068\u30b5\u30a4\u30c8\u30de\u30c3\u30d7" },
+    { "en": "Updated skill data and removed unused assets", "ja": "\u30b9\u30ad\u30eb\u30c7\u30fc\u30bf\u66f4\u65b0\u3068\u672a\u4f7f\u7528\u30a2\u30bb\u30c3\u30c8\u306e\u524a\u9664" }
   ]
 }

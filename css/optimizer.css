@@ -295,10 +295,9 @@
 
 .optimizer-row {
   display: grid;
-  grid-template-columns: minmax(110px, 0.22fr) minmax(220px, 1fr) minmax(170px, 0.32fr) minmax(
-      110px,
-      0.18fr
-    ) minmax(160px, 0.24fr);
+  grid-template-columns:
+    minmax(110px, 0.22fr) minmax(220px, 1fr) minmax(170px, 0.32fr) minmax(110px, 0.18fr)
+    minmax(160px, 0.24fr);
   gap: 14px;
   padding: 14px 16px;
   border: 1px solid var(--row-border-color, var(--border));
@@ -566,7 +565,9 @@
   padding: 1px 6px;
   border-radius: 4px;
   border: 1px solid transparent;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 .optimizer-row .evo-options .evo-checkbox-label:hover {
   background: rgb(var(--primary-rgb, 59 130 246) / 0.08);
@@ -597,10 +598,9 @@
 
 @media (max-width: 1200px) {
   .optimizer-row {
-    grid-template-columns: minmax(90px, 0.2fr) minmax(160px, 1fr) minmax(150px, 0.32fr) minmax(
-        90px,
-        0.18fr
-      ) minmax(140px, 0.24fr);
+    grid-template-columns:
+      minmax(90px, 0.2fr) minmax(160px, 1fr) minmax(150px, 0.32fr) minmax(90px, 0.18fr)
+      minmax(140px, 0.24fr);
     gap: 10px;
   }
 

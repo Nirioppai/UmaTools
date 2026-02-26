@@ -6,14 +6,14 @@
   var HINTS_URLS = ['/assets/support_hints.json', './assets/support_hints.json'];
 
   var EFFECT_LABELS = {
-    1:  'Speed',
-    2:  'Stamina',
-    3:  'Power',
-    4:  'Guts',
-    5:  'Wisdom',
-    6:  'Running Style',
-    8:  'Field of View',
-    9:  'Stamina Recovery',
+    1: 'Speed',
+    2: 'Stamina',
+    3: 'Power',
+    4: 'Guts',
+    5: 'Wisdom',
+    6: 'Running Style',
+    8: 'Field of View',
+    9: 'Stamina Recovery',
     10: 'Lane Change Speed',
     13: 'Position Awareness',
     14: 'Pace Control',
@@ -31,7 +31,7 @@
     42: 'Special',
     501: 'Stat Boost',
     502: 'Stat Boost',
-    503: 'Stat Boost'
+    503: 'Stat Boost',
   };
 
   // Effect types where value represents HP (not divided by 10000)
@@ -43,7 +43,7 @@
     3: 'SR',
     4: 'SSR',
     5: 'Unique / Gold',
-    6: 'Common'
+    6: 'Common',
   };
 
   var UMA_URLS = ['/assets/uma_data.json', './assets/uma_data.json'];
@@ -51,8 +51,8 @@
   // ── State ──
   var skillsById = null;
   var skillsByName = null;
-  var cardById = null;       // Map<string_id, {name, rarity, image, server, type}>
-  var umaById = null;        // Map<string_id, {name, nickname, server}>
+  var cardById = null; // Map<string_id, {name, rarity, image, server, type}>
+  var umaById = null; // Map<string_id, {name, nickname, server}>
   var loadPromise = null;
   var popupEl = null;
   var backdropEl = null;
@@ -72,7 +72,8 @@
   function getLanguage() {
     try {
       return (localStorage.getItem('umatoolsServer') || '').trim().toLowerCase() === 'jp'
-        ? 'jp' : 'en';
+        ? 'jp'
+        : 'en';
     } catch (e) {
       return 'en';
     }
@@ -88,10 +89,14 @@
     function tryNext() {
       if (i >= urls.length) return Promise.reject(new Error('all URLs failed'));
       var url = urls[i++];
-      return fetch(url, opts).then(function (res) {
-        if (!res.ok) return tryNext();
-        return res.json();
-      }).catch(function () { return tryNext(); });
+      return fetch(url, opts)
+        .then(function (res) {
+          if (!res.ok) return tryNext();
+          return res.json();
+        })
+        .catch(function () {
+          return tryNext();
+        });
     }
     return tryNext();
   }
@@ -116,7 +121,9 @@
         global.__skillsAllData = data;
         buildSkillMaps(data);
       })
-      .catch(function () { /* silent */ });
+      .catch(function () {
+        /* silent */
+      });
   }
 
   function buildSkillMaps(data) {
@@ -167,11 +174,13 @@
             rarity: card.SupportRarity || '',
             image: card.SupportImage || '',
             server: card.SupportServer || '',
-            type: card.SupportType || ''
+            type: card.SupportType || '',
           });
         });
       })
-      .catch(function () { /* silent */ });
+      .catch(function () {
+        /* silent */
+      });
   }
 
   function loadUma() {
@@ -185,11 +194,13 @@
             name: u.UmaName || '',
             nickname: u.UmaNickname || '',
             server: u.UmaServer || '',
-            image: u.UmaImage || ''
+            image: u.UmaImage || '',
           });
         });
       })
-      .catch(function () { /* silent */ });
+      .catch(function () {
+        /* silent */
+      });
   }
 
   // Resolve card IDs from skill's sup_hint/sup_e arrays into card objects
@@ -199,7 +210,7 @@
     var eventIds = flattenIdArrays(skill.sup_e);
     return {
       hintCards: resolveCards(hintIds, serverPref),
-      eventCards: resolveCards(eventIds, serverPref)
+      eventCards: resolveCards(eventIds, serverPref),
     };
   }
 
@@ -208,7 +219,9 @@
     var out = [];
     arr.forEach(function (sub) {
       if (Array.isArray(sub)) {
-        sub.forEach(function (id) { out.push(String(id)); });
+        sub.forEach(function (id) {
+          out.push(String(id));
+        });
       }
     });
     return out;
@@ -295,17 +308,17 @@
     var lang = getLanguage();
 
     // Name resolution
-    var displayName = lang === 'jp'
-      ? (skill.jpname || skill.name_en || skill.enname || rawName)
-      : (skill.name_en || skill.enname || skill.jpname || rawName);
-    var altName = lang === 'jp'
-      ? (skill.name_en || skill.enname || '')
-      : (skill.jpname || '');
+    var displayName =
+      lang === 'jp'
+        ? skill.jpname || skill.name_en || skill.enname || rawName
+        : skill.name_en || skill.enname || skill.jpname || rawName;
+    var altName = lang === 'jp' ? skill.name_en || skill.enname || '' : skill.jpname || '';
 
     // Description
-    var desc = lang === 'jp'
-      ? (skill.jpdesc || skill.desc_en || skill.endesc || '')
-      : (skill.desc_en || skill.endesc || skill.jpdesc || '');
+    var desc =
+      lang === 'jp'
+        ? skill.jpdesc || skill.desc_en || skill.endesc || ''
+        : skill.desc_en || skill.endesc || skill.jpdesc || '';
 
     var rarity = skill.rarity;
     var cost = typeof skill.cost === 'number' ? skill.cost : null;
@@ -316,33 +329,50 @@
     // ── Header ──
     html += '<div class="sp-header">';
     html += '<span class="sp-title">' + escapeHtml(displayName) + '</span>';
-    html += '<button class="sp-close" aria-label="' + escapeHtml(t('common.close')) + '">&times;</button>';
+    html +=
+      '<button class="sp-close" aria-label="' +
+      escapeHtml(t('common.close')) +
+      '">&times;</button>';
     html += '</div>';
 
     html += '<div class="sp-body">';
 
     // ── Alt name ──
     if (altName && normalize(altName) !== normalize(displayName)) {
-      html += '<div class="sp-section"><div class="sp-label">'
-        + escapeHtml(lang === 'jp' ? t('skillPopup.english') : t('skillPopup.japanese'))
-        + '</div><div class="sp-desc">' + escapeHtml(altName) + '</div></div>';
+      html +=
+        '<div class="sp-section"><div class="sp-label">' +
+        escapeHtml(lang === 'jp' ? t('skillPopup.english') : t('skillPopup.japanese')) +
+        '</div><div class="sp-desc">' +
+        escapeHtml(altName) +
+        '</div></div>';
     }
 
     // ── Meta (rarity + cost) ──
     if (rarity != null || cost != null) {
       html += '<div class="sp-section"><div class="sp-meta">';
       if (rarity != null) {
-        html += '<span class="sp-meta-item">' + escapeHtml(RARITY_LABELS[rarity] || 'Rarity ' + rarity) + '</span>';
+        html +=
+          '<span class="sp-meta-item">' +
+          escapeHtml(RARITY_LABELS[rarity] || 'Rarity ' + rarity) +
+          '</span>';
       }
       if (cost != null) {
-        html += '<span class="sp-meta-item">' + escapeHtml(t('skillPopup.cost')) + ': ' + cost + ' SP</span>';
+        html +=
+          '<span class="sp-meta-item">' +
+          escapeHtml(t('skillPopup.cost')) +
+          ': ' +
+          cost +
+          ' SP</span>';
       }
       html += '</div></div>';
     }
 
     // ── Description ──
     if (desc) {
-      html += '<div class="sp-section"><div class="sp-label">' + escapeHtml(t('skillPopup.description')) + '</div>';
+      html +=
+        '<div class="sp-section"><div class="sp-label">' +
+        escapeHtml(t('skillPopup.description')) +
+        '</div>';
       html += '<div class="sp-desc">' + escapeHtml(desc) + '</div></div>';
     }
 
@@ -352,7 +382,7 @@
       var effectItems = [];
       condGroups.forEach(function (cg) {
         (cg.effects || []).forEach(function (eff) {
-          var label = EFFECT_LABELS[eff.type] || ('Effect ' + eff.type);
+          var label = EFFECT_LABELS[eff.type] || 'Effect ' + eff.type;
           var val = '';
           if (eff.value != null && eff.value !== 0) {
             if (HP_EFFECT_TYPES[eff.type]) {
@@ -366,9 +396,14 @@
         });
       });
       if (effectItems.length) {
-        html += '<div class="sp-section"><div class="sp-label">' + escapeHtml(t('skillPopup.effects')) + '</div>';
+        html +=
+          '<div class="sp-section"><div class="sp-label">' +
+          escapeHtml(t('skillPopup.effects')) +
+          '</div>';
         html += '<ul class="sp-effects-list">';
-        effectItems.forEach(function (item) { html += '<li>' + item + '</li>'; });
+        effectItems.forEach(function (item) {
+          html += '<li>' + item + '</li>';
+        });
         html += '</ul></div>';
       }
 
@@ -377,7 +412,12 @@
       if (baseTime > 0) {
         var secs = (baseTime / 10000).toFixed(1);
         html += '<div class="sp-section"><div class="sp-meta">';
-        html += '<span class="sp-meta-item">' + escapeHtml(t('skillPopup.duration')) + ': ' + secs + 's</span>';
+        html +=
+          '<span class="sp-meta-item">' +
+          escapeHtml(t('skillPopup.duration')) +
+          ': ' +
+          secs +
+          's</span>';
         html += '</div></div>';
       }
     }
@@ -389,25 +429,33 @@
       var totalCards = resolved.hintCards.length + resolved.eventCards.length;
 
       if (totalCards) {
-        html += '<div class="sp-section"><div class="sp-label">'
-          + escapeHtml(t('skillPopup.availableFrom')) + ' (' + totalCards + ')</div>';
+        html +=
+          '<div class="sp-section"><div class="sp-label">' +
+          escapeHtml(t('skillPopup.availableFrom')) +
+          ' (' +
+          totalCards +
+          ')</div>';
         html += '<div class="sp-cards-list">';
         if (resolved.hintCards.length) {
-          html += '<div class="sp-card-group-label">' + escapeHtml(t('skillPopup.hints')) + '</div>';
+          html +=
+            '<div class="sp-card-group-label">' + escapeHtml(t('skillPopup.hints')) + '</div>';
           resolved.hintCards.forEach(function (c) {
             html += renderCardRow(c);
           });
         }
         if (resolved.eventCards.length) {
-          html += '<div class="sp-card-group-label">' + escapeHtml(t('skillPopup.events')) + '</div>';
+          html +=
+            '<div class="sp-card-group-label">' + escapeHtml(t('skillPopup.events')) + '</div>';
           resolved.eventCards.forEach(function (c) {
             html += renderCardRow(c);
           });
         }
         html += '</div></div>';
       } else {
-        html += '<div class="sp-section"><div class="sp-label">'
-          + escapeHtml(t('skillPopup.availableFrom')) + '</div>';
+        html +=
+          '<div class="sp-section"><div class="sp-label">' +
+          escapeHtml(t('skillPopup.availableFrom')) +
+          '</div>';
         html += '<div class="sp-empty">' + escapeHtml(t('skillPopup.noCards')) + '</div></div>';
       }
     }
@@ -420,16 +468,26 @@
       var totalChars = potentialChars.length + eventChars.length;
 
       if (totalChars) {
-        html += '<div class="sp-section"><div class="sp-label">'
-          + escapeHtml(t('skillPopup.characters')) + ' (' + totalChars + ')</div>';
+        html +=
+          '<div class="sp-section"><div class="sp-label">' +
+          escapeHtml(t('skillPopup.characters')) +
+          ' (' +
+          totalChars +
+          ')</div>';
         html += '<div class="sp-chars-list">';
         if (potentialChars.length) {
-          html += '<div class="sp-card-group-label">' + escapeHtml(t('skillPopup.potential')) + '</div>';
-          potentialChars.forEach(function (u) { html += renderCharRow(u); });
+          html +=
+            '<div class="sp-card-group-label">' + escapeHtml(t('skillPopup.potential')) + '</div>';
+          potentialChars.forEach(function (u) {
+            html += renderCharRow(u);
+          });
         }
         if (eventChars.length) {
-          html += '<div class="sp-card-group-label">' + escapeHtml(t('skillPopup.charEvents')) + '</div>';
-          eventChars.forEach(function (u) { html += renderCharRow(u); });
+          html +=
+            '<div class="sp-card-group-label">' + escapeHtml(t('skillPopup.charEvents')) + '</div>';
+          eventChars.forEach(function (u) {
+            html += renderCharRow(u);
+          });
         }
         html += '</div></div>';
       }
@@ -537,7 +595,8 @@
     if (!target) return;
 
     // Don't interfere with other interactive elements
-    if (e.target.closest('input, button, th[data-sort], .ocr-skill-checkbox, .ocr-edit-icon')) return;
+    if (e.target.closest('input, button, th[data-sort], .ocr-skill-checkbox, .ocr-edit-icon'))
+      return;
 
     e.preventDefault();
     e.stopPropagation();
@@ -551,7 +610,12 @@
       closePopup();
       return;
     }
-    if ((e.key === 'Enter' || e.key === ' ') && e.target && e.target.hasAttribute && e.target.hasAttribute('data-skill-name')) {
+    if (
+      (e.key === 'Enter' || e.key === ' ') &&
+      e.target &&
+      e.target.hasAttribute &&
+      e.target.hasAttribute('data-skill-name')
+    ) {
       e.preventDefault();
       var skillName = e.target.getAttribute('data-skill-name');
       if (skillName) openPopup(skillName, e.target);
@@ -575,9 +639,10 @@
     open: openPopup,
     close: closePopup,
     findSkill: function (name) {
-      return loadData().then(function () { return findSkill(name); });
+      return loadData().then(function () {
+        return findSkill(name);
+      });
     },
-    preload: loadData
+    preload: loadData,
   };
-
 })(window);

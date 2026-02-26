@@ -42,9 +42,22 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <link rel="preload" href="/assets/skills_all.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
@@ -372,7 +385,12 @@
       </div>
 
       <!-- Budget + library status -->
-      <section class="card card-elevated" id="optimizer-budget-section" data-scroll-section data-scroll-label="Budget">
+      <section
+        class="card card-elevated"
+        id="optimizer-budget-section"
+        data-scroll-section
+        data-scroll-label="Budget"
+      >
         <div class="toolbar toolbar-centered" style="align-items: center">
           <label class="labelTitle budget-label">
             <span data-i18n="optimizer.skillPointsBudget">Skill Points Budget</span>
@@ -394,8 +412,12 @@
             <span data-i18n="optimizer.optimizeFor">Optimize For</span>
             <select id="optimize-mode">
               <option value="rating" selected data-i18n="optimizer.optRating">Rating</option>
-              <option value="team_trials" data-i18n="optimizer.optTeamTrials">Team Trials (Consistent)</option>
-              <option value="aptitude-test" data-i18n="optimizer.optAptitudeTest">Trainer Aptitude Test</option>
+              <option value="team_trials" data-i18n="optimizer.optTeamTrials">
+                Team Trials (Consistent)
+              </option>
+              <option value="aptitude-test" data-i18n="optimizer.optAptitudeTest">
+                Trainer Aptitude Test
+              </option>
             </select>
           </label>
           <div class="spacer"></div>
@@ -418,429 +440,537 @@
           <p class="muted mobile-collapsible-hint" data-i18n="optimizer.raceConfigHint">
             Set your target affinities so the optimizer scores skills appropriately.
           </p>
-        <div class="race-card-grid">
-          <div class="race-config-pane">
-            <div class="opt-grid">
-              <div class="kv-row">
-                <div class="k" data-i18n="common.track">Track</div>
-                <div class="v row">
-                  <label>
-                    <span data-i18n="common.turf">Turf</span>
-                    <select id="cfg-turf">
-                      <option value="S">S</option>
-                      <option value="A" selected>A</option>
-                      <option value="B">B</option>
-                      <option value="C">C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G">G</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span data-i18n="common.dirt">Dirt</span>
-                    <select id="cfg-dirt">
-                      <option value="S">S</option>
-                      <option value="A">A</option>
-                      <option value="B">B</option>
-                      <option value="C">C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G" selected>G</option>
-                    </select>
-                  </label>
+          <div class="race-card-grid">
+            <div class="race-config-pane">
+              <div class="opt-grid">
+                <div class="kv-row">
+                  <div class="k" data-i18n="common.track">Track</div>
+                  <div class="v row">
+                    <label>
+                      <span data-i18n="common.turf">Turf</span>
+                      <select id="cfg-turf">
+                        <option value="S">S</option>
+                        <option value="A" selected>A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span data-i18n="common.dirt">Dirt</span>
+                      <select id="cfg-dirt">
+                        <option value="S">S</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G" selected>G</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="kv-row">
+                  <div class="k" data-i18n="common.distance">Distance</div>
+                  <div class="v row">
+                    <label>
+                      <span data-i18n="common.sprint">Sprint</span>
+                      <select id="cfg-sprint">
+                        <option value="S">S</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D" selected>D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span data-i18n="common.mile">Mile</span>
+                      <select id="cfg-mile">
+                        <option value="S">S</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C" selected>C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span data-i18n="common.medium">Medium</span>
+                      <select id="cfg-medium">
+                        <option value="S">S</option>
+                        <option value="A" selected>A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span data-i18n="common.long">Long</span>
+                      <select id="cfg-long">
+                        <option value="S">S</option>
+                        <option value="A">A</option>
+                        <option value="B" selected>B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="kv-row">
+                  <div class="k" data-i18n="common.strategy">Strategy</div>
+                  <div class="v row">
+                    <label>
+                      <span data-i18n="common.front">Front</span>
+                      <select id="cfg-front">
+                        <option value="S">S</option>
+                        <option value="A" selected>A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span data-i18n="common.pace">Pace</span>
+                      <select id="cfg-pace">
+                        <option value="S">S</option>
+                        <option value="A">A</option>
+                        <option value="B" selected>B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span data-i18n="common.late">Late</span>
+                      <select id="cfg-late">
+                        <option value="S">S</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C" selected>C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span data-i18n="common.end">End</span>
+                      <select id="cfg-end">
+                        <option value="S">S</option>
+                        <option value="A">A</option>
+                        <option value="B" selected>B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                      </select>
+                    </label>
+                  </div>
                 </div>
               </div>
 
-              <div class="kv-row">
-                <div class="k" data-i18n="common.distance">Distance</div>
-                <div class="v row">
-                  <label>
-                    <span data-i18n="common.sprint">Sprint</span>
-                    <select id="cfg-sprint">
-                      <option value="S">S</option>
-                      <option value="A">A</option>
-                      <option value="B">B</option>
-                      <option value="C">C</option>
-                      <option value="D" selected>D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G">G</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span data-i18n="common.mile">Mile</span>
-                    <select id="cfg-mile">
-                      <option value="S">S</option>
-                      <option value="A">A</option>
-                      <option value="B">B</option>
-                      <option value="C" selected>C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G">G</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span data-i18n="common.medium">Medium</span>
-                    <select id="cfg-medium">
-                      <option value="S">S</option>
-                      <option value="A" selected>A</option>
-                      <option value="B">B</option>
-                      <option value="C">C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G">G</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span data-i18n="common.long">Long</span>
-                    <select id="cfg-long">
-                      <option value="S">S</option>
-                      <option value="A">A</option>
-                      <option value="B" selected>B</option>
-                      <option value="C">C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G">G</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-
-              <div class="kv-row">
-                <div class="k" data-i18n="common.strategy">Strategy</div>
-                <div class="v row">
-                  <label>
-                    <span data-i18n="common.front">Front</span>
-                    <select id="cfg-front">
-                      <option value="S">S</option>
-                      <option value="A" selected>A</option>
-                      <option value="B">B</option>
-                      <option value="C">C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G">G</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span data-i18n="common.pace">Pace</span>
-                    <select id="cfg-pace">
-                      <option value="S">S</option>
-                      <option value="A">A</option>
-                      <option value="B" selected>B</option>
-                      <option value="C">C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G">G</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span data-i18n="common.late">Late</span>
-                    <select id="cfg-late">
-                      <option value="S">S</option>
-                      <option value="A">A</option>
-                      <option value="B">B</option>
-                      <option value="C" selected>C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G">G</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span data-i18n="common.end">End</span>
-                    <select id="cfg-end">
-                      <option value="S">S</option>
-                      <option value="A">A</option>
-                      <option value="B" selected>B</option>
-                      <option value="C">C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                      <option value="F">F</option>
-                      <option value="G">G</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Scoring weights (Team Trials only) -->
-            <details id="scoring-weights-panel" class="scoring-weights-panel" style="display: none; margin-top: 12px">
-              <summary style="cursor: pointer; font-weight: 600; font-size: 0.9em" data-i18n="optimizer.scoringWeights">Skill Scoring Weights</summary>
-              <div class="scoring-weights-grid">
-                <label style="display: flex; align-items: center; gap: 6px">
-                  <span style="min-width: 100px" data-i18n="optimizer.weightEffectImpact">Effect Impact</span>
-                  <input type="range" id="weight-effect-impact" min="0" max="100" value="35" step="5" style="flex: 1">
-                  <span class="weight-value" style="min-width: 32px; text-align: right">35%</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 6px">
-                  <span style="min-width: 100px" data-i18n="optimizer.weightApplicability">Applicability</span>
-                  <input type="range" id="weight-applicability" min="0" max="100" value="15" step="5" style="flex: 1">
-                  <span class="weight-value" style="min-width: 32px; text-align: right">15%</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 6px">
-                  <span style="min-width: 100px" data-i18n="optimizer.weightCostEfficiency">Cost Efficiency</span>
-                  <input type="range" id="weight-cost-efficiency" min="0" max="100" value="20" step="5" style="flex: 1">
-                  <span class="weight-value" style="min-width: 32px; text-align: right">20%</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 6px">
-                  <span style="min-width: 100px" data-i18n="optimizer.weightConsistency">Consistency</span>
-                  <input type="range" id="weight-consistency" min="0" max="100" value="20" step="5" style="flex: 1">
-                  <span class="weight-value" style="min-width: 32px; text-align: right">20%</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 6px">
-                  <span style="min-width: 100px" data-i18n="optimizer.weightDuration">Duration</span>
-                  <input type="range" id="weight-duration" min="0" max="100" value="10" step="5" style="flex: 1">
-                  <span class="weight-value" style="min-width: 32px; text-align: right">10%</span>
-                </label>
-                <div style="display: flex; align-items: center">
-                  <button id="reset-scoring-weights" class="btn btn-sm" type="button" data-i18n="common.reset">Reset</button>
-                </div>
-              </div>
-            </details>
-          </div>
-          <div class="ideal-builder-pane" id="optimizer-skill-builder">
-            <div class="ideal-header">
-              <h3 id="autoBuilderTitle" data-i18n="optimizer.idealSkillBuilder">Ideal Skill Builder</h3>
-              <p class="muted" data-i18n="optimizer.idealBuilderHint">
-                Pick the aptitudes you care about &mdash; matching rows will be highlighted.
-              </p>
-            </div>
-            <div class="ideal-target-groups">
-              <div>
-                <div class="target-group-title" data-i18n="common.track">Track</div>
-                <div class="ideal-targets auto-targets">
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="turf" checked /> <span data-i18n="common.turf">Turf</span></label
-                  >
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="dirt" checked /> <span data-i18n="common.dirt">Dirt</span></label
-                  >
-                </div>
-              </div>
-              <div>
-                <div class="target-group-title" data-i18n="common.distance">Distance</div>
-                <div class="ideal-targets auto-targets">
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="sprint" checked />
-                    <span data-i18n="common.sprint">Sprint</span></label
-                  >
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="mile" checked /> <span data-i18n="common.mile">Mile</span></label
-                  >
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="medium" checked />
-                    <span data-i18n="common.medium">Medium</span></label
-                  >
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="long" checked /> <span data-i18n="common.long">Long</span></label
-                  >
-                </div>
-              </div>
-              <div>
-                <div class="target-group-title" data-i18n="common.strategy">Strategy</div>
-                <div class="ideal-targets auto-targets">
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="front" checked /> <span data-i18n="common.front">Front</span></label
-                  >
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="pace" checked /> <span data-i18n="common.pace">Pace</span></label
-                  >
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="late" checked /> <span data-i18n="common.late">Late</span></label
-                  >
-                  <label class="target-check"
-                    ><input type="checkbox" name="auto-target" value="end" checked /> <span data-i18n="common.end">End</span></label
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="ideal-actions">
-              <label class="target-check general-check"
-                ><input type="checkbox" name="auto-target" value="general" checked /> <span data-i18n="optimizer.general">General</span></label
+              <!-- Scoring weights (Team Trials only) -->
+              <details
+                id="scoring-weights-panel"
+                class="scoring-weights-panel"
+                style="display: none; margin-top: 12px"
               >
-              <button id="auto-build-btn" class="btn" type="button" data-i18n="optimizer.generateBuild">Generate Build</button>
-              <div id="auto-builder-status" class="status muted" aria-live="polite"></div>
+                <summary
+                  style="cursor: pointer; font-weight: 600; font-size: 0.9em"
+                  data-i18n="optimizer.scoringWeights"
+                >
+                  Skill Scoring Weights
+                </summary>
+                <div class="scoring-weights-grid">
+                  <label style="display: flex; align-items: center; gap: 6px">
+                    <span style="min-width: 100px" data-i18n="optimizer.weightEffectImpact"
+                      >Effect Impact</span
+                    >
+                    <input
+                      type="range"
+                      id="weight-effect-impact"
+                      min="0"
+                      max="100"
+                      value="35"
+                      step="5"
+                      style="flex: 1"
+                    />
+                    <span class="weight-value" style="min-width: 32px; text-align: right">35%</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 6px">
+                    <span style="min-width: 100px" data-i18n="optimizer.weightApplicability"
+                      >Applicability</span
+                    >
+                    <input
+                      type="range"
+                      id="weight-applicability"
+                      min="0"
+                      max="100"
+                      value="15"
+                      step="5"
+                      style="flex: 1"
+                    />
+                    <span class="weight-value" style="min-width: 32px; text-align: right">15%</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 6px">
+                    <span style="min-width: 100px" data-i18n="optimizer.weightCostEfficiency"
+                      >Cost Efficiency</span
+                    >
+                    <input
+                      type="range"
+                      id="weight-cost-efficiency"
+                      min="0"
+                      max="100"
+                      value="20"
+                      step="5"
+                      style="flex: 1"
+                    />
+                    <span class="weight-value" style="min-width: 32px; text-align: right">20%</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 6px">
+                    <span style="min-width: 100px" data-i18n="optimizer.weightConsistency"
+                      >Consistency</span
+                    >
+                    <input
+                      type="range"
+                      id="weight-consistency"
+                      min="0"
+                      max="100"
+                      value="20"
+                      step="5"
+                      style="flex: 1"
+                    />
+                    <span class="weight-value" style="min-width: 32px; text-align: right">20%</span>
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 6px">
+                    <span style="min-width: 100px" data-i18n="optimizer.weightDuration"
+                      >Duration</span
+                    >
+                    <input
+                      type="range"
+                      id="weight-duration"
+                      min="0"
+                      max="100"
+                      value="10"
+                      step="5"
+                      style="flex: 1"
+                    />
+                    <span class="weight-value" style="min-width: 32px; text-align: right">10%</span>
+                  </label>
+                  <div style="display: flex; align-items: center">
+                    <button
+                      id="reset-scoring-weights"
+                      class="btn btn-sm"
+                      type="button"
+                      data-i18n="common.reset"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </details>
+            </div>
+            <div class="ideal-builder-pane" id="optimizer-skill-builder">
+              <div class="ideal-header">
+                <h3 id="autoBuilderTitle" data-i18n="optimizer.idealSkillBuilder">
+                  Ideal Skill Builder
+                </h3>
+                <p class="muted" data-i18n="optimizer.idealBuilderHint">
+                  Pick the aptitudes you care about &mdash; matching rows will be highlighted.
+                </p>
+              </div>
+              <div class="ideal-target-groups">
+                <div>
+                  <div class="target-group-title" data-i18n="common.track">Track</div>
+                  <div class="ideal-targets auto-targets">
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="turf" checked />
+                      <span data-i18n="common.turf">Turf</span></label
+                    >
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="dirt" checked />
+                      <span data-i18n="common.dirt">Dirt</span></label
+                    >
+                  </div>
+                </div>
+                <div>
+                  <div class="target-group-title" data-i18n="common.distance">Distance</div>
+                  <div class="ideal-targets auto-targets">
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="sprint" checked />
+                      <span data-i18n="common.sprint">Sprint</span></label
+                    >
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="mile" checked />
+                      <span data-i18n="common.mile">Mile</span></label
+                    >
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="medium" checked />
+                      <span data-i18n="common.medium">Medium</span></label
+                    >
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="long" checked />
+                      <span data-i18n="common.long">Long</span></label
+                    >
+                  </div>
+                </div>
+                <div>
+                  <div class="target-group-title" data-i18n="common.strategy">Strategy</div>
+                  <div class="ideal-targets auto-targets">
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="front" checked />
+                      <span data-i18n="common.front">Front</span></label
+                    >
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="pace" checked />
+                      <span data-i18n="common.pace">Pace</span></label
+                    >
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="late" checked />
+                      <span data-i18n="common.late">Late</span></label
+                    >
+                    <label class="target-check"
+                      ><input type="checkbox" name="auto-target" value="end" checked />
+                      <span data-i18n="common.end">End</span></label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="ideal-actions">
+                <label class="target-check general-check"
+                  ><input type="checkbox" name="auto-target" value="general" checked />
+                  <span data-i18n="optimizer.general">General</span></label
+                >
+                <button
+                  id="auto-build-btn"
+                  class="btn"
+                  type="button"
+                  data-i18n="optimizer.generateBuild"
+                >
+                  Generate Build
+                </button>
+                <div id="auto-builder-status" class="status muted" aria-live="polite"></div>
+              </div>
             </div>
           </div>
-        </div>
         </details>
       </section>
 
       <!-- Rating calculator -->
-      <section class="card card-elevated" id="rating-card" aria-labelledby="ratingCalcTitle" data-scroll-section data-scroll-label="Rating">
+      <section
+        class="card card-elevated"
+        id="rating-card"
+        aria-labelledby="ratingCalcTitle"
+        data-scroll-section
+        data-scroll-label="Rating"
+      >
         <details class="mobile-collapsible" open>
           <summary class="mobile-collapsible-header">
             <h2 id="ratingCalcTitle" data-i18n="optimizer.ratingCalculator">Rating Calculator</h2>
           </summary>
-        <p class="muted mobile-collapsible-hint" data-i18n="optimizer.ratingCalcHint">
-          Enter your Uma's final stats, star rarity, and unique skill level. The optimized skill
-          score fills in automatically to project the final evaluation.
-        </p>
-        <div class="toolbar rating-card-toolbar">
-          <div class="rating-card-header"></div>
-          <div class="spacer"></div>
-          <div class="rating-hero">
-            <div class="pill rating-total-pill">
-              <div class="label" data-i18n="common.projectedRating">Projected Rating</div>
-              <div id="rating-total" class="value">0</div>
-              <div class="rating-progress" aria-live="polite">
-                <div class="rating-progress-label">
-                  <span id="rating-next-label">Next: G+ at 300</span>
-                  <span id="rating-next-needed">+0</span>
-                </div>
-                <div
-                  class="rating-progress-bar"
-                  role="progressbar"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  aria-valuenow="0"
-                >
-                  <div id="rating-progress-fill" class="rating-progress-fill"></div>
+          <p class="muted mobile-collapsible-hint" data-i18n="optimizer.ratingCalcHint">
+            Enter your Uma's final stats, star rarity, and unique skill level. The optimized skill
+            score fills in automatically to project the final evaluation.
+          </p>
+          <div class="toolbar rating-card-toolbar">
+            <div class="rating-card-header"></div>
+            <div class="spacer"></div>
+            <div class="rating-hero">
+              <div class="pill rating-total-pill">
+                <div class="label" data-i18n="common.projectedRating">Projected Rating</div>
+                <div id="rating-total" class="value">0</div>
+                <div class="rating-progress" aria-live="polite">
+                  <div class="rating-progress-label">
+                    <span id="rating-next-label">Next: G+ at 300</span>
+                    <span id="rating-next-needed">+0</span>
+                  </div>
+                  <div
+                    class="rating-progress-bar"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                  >
+                    <div id="rating-progress-fill" class="rating-progress-fill"></div>
+                  </div>
                 </div>
               </div>
+              <div class="rating-badge" id="rating-badge">
+                <div
+                  id="rating-badge-sprite"
+                  class="rating-badge-sprite"
+                  role="img"
+                  aria-label="Projected rank badge"
+                ></div>
+              </div>
             </div>
-            <div class="rating-badge" id="rating-badge">
-              <div
-                id="rating-badge-sprite"
-                class="rating-badge-sprite"
-                role="img"
-                aria-label="Projected rank badge"
-              ></div>
+          </div>
+          <div class="rating-grid">
+            <label
+              ><span data-i18n="common.speed">Speed</span>
+              <input
+                id="stat-speed"
+                type="number"
+                min="0"
+                max="2500"
+                step="1"
+                value="0"
+                inputmode="numeric"
+              />
+            </label>
+            <label
+              ><span data-i18n="common.stamina">Stamina</span>
+              <input
+                id="stat-stamina"
+                type="number"
+                min="0"
+                max="2500"
+                step="1"
+                value="0"
+                inputmode="numeric"
+              />
+            </label>
+            <label
+              ><span data-i18n="common.power">Power</span>
+              <input
+                id="stat-power"
+                type="number"
+                min="0"
+                max="2500"
+                step="1"
+                value="0"
+                inputmode="numeric"
+              />
+            </label>
+            <label
+              ><span data-i18n="common.guts">Guts</span>
+              <input
+                id="stat-guts"
+                type="number"
+                min="0"
+                max="2500"
+                step="1"
+                value="0"
+                inputmode="numeric"
+              />
+            </label>
+            <label
+              ><span data-i18n="common.wisdom">Wisdom</span>
+              <input
+                id="stat-wisdom"
+                type="number"
+                min="0"
+                max="2500"
+                step="1"
+                value="0"
+                inputmode="numeric"
+              />
+            </label>
+          </div>
+          <div
+            class="rating-grid"
+            style="grid-template-columns: repeat(2, minmax(150px, 1fr)); margin-top: 0.4rem"
+          >
+            <label
+              ><span data-i18n="common.starLevel">Star Level</span>
+              <select id="star-level">
+                <option value="1">&#9733;1</option>
+                <option value="2">&#9733;2</option>
+                <option value="3" selected>&#9733;3</option>
+                <option value="4">&#9733;4</option>
+                <option value="5">&#9733;5</option>
+              </select>
+            </label>
+            <label
+              ><span data-i18n="common.uniqueSkillLevel">Unique Skill Level</span>
+              <select id="unique-level">
+                <option value="1">Lv1</option>
+                <option value="2">Lv2</option>
+                <option value="3" selected>Lv3</option>
+                <option value="4">Lv4</option>
+                <option value="5">Lv5</option>
+                <option value="6">Lv6</option>
+              </select>
+            </label>
+          </div>
+          <div class="rating-summary">
+            <div class="pill">
+              <div class="label" data-i18n="optimizer.statsScore">Stats Score</div>
+              <div id="rating-stats-score" class="value">0</div>
+            </div>
+            <div class="pill">
+              <div class="label" data-i18n="optimizer.skillScore">Skill Score</div>
+              <div id="rating-skills-score" class="value">0</div>
+            </div>
+            <div class="pill">
+              <div class="label" data-i18n="optimizer.uniqueBonus">Unique Bonus</div>
+              <div id="rating-unique-bonus" class="value">0</div>
             </div>
           </div>
-        </div>
-        <div class="rating-grid">
-          <label
-            ><span data-i18n="common.speed">Speed</span>
-            <input
-              id="stat-speed"
-              type="number"
-              min="0"
-              max="2500"
-              step="1"
-              value="0"
-              inputmode="numeric"
-            />
-          </label>
-          <label
-            ><span data-i18n="common.stamina">Stamina</span>
-            <input
-              id="stat-stamina"
-              type="number"
-              min="0"
-              max="2500"
-              step="1"
-              value="0"
-              inputmode="numeric"
-            />
-          </label>
-          <label
-            ><span data-i18n="common.power">Power</span>
-            <input
-              id="stat-power"
-              type="number"
-              min="0"
-              max="2500"
-              step="1"
-              value="0"
-              inputmode="numeric"
-            />
-          </label>
-          <label
-            ><span data-i18n="common.guts">Guts</span>
-            <input
-              id="stat-guts"
-              type="number"
-              min="0"
-              max="2500"
-              step="1"
-              value="0"
-              inputmode="numeric"
-            />
-          </label>
-          <label
-            ><span data-i18n="common.wisdom">Wisdom</span>
-            <input
-              id="stat-wisdom"
-              type="number"
-              min="0"
-              max="2500"
-              step="1"
-              value="0"
-              inputmode="numeric"
-            />
-          </label>
-        </div>
-        <div
-          class="rating-grid"
-          style="grid-template-columns: repeat(2, minmax(150px, 1fr)); margin-top: 0.4rem"
-        >
-          <label
-            ><span data-i18n="common.starLevel">Star Level</span>
-            <select id="star-level">
-              <option value="1">&#9733;1</option>
-              <option value="2">&#9733;2</option>
-              <option value="3" selected>&#9733;3</option>
-              <option value="4">&#9733;4</option>
-              <option value="5">&#9733;5</option>
-            </select>
-          </label>
-          <label
-            ><span data-i18n="common.uniqueSkillLevel">Unique Skill Level</span>
-            <select id="unique-level">
-              <option value="1">Lv1</option>
-              <option value="2">Lv2</option>
-              <option value="3" selected>Lv3</option>
-              <option value="4">Lv4</option>
-              <option value="5">Lv5</option>
-              <option value="6">Lv6</option>
-            </select>
-          </label>
-        </div>
-        <div class="rating-summary">
-          <div class="pill">
-            <div class="label" data-i18n="optimizer.statsScore">Stats Score</div>
-            <div id="rating-stats-score" class="value">0</div>
-          </div>
-          <div class="pill">
-            <div class="label" data-i18n="optimizer.skillScore">Skill Score</div>
-            <div id="rating-skills-score" class="value">0</div>
-          </div>
-          <div class="pill">
-            <div class="label" data-i18n="optimizer.uniqueBonus">Unique Bonus</div>
-            <div id="rating-unique-bonus" class="value">0</div>
-          </div>
-        </div>
         </details>
       </section>
 
       <!-- Results -->
-      <section class="card card-elevated" id="skills-to-buy-section" style="margin-bottom: 16px" data-scroll-section data-scroll-label="Results">
+      <section
+        class="card card-elevated"
+        id="skills-to-buy-section"
+        style="margin-bottom: 16px"
+        data-scroll-section
+        data-scroll-label="Results"
+      >
         <h3 style="margin: 0.2rem 0 0.5rem 0" data-i18n="optimizer.skillsToBuy">Skills to Buy</h3>
         <div id="results" class="results">
           <div
             class="grid"
             style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px"
           >
-            <div class="pill"><b data-i18n="optimizer.bestScore">Best Score:</b> <span id="best-score">0</span></div>
-            <div class="pill"><b data-i18n="optimizer.usedPoints">Used Points:</b> <span id="used-points">0</span></div>
-            <div class="pill"><b data-i18n="optimizer.totalPoints">Total Points:</b> <span id="total-points">0</span></div>
-            <div class="pill"><b data-i18n="optimizer.remaining">Remaining:</b> <span id="remaining-points">0</span></div>
+            <div class="pill">
+              <b data-i18n="optimizer.bestScore">Best Score:</b> <span id="best-score">0</span>
+            </div>
+            <div class="pill">
+              <b data-i18n="optimizer.usedPoints">Used Points:</b> <span id="used-points">0</span>
+            </div>
+            <div class="pill">
+              <b data-i18n="optimizer.totalPoints">Total Points:</b>
+              <span id="total-points">0</span>
+            </div>
+            <div class="pill">
+              <b data-i18n="optimizer.remaining">Remaining:</b> <span id="remaining-points">0</span>
+            </div>
             <div class="pill team-trials-pill" id="team-consistency-pill" style="display: none">
-              <b data-i18n="optimizer.consistency">Consistency:</b> <span id="team-consistency">0%</span>
+              <b data-i18n="optimizer.consistency">Consistency:</b>
+              <span id="team-consistency">0%</span>
             </div>
             <div class="pill team-trials-pill" id="team-expected-pill" style="display: none">
-              <b data-i18n="optimizer.expectedValue">Expected Value:</b> <span id="team-expected">0.00</span>
+              <b data-i18n="optimizer.expectedValue">Expected Value:</b>
+              <span id="team-expected">0.00</span>
             </div>
             <div class="pill aptitude-test-pill" id="aptitude-score-pill" style="display: none">
-              <b data-i18n="optimizer.aptitudeTestScore">Aptitude Test Score:</b> <span id="aptitude-score">0</span>
+              <b data-i18n="optimizer.aptitudeTestScore">Aptitude Test Score:</b>
+              <span id="aptitude-score">0</span>
             </div>
           </div>
           <div class="results-list" id="selected-list" style="margin-top: 0.75rem"></div>
@@ -878,9 +1008,16 @@
       </section>
 
       <!-- Rows builder (auto-add; live optimize) -->
-      <section class="card card-elevated" id="optimizer-skill-rows" data-scroll-section data-scroll-label="Skills">
+      <section
+        class="card card-elevated"
+        id="optimizer-skill-rows"
+        data-scroll-section
+        data-scroll-label="Skills"
+      >
         <div class="toolbar" role="group" aria-label="Skill rows" style="justify-content: flex-end">
-          <span class="muted" data-i18n="optimizer.rowTip">Tip: just enter the skill name and cost - its type auto-detects</span>
+          <span class="muted" data-i18n="optimizer.rowTip"
+            >Tip: just enter the skill name and cost - its type auto-detects</span
+          >
           <div class="spacer"></div>
           <label class="preprocessing-toggle" title="Enhance images before OCR for better accuracy">
             <input type="checkbox" id="preprocess-toggle" />
@@ -898,20 +1035,53 @@
             style="display: none"
             aria-label="Upload screenshot"
           />
-          <button id="screenshot-upload-btn" class="btn btn-secondary" type="button" data-i18n="optimizer.uploadScreenshot">
+          <button
+            id="screenshot-upload-btn"
+            class="btn btn-secondary"
+            type="button"
+            data-i18n="optimizer.uploadScreenshot"
+          >
             Upload Screenshot
           </button>
-          <button id="captureBtn" class="btn btn-secondary" type="button" data-i18n="optimizer.screenCapture">Screen Capture</button>
+          <button
+            id="captureBtn"
+            class="btn btn-secondary"
+            type="button"
+            data-i18n="optimizer.screenCapture"
+          >
+            Screen Capture
+          </button>
         </div>
         <div class="toolbar" style="justify-content: flex-end">
-          <button id="save-build" class="btn btn-secondary" type="button" data-i18n="optimizer.saveBuild">Save Build</button>
-          <button id="view-builds" class="btn btn-secondary" type="button" data-i18n="optimizer.viewSavedBuilds">
+          <button
+            id="save-build"
+            class="btn btn-secondary"
+            type="button"
+            data-i18n="optimizer.saveBuild"
+          >
+            Save Build
+          </button>
+          <button
+            id="view-builds"
+            class="btn btn-secondary"
+            type="button"
+            data-i18n="optimizer.viewSavedBuilds"
+          >
             View Saved Builds
           </button>
-          <button id="share-build" class="btn btn-secondary" type="button" data-i18n="optimizer.shareBuild">Share Build</button>
+          <button
+            id="share-build"
+            class="btn btn-secondary"
+            type="button"
+            data-i18n="optimizer.shareBuild"
+          >
+            Share Build
+          </button>
         </div>
         <div class="toolbar" style="justify-content: flex-end">
-          <button id="clear-all" class="btn" type="button" data-i18n="optimizer.clearAllSkills">Clear All Skills</button>
+          <button id="clear-all" class="btn" type="button" data-i18n="optimizer.clearAllSkills">
+            Clear All Skills
+          </button>
         </div>
         <div id="camera-capture-container" class="camera-capture-container" style="display: none">
           <video id="captureVideo" class="capture-video" autoplay playsinline muted></video>
@@ -922,23 +1092,60 @@
         <div id="ocr-results-panel" class="ocr-results-panel" style="display: none">
           <div class="ocr-results-header">
             <h3 data-i18n="optimizer.detectedSkills">Detected Skills</h3>
-            <button id="ocr-results-close" class="btn btn-secondary" type="button" data-i18n="common.close">Close</button>
+            <button
+              id="ocr-results-close"
+              class="btn btn-secondary"
+              type="button"
+              data-i18n="common.close"
+            >
+              Close
+            </button>
           </div>
           <div class="ocr-results-body">
             <div id="ocr-results-list" class="ocr-results-list"></div>
           </div>
           <div class="ocr-results-footer">
-            <button id="ocr-add-all" class="btn" type="button" data-i18n="optimizer.addAllToOptimizer">Add All to Optimizer</button>
-            <button id="ocr-add-selected" class="btn btn-secondary" type="button" data-i18n="optimizer.addSelected">
+            <button
+              id="ocr-add-all"
+              class="btn"
+              type="button"
+              data-i18n="optimizer.addAllToOptimizer"
+            >
+              Add All to Optimizer
+            </button>
+            <button
+              id="ocr-add-selected"
+              class="btn btn-secondary"
+              type="button"
+              data-i18n="optimizer.addSelected"
+            >
               Add Selected
             </button>
           </div>
         </div>
 
         <div id="rows" class="rows">
-          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
-          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
-          <div class="skeleton-row" aria-hidden="true"><div class="skeleton skeleton-text medium"></div><div class="skeleton skeleton-text long"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text short"></div><div class="skeleton skeleton-text medium"></div></div>
+          <div class="skeleton-row" aria-hidden="true">
+            <div class="skeleton skeleton-text medium"></div>
+            <div class="skeleton skeleton-text long"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text medium"></div>
+          </div>
+          <div class="skeleton-row" aria-hidden="true">
+            <div class="skeleton skeleton-text medium"></div>
+            <div class="skeleton skeleton-text long"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text medium"></div>
+          </div>
+          <div class="skeleton-row" aria-hidden="true">
+            <div class="skeleton skeleton-text medium"></div>
+            <div class="skeleton skeleton-text long"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text short"></div>
+            <div class="skeleton skeleton-text medium"></div>
+          </div>
         </div>
       </section>
     </main>
@@ -954,7 +1161,8 @@
         </div>
         <div class="modal-body">
           <label class="labelTitle">
-            <span data-i18n="optimizer.buildName">Build Name</span> <span style="color: var(--text-muted)" data-i18n="optimizer.required">(required)</span>
+            <span data-i18n="optimizer.buildName">Build Name</span>
+            <span style="color: var(--text-muted)" data-i18n="optimizer.required">(required)</span>
             <input
               id="save-build-name"
               type="text"
@@ -965,7 +1173,8 @@
             />
           </label>
           <label class="labelTitle" style="margin-top: 12px">
-            <span data-i18n="optimizer.description">Description</span> <span style="color: var(--text-muted)" data-i18n="optimizer.optional">(optional)</span>
+            <span data-i18n="optimizer.description">Description</span>
+            <span style="color: var(--text-muted)" data-i18n="optimizer.optional">(optional)</span>
             <textarea
               id="save-build-description"
               placeholder="Notes about this build..."
@@ -976,8 +1185,17 @@
           </label>
         </div>
         <div class="modal-footer">
-          <button id="save-modal-cancel" class="btn btn-secondary" type="button" data-i18n="optimizer.cancel">Cancel</button>
-          <button id="save-modal-save" class="btn" type="button" data-i18n="common.save">Save</button>
+          <button
+            id="save-modal-cancel"
+            class="btn btn-secondary"
+            type="button"
+            data-i18n="optimizer.cancel"
+          >
+            Cancel
+          </button>
+          <button id="save-modal-save" class="btn" type="button" data-i18n="common.save">
+            Save
+          </button>
         </div>
       </div>
     </div>
@@ -995,7 +1213,12 @@
           <div id="builds-list-container" class="builds-list"></div>
         </div>
         <div class="modal-footer">
-          <button id="builds-list-modal-close-btn" class="btn btn-secondary" type="button" data-i18n="common.close">
+          <button
+            id="builds-list-modal-close-btn"
+            class="btn btn-secondary"
+            type="button"
+            data-i18n="common.close"
+          >
             Close
           </button>
         </div>
@@ -1013,7 +1236,8 @@
         </div>
         <div class="modal-body">
           <label class="labelTitle">
-            <span data-i18n="optimizer.skillName">Skill Name</span> <span style="color: var(--text-muted)" data-i18n="optimizer.required">(required)</span>
+            <span data-i18n="optimizer.skillName">Skill Name</span>
+            <span style="color: var(--text-muted)" data-i18n="optimizer.required">(required)</span>
             <input
               id="correction-skill-name"
               type="text"
@@ -1026,7 +1250,8 @@
             />
           </label>
           <label class="labelTitle" style="margin-top: 12px">
-            <span data-i18n="optimizer.costLabel">Cost</span> <span style="color: var(--text-muted)" data-i18n="optimizer.optional">(optional)</span>
+            <span data-i18n="optimizer.costLabel">Cost</span>
+            <span style="color: var(--text-muted)" data-i18n="optimizer.optional">(optional)</span>
             <input
               id="correction-skill-cost"
               type="number"
@@ -1037,7 +1262,8 @@
             />
           </label>
           <label class="labelTitle" style="margin-top: 12px">
-            <span data-i18n="optimizer.hintLevel">Hint Level</span> <span style="color: var(--text-muted)" data-i18n="optimizer.hintLevelRange">(0-5)</span>
+            <span data-i18n="optimizer.hintLevel">Hint Level</span>
+            <span style="color: var(--text-muted)" data-i18n="optimizer.hintLevelRange">(0-5)</span>
             <select id="correction-skill-hint">
               <option value="0" data-i18n="optimizer.noHint">No Hint</option>
               <option value="1">Hint Lv 1</option>
@@ -1049,10 +1275,17 @@
           </label>
         </div>
         <div class="modal-footer">
-          <button id="correction-modal-cancel" class="btn btn-secondary" type="button" data-i18n="optimizer.cancel">
+          <button
+            id="correction-modal-cancel"
+            class="btn btn-secondary"
+            type="button"
+            data-i18n="optimizer.cancel"
+          >
             Cancel
           </button>
-          <button id="correction-modal-save" class="btn" type="button" data-i18n="common.save">Save</button>
+          <button id="correction-modal-save" class="btn" type="button" data-i18n="common.save">
+            Save
+          </button>
         </div>
       </div>
     </div>
@@ -1106,14 +1339,18 @@
             s.src = src;
             s.async = false;
             s.onload = resolve;
-            s.onerror = function () { reject(new Error('Failed to load ' + src)); };
+            s.onerror = function () {
+              reject(new Error('Failed to load ' + src));
+            };
             document.head.appendChild(s);
           });
         }
         function ensureOCR() {
           if (!ocrReady) {
             ocrReady = OCR_SCRIPTS.reduce(function (chain, src) {
-              return chain.then(function () { return loadScript(src); });
+              return chain.then(function () {
+                return loadScript(src);
+              });
             }, Promise.resolve());
           }
           return ocrReady;
@@ -1126,7 +1363,9 @@
 
           if (uploadBtn && uploadInput) {
             uploadBtn.addEventListener('click', function () {
-              ensureOCR().then(function () { uploadInput.click(); });
+              ensureOCR().then(function () {
+                uploadInput.click();
+              });
             });
           }
           if (captureBtn) {
@@ -1165,6 +1404,7 @@
 
     <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>

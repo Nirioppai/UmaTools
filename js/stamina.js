@@ -804,7 +804,9 @@
     refreshSelectStyles();
     isHydrated = true;
     update();
-    window.addEventListener('i18n:changed', function () { update(); });
+    window.addEventListener('i18n:changed', function () {
+      update();
+    });
   }
 
   if (document.readyState === 'loading') {

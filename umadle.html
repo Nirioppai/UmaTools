@@ -42,9 +42,22 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/umadle.css" />
@@ -214,11 +227,21 @@
         <div class="support-modal-backdrop"></div>
         <div class="support-modal-content">
           <div class="support-modal-header">
-            <span class="support-modal-title" data-i18n="umadle.selectCharacter">Select Character</span>
-            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
+            <span class="support-modal-title" data-i18n="umadle.selectCharacter"
+              >Select Character</span
+            >
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">
+              &times;
+            </button>
           </div>
           <div class="support-modal-filters">
-            <input id="umaPickerSearch" type="text" placeholder="Search by name..." autocomplete="off" data-i18n-placeholder="common.searchByName" />
+            <input
+              id="umaPickerSearch"
+              type="text"
+              placeholder="Search by name..."
+              autocomplete="off"
+              data-i18n-placeholder="common.searchByName"
+            />
           </div>
           <div id="umaPickerList" class="support-modal-list"></div>
         </div>
@@ -242,8 +265,8 @@
     <script src="/js/i18n.js" defer></script>
     <script type="module" src="/js/umadle.js"></script>
 
-
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>

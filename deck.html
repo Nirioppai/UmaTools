@@ -42,9 +42,22 @@
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <link rel="preload" href="/assets/uma_data.json" as="fetch" crossorigin />
     <link rel="preload" href="/assets/support_hints.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="/css/base.css" />
@@ -206,7 +219,12 @@
       </button>
 
       <!-- Character Section -->
-      <section class="deck-section" id="deck-character" data-scroll-section data-scroll-label="Character">
+      <section
+        class="deck-section"
+        id="deck-character"
+        data-scroll-section
+        data-scroll-label="Character"
+      >
         <div class="deck-section-title" data-i18n="deck.character">Character</div>
         <div id="charDisplay"></div>
       </section>
@@ -216,15 +234,34 @@
         <div class="support-modal-backdrop"></div>
         <div class="support-modal-content">
           <div class="support-modal-header">
-            <span class="support-modal-title" data-i18n="deck.selectCharacter">Select Character</span>
-            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
+            <span class="support-modal-title" data-i18n="deck.selectCharacter"
+              >Select Character</span
+            >
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">
+              &times;
+            </button>
           </div>
           <div class="support-modal-filters">
-            <input id="charSearch" type="text" placeholder="Search by name..." autocomplete="off" data-i18n-placeholder="common.searchByName" />
+            <input
+              id="charSearch"
+              type="text"
+              placeholder="Search by name..."
+              autocomplete="off"
+              data-i18n-placeholder="common.searchByName"
+            />
             <div class="filter-row">
-              <div class="filter-group-wrap"><span class="filter-group-label" data-i18n="deck.distance">Distance</span><div class="filter-group" id="charDistFilters"></div></div>
-              <div class="filter-group-wrap"><span class="filter-group-label" data-i18n="deck.surface">Surface</span><div class="filter-group" id="charSurfFilters"></div></div>
-              <div class="filter-group-wrap"><span class="filter-group-label" data-i18n="deck.strategy">Strategy</span><div class="filter-group" id="charStratFilters"></div></div>
+              <div class="filter-group-wrap">
+                <span class="filter-group-label" data-i18n="deck.distance">Distance</span>
+                <div class="filter-group" id="charDistFilters"></div>
+              </div>
+              <div class="filter-group-wrap">
+                <span class="filter-group-label" data-i18n="deck.surface">Surface</span>
+                <div class="filter-group" id="charSurfFilters"></div>
+              </div>
+              <div class="filter-group-wrap">
+                <span class="filter-group-label" data-i18n="deck.strategy">Strategy</span>
+                <div class="filter-group" id="charStratFilters"></div>
+              </div>
             </div>
           </div>
           <div id="charModalList" class="support-modal-list"></div>
@@ -232,15 +269,20 @@
       </div>
 
       <!-- Support Cards Section -->
-      <section class="deck-section" id="deck-support" data-scroll-section data-scroll-label="Support">
+      <section
+        class="deck-section"
+        id="deck-support"
+        data-scroll-section
+        data-scroll-label="Support"
+      >
         <div class="deck-section-title">Support Cards (<span id="supportCount">0</span>/6)</div>
         <div id="supportSlots" class="deck-support-slots">
-          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
-          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
-          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
-          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
-          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
-          <div class="skeleton-card" aria-hidden="true" style="width:140px;height:180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width: 140px; height: 180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width: 140px; height: 180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width: 140px; height: 180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width: 140px; height: 180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width: 140px; height: 180px"></div>
+          <div class="skeleton-card" aria-hidden="true" style="width: 140px; height: 180px"></div>
         </div>
       </section>
 
@@ -249,11 +291,21 @@
         <div class="support-modal-backdrop"></div>
         <div class="support-modal-content">
           <div class="support-modal-header">
-            <span class="support-modal-title" data-i18n="deck.selectSupportCard">Select Support Card</span>
-            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
+            <span class="support-modal-title" data-i18n="deck.selectSupportCard"
+              >Select Support Card</span
+            >
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">
+              &times;
+            </button>
           </div>
           <div class="support-modal-filters">
-            <input id="supportSearch" type="text" placeholder="Search by name..." autocomplete="off" data-i18n-placeholder="common.searchByName" />
+            <input
+              id="supportSearch"
+              type="text"
+              placeholder="Search by name..."
+              autocomplete="off"
+              data-i18n-placeholder="common.searchByName"
+            />
             <div class="filter-row">
               <div class="filter-group" id="typeFilters"></div>
               <div class="filter-group" id="rarityFilters"></div>
@@ -273,7 +325,9 @@
         <div class="effects-panel-content">
           <div class="effects-panel-header">
             <span id="effectsPanelTitle" class="effects-panel-title"></span>
-            <button class="effects-panel-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
+            <button class="effects-panel-close" aria-label="Close" data-i18n-aria="common.close">
+              &times;
+            </button>
           </div>
           <div class="effects-panel-level">
             <label for="effectsLevelSlider" data-i18n="deck.levelLabel">Level:</label>
@@ -285,7 +339,13 @@
       </div>
 
       <!-- Combined Summary -->
-      <section class="deck-section" id="summarySection" style="display: none" data-scroll-section data-scroll-label="Summary">
+      <section
+        class="deck-section"
+        id="summarySection"
+        style="display: none"
+        data-scroll-section
+        data-scroll-label="Summary"
+      >
         <div class="deck-section-title" data-i18n="deck.combinedSummary">Combined Summary</div>
         <div id="summaryContent" class="deck-summary"></div>
       </section>
@@ -305,12 +365,22 @@
         <div class="support-modal-content">
           <div class="support-modal-header">
             <span class="support-modal-title" data-i18n="deck.savedDecks">Saved Decks</span>
-            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">
+              &times;
+            </button>
           </div>
           <div class="saved-modal-actions">
             <div class="saved-modal-save-row">
-              <input id="saveDeckName" type="text" placeholder="Deck name..." autocomplete="off" data-i18n-placeholder="deck.deckName" />
-              <button id="saveDeckBtn" class="saved-modal-save-btn" data-i18n="common.save">Save</button>
+              <input
+                id="saveDeckName"
+                type="text"
+                placeholder="Deck name..."
+                autocomplete="off"
+                data-i18n-placeholder="deck.deckName"
+              />
+              <button id="saveDeckBtn" class="saved-modal-save-btn" data-i18n="common.save">
+                Save
+              </button>
             </div>
           </div>
           <div id="savedDecksList" class="support-modal-list saved-decks-list"></div>
@@ -323,9 +393,13 @@
         <div class="support-modal-content">
           <div class="support-modal-header">
             <span class="support-modal-title" data-i18n="deck.metaTemplates">Meta Templates</span>
-            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">&times;</button>
+            <button class="support-modal-close" aria-label="Close" data-i18n-aria="common.close">
+              &times;
+            </button>
           </div>
-          <p class="templates-source" data-i18n="deck.templatesSource">Based on Class 6 statistics from uma.moe</p>
+          <p class="templates-source" data-i18n="deck.templatesSource">
+            Based on Class 6 statistics from uma.moe
+          </p>
           <div id="templatesModalList" class="support-modal-list templates-list"></div>
         </div>
       </div>
@@ -338,6 +412,7 @@
     <script src="/js/deck.js" defer></script>
     <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>

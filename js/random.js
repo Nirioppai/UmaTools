@@ -40,8 +40,7 @@
     },
   };
 
-  const renderBadge = (rarity) =>
-    `<span class="badge badge-${rarity}">${rarity}</span>`;
+  const renderBadge = (rarity) => `<span class="badge badge-${rarity}">${rarity}</span>`;
   const applyBadge = (el, rarity) => {
     if (!el) return;
     el.className = `badge badge-${rarity}`;
@@ -141,7 +140,9 @@
   let umaList = [];
 
   let currentServer = 'en';
-  try { currentServer = localStorage.getItem('umatoolsServer') || 'en'; } catch {}
+  try {
+    currentServer = localStorage.getItem('umatoolsServer') || 'en';
+  } catch {}
 
   function matchesServerSupport(s) {
     if (currentServer === 'jp') return true;
@@ -245,7 +246,9 @@
       ].filter(Boolean)
     );
 
-    const pool = supports.filter((s) => matchesServerSupport(s) && allowedR.has(s.rarity) && !ex.has(s.slug));
+    const pool = supports.filter(
+      (s) => matchesServerSupport(s) && allowedR.has(s.rarity) && !ex.has(s.slug)
+    );
     const pick = pickNRandom(pool, Math.min(5, pool.length));
 
     els.deckResults.innerHTML = pick.length
@@ -296,7 +299,9 @@
       ].filter(Boolean)
     );
 
-    const pool = supports.filter((s) => matchesServerSupport(s) && allowedR.has(s.rarity) && !ex.has(s.slug));
+    const pool = supports.filter(
+      (s) => matchesServerSupport(s) && allowedR.has(s.rarity) && !ex.has(s.slug)
+    );
     const N = Math.min(5, pool.length);
     if (!N) {
       els.deckResults.innerHTML = `<div class="inline-note">${t('random.noCards')}</div>`;

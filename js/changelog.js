@@ -25,12 +25,16 @@
     return 'en';
   }
 
-  function renderEntries(ul, entries) {
+  function localized(obj) {
     var lang = getLang();
+    return (obj && (obj[lang] || obj.en)) || '';
+  }
+
+  function renderEntries(ul, entries) {
     ul.innerHTML = '';
     for (var i = 0; i < entries.length; i++) {
       var li = document.createElement('li');
-      li.textContent = entries[i][lang] || entries[i].en;
+      li.textContent = localized(entries[i]);
       ul.appendChild(li);
     }
   }
@@ -41,68 +45,113 @@
     if (!version || !entries || !entries.length) return;
     if (readDismissed() === version) return;
 
-    var banner = document.createElement('div');
-    banner.className = 'changelog-banner';
-    banner.setAttribute('role', 'status');
+    var _t = function (key) {
+      return typeof window.t === 'function' ? window.t(key) : key;
+    };
 
-    var inner = document.createElement('div');
-    inner.className = 'changelog-inner';
+    // -- backdrop --
+    var backdrop = document.createElement('div');
+    backdrop.className = 'changelog-backdrop';
 
-    var title = document.createElement('strong');
+    // -- modal --
+    var modal = document.createElement('div');
+    modal.className = 'changelog-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', _t('changelog.whatsNew'));
+
+    // -- header --
+    var header = document.createElement('div');
+    header.className = 'changelog-modal-header';
+
+    var title = document.createElement('h2');
+    title.className = 'changelog-modal-title';
     title.setAttribute('data-i18n', 'changelog.whatsNew');
-    title.textContent = (typeof window.t === 'function') ? window.t('changelog.whatsNew') : "What's New";
+    title.textContent = _t('changelog.whatsNew');
+
+    var versionTag = document.createElement('span');
+    versionTag.className = 'changelog-version';
+    versionTag.textContent = version;
+
+    header.appendChild(title);
+    header.appendChild(versionTag);
+
+    // -- body with entries --
+    var body = document.createElement('div');
+    body.className = 'changelog-modal-body';
 
     var ul = document.createElement('ul');
     ul.className = 'changelog-list';
     renderEntries(ul, entries);
+    body.appendChild(ul);
 
-    var btn = document.createElement('button');
-    btn.className = 'changelog-dismiss';
-    btn.setAttribute('aria-label', (typeof window.t === 'function') ? window.t('changelog.dismiss') : 'Dismiss');
-    btn.setAttribute('data-i18n-aria', 'changelog.dismiss');
-    btn.innerHTML = '&times;';
+    // -- footer with dismiss --
+    var footer = document.createElement('div');
+    footer.className = 'changelog-modal-footer';
 
-    btn.addEventListener('click', function () {
-      writeDismissed(version);
-      banner.classList.add('changelog-hiding');
-      banner.addEventListener('animationend', function () {
-        banner.remove();
-      });
+    var dismissBtn = document.createElement('button');
+    dismissBtn.className = 'changelog-dismiss';
+    dismissBtn.setAttribute('data-i18n', 'changelog.dismiss');
+    dismissBtn.textContent = _t('changelog.dismiss');
+
+    footer.appendChild(dismissBtn);
+
+    // -- assemble --
+    modal.appendChild(header);
+    modal.appendChild(body);
+    modal.appendChild(footer);
+    backdrop.appendChild(modal);
+    document.body.appendChild(backdrop);
+
+    // Trigger entrance animation on next frame
+    requestAnimationFrame(function () {
+      backdrop.classList.add('changelog-visible');
     });
 
-    inner.appendChild(title);
-    inner.appendChild(ul);
-    inner.appendChild(btn);
-    banner.appendChild(inner);
-
-    // Insert after nav, before main content
-    var nav = document.querySelector('.site-nav');
-    if (nav && nav.nextSibling) {
-      nav.parentNode.insertBefore(banner, nav.nextSibling);
-    } else {
-      var main = document.getElementById('main');
-      if (main) {
-        main.parentNode.insertBefore(banner, main);
-      } else {
-        document.body.prepend(banner);
-      }
+    // -- close helpers --
+    function close() {
+      writeDismissed(version);
+      backdrop.classList.remove('changelog-visible');
+      backdrop.classList.add('changelog-hiding');
+      backdrop.addEventListener('transitionend', function handler() {
+        backdrop.removeEventListener('transitionend', handler);
+        backdrop.remove();
+      });
     }
+
+    dismissBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', function (e) {
+      if (e.target === backdrop) close();
+    });
+    document.addEventListener('keydown', function handler(e) {
+      if (e.key === 'Escape' && backdrop.parentNode) {
+        document.removeEventListener('keydown', handler);
+        close();
+      }
+    });
+
+    // Focus the dismiss button for accessibility
+    dismissBtn.focus();
 
     // Re-apply i18n if available
     if (typeof window.applyI18n === 'function') {
-      window.applyI18n(banner);
+      window.applyI18n(backdrop);
     }
 
-    // Update entries when language changes
+    // Update text when language changes
     window.addEventListener('i18n:changed', function () {
       renderEntries(ul, entries);
       if (typeof window.applyI18n === 'function') {
-        window.applyI18n(banner);
+        window.applyI18n(backdrop);
       }
     });
   }
 
+  var initialized = false;
+
   function init() {
+    if (initialized) return;
+    initialized = true;
     fetch('/assets/changelog.json')
       .then(function (res) {
         if (!res.ok) throw new Error(res.status);
