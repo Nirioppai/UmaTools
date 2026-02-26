@@ -140,14 +140,22 @@
   }
 
   function createRatingEngine({ ratingInputs, ratingDisplays, onChange }) {
-    const MAX_STAT_VALUE = 2000;
     const STAT_BLOCK_SIZE = 50;
-    // Stat score at each 50-point boundary (stat 0, 50, 100, ..., 2000)
-    const STAT_BOUNDARY_SCORES = [
-      0, 25, 66, 116, 181, 261, 352, 457, 577, 707, 847, 993, 1143, 1298, 1463, 1633, 1808, 2004,
-      2209, 2419, 2635, 2895, 3171, 3501, 3841, 4249, 4688, 5160, 5665, 6203, 6773, 7377, 8013,
-      8682, 9384, 10117, 10885, 11684, 12516, 13383, 14280,
+    // Per-point multiplier for each 50-point stat block from 0-2500.
+    const STAT_MULTIPLIERS = [
+      0.5, 0.8, 1, 1.3, 1.6, 1.8, 2.1, 2.4, 2.6, 2.8, 2.9, 3, 3.1, 3.3, 3.4, 3.5, 3.9, 4.1, 4.2,
+      4.3, 5.2, 5.5, 6.6, 6.8, 6.9, 11, 11, 11, 11, 11, 11, 12.5, 12.5, 13.9, 17.3, 19.4, 19.4,
+      19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4, 19.4,
     ];
+    const MAX_STAT_VALUE = STAT_MULTIPLIERS.length * STAT_BLOCK_SIZE;
+    // Stat score at each 50-point boundary (stat 0, 50, 100, ..., 2500).
+    const STAT_BOUNDARY_SCORES = (() => {
+      const scores = [0];
+      STAT_MULTIPLIERS.forEach((mult) => {
+        scores.push(scores[scores.length - 1] + STAT_BLOCK_SIZE * mult);
+      });
+      return Object.freeze(scores);
+    })();
     let lastSkillScore = 0;
 
     const RATING_SPRITE = {

@@ -1,6 +1,6 @@
 # UmaTools
 
-A fast Uma Musume training toolkit with event OCR, skill optimization, rating calculation, and more.
+A fast Uma Musume training toolkit with event OCR, skill optimization, rating calculation, deck building, and more. Supports English and Japanese.
 
 **Live site**: [daftuyda.moe](https://daftuyda.moe)
 
@@ -28,7 +28,15 @@ Maximize your build's rating or Team Trials consistency under a skill-point budg
 
 ### [Rating Calculator](https://daftuyda.moe/calculator)
 
-Standalone rating projection. Enter your final stats, star rarity, unique skill level, and selected skills to see the projected rating and badge progress.
+Standalone rating projection. Enter your final stats, star rarity, unique skill level, and selected skills to see the projected rating and badge progress. Supports all ranks from G through the new League (LS24) tier.
+
+### [Deck Builder](https://daftuyda.moe/deck)
+
+Build training decks with 1 main character + up to 6 support cards. Filter by type, rarity, and aptitudes. View combined stat bonuses, skill hints, and synergy analysis. Save decks locally, share via encoded URL, or open directly in the Skill Optimizer.
+
+### [Skill Library](https://daftuyda.moe/skills)
+
+Browse the complete skill database with detailed metadata — cost, rating score, efficiency (score per SP), type, and category. Sort, search, and filter by skill type. Click any skill for a popup with full description, activation conditions, support card sources, and character availability.
 
 ### [Stamina Check](https://daftuyda.moe/stamina)
 
@@ -44,21 +52,40 @@ Roll a random 5-card support deck or pick a random uma. Filter by rarity, exclud
 
 ---
 
+## Localization
+
+UmaTools supports **English** and **Japanese** interfaces. Switch the site language via the Settings menu in the navigation bar. Server selection (EN / JP) controls which skill names, support cards, and characters are displayed.
+
+---
+
 ## Documentation
 
 For deeper technical details on how things work under the hood:
 
-| Doc                                    | What it covers                                                                                                                          |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| [Rating System](docs/rating-system.md) | Stat scoring formula, skill score buckets, cost discounts, gold/circle skill linking, knapsack optimization algorithm, badge thresholds |
-| [Team Trials](docs/team-trials.md)     | Consistency-first skill selection, trigger analysis, green/volatile penalties, expected value scoring, tuning weights                   |
-| [OCR Guide](docs/ocr-guide.md)         | Image preprocessing pipeline, Tesseract config, fuzzy matching algorithm, tuning thresholds, troubleshooting                            |
+| Doc | What it covers |
+| --- | --- |
+| [Rating System](docs/rating-system.md) | Stat scoring formula (0–2500), skill score buckets, cost discounts, gold/circle skill linking, knapsack optimization, badge tiers (G through LS24, 298 ranks) |
+| [Team Trials](docs/team-trials.md) | Consistency-first skill selection, automated skill scoring, trigger analysis, green/volatile penalties, expected value scoring, tuning weights |
+| [OCR Guide](docs/ocr-guide.md) | Image preprocessing pipeline, Tesseract config, fuzzy matching algorithm, tuning thresholds, troubleshooting |
+
+---
+
+## Navigation Structure
+
+The site is organized into four groups:
+
+| Group | Pages |
+| --- | --- |
+| **Rating** | Optimizer, Calculator, Stamina Check |
+| **Tools** | Event OCR, Support Hints, Deck Builder |
+| **Data** | Skill Library |
+| **Fun** | Randomizer, Umadle |
 
 ---
 
 ## Acknowledgements
 
-- Game data sourced from [GameTora](https://gametora.com)
+- Game data sourced from [GameTora](https://gametora.com) and [GameWith](https://gamewith.jp)
 
 ---
 

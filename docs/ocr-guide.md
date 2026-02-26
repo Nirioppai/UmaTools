@@ -6,7 +6,9 @@ A developer guide covering the image preprocessing pipeline, Tesseract configura
 
 ## 1. Architecture Overview
 
-The OCR pipeline consists of three modular layers:
+The OCR pipeline consists of three modular layers, lazy-loaded on first use to avoid slowing down initial page load:
+
+![OCR Pipeline](images/ocr-pipeline.svg)
 
 ```
 Image Input
@@ -40,18 +42,22 @@ Image Input
     |  - Session correction cache
 ```
 
+### Lazy Loading
+
+OCR scripts are **not** included in the initial page bundle. They are loaded dynamically when the user first triggers OCR in the optimizer. This saves ~1MB from the initial page load and is handled via dynamic `<script>` injection in `optimizer.js`.
+
 ---
 
 ## 2. Source Files
 
-| File                    | Purpose                                         |
-| ----------------------- | ----------------------------------------------- |
-| `js/ocr-preprocess.js`  | Image preprocessing pipeline                    |
-| `js/ocr-matcher.js`     | Fuzzy matching, confidence scoring, suggestions |
-| `js/ocr.js`             | Main OCR integration, UI, event handlers        |
-| `js/ocr-test.js`        | Test harness and accuracy benchmarks            |
-| `css/optimizer.css`     | OCR result panel styles                         |
-| `assets/uma_skills.csv` | Skill name dictionary (443 skills)              |
+| File | Purpose |
+| --- | --- |
+| `js/ocr-preprocess.js` | Image preprocessing pipeline |
+| `js/ocr-matcher.js` | Fuzzy matching, confidence scoring, suggestions |
+| `js/ocr.js` | Main OCR integration, UI, event handlers |
+| `js/ocr-test.js` | Test harness and accuracy benchmarks |
+| `css/optimizer.css` | OCR result panel styles |
+| `assets/uma_skills.csv` | Skill name dictionary (443+ skills) |
 
 ---
 
@@ -61,35 +67,35 @@ Image Input
 
 The pipeline first detects the layout from aspect ratio and crops to the skill panel:
 
-| Layout            | Detection           | Crop Region         |
-| ----------------- | ------------------- | ------------------- |
-| PC (landscape)    | width/height >= 1.1 | x: 1-40%, y: 27-85% |
-| Mobile (portrait) | width/height < 1.1  | x: 0-98%, y: 17-87% |
+| Layout | Detection | Crop Region |
+| --- | --- | --- |
+| PC (landscape) | width/height >= 1.1 | x: 1-40%, y: 27-85% |
+| Mobile (portrait) | width/height < 1.1 | x: 0-98%, y: 17-87% |
 
 ### Processing Steps
 
 Each image runs through up to 9 steps. Multi-variant mode tests 4 configurations in parallel and picks the best:
 
-| Step | Operation            | Parameters                             |
-| ---- | -------------------- | -------------------------------------- |
-| 1    | Upscale              | 2x (standard) or 3x (high-res variant) |
-| 2    | Grayscale            | Standard RGB luminance conversion      |
-| 3    | CLAHE                | Clip limit 2.5, tile size 8x8          |
-| 4    | Denoise              | 3x3 median filter                      |
-| 5    | Sharpen              | Unsharp mask, amount 0.5 (optional)    |
-| 6    | Adaptive threshold   | Sauvola with block radius 7-8, C=10    |
-| 7    | Morphological close  | Dilate + erode, radius 1               |
-| 8    | Deskew               | Optional, disabled by default          |
-| 9    | Best-frame selection | Laplacian sharpness metric             |
+| Step | Operation | Parameters |
+| --- | --- | --- |
+| 1 | Upscale | 2x (standard) or 3x (high-res variant) |
+| 2 | Grayscale | Standard RGB luminance conversion |
+| 3 | CLAHE | Clip limit 2.5, tile size 8x8 |
+| 4 | Denoise | 3x3 median filter |
+| 5 | Sharpen | Unsharp mask, amount 0.5 (optional) |
+| 6 | Adaptive threshold | Sauvola with block radius 7-8, C=10 |
+| 7 | Morphological close | Dilate + erode, radius 1 |
+| 8 | Deskew | Optional, disabled by default |
+| 9 | Best-frame selection | Laplacian sharpness metric |
 
 ### Multi-Variant Configs
 
-| Variant        | Scale | Threshold         | Notes                              |
-| -------------- | ----- | ----------------- | ---------------------------------- |
-| Standard       | 2x    | Sauvola adaptive  | Default, good all-around           |
-| High-res       | 3x    | Sauvola + sharpen | Better for mobile screenshots      |
-| Grayscale-only | 2x    | None              | Lets Tesseract handle binarization |
-| Otsu           | 2x    | Global Otsu       | Better on uniform backgrounds      |
+| Variant | Scale | Threshold | Notes |
+| --- | --- | --- | --- |
+| Standard | 2x | Sauvola adaptive | Default, good all-around |
+| High-res | 3x | Sauvola + sharpen | Better for mobile screenshots |
+| Grayscale-only | 2x | None | Lets Tesseract handle binarization |
+| Otsu | 2x | Global Otsu | Better on uniform backgrounds |
 
 Best variant is selected by: `skillCount * 0.6 + (ocrConfidence / 100) * 0.4`
 
@@ -154,12 +160,12 @@ For each OCR line, 6 cleaned variants are tested:
 
 Final confidence combines four signals:
 
-| Signal                                                   | Weight |
-| -------------------------------------------------------- | ------ |
-| Match score (composite above)                            | 40%    |
-| Tesseract engine confidence                              | 35%    |
-| OCR text quality (alpha ratio, length, symbol penalties) | 15%    |
-| Image sharpness (Laplacian variance)                     | 10%    |
+| Signal | Weight |
+| --- | --- |
+| Match score (composite above) | 40% |
+| Tesseract engine confidence | 35% |
+| OCR text quality (alpha ratio, length, symbol penalties) | 15% |
+| Image sharpness (Laplacian variance) | 10% |
 
 ### Confidence Thresholds
 
@@ -185,11 +191,11 @@ Minimum confidence filter: **0.55** (skills below this are discarded entirely).
 
 When the primary pass detects fewer than 3 skills, a fallback runs targeted OCR on 3 horizontal strips:
 
-| Strip  | Region  | Catches                             |
-| ------ | ------- | ----------------------------------- |
-| Top    | 0-40%   | Obtained/rare cards at top of panel |
-| Mid    | 28-73%  | Skipped names in middle             |
-| Bottom | 58-100% | Cards near buttons at bottom        |
+| Strip | Region | Catches |
+| --- | --- | --- |
+| Top | 0-40% | Obtained/rare cards at top of panel |
+| Mid | 28-73% | Skipped names in middle |
+| Bottom | 58-100% | Cards near buttons at bottom |
 
 High-confidence results from strips are merged into the main list.
 
@@ -205,7 +211,21 @@ The pipeline extracts hint levels from OCR text near skill names (within +/-7 li
 
 ---
 
-## 7. Updating the Skill Dictionary
+## 7. Skill Description Popup
+
+Clicking any recognized skill name opens a **skill description popup** with:
+
+- Skill name (with JP/EN toggle based on site language)
+- Rarity, cost, and rating score
+- Full description and activation conditions
+- Support cards that offer the skill as a hint (filtered by server EN/JP)
+- Characters with the skill as a potential skill (filtered by server)
+
+The popup works across all pages: Optimizer, Calculator, Deck Builder, Hints, Skills Library, and Events. On mobile, it renders as a bottom sheet.
+
+---
+
+## 8. Updating the Skill Dictionary
 
 The OCR matcher loads skills from `assets/uma_skills.csv`.
 
@@ -231,7 +251,7 @@ golden,Shadow Break,700,...
 
 ---
 
-## 8. Session Correction Cache
+## 9. Session Correction Cache
 
 When a user corrects an OCR result (via suggestion click or manual edit), the correction is stored in a session cache (`OCRMatcher.addCorrection()`).
 
@@ -241,17 +261,17 @@ When a user corrects an OCR result (via suggestion click or manual edit), the co
 
 ---
 
-## 9. Troubleshooting
+## 10. Troubleshooting
 
 ### Common Failure Modes
 
-| Symptom                     | Likely Cause                                | Fix                                                  |
-| --------------------------- | ------------------------------------------- | ---------------------------------------------------- |
-| No skills detected          | Image too dark/bright or too low resolution | Enable Image Enhancement toggle; try 3x scale        |
-| Wrong skill matched         | OCR garbles multiple characters             | Click the skill to correct; use suggestions if shown |
-| All low confidence          | Poor image quality or compression artifacts | Use PNG screenshots, avoid JPEG                      |
-| "Processing image..." hangs | Tesseract worker crashed                    | Refresh the page; try a smaller image                |
-| Skills duplicated           | OCR reads same line twice                   | Already deduped; check for variant names             |
+| Symptom | Likely Cause | Fix |
+| --- | --- | --- |
+| No skills detected | Image too dark/bright or too low resolution | Enable Image Enhancement toggle; try 3x scale |
+| Wrong skill matched | OCR garbles multiple characters | Click the skill to correct; use suggestions if shown |
+| All low confidence | Poor image quality or compression artifacts | Use PNG screenshots, avoid JPEG |
+| "Processing image..." hangs | Tesseract worker crashed | Refresh the page; try a smaller image |
+| Skills duplicated | OCR reads same line twice | Already deduped; check for variant names |
 
 ### Debug Mode
 
@@ -302,3 +322,4 @@ Output includes unit test results (pass/fail counts), accuracy benchmarks (top-1
 - Tesseract OCR: ~1-3 seconds per variant
 - Total pipeline: ~2-5 seconds per screenshot
 - No UI stalls (Tesseract runs in a web worker)
+- OCR scripts are lazy-loaded (~1MB deferred from initial page load)
