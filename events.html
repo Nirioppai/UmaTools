@@ -1,28 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>UmaTools - Event OCR Helper</title>
     <meta
       name="description"
       content="Capture event screens and search outcomes instantly with UmaTools Event OCR."
     />
-    <link
-      rel="canonical"
-      href="https://daftuyda.moe/events"
-    />
+    <link rel="canonical" href="https://daftuyda.moe/events" />
     <meta name="robots" content="index, follow" />
-    <meta
-      name="theme-color"
-      content="#f8fafc"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#0f172a"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
@@ -32,60 +21,43 @@
       property="og:description"
       content="Capture event screens and search outcomes instantly with UmaTools Event OCR."
     />
-    <meta
-      property="og:url"
-      content="https://daftuyda.moe/events"
-    />
-    <meta
-      property="og:image"
-      content="https://daftuyda.moe/og-default.png"
-    />
+    <meta property="og:url" content="https://daftuyda.moe/events" />
+    <meta property="og:image" content="https://daftuyda.moe/assets/og-default.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="UmaTools - Event OCR Helper"
-    />
+    <meta property="og:image:alt" content="UmaTools - Event OCR Helper" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="UmaTools - Event OCR Helper" />
     <meta
       name="twitter:description"
       content="Capture event screens and search outcomes instantly with UmaTools Event OCR."
     />
-    <meta
-      name="twitter:image"
-      content="https://daftuyda.moe/og-default.png"
-    />
-    <meta
-      name="twitter:image:alt"
-      content="UmaTools - Event OCR Helper"
-    />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/favicon-16x16.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/apple-touch-icon.png"
-    />
+    <meta name="twitter:image" content="https://daftuyda.moe/assets/og-default.png" />
+    <meta name="twitter:image:alt" content="UmaTools - Event OCR Helper" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
     />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/events.css" />
@@ -98,11 +70,8 @@
             "@id": "https://daftuyda.moe/#organization",
             "name": "UmaTools",
             "url": "https://daftuyda.moe/",
-            "logo": "https://daftuyda.moe/icon-512.png",
-            "sameAs": [
-              "https://github.com/daftuyda/UmaTools",
-              "https://youtube.com/@MaybeVoid"
-            ]
+            "logo": "https://daftuyda.moe/assets/icon-512.png",
+            "sameAs": ["https://github.com/daftuyda/UmaTools", "https://youtube.com/@MaybeVoid"]
           },
           {
             "@type": "WebSite",
@@ -149,20 +118,19 @@
     <script>
       (function () {
         try {
-          var pref = localStorage.getItem("umasearch-darkmode");
+          var pref = localStorage.getItem('umasearch-darkmode');
           var dark = pref
-            ? pref === "dark"
-            : window.matchMedia &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches;
+            ? pref === 'dark'
+            : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
           var root = document.documentElement;
-          root.classList.add("is-loading");
-          root.classList.toggle("dark", dark);
-          root.style.colorScheme = dark ? "dark" : "light";
+          root.classList.add('is-loading');
+          root.classList.toggle('dark', dark);
+          root.style.colorScheme = dark ? 'dark' : 'light';
 
           var pageLoaded = false;
           var navReady = !document.querySelector('script[src="/js/nav.js"]');
           var release = function () {
-            root.classList.remove("is-loading");
+            root.classList.remove('is-loading');
           };
           var tryRelease = function () {
             if (!pageLoaded || !navReady) return;
@@ -171,7 +139,7 @@
                 document.fonts.ready,
                 new Promise(function (resolve) {
                   setTimeout(resolve, 1200);
-                })
+                }),
               ]).then(function () {
                 requestAnimationFrame(release);
               });
@@ -179,11 +147,11 @@
               requestAnimationFrame(release);
             }
           };
-          window.addEventListener("load", function () {
+          window.addEventListener('load', function () {
             pageLoaded = true;
             tryRelease();
           });
-          window.addEventListener("nav:ready", function () {
+          window.addEventListener('nav:ready', function () {
             navReady = true;
             tryRelease();
           });
@@ -195,15 +163,17 @@
         } catch (e) {}
       })();
     </script>
-    
+
     <main id="main" class="container">
-      <h1>Uma Event Helper</h1>
+      <h1 data-i18n="events.title">Uma Event Helper</h1>
 
       <button
         id="modeToggleBtn"
         aria-label="Toggle dark/light mode"
         class="mode-toggle-btn"
         title="Toggle dark/light mode"
+        data-i18n-aria="common.toggleDarkLight"
+        data-i18n-title="common.toggleDarkLight"
       >
         <svg
           id="iconSun"
@@ -251,31 +221,30 @@
             type="text"
             placeholder="Search an event name..."
             autocomplete="off"
+            data-i18n-placeholder="events.searchPlaceholder"
           />
-          <button id="search-btn" type="submit">Search</button>
+          <button id="search-btn" type="submit" data-i18n="common.search">Search</button>
         </form>
         <div id="status" class="status"></div>
       </section>
 
       <div class="ocr-controls">
-        <button id="captureBtn" class="capture-btn">
+        <button id="captureBtn" class="capture-btn" data-i18n="events.captureOCR">
           Capture Screen for OCR
         </button>
-        <label class="scan-time-label" for="searchDelayButtons"
-          >Scan Time:</label>
+        <label class="scan-time-label" for="searchDelayButtons" data-i18n="events.scanTime"
+          >Scan Time:</label
+        >
         <div
           id="searchDelayButtons"
           class="delay-buttons"
           role="group"
           aria-label="Select OCR scan time"
+          data-i18n-aria="events.selectScanTime"
         >
-          <button data-delay="3000" class="delay-btn active" type="button">
-            3s
-          </button>
+          <button data-delay="3000" class="delay-btn active" type="button">3s</button>
           <button data-delay="5000" class="delay-btn" type="button">5s</button>
-          <button data-delay="10000" class="delay-btn" type="button">
-            10s
-          </button>
+          <button data-delay="10000" class="delay-btn" type="button">10s</button>
         </div>
       </div>
 
@@ -283,24 +252,16 @@
       <video id="captureVideo" autoplay muted></video>
       <div id="result" class="result"></div>
     </main>
+    <script src="/js/i18n.js" defer></script>
     <script src="/js/ocr.js" defer data-cfasync="false"></script>
-    <script>window.API_BASE = "/api";</script>
+    <script>
+      window.API_BASE = '/api';
+    </script>
     <script type="module" src="/js/search.js"></script>
     <script type="module" src="/js/recommend.js"></script>
-        <script>
-      window.NAV_ROUTES = [
-  { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
-  { label: "Calculator", path: "/calculator", file: "/calculator.html" },
-  { label: "Stamina Check", path: "/stamina", file: "/stamina.html" },
-  { label: "Event OCR", path: "/events", file: "/events.html" },
-  { label: "Support Hints", path: "/hints", file: "/hints.html" },
-  { label: "Randomizer", path: "/random", file: "/random.html" },
-  { label: "Umadle", path: "/umadle", file: "/umadle.html" }
-];
-    </script>
 
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>
-

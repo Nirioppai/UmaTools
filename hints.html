@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>UmaTools - Support Hint Finder</title>
     <meta
       name="description"
@@ -10,16 +10,8 @@
     />
     <link rel="canonical" href="https://daftuyda.moe/hints" />
     <meta name="robots" content="index, follow" />
-    <meta
-      name="theme-color"
-      content="#f8fafc"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#0f172a"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
@@ -30,59 +22,47 @@
       content="Find support cards by hint keywords, rarity filters, and match rules."
     />
     <meta property="og:url" content="https://daftuyda.moe/hints" />
-    <meta
-      property="og:image"
-      content="https://daftuyda.moe/og-default.png"
-    />
+    <meta property="og:image" content="https://daftuyda.moe/assets/og-default.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="UmaTools - Support Hint Finder"
-    />
+    <meta property="og:image:alt" content="UmaTools - Support Hint Finder" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="UmaTools - Support Hint Finder" />
     <meta
       name="twitter:description"
       content="Find support cards by hint keywords, rarity filters, and match rules."
     />
-    <meta
-      name="twitter:image"
-      content="https://daftuyda.moe/og-default.png"
-    />
-    <meta
-      name="twitter:image:alt"
-      content="UmaTools - Support Hint Finder"
-    />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/favicon-16x16.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/apple-touch-icon.png"
-    />
+    <meta name="twitter:image" content="https://daftuyda.moe/assets/og-default.png" />
+    <meta name="twitter:image:alt" content="UmaTools - Support Hint Finder" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
     />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
+    <link rel="preload" href="/assets/support_hints.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/hints.css" />
+    <link rel="stylesheet" href="/css/skill-popup.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -92,11 +72,8 @@
             "@id": "https://daftuyda.moe/#organization",
             "name": "UmaTools",
             "url": "https://daftuyda.moe/",
-            "logo": "https://daftuyda.moe/icon-512.png",
-            "sameAs": [
-              "https://github.com/daftuyda/UmaTools",
-              "https://youtube.com/@MaybeVoid"
-            ]
+            "logo": "https://daftuyda.moe/assets/icon-512.png",
+            "sameAs": ["https://github.com/daftuyda/UmaTools", "https://youtube.com/@MaybeVoid"]
           },
           {
             "@type": "WebSite",
@@ -143,20 +120,19 @@
     <script>
       (function () {
         try {
-          var pref = localStorage.getItem("umasearch-darkmode");
+          var pref = localStorage.getItem('umasearch-darkmode');
           var dark = pref
-            ? pref === "dark"
-            : window.matchMedia &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches;
+            ? pref === 'dark'
+            : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
           var root = document.documentElement;
-          root.classList.add("is-loading");
-          root.classList.toggle("dark", dark);
-          root.style.colorScheme = dark ? "dark" : "light";
+          root.classList.add('is-loading');
+          root.classList.toggle('dark', dark);
+          root.style.colorScheme = dark ? 'dark' : 'light';
 
           var pageLoaded = false;
           var navReady = !document.querySelector('script[src="/js/nav.js"]');
           var release = function () {
-            root.classList.remove("is-loading");
+            root.classList.remove('is-loading');
           };
           var tryRelease = function () {
             if (!pageLoaded || !navReady) return;
@@ -165,7 +141,7 @@
                 document.fonts.ready,
                 new Promise(function (resolve) {
                   setTimeout(resolve, 1200);
-                })
+                }),
               ]).then(function () {
                 requestAnimationFrame(release);
               });
@@ -173,11 +149,11 @@
               requestAnimationFrame(release);
             }
           };
-          window.addEventListener("load", function () {
+          window.addEventListener('load', function () {
             pageLoaded = true;
             tryRelease();
           });
-          window.addEventListener("nav:ready", function () {
+          window.addEventListener('nav:ready', function () {
             navReady = true;
             tryRelease();
           });
@@ -189,15 +165,17 @@
         } catch (e) {}
       })();
     </script>
-    
+
     <main id="main" class="container">
-      <h1>Support Hint Finder</h1>
+      <h1 data-i18n="hints.title">Support Hint Finder</h1>
 
       <button
         id="modeToggleBtn"
         aria-label="Toggle dark/light mode"
         class="mode-toggle-btn"
         title="Toggle dark/light mode"
+        data-i18n-aria="common.toggleDarkLight"
+        data-i18n-title="common.toggleDarkLight"
       >
         <svg
           id="iconSun"
@@ -238,9 +216,8 @@
         </svg>
       </button>
 
-      <p class="subtle">
-        Type a skill hint (e.g., <em>Medium Corners</em>), press Enter to add
-        it.
+      <p class="subtle" data-i18n="hints.instruction">
+        Type a skill hint (e.g., <em>Medium Corners</em>), press Enter to add it.
       </p>
 
       <div class="toolbar">
@@ -250,11 +227,12 @@
             list="hintList"
             type="text"
             placeholder="Add hint (e.g., Medium Corners &#9675;)"
+            data-i18n-placeholder="hints.placeholder"
           />
-          <button id="addBtn" class="primary">Add</button>
+          <button id="addBtn" class="primary" data-i18n="common.add">Add</button>
           <select id="modeSelect" aria-label="Match mode">
-            <option value="AND">Match ALL (AND)</option>
-            <option value="OR">Match ANY (OR)</option>
+            <option value="AND" data-i18n="hints.matchAll">Match ALL (AND)</option>
+            <option value="OR" data-i18n="hints.matchAny">Match ANY (OR)</option>
           </select>
         </div>
 
@@ -265,7 +243,7 @@
         </div>
 
         <div class="row">
-          <button id="clearBtn">Clear</button>
+          <button id="clearBtn" data-i18n="common.clear">Clear</button>
         </div>
       </div>
 
@@ -275,25 +253,81 @@
       <div class="inline-note muted" id="counts"></div>
       <div class="spacer"></div>
 
-      <div id="results" class="grid"></div>
+      <div id="results" class="grid">
+        <div class="skeleton-card" aria-hidden="true">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem">
+            <div class="skeleton skeleton-thumb"></div>
+            <div style="flex: 1">
+              <div class="skeleton skeleton-text medium"></div>
+              <div class="skeleton skeleton-badge"></div>
+            </div>
+          </div>
+          <div class="skeleton skeleton-text long"></div>
+          <div class="skeleton skeleton-text medium"></div>
+        </div>
+        <div class="skeleton-card" aria-hidden="true">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem">
+            <div class="skeleton skeleton-thumb"></div>
+            <div style="flex: 1">
+              <div class="skeleton skeleton-text medium"></div>
+              <div class="skeleton skeleton-badge"></div>
+            </div>
+          </div>
+          <div class="skeleton skeleton-text long"></div>
+          <div class="skeleton skeleton-text short"></div>
+        </div>
+        <div class="skeleton-card" aria-hidden="true">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem">
+            <div class="skeleton skeleton-thumb"></div>
+            <div style="flex: 1">
+              <div class="skeleton skeleton-text long"></div>
+              <div class="skeleton skeleton-badge"></div>
+            </div>
+          </div>
+          <div class="skeleton skeleton-text medium"></div>
+          <div class="skeleton skeleton-text long"></div>
+        </div>
+        <div class="skeleton-card" aria-hidden="true">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem">
+            <div class="skeleton skeleton-thumb"></div>
+            <div style="flex: 1">
+              <div class="skeleton skeleton-text short"></div>
+              <div class="skeleton skeleton-badge"></div>
+            </div>
+          </div>
+          <div class="skeleton skeleton-text long"></div>
+          <div class="skeleton skeleton-text medium"></div>
+        </div>
+        <div class="skeleton-card" aria-hidden="true">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem">
+            <div class="skeleton skeleton-thumb"></div>
+            <div style="flex: 1">
+              <div class="skeleton skeleton-text medium"></div>
+              <div class="skeleton skeleton-badge"></div>
+            </div>
+          </div>
+          <div class="skeleton skeleton-text medium"></div>
+          <div class="skeleton skeleton-text short"></div>
+        </div>
+        <div class="skeleton-card" aria-hidden="true">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem">
+            <div class="skeleton skeleton-thumb"></div>
+            <div style="flex: 1">
+              <div class="skeleton skeleton-text long"></div>
+              <div class="skeleton skeleton-badge"></div>
+            </div>
+          </div>
+          <div class="skeleton skeleton-text long"></div>
+          <div class="skeleton skeleton-text medium"></div>
+        </div>
+      </div>
     </main>
+    <script src="/js/i18n.js" defer></script>
+    <script src="/js/skill-popup.js" defer></script>
     <script src="/js/hints.js" defer></script>
-        <script>
-      window.NAV_ROUTES = [
-  { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
-  { label: "Calculator", path: "/calculator", file: "/calculator.html" },
-  { label: "Stamina Check", path: "/stamina", file: "/stamina.html" },
-  { label: "Event OCR", path: "/events", file: "/events.html" },
-  { label: "Support Hints", path: "/hints", file: "/hints.html" },
-  { label: "Randomizer", path: "/random", file: "/random.html" },
-  { label: "Umadle", path: "/umadle", file: "/umadle.html" }
-];
-    </script>
 
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>
-
-
-

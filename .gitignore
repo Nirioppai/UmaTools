@@ -2,6 +2,7 @@
 /__pycache__
 /.vscode
 /.cache_gametora
+/.cache_gamewith
 /cards
 /wiki
 
@@ -18,3 +19,13 @@ logs/security/
 /node_modules
 /scripts/__pycache__
 .claude/settings.local.json
+/reference
+test-ocr.html
+MEMORY_TEST_GUIDE.md
+MEMORY_TEST_CHECKLIST.md
+BROWSER_COMPATIBILITY_TEST_RESULTS.md
+BROWSER_COMPATIBILITY_GUIDE.md
+BROWSER_COMPATIBILITY_CODE_REVIEW.md
+BROWSER_COMPATIBILITY_CHECKLIST.md
+/api/__pycache__
+/tests

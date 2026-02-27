@@ -1,4 +1,8 @@
-﻿.card-support.with-hints {
+﻿#results.grid {
+  min-height: 300px;
+}
+
+.card-support.with-hints {
   padding: 0.7rem;
   border: 1px solid var(--border);
   border-radius: 14px;

@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>UmaTools - Randomizer</title>
     <meta
       name="description"
@@ -10,16 +10,8 @@
     />
     <link rel="canonical" href="https://daftuyda.moe/random" />
     <meta name="robots" content="index, follow" />
-    <meta
-      name="theme-color"
-      content="#f8fafc"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#0f172a"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
@@ -30,10 +22,7 @@
       content="Roll random support decks and pick random Uma Musume with filters and speed options."
     />
     <meta property="og:url" content="https://daftuyda.moe/random" />
-    <meta
-      property="og:image"
-      content="https://daftuyda.moe/og-default.png"
-    />
+    <meta property="og:image" content="https://daftuyda.moe/assets/og-default.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -44,42 +33,35 @@
       name="twitter:description"
       content="Roll random support decks and pick random Uma Musume with filters and speed options."
     />
-    <meta
-      name="twitter:image"
-      content="https://daftuyda.moe/og-default.png"
-    />
-    <meta
-      name="twitter:image:alt"
-      content="UmaTools - Randomizer"
-    />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/favicon-16x16.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/apple-touch-icon.png"
-    />
+    <meta name="twitter:image" content="https://daftuyda.moe/assets/og-default.png" />
+    <meta name="twitter:image:alt" content="UmaTools - Randomizer" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
     />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/theme-d.build.css" />
     <link rel="stylesheet" href="/css/random.css" />
+    <link rel="stylesheet" href="/css/scroll-nav.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -89,11 +71,8 @@
             "@id": "https://daftuyda.moe/#organization",
             "name": "UmaTools",
             "url": "https://daftuyda.moe/",
-            "logo": "https://daftuyda.moe/icon-512.png",
-            "sameAs": [
-              "https://github.com/daftuyda/UmaTools",
-              "https://youtube.com/@MaybeVoid"
-            ]
+            "logo": "https://daftuyda.moe/assets/icon-512.png",
+            "sameAs": ["https://github.com/daftuyda/UmaTools", "https://youtube.com/@MaybeVoid"]
           },
           {
             "@type": "WebSite",
@@ -135,27 +114,26 @@
       }
     </script>
     <!-- No-flash dark mode: pre-apply saved theme before paint -->
-    
-      <script defer src="/_vercel/insights/script.js"></script>
+
+    <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
     <script>
       (function () {
         try {
-          var pref = localStorage.getItem("umasearch-darkmode");
+          var pref = localStorage.getItem('umasearch-darkmode');
           var dark = pref
-            ? pref === "dark"
-            : window.matchMedia &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches;
+            ? pref === 'dark'
+            : window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
           var root = document.documentElement;
-          root.classList.add("is-loading");
-          root.classList.toggle("dark", dark);
-          root.style.colorScheme = dark ? "dark" : "light";
+          root.classList.add('is-loading');
+          root.classList.toggle('dark', dark);
+          root.style.colorScheme = dark ? 'dark' : 'light';
 
           var pageLoaded = false;
           var navReady = !document.querySelector('script[src="/js/nav.js"]');
           var release = function () {
-            root.classList.remove("is-loading");
+            root.classList.remove('is-loading');
           };
           var tryRelease = function () {
             if (!pageLoaded || !navReady) return;
@@ -164,7 +142,7 @@
                 document.fonts.ready,
                 new Promise(function (resolve) {
                   setTimeout(resolve, 1200);
-                })
+                }),
               ]).then(function () {
                 requestAnimationFrame(release);
               });
@@ -172,11 +150,11 @@
               requestAnimationFrame(release);
             }
           };
-          window.addEventListener("load", function () {
+          window.addEventListener('load', function () {
             pageLoaded = true;
             tryRelease();
           });
-          window.addEventListener("nav:ready", function () {
+          window.addEventListener('nav:ready', function () {
             navReady = true;
             tryRelease();
           });
@@ -193,6 +171,8 @@
       aria-label="Toggle dark/light mode"
       class="mode-toggle-btn"
       title="Toggle dark/light mode"
+      data-i18n-aria="common.toggleDarkLight"
+      data-i18n-title="common.toggleDarkLight"
     >
       <svg
         id="iconSun"
@@ -234,12 +214,17 @@
     </button>
 
     <main id="main" class="container">
-      <h1>Randomizer</h1>
+      <h1 data-i18n="random.title">Randomizer</h1>
 
       <!-- Support Deck Randomizer -->
-      <section id="supportRandomizer" class="result">
+      <section
+        id="supportRandomizer"
+        class="result"
+        data-scroll-section
+        data-scroll-label="Support"
+      >
         <div class="choice">
-          <h3>Support Deck (5 cards)</h3>
+          <h3 data-i18n="random.supportDeck">Support Deck (5 cards)</h3>
           <div class="toolbar" role="group" aria-label="Support filters">
             <label><input type="checkbox" id="fSSR" checked /> SSR</label>
             <label><input type="checkbox" id="fSR" checked /> SR</label>
@@ -247,11 +232,14 @@
 
             <div style="flex: 1 1 220px"></div>
 
-            <label class="toggle" style="margin-right:.75rem"><input type="checkbox" id="speed2x"> 2&times; speed</label>
-<button class="btn primary" id="rollBtn" type="button">
+            <label class="toggle" style="margin-right: 0.75rem"
+              ><input type="checkbox" id="speed2x" />
+              <span data-i18n="random.doubleSpeed">2&times; speed</span></label
+            >
+            <button class="btn primary" id="rollBtn" type="button" data-i18n="random.roll5">
               Roll 5
             </button>
-            <button class="btn" id="clearExBtn" type="button">
+            <button class="btn" id="clearExBtn" type="button" data-i18n="random.clearExclusions">
               Clear Exclusions
             </button>
           </div>
@@ -261,9 +249,10 @@
               list="supportList"
               id="excludeInput"
               placeholder="Exclude a support (choose from list)"
+              data-i18n-placeholder="random.excludePlaceholder"
             />
             <datalist id="supportList"></datalist>
-            <button class="btn" id="addExBtn" type="button">
+            <button class="btn" id="addExBtn" type="button" data-i18n="random.addExclusions">
               Add to Exclusions
             </button>
           </div>
@@ -277,12 +266,20 @@
       <div class="spacer"></div>
 
       <!-- Uma Randomizer -->
-      <section id="umaRandomizer" class="result">
+      <section id="umaRandomizer" class="result" data-scroll-section data-scroll-label="Uma">
         <div class="choice">
-          <h3>Random Uma</h3>
+          <h3 data-i18n="random.randomUma">Random Uma</h3>
           <div class="toolbar">
-            <label class="toggle" style="margin-right:.75rem"><input type="checkbox" id="speed2xUma"> 2&times; speed</label>
-<button class="btn primary" id="pickUmaBtn" type="button">
+            <label class="toggle" style="margin-right: 0.75rem"
+              ><input type="checkbox" id="speed2xUma" />
+              <span data-i18n="random.doubleSpeed">2&times; speed</span></label
+            >
+            <button
+              class="btn primary"
+              id="pickUmaBtn"
+              type="button"
+              data-i18n="random.pickRandomUma"
+            >
               Pick Random Uma
             </button>
           </div>
@@ -292,24 +289,12 @@
       </section>
     </main>
 
-    
+    <script src="/js/i18n.js" defer></script>
     <script src="/js/random.js" defer></script>
-        <script>
-      window.NAV_ROUTES = [
-  { label: "Optimizer", path: "/optimizer", file: "/optimizer.html" },
-  { label: "Calculator", path: "/calculator", file: "/calculator.html" },
-  { label: "Stamina Check", path: "/stamina", file: "/stamina.html" },
-  { label: "Event OCR", path: "/events", file: "/events.html" },
-  { label: "Support Hints", path: "/hints", file: "/hints.html" },
-  { label: "Randomizer", path: "/random", file: "/random.html" },
-  { label: "Umadle", path: "/umadle", file: "/umadle.html" }
-];
-    </script>
 
+    <script src="/js/scroll-nav.js" defer></script>
     <script src="/js/nav.js" defer></script>
+    <script src="/js/changelog.js" defer></script>
     <script src="/js/theme-toggle.js" defer></script>
   </body>
 </html>
-
-
-

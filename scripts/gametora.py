@@ -2609,15 +2609,78 @@ def _summarize_races(store: JsonListStore) -> None:
     unique_names = {h.get("RaceName") for h in data if isinstance(h, dict) and h.get("RaceName")}
     print(f"[summary] Races: {len(data)} rows, {len(unique_names)} unique names")
 
+def _coerce_skill_list(payload: Any) -> List[Dict[str, Any]]:
+    if isinstance(payload, list):
+        return [row for row in payload if isinstance(row, dict)]
+    if isinstance(payload, dict):
+        for key in ("skills", "items", "data"):
+            val = payload.get(key)
+            if isinstance(val, list):
+                return [row for row in val if isinstance(row, dict)]
+    return []
+
+def sync_skills_all(save_path: str, timeout_s: int = 35) -> bool:
+    """Download latest skills metadata JSON from GameTora into assets/skills_all.json."""
+    headers = {
+        "User-Agent": USER_AGENT,
+        "Accept": "application/json, text/plain, */*",
+    }
+    candidate_urls: List[str] = []
+    manifest_url = "https://gametora.com/data/manifests/umamusume.json"
+    try:
+        res = requests.get(manifest_url, headers=headers, timeout=timeout_s)
+        res.raise_for_status()
+        manifest = res.json()
+        skill_hash = manifest.get("skills") if isinstance(manifest, dict) else None
+        if skill_hash:
+            candidate_urls.append(f"https://gametora.com/data/umamusume/skills.{skill_hash}.json")
+    except Exception as e:
+        print(f"[skills] Warning: failed reading manifest ({manifest_url}): {e}")
+
+    candidate_urls.extend([
+        "https://gametora.com/data/umamusume/skills.json",
+        "https://gametora.com/loc/umamusume/skills.json",
+    ])
+    seen: set[str] = set()
+    for url in candidate_urls:
+        if url in seen:
+            continue
+        seen.add(url)
+        try:
+            res = requests.get(url, headers=headers, timeout=timeout_s)
+            if res.status_code != 200:
+                print(f"[skills] Skip {url} (HTTP {res.status_code})")
+                continue
+            payload = res.json()
+            skills = _coerce_skill_list(payload)
+            if not skills:
+                print(f"[skills] Skip {url} (no skill list in payload)")
+                continue
+            _atomic_write(save_path, skills)
+            official_count = sum(
+                1 for row in skills
+                if isinstance(row, dict) and str(row.get("name_en") or "").strip()
+            )
+            print(
+                f"[skills] Wrote {len(skills)} skills to {save_path} "
+                f"(official English names: {official_count}) from {url}"
+            )
+            return True
+        except Exception as e:
+            print(f"[skills] Failed {url}: {e}")
+    print("[skills] Error: unable to download skills metadata from GameTora")
+    return False
+
 def main():
-    ap = argparse.ArgumentParser(description="GameTora scraper (robust + accurate Support hints; UMA skills removed)")
+    ap = argparse.ArgumentParser(description="GameTora scraper + skills metadata sync")
     ap.add_argument("--out-uma", default="assets/uma_data.json", help="Output JSON for characters (objectives/events only)")
     ap.add_argument("--out-supports", default="assets/support_card.json", help="Output JSON for support events")
     ap.add_argument("--out-support-hints", default="assets/support_hints.json", help="Output JSON for support hint skills")
     ap.add_argument("--out-career", default="assets/career.json", help="Output JSON for career events")
     ap.add_argument("--out-races", default="assets/races.json", help="Output JSON for races")
+    ap.add_argument("--out-skills", default="assets/skills_all.json", help="Output JSON for skills metadata")
     ap.add_argument("--thumb-dir", default="assets/support_thumbs", help="Where to save support thumbnails")
-    ap.add_argument("--what", choices=["uma","supports","career","races","all"], default="all")
+    ap.add_argument("--what", choices=["skills","uma","supports","career","races","all"], default="all")
     ap.add_argument("--server", choices=["global","japan"], default="global")
     ap.add_argument("--headful", action="store_true")
     ap.add_argument("--supports-workers", type=int, default=2, help="Parallel workers for support scraping (1 disables threading)")
@@ -2629,6 +2692,11 @@ def main():
     headless = not args.headful
 
     try:
+        if args.what in ("skills","all"):
+            print("\n=== Skills Metadata ===")
+            ok = sync_skills_all(args.out_skills)
+            if not ok and args.what == "skills":
+                sys.exit(1)
         if args.what in ("uma","all"):
             print("\n=== Characters (objectives/events only) ===")
             scrape_characters(args.out_uma, server=args.server, headless=headless, events_source=args.events_source)

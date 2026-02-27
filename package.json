@@ -4,14 +4,35 @@
   "version": "0.0.0",
   "scripts": {
     "build:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css",
-    "watch:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css --watch"
+    "minify:json": "node scripts/minify-json.js",
+    "build": "npm run build:site && npm run minify:json",
+    "watch:site": "tailwindcss -i ./css/theme-d.css -o ./css/theme-d.build.css --watch",
+    "sync:skills-all": "node scripts/gametora.js --what skills --out-skills assets/skills_all.json",
+    "sync:uma": "node scripts/gametora.js --what uma --server global --out-uma assets/uma_data.json",
+    "sync:supports": "node scripts/gametora.js --what supports --server global --out-supports assets/support_card.json --out-support-hints assets/support_hints.json --thumb-dir assets/support_thumbs",
+    "sync:uma-skills": "node scripts/gamewith_skills.js",
+    "refresh:data": "npm run sync:skills-all && npm run sync:uma-skills",
+    "format:js": "prettier --write .",
+    "format:py": "python -m ruff format api",
+    "format": "npm run format:js && npm run format:py",
+    "lint:js": "eslint .",
+    "lint:py": "python -m ruff check api",
+    "lint": "npm run lint:js && npm run lint:py",
+    "test:team-trials": "node tests/team-trials-optimizer.test.js",
+    "test:rating-shared": "node tests/rating-shared.test.js",
+    "test": "npm run test:team-trials && npm run test:rating-shared",
+    "check": "npm run lint && npm run test"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.17",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0",
     "postcss": "^8.4.35",
+    "prettier": "^3.8.1",
     "tailwindcss": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   }

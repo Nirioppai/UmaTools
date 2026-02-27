@@ -1,104 +1,143 @@
-# UmaTools (Web)
+# UmaTools
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/daftuyda/Uma-Event-Helper-Web)
+A fast Uma Musume training toolkit with event OCR, skill optimization, rating calculation, deck building, and more. Supports English and Japanese.
+
+**Live site**: [daftuyda.moe](https://daftuyda.moe)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/daftuyda/UmaTools)
 
 ---
 
-## Usage
+## Features
 
-This app includes multiple pages. Use the top navigation or visit the routes directly.
+### [Event Helper](https://daftuyda.moe/events)
 
-### Events (Event Helper)
+Real-time event lookup powered by OCR. Capture your game screen, and UmaTools reads the event name, shows all options, scores them, and highlights the best choice.
 
-1. **Open the app** in your browser.
-2. Click **Capture Screen for OCR** and select your game window.
-3. Adjust **Scan Time** for OCR frequency (CPU vs. responsiveness).
-4. Enter or OCR an event name to search.
-5. The app displays event options, scores them, and recommends the best choice.
-   - If multiple options tie, no recommendation badge is shown.
-   - Labeled options are preferred over unlabeled duplicates.
+### [Support Hint Finder](https://daftuyda.moe/hints)
 
-### Support Hints (Support Hint Finder)
+Search for support cards by skill hints. Add hints as filter chips, choose AND/OR matching, and filter by rarity (SSR / SR / R) to find the cards you need.
 
-1. Type a skill hint and press **Add** (or Enter) to add it to your filter.
-2. Choose **Match ALL (AND)** or **Match ANY (OR)**.
-3. Filter by rarity (SSR/SR/R).
-4. Results update as you add or remove hint chips.
-5. Use **Clear** to reset.
+### [Skill Optimizer](https://daftuyda.moe/optimizer)
 
-### Umadle (Daily Guessing Game)
+Maximize your build's rating or Team Trials consistency under a skill-point budget. Set your race config and aptitudes, add skills with hint levels, and let the optimizer pick the best combination. Supports gold/lower linking, circle skill upgrades, build saving, and shareable links.
 
-1. Select an Uma from the list and submit a guess.
-2. Compare stats and hints in the grid to narrow the answer.
-3. The legend shows whether your guess is lower or higher for each stat.
-4. When you win, start a new Uma or keep the board.
+- **Rating mode** — maximizes total rating score
+- **Team Trials mode** — prioritizes skill activation consistency over raw score
+- **Aptitude Test mode** — maximizes aptitude test points, then rating as tiebreaker
 
-### Randomizer
+### [Rating Calculator](https://daftuyda.moe/calculator)
 
-**Support Deck Randomizer**
-1. Filter by rarity and optionally enable **2A- speed**.
-2. Exclude supports from the list to avoid repeats.
-3. Click **Roll 5** to generate a deck; clear exclusions if needed.
+Standalone rating projection. Enter your final stats, star rarity, unique skill level, and selected skills to see the projected rating and badge progress. Supports all ranks from G through the new Legend (LS24) tier.
 
-**Random Uma**
-1. Optionally enable **2A- speed**.
-2. Click **Pick Random Uma**.
+### [Deck Builder](https://daftuyda.moe/deck)
 
-### Optimizer (Skill Optimizer + Rating Calculator)
+Build training decks with 1 main character + up to 6 support cards. Filter by type, rarity, and aptitudes. View combined stat bonuses, skill hints, and synergy analysis. Save decks locally, share via encoded URL, or open directly in the Skill Optimizer.
 
-1. Set your **Skill Points Budget** and optional **Fast Learner** discount.
-2. Configure track, distance, and strategy aptitudes.
-3. Use **Generate Build** to auto-pick skills for selected targets.
-4. Add/edit skill rows; results update with best score and points used.
-5. Use **Save Build** to store builds locally, then **View Saved Builds** to load, share, or delete them.
-6. Use **Share Build** to copy a link that includes budget, mode, race config, and rating stats.
-7. Enter final stats in the **Rating Calculator** to project the final rating.
-8. For full rating math and skill scoring details, see `RATING_README.md`.
+### [Skill Library](https://daftuyda.moe/skills)
 
-### Calculator (Standalone Rating)
+Browse the complete skill database with detailed metadata — cost, rating score, efficiency (score per SP), type, and category. Sort, search, and filter by skill type. Click any skill for a popup with full description, activation conditions, support card sources, and character availability.
 
-1. Configure race aptitudes, then enter final stats, star rarity, and unique skill level.
-2. Add skills to compute the skill score (no cost or optimization on this page).
-3. Review projected rating and badge progress.
-4. For full rating math and skill scoring details, see `RATING_README.md`.
+### [Stamina Check](https://daftuyda.moe/stamina)
 
-### Stamina Check
+Verify whether your uma has enough stamina for the race. Set distance, surface, condition, style, and mood, then enter stats and recovery skills to compare needed vs. actual stamina.
 
-1. Set race distance, surface, condition, style, and mood.
-2. Fill in your stats and recovery skills (including unique recovery).
-3. Review the stamina needed vs. actual stamina and the recovery total.
+### [Umadle](https://daftuyda.moe/umadle)
+
+A daily guessing game. Pick an uma, compare stats and hint grids, and narrow down the answer.
+
+### [Randomizer](https://daftuyda.moe/random)
+
+Roll a random 5-card support deck or pick a random uma. Filter by rarity, exclude cards you don't want, and optionally enable 2A- speed.
+
+---
+
+## Localization
+
+UmaTools supports **English** and **Japanese** interfaces. Switch the site language via the Settings menu in the navigation bar. Server selection (EN / JP) controls which skill names, support cards, and characters are displayed.
+
+Want to help translate? See the [Translation Guide](docs/translations.md) for how the i18n system works, how to add a new language, and how to update existing translations.
+
+---
+
+## Documentation
+
+For deeper technical details on how things work under the hood:
+
+| Doc                                       | What it covers                                                                                                                                                |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Rating System](docs/rating-system.md)    | Stat scoring formula (0–2500), skill score buckets, cost discounts, gold/circle skill linking, knapsack optimization, badge tiers (G through LS24, 298 tiers) |
+| [Team Trials](docs/team-trials.md)        | Consistency-first skill selection, automated skill scoring, trigger analysis, green/volatile penalties, expected value scoring, tuning weights                |
+| [OCR Guide](docs/ocr-guide.md)            | Image preprocessing pipeline, Tesseract config, fuzzy matching algorithm, tuning thresholds, troubleshooting                                                  |
+| [Translation Guide](docs/translations.md) | i18n system, adding new languages, key naming conventions, variable interpolation, testing coverage                                                           |
+
+---
+
+## Navigation Structure
+
+The site is organized into four groups:
+
+| Group      | Pages                                  |
+| ---------- | -------------------------------------- |
+| **Rating** | Optimizer, Calculator, Stamina Check   |
+| **Tools**  | Event OCR, Support Hints, Deck Builder |
+| **Data**   | Skill Library                          |
+| **Fun**    | Randomizer, Umadle                     |
 
 ---
 
 ## Acknowledgements
 
-- Project initially inspired by [Kisegami's Event Helper](https://github.com/Kisegami/Uma-Event-Helper)
-- Resources and Data from [GameTora](https://gametora.com)
-
-## Local Development
-
-- **Install dependencies**  
-  Make sure you have Node.js and the [Vercel CLI](https://vercel.com/download) installed:
-
-  ```bash
-   npm i -g vercel
-  ```
-
-- **Clone the repo**
-  
-  ```bash
-  git clone https://github.com/daftuyda/Uma-Event-Helper-Web.git
-  cd Uma-Event-Helper-Web
-  ```
-
-- **Run with Vercel**
-  
-  ```bash
-  vercel dev --debug
-  ```
+- Game data sourced from [GameTora](https://gametora.com) and [GameWith](https://gamewith.jp)
 
 ---
 
+<details>
+<summary><strong>Local Development</strong></summary>
+
+Requires [Node.js](https://nodejs.org) and the [Vercel CLI](https://vercel.com/download).
+
+```bash
+npm i -g vercel
+git clone https://github.com/daftuyda/Uma-Event-Helper-Web.git
+cd Uma-Event-Helper-Web
+vercel dev --debug
+```
+
+</details>
+
+## Data Sync
+
+Refresh only GameTora skill metadata:
+
+```bash
+npm run sync:skills-all
+```
+
+Refresh GameWith skill CSVs (`assets/uma_skills.csv`, `assets/uma_skills_jp.csv`):
+
+```bash
+npm run sync:uma-skills
+```
+
+This command also writes scrape metadata to `.cache_gamewith/gamewith_metadata.json`.
+`uma_skills_jp.csv` stores fan/unofficial EN in `alias_name` and localized EN in `localized_name`.
+
+Full skill data refresh (recommended):
+
+```bash
+npm run refresh:data
+```
+
+## Checks
+
+```bash
+npm run format
+npm run lint
+npm test
+npm run check
+```
+
 ## License
 
-This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
+[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html)

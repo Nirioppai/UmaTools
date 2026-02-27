@@ -1,28 +1,33 @@
 import json
 from pathlib import Path
 from typing import Dict, List
+
 from fastapi import FastAPI, HTTPException, Query
+from rapidfuzz import fuzz, process
 from starlette.middleware.base import BaseHTTPMiddleware
-from rapidfuzz import process, fuzz
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 ASSETS = BASE_DIR / "assets"
 
 app = FastAPI()
 
+
 class StripPathPrefix(BaseHTTPMiddleware):
     def __init__(self, app, prefixes=()):
         super().__init__(app)
-        self.prefixes = tuple(p.rstrip('/') for p in prefixes)
+        self.prefixes = tuple(p.rstrip("/") for p in prefixes)
+
     async def dispatch(self, request, call_next):
         path = request.scope.get("path", "")
         for p in self.prefixes:
             if path == p or path.startswith(p + "/"):
-                request.scope["path"] = path[len(p):] or "/"
+                request.scope["path"] = path[len(p) :] or "/"
                 break
         return await call_next(request)
 
+
 app.add_middleware(StripPathPrefix, prefixes=("/api", "/index", "/api/index"))
+
 
 def _json_load_bom_tolerant(path: Path):
     """
@@ -36,16 +41,22 @@ def _json_load_bom_tolerant(path: Path):
         with path.open(encoding="utf-8") as f:
             return json.load(f)
 
+
 def _split_lines(s: str) -> List[str]:
     return [ln.strip() for ln in str(s).replace("\r\n", "\n").split("\n") if ln.strip()]
 
-def _add_group(events: Dict[str, Dict], event_name: str, option_label: str, rewards_blob: str) -> None:
+
+def _add_group(
+    events: Dict[str, Dict], event_name: str, option_label: str, rewards_blob: str
+) -> None:
     groups = events[event_name]["options"].setdefault(option_label, [])
     groups.append(_split_lines(rewards_blob))
+
 
 def _ensure_event(events: Dict[str, Dict], event_name: str) -> None:
     if event_name not in events:
         events[event_name] = {"event_name": event_name, "options": {}}
+
 
 def _load_support_or_ura(path: Path, events: Dict[str, Dict]) -> None:
     """
@@ -61,6 +72,7 @@ def _load_support_or_ura(path: Path, events: Dict[str, Dict]) -> None:
         _ensure_event(events, ev_name)
         for label, blob in opts.items():
             _add_group(events, ev_name, (label or "").strip(), blob)
+
 
 def _load_uma_data(path: Path, events: Dict[str, Dict]) -> None:
     """
@@ -79,18 +91,22 @@ def _load_uma_data(path: Path, events: Dict[str, Dict]) -> None:
             for label, blob in opts.items():
                 _add_group(events, ev_name, (label or "").strip(), blob)
 
+
 def _first_existing(paths: List[Path]) -> Path:
     for p in paths:
         if p.exists():
             return p
-    raise FileNotFoundError("None of the candidate paths exist:\n" + "\n".join(str(p) for p in paths))
+    raise FileNotFoundError(
+        "None of the candidate paths exist:\n" + "\n".join(str(p) for p in paths)
+    )
+
 
 def load_all_events() -> List[Dict]:
     assets_root = ASSETS  # /<repo>/assets
 
     support_file = assets_root / "support_card.json"
-    uma_file     = assets_root / "uma_data.json"
-    ura_file     = assets_root / "career.json"
+    uma_file = assets_root / "uma_data.json"
+    ura_file = assets_root / "career.json"
 
     for p in (support_file, uma_file, ura_file):
         if not p.exists():
@@ -106,13 +122,16 @@ def load_all_events() -> List[Dict]:
 
     return [events_map[name] for name in sorted(events_map)]
 
+
 EVENTS = load_all_events()
 EVENT_MAP = {e["event_name"]: e for e in EVENTS}
 EVENT_NAMES = list(EVENT_MAP.keys())
 
+
 @app.get("/events")
 async def list_events():
     return {"events": EVENT_NAMES}
+
 
 @app.get("/event_by_name")
 async def get_event_by_name(
@@ -138,6 +157,8 @@ async def get_event_by_name(
         "other_matches": other_matches,
     }
 
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=3000)

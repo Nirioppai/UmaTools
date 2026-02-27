@@ -2,7 +2,7 @@ name: Gametora Scrape
 
 on:
   schedule:
-    - cron: "0 23 * * *"
+    - cron: '0 23 * * *'
   workflow_dispatch:
 
 permissions:
@@ -15,8 +15,6 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    env:
-      PYTHONIOENCODING: utf-8
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,34 +26,22 @@ jobs:
           git checkout -B "${GITHUB_REF_NAME}"
           git pull --rebase origin "${GITHUB_REF_NAME}"
 
-      - name: Set Up Python
-        uses: actions/setup-python@v5
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.11"
+          node-version: '20'
 
-      - name: Set Up Chrome
-        uses: browser-actions/setup-chrome@v1
-
-      - name: Install Dependencies
+      - name: Run Full Scrape
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install selenium webdriver-manager requests urllib3
-
-      - name: Run Uma Scrape
-        run: |
-          python scripts/gametora.py --what uma --events-source merge --server global --out-uma assets/uma_data.json
-
-      - name: Run Support Scrape
-        run: |
-          python scripts/gametora.py --what supports --events-source merge --server global \
+          node scripts/gametora.js --what all --server global \
+            --out-uma assets/uma_data.json \
             --out-supports assets/support_card.json \
             --out-support-hints assets/support_hints.json \
-            --thumb-dir assets/support_thumbs
+            --out-skills assets/skills_all.json
 
       - name: Commit If Changed
         run: |
-          git add -A assets/uma_data.json assets/support_card.json assets/support_hints.json assets/support_thumbs
+          git add -A assets/uma_data.json assets/support_card.json assets/support_hints.json assets/skills_all.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
             exit 0
