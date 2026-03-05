@@ -13412,6 +13412,7 @@
         ],
         "char_e": [
           102402,
+          103301,
           102401
         ],
         "condition_groups": [
@@ -15099,6 +15100,9 @@
       "en": {
         "char": [
           105201
+        ],
+        "char_e": [
+          103301
         ],
         "condition_groups": [
           {
@@ -16973,6 +16977,7 @@
         "char": [
           100601,
           103901,
+          103301,
           102401
         ],
         "char_e": [
@@ -22570,7 +22575,8 @@
     "loc": {
       "en": {
         "char": [
-          101201
+          101201,
+          103301
         ],
         "condition_groups": [
           {
@@ -22677,7 +22683,11 @@
     "loc": {
       "en": {
         "char": [
-          101201
+          101201,
+          103301
+        ],
+        "char_e": [
+          103301
         ],
         "condition_groups": [
           {
@@ -23010,6 +23020,7 @@
         ],
         "char_e": [
           102402,
+          103301,
           102401
         ],
         "sup_e": [
@@ -28506,7 +28517,8 @@
       "en": {
         "char": [
           103001,
-          105801
+          105801,
+          103301
         ],
         "sup_e": [
           [
@@ -33406,6 +33418,9 @@
           102701,
           103201
         ],
+        "char_e": [
+          103301
+        ],
         "sup_e": [
           [
             30038,
@@ -35103,6 +35118,7 @@
         "char": [
           101701,
           103702,
+          103301,
           101101,
           103201
         ],
@@ -42990,6 +43006,9 @@
           101201,
           105001
         ],
+        "char_e": [
+          103301
+        ],
         "sup_hint": [
           [
             30077,
@@ -43223,6 +43242,9 @@
       "en": {
         "char": [
           101201
+        ],
+        "char_e": [
+          103301
         ],
         "sup_hint": [
           [
@@ -43831,6 +43853,9 @@
     "jpname": "冷静沈着",
     "loc": {
       "en": {
+        "char": [
+          103301
+        ],
         "condition_groups": [
           {
             "base_time": 0,
@@ -43917,6 +43942,9 @@
     "jpname": "冷静",
     "loc": {
       "en": {
+        "char": [
+          103301
+        ],
         "condition_groups": [
           {
             "base_time": 0,
@@ -56068,6 +56096,62 @@
     "jpdesc": "最終直線で先頭から離されていると星に導かれるように速度が上がる最後方付近にいる場合はすごく上がる",
     "jpname": "ディオスクロイの流星",
     "loc": {
+      "en": {
+        "char": [
+          103301
+        ],
+        "condition_groups": [
+          {
+            "base_time": 50000,
+            "condition": "is_finalcorner==1&corner==0&distance_diff_top>=5&order_rate<80",
+            "effects": [
+              {
+                "type": 27,
+                "value": 3500
+              }
+            ]
+          },
+          {
+            "base_time": 50000,
+            "condition": "is_finalcorner==1&corner==0&distance_diff_top>=5&order_rate>=80",
+            "effects": [
+              {
+                "type": 27,
+                "value": 4500
+              }
+            ]
+          }
+        ],
+        "gene_version": {
+          "condition_groups": [
+            {
+              "base_time": 30000,
+              "condition": "is_finalcorner==1&corner==0&distance_diff_top>=5&order_rate<80",
+              "effects": [
+                {
+                  "type": 27,
+                  "value": 1500
+                }
+              ]
+            },
+            {
+              "base_time": 30000,
+              "condition": "is_finalcorner==1&corner==0&distance_diff_top>=5&order_rate>=80",
+              "effects": [
+                {
+                  "type": 27,
+                  "value": 2500
+                }
+              ]
+            }
+          ]
+        },
+        "type": [
+          "f_s",
+          "str",
+          "nac"
+        ]
+      },
       "ko": {
         "char": [
           103301
@@ -81189,6 +81273,11 @@
     "jpdesc": "前のウマ娘のすぐ後ろに付けると持久力が回復し速度がわずかに上がる＜作戦・追込＞",
     "jpname": "静かな誓い",
     "loc": {
+      "en": {
+        "char": [
+          103301
+        ]
+      },
       "ko": {
         "char": [
           103301
@@ -81256,6 +81345,11 @@
     "jpdesc": "レース終盤以降に後方にいるとラストスパートの最中なら最終盤始めの方で速度がすごく上がる＜作戦・追込＞",
     "jpname": "己身焦がすほうき星",
     "loc": {
+      "en": {
+        "char": [
+          103301
+        ]
+      },
       "ko": {
         "char": [
           103301
@@ -145178,7 +145272,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "If you're in the first half of the pack during the Middle Leg and you're being blocked from the side, your speed will increase",
     "enname": "",
     "gene_version": {
       "activation": 1,
@@ -145251,7 +145345,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "If you're in the first half of the pack during the Middle Leg and you're being blocked from the side, your speed will increase; then, if you participate in a Showdown (追い比べ), you will get a slight speed boost",
     "enname": "",
     "gene_version": {
       "activation": 1,
@@ -145315,7 +145409,7 @@
       }
     ],
     "cost": 120,
-    "endesc": "",
+    "endesc": "Leader・At a random point on a random uphill, your speed will increase",
     "enname": "",
     "evo": [
       {
@@ -145360,7 +145454,7 @@
         "precondition": "distance_type==3&running_style==2"
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・Medium・When moving left or right on any corner during the second half of the race, your acceleration will increase and you will get a slight speed boost",
     "enname": "",
     "evo_cond": [
       [
@@ -145410,7 +145504,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・At a random point on a random uphill, your speed will greatly increase",
     "enname": "",
     "evo_cond": [
       [
@@ -145522,7 +145616,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "If you're first or you overtake someone during the Middle Leg, your speed will increase",
     "enname": "",
     "evo": [
       {
@@ -145566,7 +145660,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "If you're first or you overtake someone during the Middle Leg, your speed will slightly increase",
     "enname": "",
     "iconid": 20011,
     "id": 204182,
@@ -145604,7 +145698,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "Dirt・At a random point during the Middle Leg, your speed will slightly increase",
     "enname": "",
     "evo": [
       {
@@ -145648,7 +145742,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "Dirt・At a random point during the Middle Leg, your speed will marginally increase",
     "enname": "",
     "iconid": 20011,
     "id": 204192,
