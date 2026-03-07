@@ -17641,8 +17641,7 @@
     "desc_en": "Increase velocity in the last spurt.",
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 상승한다",
     "desc_tw": "在展開最後衝刺時速度上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point in the first half of Last Spurt, your speed will increase",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Heart and Soul",
     "evo": [
       {
@@ -17839,8 +17838,7 @@
     "desc_en": "Slightly increase velocity in the last spurt.",
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다",
     "desc_tw": "在展開最後衝刺時速度略微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point in the first half of Last Spurt, your speed will slightly increase",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Last Leg",
     "iconid": 20011,
     "id": 200512,
@@ -72131,8 +72129,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point in the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Dream-fulfilling Sprint",
     "evo_cond": [
       [
@@ -76665,8 +76662,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point in the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Hungry Wolf's Fang",
     "evo_cond": [
       [
@@ -78981,8 +78977,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point in the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Full Power Santa Claus",
     "evo_cond": [
       [
@@ -82207,8 +82202,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point in the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Betting My Pride",
     "evo_cond": [
       [
@@ -98814,7 +98808,7 @@
     "desc_ko": "롱샹 경기장에 강해진다",
     "desc_tw": "變得擅長隆尚賽場",
     "endesc": "At Longchamp, your Stamina stat is increased by 60",
-    "enname": "Longchamp Racecourse ◎",
+    "enname": "Longchamp Racetrack ◎",
     "iconid": 10021,
     "id": 202731,
     "jpdesc": "ロンシャンレース場が得意になる",
@@ -98849,7 +98843,7 @@
     "desc_ko": "롱샹 경기장에 다소 강해진다",
     "desc_tw": "變得稍微擅長隆尚賽場",
     "endesc": "At Longchamp, your Stamina stat is increased by 40",
-    "enname": "Longchamp Racecourse ○",
+    "enname": "Longchamp Racetrack ○",
     "iconid": 10021,
     "id": 202732,
     "jpdesc": "ロンシャンレース場が少し得意になる",
@@ -98911,7 +98905,7 @@
     "desc_ko": "롱샹 경기장에 다소 약해진다",
     "desc_tw": "變得稍微不擅長隆尚賽場",
     "endesc": "At Longchamp, your Stamina stat is decreased by 40",
-    "enname": "Longchamp Racecourse ×",
+    "enname": "Longchamp Racetrack ×",
     "iconid": 10024,
     "id": 202733,
     "jpdesc": "ロンシャンレース場が少し苦手になる",
@@ -104397,8 +104391,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point in the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Full-Power Pitch",
     "evo_cond": [
       [
@@ -108867,8 +108860,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다＜마일/중거리＞",
     "desc_tw": "在展開最後衝刺時速度會大幅上升＜一哩/中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Mile/Medium・At a random point in the first half of Last Spurt, your speed will greatly increase",
+    "endesc": "Mile/Medium・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Doing My Best!",
     "evo_cond": [
       [
@@ -123464,8 +123456,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다＜중거리/장거리＞",
     "desc_tw": "在展開最後衝刺時速度大幅上升＜中距離/長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium/Long・At a random point in the first half of Last Spurt, your speed will greatly increase",
+    "endesc": "Medium/Long・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Limiter Release",
     "evo_cond": [
       [
@@ -125623,8 +125614,7 @@
     "cost": 180,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 상승한다 ＜작전・선행＞",
     "desc_tw": "在展開最後衝刺時速度上升＜作戰．前列＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・At a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Leader・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Forthright",
     "evo": [],
     "iconid": 20012,
@@ -125674,8 +125664,7 @@
     "cost": 180,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다 ＜작전・선행＞",
     "desc_tw": "在展開最後衝刺時速度略微上升＜作戰．前列＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・At a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Leader・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Believe in Yourself",
     "iconid": 20011,
     "id": 203422,
@@ -126592,8 +126581,7 @@
     "cost": 170,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다 ＜중거리＞",
     "desc_tw": "在展開最後衝刺時速度略微上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・At a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Medium・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Dynamic Motion",
     "iconid": 20011,
     "id": 203432,
@@ -128780,8 +128768,7 @@
     "cost": 170,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 상승한다 ＜중거리＞",
     "desc_tw": "在展開最後衝刺時速度上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・At a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Medium・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Brilliant Mind",
     "evo": [
       {
@@ -129130,8 +129117,7 @@
     "cost": 200,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 상승하며 팬이 많을수록 효과가 상승한다",
     "desc_tw": "在展開最後衝刺時速度上升粉絲越多效果越高",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point during the first half of the Last Spurt, your speed will increase; the value scales with the number of your fans",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase; the value scales with the number of your fans",
     "enname": "Forger of Legends",
     "evo": [],
     "iconid": 20292,
@@ -129166,8 +129152,7 @@
     "cost": 200,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다",
     "desc_tw": "在展開最後衝刺時速度略微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Herald of a New Age",
     "iconid": 20291,
     "id": 210352,
@@ -130142,8 +130127,7 @@
     "cost": 170,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다＜장거리＞",
     "desc_tw": "在展開最後衝刺時速度略微上升＜長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Long・At a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Long・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Fierce Struggle",
     "iconid": 20011,
     "id": 203562,
@@ -131323,8 +131307,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・At a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Betweener・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Independence",
     "evo": [],
     "iconid": 20012,
@@ -131364,8 +131347,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・At a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Betweener・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Pushing Through!",
     "iconid": 20011,
     "id": 203592,
@@ -131999,8 +131981,7 @@
       }
     ],
     "cost": 170,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・At a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Dirt・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Sum of Small Efforts",
     "evo": [
       {
@@ -132042,8 +132023,7 @@
       }
     ],
     "cost": 170,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・At a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Dirt・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Diligence",
     "iconid": 20011,
     "id": 203612,
@@ -132199,8 +132179,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・At a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Dirt・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "The Yellow Dragon Ascends",
     "evo_cond": [
       [
@@ -134322,8 +134301,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium/Long・At a random point in the first half of Last Spurt, your speed will greatly increase",
+    "endesc": "Medium/Long・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Earth-Shaking Dash",
     "evo_cond": [
       [
@@ -135972,8 +135950,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・At a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Chaser・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Give Chase",
     "iconid": 20011,
     "id": 203762,
@@ -136513,8 +136490,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・At a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Medium・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Desert Jewel's Allure",
     "evo_cond": [
       [
@@ -137658,8 +137634,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・At a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Chaser・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Swift Decision",
     "evo": [],
     "iconid": 20012,
@@ -140539,8 +140514,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase; the effect is stronger if your Onsen level is maxed",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase; the effect is stronger if your Onsen level is maxed",
     "enname": "Miracle of Recreation",
     "evo": [],
     "iconid": 20322,
@@ -140571,8 +140545,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Rest and Rise",
     "iconid": 20321,
     "id": 210372,
@@ -144803,8 +144776,7 @@
       }
     ],
     "cost": 170,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Mile・At a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Mile・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Lively",
     "iconid": 20011,
     "id": 204172,
@@ -145886,8 +145858,8 @@
       }
     ],
     "cost": 90,
-    "endesc": "",
-    "enname": "",
+    "endesc": "In Santa Anita, your Stamina stat is increased by 60",
+    "enname": "Santa Anita Racetrack ◎",
     "iconid": 10021,
     "id": 204232,
     "jpdesc": "サンタアニタパークレース場が得意になる",
@@ -145916,8 +145888,8 @@
       }
     ],
     "cost": 70,
-    "endesc": "",
-    "enname": "",
+    "endesc": "In Santa Anita, your Stamina stat is increased by 40",
+    "enname": "Santa Anita Racetrack ○",
     "iconid": 10021,
     "id": 204233,
     "jpdesc": "サンタアニタパークレース場が少し得意になる",
@@ -145946,8 +145918,8 @@
       }
     ],
     "cost": 40,
-    "endesc": "",
-    "enname": "",
+    "endesc": "In Santa Anita, your Stamina stat is decreased by 40",
+    "enname": "Santa Anita Racetrack ×",
     "iconid": 10024,
     "id": 204234,
     "jpdesc": "サンタアニタパークレース場が少し苦手になる",
@@ -145976,8 +145948,8 @@
       }
     ],
     "cost": 90,
-    "endesc": "",
-    "enname": "",
+    "endesc": "In Del Mar, your Stamina stat is increased by 60",
+    "enname": "Del Mar Racetrack ◎",
     "iconid": 10021,
     "id": 204242,
     "jpdesc": "デルマーレース場が得意になる",
@@ -146006,8 +145978,8 @@
       }
     ],
     "cost": 70,
-    "endesc": "",
-    "enname": "",
+    "endesc": "In Del Mar, your Stamina stat is increased by 40",
+    "enname": "Del Mar Racetrack ○",
     "iconid": 10021,
     "id": 204243,
     "jpdesc": "デルマーレース場が少し得意になる",
@@ -146036,8 +146008,8 @@
       }
     ],
     "cost": 40,
-    "endesc": "",
-    "enname": "",
+    "endesc": "In Del Mar, your Stamina stat is decreased by 40",
+    "enname": "Del Mar Racetrack ×",
     "iconid": 10024,
     "id": 204244,
     "jpdesc": "デルマーレース場が少し苦手になる",
@@ -146067,7 +146039,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase; the effect is stronger if the team rank is S or better",
     "enname": "",
     "evo": [],
     "iconid": 20332,
@@ -146098,7 +146070,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "",
     "iconid": 20331,
     "id": 210382,
@@ -146257,7 +146229,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "",
     "evo_cond": [
       [
@@ -146294,7 +146266,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Medium/Long・At a random point during the Middle Leg, your speed will greatly increase",
     "enname": "",
     "evo_cond": [
       [
@@ -146349,7 +146321,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Chaser・Medium・At a random point during the first quarter of the Final Leg, your acceleration will increase; if the Final Leg starts on a straight, it will activate immediately",
     "enname": "",
     "evo_cond": [
       [
@@ -146412,7 +146384,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Medium・At a random point on a random straight, your speed will greatly increase",
     "enname": "",
     "evo_cond": [
       [
@@ -146483,7 +146455,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・If you're in the first half of the pack at a random point during the second half of the Middle Leg, your speed will increase; the effect is stronger if your base Speed is at least 1200",
     "enname": "The Next Phase",
     "evo_cond": [
       [
@@ -146542,7 +146514,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・Medium・At a random point during the second half of the Middle Leg, you will get a speed boost; then, during your last spurt, your acceleration will slightly increase",
     "enname": "",
     "evo_cond": [
       [
@@ -146602,7 +146574,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・Mile・At a random point during the second half of the race, you will get a great speed boost; if your base Guts is at least 1200, it will be tremendous instead",
     "enname": "",
     "evo_cond": [
       [
