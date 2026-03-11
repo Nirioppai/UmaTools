@@ -1217,6 +1217,18 @@
     }
   },
   {
+    "EventName": "特別な隠し味",
+    "EventOptions": {
+      "": "Energy +10\nPower +10\nBond +5"
+    }
+  },
+  {
+    "EventName": "ふれ愛、学び愛、尽くし愛",
+    "EventOptions": {
+      "": "Energy +10\nPower +10\nOpening Leg Adept hint +1\nFervor hint +1\nBond +5"
+    }
+  },
+  {
     "EventName": "Dance in Cleats!",
     "EventOptions": {
       "": "Speed +10\nStamina +10\nSoft Step hint +1"
@@ -6292,6 +6304,27 @@
     "EventOptions": {
       "Top Option": "Speed +15\nPathfinder hint +1\nBond +5",
       "Bottom Option": "Motivation +1\nSpeed +20\nBond +5"
+    }
+  },
+  {
+    "EventName": "集まる『関心』",
+    "EventOptions": {
+      "Top Option": "Speed +15\nSkill Pts +10\nBond +5",
+      "Bottom Option": "Energy +15\nMotivation +1\nBond +10"
+    }
+  },
+  {
+    "EventName": "募る『不安』",
+    "EventOptions": {
+      "Top Option": "Speed +30\nBond +5",
+      "Bottom Option": "Skill Pts +15\nIntrigued hint +1\nBond +5",
+      "Option 3": "Energy +10\nSpeed +10\nPower +10\nBond +5"
+    }
+  },
+  {
+    "EventName": "重なる『愛』",
+    "EventOptions": {
+      "": "Energy +5\nMotivation +1\nSpeed +15\nSum of Small Efforts hint +1\nLeisurely Dust Bath hint +1\nBond +5"
     }
   }
 ]

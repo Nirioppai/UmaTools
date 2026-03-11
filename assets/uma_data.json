@@ -38834,5 +38834,180 @@
       }
     ],
     "UmaImage": "/assets/character_thumbs/112901-almond-eye.png"
+  },
+  {
+    "UmaKey": "Loves Only You :: Love-Linked Aster",
+    "UmaName": "Loves Only You",
+    "UmaNickname": "Love-Linked Aster",
+    "UmaSlug": "113202-loves-only-you",
+    "UmaId": "113202",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 92,
+        "Stamina": 83,
+        "Power": 90,
+        "Guts": 90,
+        "Wit": 95
+      },
+      "5★": {
+        "Speed": 112,
+        "Stamina": 101,
+        "Power": 110,
+        "Guts": 110,
+        "Wit": 117
+      },
+      "4★": {
+        "Speed": 102,
+        "Stamina": 92,
+        "Power": 100,
+        "Guts": 100,
+        "Wit": 106
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 10,
+      "Power": 0,
+      "Guts": 10,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "C",
+        "Medium": "A",
+        "Long": "F"
+      },
+      "Strategy": {
+        "Front": "G",
+        "Pace": "A",
+        "Late": "A",
+        "End": "G"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Earn 3,000 fans",
+        "Turn": "24",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Oka Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Wasurenagusa Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japanese Oaks",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Shuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Queen Elizabeth II Cup",
+        "Turn": "45",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Kyoto Kinen",
+        "Turn": "51",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Victoria Mile",
+        "Turn": "57",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Takarazuka Kinen",
+        "Turn": "60",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Queen Elizabeth Cup",
+        "Turn": "69",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [
+      {
+        "EventName": "配信者あるある？",
+        "EventOptions": {
+          "Top Option": "rs +20",
+          "Bottom Option": "rs +20",
+          "Option 3": "Energy +5\nMotivation +1\nSkill Pts +15"
+        }
+      },
+      {
+        "EventName": "世界のためなら、うんとこしょ！",
+        "EventOptions": {
+          "Top Option": "Energy -10\nSkill Pts +15\nCarefree Step hint +1",
+          "Bottom Option": "Power +20\nCarefree Step hint +1"
+        }
+      },
+      {
+        "EventName": "ラストピースは『愛』",
+        "EventOptions": {
+          "": "Guts +5\nIgnition hint +1"
+        }
+      }
+    ],
+    "UmaImage": "/assets/character_thumbs/113202-loves-only-you.png"
   }
 ]
