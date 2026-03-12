@@ -508,7 +508,7 @@
     }
   },
   {
-    "EventName": "Bakushin Greeting Campaign!",
+    "EventName": "A Bakushin Greeting!",
     "EventOptions": {
       "Top Option": "Energy -10\nSpeed +30\nBond +5",
       "Bottom Option": "Energy -10\nSkill Pts +30\nBond +5"
@@ -6281,8 +6281,8 @@
   {
     "EventName": "Dreams are Forever",
     "EventOptions": {
-      "Top Option": "Backup Planning hint +5\nアプローチ hint +5\nCall & Response hint +2\nイノベーション hint +2\nBond +5\nBackup Planning hint +1\nアプローチ hint +1\nCall & Response hint +1\nイノベーション hint +1\nBond +5",
-      "Bottom Option": "Energy +10\nSpeed +10\nWit +25\nTail Nine hint +2\n前人未到 hint +2\nBond +5\nSpeed +5\nWit +10\nTail Nine hint +1\n前人未到 hint +1\nBond +5"
+      "Top Option": "Backup Planning hint +5\nApproach hint +5\nCall & Response hint +2\nInnovation hint +2\nBond +5\nBackup Planning hint +1\nApproach hint +1\nCall & Response hint +1\nInnovation hint +1\nBond +5",
+      "Bottom Option": "Energy +10\nSpeed +10\nWit +25\nTail Nine hint +2\nUncharted Heights hint +2\nBond +5\nSpeed +5\nWit +10\nTail Nine hint +1\nUncharted Heights hint +1\nBond +5"
     }
   },
   {

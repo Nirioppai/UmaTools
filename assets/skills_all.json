@@ -72107,6 +72107,11 @@
             "value": 1500
           }
         ]
+      },
+      {
+        "base_time": 0,
+        "condition": "0",
+        "effects": []
       }
     ],
     "desc_ko": "레이스 중반에 지구력을 회복하고 추가로 속도가 약간 상승한다＜작전·선행＞",
@@ -145605,7 +145610,7 @@
     ],
     "cost": 120,
     "endesc": "Leader・At a random point on a random uphill, your speed will increase",
-    "enname": "",
+    "enname": "All-Out Effort",
     "evo": [
       {
         "card_id": 110301,
@@ -145650,7 +145655,7 @@
       }
     ],
     "endesc": "Leader・Medium・When moving left or right on any corner during the second half of the race, your acceleration will increase and you will get a slight speed boost",
-    "enname": "",
+    "enname": "Phantom Technician",
     "evo_cond": [
       [
         [
@@ -145700,7 +145705,7 @@
       }
     ],
     "endesc": "Leader・At a random point on a random uphill, your speed will greatly increase",
-    "enname": "",
+    "enname": "Recognition: Trending!",
     "evo_cond": [
       [
         [
@@ -145812,7 +145817,7 @@
     ],
     "cost": 180,
     "endesc": "If you're first or you overtake someone during the Middle Leg, your speed will increase",
-    "enname": "",
+    "enname": "Uncharted Heights",
     "evo": [
       {
         "evos": [
@@ -145856,7 +145861,7 @@
     ],
     "cost": 180,
     "endesc": "If you're first or you overtake someone during the Middle Leg, your speed will slightly increase",
-    "enname": "",
+    "enname": "Giant Stride",
     "iconid": 20011,
     "id": 204182,
     "jpdesc": "レース中盤に追い抜くか先頭にいると速度がわずかに上がる",
@@ -145894,7 +145899,7 @@
     ],
     "cost": 180,
     "endesc": "Dirt・At a random point during the Middle Leg, your speed will slightly increase",
-    "enname": "",
+    "enname": "Innovation",
     "evo": [
       {
         "evos": [
@@ -145938,7 +145943,7 @@
     ],
     "cost": 180,
     "endesc": "Dirt・At a random point during the Middle Leg, your speed will marginally increase",
-    "enname": "",
+    "enname": "Approach",
     "iconid": 20011,
     "id": 204192,
     "jpdesc": "レース中盤にしばらくの間速度がちょっと上がる＜ダート＞",
@@ -145977,7 +145982,7 @@
     ],
     "cost": 190,
     "endesc": "",
-    "enname": "",
+    "enname": "Paradigm Shift",
     "evo": [
       {
         "card_id": 112901,
@@ -146018,7 +146023,7 @@
     ],
     "cost": 190,
     "endesc": "",
-    "enname": "",
+    "enname": "Outstanding Run",
     "iconid": 20011,
     "id": 204212,
     "jpdesc": "レース終盤が迫ったとき前方にいるとしばらくの間速度がちょっと上がる＜作戦・先行＞",
@@ -146048,7 +146053,7 @@
     ],
     "cost": 180,
     "endesc": "",
-    "enname": "",
+    "enname": "One More Push",
     "iconid": 20351,
     "id": 204222,
     "jpdesc": "全開スパート中にわずかに伸びを見せる＜中距離＞",
@@ -146294,7 +146299,7 @@
     ],
     "cost": 200,
     "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
-    "enname": "",
+    "enname": "American Dream",
     "iconid": 20331,
     "id": 210382,
     "jpdesc": "レース最終盤始めの方でラストスパートの最中なら速度がわずかに上がる",
@@ -146324,7 +146329,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Aiming for Stardom!",
     "evo_cond": [
       [
         [
@@ -146370,7 +146375,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Journey to a New Dream",
     "evo_cond": [
       [
         [
@@ -146453,7 +146458,7 @@
       }
     ],
     "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
-    "enname": "",
+    "enname": "World-Captivating Brilliance",
     "evo_cond": [
       [
         [
@@ -146490,7 +146495,7 @@
       }
     ],
     "endesc": "Medium/Long・At a random point during the Middle Leg, your speed will greatly increase",
-    "enname": "",
+    "enname": "Hype☆Roadmap",
     "evo_cond": [
       [
         [
@@ -146545,7 +146550,7 @@
       }
     ],
     "endesc": "Chaser・Medium・At a random point during the first quarter of the Final Leg, your acceleration will increase; if the Final Leg starts on a straight, it will activate immediately",
-    "enname": "",
+    "enname": "Dancing Flourish",
     "evo_cond": [
       [
         [
@@ -146738,7 +146743,7 @@
       }
     ],
     "endesc": "Leader・Medium・At a random point during the second half of the Middle Leg, you will get a speed boost; then, during your last spurt, your acceleration will slightly increase",
-    "enname": "",
+    "enname": "Assured Victory",
     "evo_cond": [
       [
         [
@@ -146798,7 +146803,7 @@
       }
     ],
     "endesc": "Leader・Mile・At a random point during the second half of the race, you will get a great speed boost; if your base Guts is at least 1200, it will be tremendous instead",
-    "enname": "",
+    "enname": "Revolutionized Future",
     "evo_cond": [
       [
         [
