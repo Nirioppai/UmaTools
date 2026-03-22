@@ -11070,7 +11070,7 @@
     "UmaNickname": "Natural Brilliance",
     "UmaSlug": "106701-satono-diamond",
     "UmaId": "106701",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -39009,5 +39009,140 @@
       }
     ],
     "UmaImage": "/assets/character_thumbs/113202-loves-only-you.png"
+  },
+  {
+    "UmaKey": "Victoire Pisa :: Lueur Angélique",
+    "UmaName": "Victoire Pisa",
+    "UmaNickname": "Lueur Angélique",
+    "UmaSlug": "114301-victoire-pisa",
+    "UmaId": "114301",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 100,
+        "Stamina": 80,
+        "Power": 100,
+        "Guts": 80,
+        "Wit": 90
+      },
+      "5★": {
+        "Speed": 120,
+        "Stamina": 100,
+        "Power": 120,
+        "Guts": 100,
+        "Wit": 110
+      },
+      "4★": {
+        "Speed": 110,
+        "Stamina": 90,
+        "Power": 110,
+        "Guts": 90,
+        "Wit": 100
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 10,
+      "Power": 0,
+      "Guts": 10,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "A"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "B",
+        "Medium": "A",
+        "Long": "B"
+      },
+      "Strategy": {
+        "Front": "G",
+        "Pace": "A",
+        "Late": "A",
+        "End": "E"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Hopeful Stakes",
+        "Turn": "24",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Satsuki Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tokyo Yushun (Japanese Derby)",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "46",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "48",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Nakayama Kinen",
+        "Turn": "52",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "72",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/114301-victoire-pisa.png"
   }
 ]
