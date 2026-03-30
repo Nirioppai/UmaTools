@@ -39144,5 +39144,287 @@
     ],
     "UmaEvents": [],
     "UmaImage": "/assets/character_thumbs/114301-victoire-pisa.png"
+  },
+  {
+    "UmaKey": "Sakura Bakushin O :: 雷の韋駄天",
+    "UmaName": "Sakura Bakushin O",
+    "UmaNickname": "雷の韋駄天",
+    "UmaSlug": "104103-sakura-bakushin-o",
+    "UmaId": "104103",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 98,
+        "Stamina": 59,
+        "Power": 102,
+        "Guts": 100,
+        "Wit": 91
+      },
+      "5★": {
+        "Speed": 119,
+        "Stamina": 73,
+        "Power": 125,
+        "Guts": 122,
+        "Wit": 111
+      },
+      "4★": {
+        "Speed": 109,
+        "Stamina": 66,
+        "Power": 114,
+        "Guts": 111,
+        "Wit": 100
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 10,
+      "Stamina": 0,
+      "Power": 15,
+      "Guts": 0,
+      "Wit": 5
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "A",
+        "Mile": "B",
+        "Medium": "G",
+        "Long": "G"
+      },
+      "Strategy": {
+        "Front": "A",
+        "Pace": "A",
+        "Late": "F",
+        "End": "G"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Keio Hai Junior Stakes",
+        "Turn": "21",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Spring Stakes",
+        "Turn": "30",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Aoi Stakes",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Sprinters Stakes",
+        "Turn": "42",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Takamatsunomiya Kinen",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Hakodate Sprint Stakes",
+        "Turn": "60",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "CBC Sho",
+        "Turn": "61",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Centaur Stakes",
+        "Turn": "65",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Sprinters Stakes",
+        "Turn": "66",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Mile Championship",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/104103-sakura-bakushin-o.png"
+  },
+  {
+    "UmaKey": "North Flight :: 水縹の一閃",
+    "UmaName": "North Flight",
+    "UmaNickname": "水縹の一閃",
+    "UmaSlug": "108202-north-flight",
+    "UmaId": "108202",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 93,
+        "Stamina": 81,
+        "Power": 97,
+        "Guts": 83,
+        "Wit": 96
+      },
+      "5★": {
+        "Speed": 113,
+        "Stamina": 99,
+        "Power": 118,
+        "Guts": 101,
+        "Wit": 119
+      },
+      "4★": {
+        "Speed": 103,
+        "Stamina": 90,
+        "Power": 107,
+        "Guts": 92,
+        "Wit": 108
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 15,
+      "Stamina": 0,
+      "Power": 0,
+      "Guts": 0,
+      "Wit": 15
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "C",
+        "Mile": "A",
+        "Medium": "B",
+        "Long": "G"
+      },
+      "Strategy": {
+        "Front": "D",
+        "Pace": "A",
+        "Late": "D",
+        "End": "A"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Earn 7,000 fans",
+        "Turn": "33",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Fuchu Umamusume Stakes",
+        "Turn": "43",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Shuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Takamatsunomiya Kinen",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Milers Cup",
+        "Turn": "56",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Yasuda Kinen",
+        "Turn": "59",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Swan Stakes",
+        "Turn": "68",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Mile Championship",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/108202-north-flight.png"
   }
 ]

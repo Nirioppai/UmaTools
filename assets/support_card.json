@@ -6174,8 +6174,8 @@
   {
     "EventName": "そのメイクは誰がために",
     "EventOptions": {
-      "Top Option": "Speed +25\nSkill Pts +10\nCheck hint +2\n千鍛万錬 hint +1\nBond +5",
-      "Bottom Option": "Energy +10\nMotivation +1\nSpeed +20\n千鍛万錬 hint +2\nCrowning Beauty hint +2\nBond +5"
+      "Top Option": "Speed +25\nSkill Pts +10\nCheck hint +2\n10000 Days of Practice hint +1\nBond +5",
+      "Bottom Option": "Energy +10\nMotivation +1\nSpeed +20\n10000 Days of Practice hint +2\nCrowning Beauty hint +2\nBond +5"
     }
   },
   {
@@ -6234,7 +6234,7 @@
   {
     "EventName": "学びを繋げて",
     "EventOptions": {
-      "": "Guts +25\nBlitzing Spirit hint +1\n有志竟成 hint +1\nBond +5"
+      "": "Guts +25\nBlitzing Spirit hint +1\nDetermination Brings Success hint +1\nBond +5"
     }
   },
   {

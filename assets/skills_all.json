@@ -1696,8 +1696,8 @@
     ],
     "condition_groups": [
       {
-        "base_time": 50000,
-        "condition": "phase>=2&order>=1&order_rate<=50&change_order_onetime<0",
+        "base_time": 60000,
+        "condition": "phase>=2&order>=1&order_rate<=70&change_order_onetime<0",
         "effects": [
           {
             "type": 22,
@@ -1714,14 +1714,14 @@
     "desc_ko": "레이스 종반에 전방에서 상대를 추월하면 기세를 몰아 앞으로 나가고 추가로 가속력이 아주 조금 상승한다",
     "desc_tw": "在競賽後期若於隊列前方追過對手會順勢向前邁進且加速力些微上升",
     "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Final Leg or beyond, if you've overtaken someone in the first half of the pack, your acceleration will slightly increase and you will get a speed boost",
+    "endesc_old": "The description of this skill has recently changed; retranslation is pending.",
     "enname": "Shooting Star",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
         {
-          "base_time": 30000,
-          "condition": "phase>=2&order>=1&order_rate<=50&change_order_onetime<0",
+          "base_time": 36000,
+          "condition": "phase>=2&order>=1&order_rate<=70&change_order_onetime<0",
           "effects": [
             {
               "type": 22,
@@ -1751,7 +1751,7 @@
     },
     "iconid": 20013,
     "id": 100011,
-    "jpdesc": "レース終盤以降に前方で相手を抜くと勢いに乗って前に出て加速力がちょっと上がる",
+    "jpdesc": "レース終盤以降に追い抜いて中団以前につけると前に出続けて加速力をちょっと上げ続ける",
     "jpname": "シューティングスター",
     "loc": {
       "en": {
@@ -1796,12 +1796,80 @@
       "ko": {
         "char": [
           100101
-        ]
+        ],
+        "condition_groups": [
+          {
+            "base_time": 50000,
+            "condition": "phase>=2&order>=1&order_rate<=50&change_order_onetime<0",
+            "effects": [
+              {
+                "type": 22,
+                "value": 3500
+              },
+              {
+                "type": 31,
+                "value": 1000
+              }
+            ]
+          }
+        ],
+        "gene_version": {
+          "condition_groups": [
+            {
+              "base_time": 30000,
+              "condition": "phase>=2&order>=1&order_rate<=50&change_order_onetime<0",
+              "effects": [
+                {
+                  "type": 22,
+                  "value": 1500
+                },
+                {
+                  "type": 31,
+                  "value": 500
+                }
+              ]
+            }
+          ]
+        }
       },
       "zh_tw": {
         "char": [
           100101
-        ]
+        ],
+        "condition_groups": [
+          {
+            "base_time": 50000,
+            "condition": "phase>=2&order>=1&order_rate<=50&change_order_onetime<0",
+            "effects": [
+              {
+                "type": 22,
+                "value": 3500
+              },
+              {
+                "type": 31,
+                "value": 1000
+              }
+            ]
+          }
+        ],
+        "gene_version": {
+          "condition_groups": [
+            {
+              "base_time": 30000,
+              "condition": "phase>=2&order>=1&order_rate<=50&change_order_onetime<0",
+              "effects": [
+                {
+                  "type": 22,
+                  "value": 1500
+                },
+                {
+                  "type": 31,
+                  "value": 500
+                }
+              ]
+            }
+          ]
+        }
       }
     },
     "name_en": "Shooting Star",
@@ -5347,6 +5415,7 @@
       102102,
       104102,
       100603,
+      104103,
       104101,
       106601
     ],
@@ -8611,6 +8680,8 @@
         30244,
         30248,
         30274,
+        30293,
+        30294,
         20032
       ],
       [
@@ -16490,6 +16561,7 @@
         30220,
         30239,
         30247,
+        30295,
         20004,
         20029,
         20071,
@@ -20018,6 +20090,7 @@
         30209,
         30232,
         30274,
+        30295,
         20003,
         20024,
         20035,
@@ -31518,6 +31591,7 @@
       102902,
       108502,
       108201,
+      108202,
       105401
     ],
     "condition_groups": [
@@ -32807,6 +32881,7 @@
       108201,
       107802,
       104003,
+      108202,
       100901
     ],
     "condition_groups": [
@@ -33268,6 +33343,7 @@
         30116,
         30194,
         30253,
+        30294,
         20024,
         20030,
         20062,
@@ -38487,6 +38563,7 @@
       104102,
       106402,
       106803,
+      104103,
       104101
     ],
     "condition_groups": [
@@ -40722,6 +40799,7 @@
       [
         30039,
         30096,
+        30295,
         20043
       ],
       [
@@ -46465,6 +46543,7 @@
         30278,
         30286,
         30291,
+        30293,
         20061,
         20077
       ],
@@ -47998,6 +48077,7 @@
         30272,
         30273,
         30289,
+        30294,
         20030
       ],
       [
@@ -56132,6 +56212,7 @@
       108702,
       109302,
       109501,
+      104103,
       104101
     ],
     "condition_groups": [
@@ -58871,6 +58952,7 @@
         30239,
         30250,
         30258,
+        30293,
         20089
       ],
       [
@@ -61231,7 +61313,8 @@
     "sup_hint": [
       [
         30198,
-        30277
+        30277,
+        30295
       ],
       [
         10106
@@ -61543,7 +61626,8 @@
         30233,
         30248,
         30263,
-        30283
+        30283,
+        30293
       ],
       [
         10120
@@ -65484,7 +65568,8 @@
       108201,
       111601,
       108902,
-      109302
+      109302,
+      108202
     ],
     "condition_groups": [
       {
@@ -65620,6 +65705,7 @@
         30274,
         30275,
         30284,
+        30295,
         20051,
         20059,
         20085,
@@ -70297,7 +70383,8 @@
     "activation": 1,
     "char": [
       101202,
-      104402
+      104402,
+      108202
     ],
     "condition_groups": [
       {
@@ -70330,6 +70417,12 @@
         "evos": [
           104402111,
           104402121
+        ]
+      },
+      {
+        "card_id": 108202,
+        "evos": [
+          108202211
         ]
       }
     ],
@@ -70384,7 +70477,8 @@
     "activation": 1,
     "char": [
       101202,
-      104402
+      104402,
+      108202
     ],
     "char_e": [
       108401,
@@ -72149,6 +72243,8 @@
         30250,
         30264,
         30287,
+        30293,
+        30294,
         20062,
         20083,
         20091
@@ -72416,7 +72512,7 @@
     "condition_groups": [
       {
         "base_time": 30000,
-        "condition": "running_style==2&phase_random==1",
+        "condition": "phase_random==1",
         "effects": [
           {
             "type": 9,
@@ -72426,12 +72522,14 @@
             "type": 27,
             "value": 1500
           }
-        ]
+        ],
+        "precondition": "running_style==2@running_style==3"
       }
     ],
     "desc_ko": "레이스 중반에 지구력을 회복하고 추가로 속도가 약간 상승한다＜작전·선행＞",
     "desc_tw": "在競賽中期回復持久力且速度會略微上升＜作戰．前列＞",
-    "endesc": "Leader・At a random point during the Middle Leg, your speed will slightly increase and your stamina will recover",
+    "endesc": "The description of this skill has recently changed; retranslation is pending.",
+    "endesc_old": "Leader・At a random point during the Middle Leg, your speed will slightly increase and your stamina will recover",
     "enname": "Hungry Commander",
     "evo_cond": [
       [
@@ -72451,7 +72549,7 @@
     ],
     "iconid": 20026,
     "id": 100101111,
-    "jpdesc": "レース中盤に持久力を回復し速度がわずかに上がる＜作戦・先行＞",
+    "jpdesc": "レース中盤に持久力を回復し速度がわずかに上がる＜先行/差し＞",
     "jpname": "はらぺこ大将",
     "loc": {
       "en": {
@@ -72462,11 +72560,51 @@
       "ko": {
         "char": [
           100101
+        ],
+        "condition_groups": [
+          {
+            "base_time": 30000,
+            "condition": "running_style==2&phase_random==1",
+            "effects": [
+              {
+                "type": 9,
+                "value": 550
+              },
+              {
+                "type": 27,
+                "value": 1500
+              }
+            ]
+          }
+        ],
+        "type": [
+          "ldr",
+          "l_1"
         ]
       },
       "zh_tw": {
         "char": [
           100101
+        ],
+        "condition_groups": [
+          {
+            "base_time": 30000,
+            "condition": "running_style==2&phase_random==1",
+            "effects": [
+              {
+                "type": 9,
+                "value": 550
+              },
+              {
+                "type": 27,
+                "value": 1500
+              }
+            ]
+          }
+        ],
+        "type": [
+          "ldr",
+          "l_1"
         ]
       }
     },
@@ -72478,8 +72616,8 @@
     },
     "rarity": 6,
     "type": [
-      "ldr",
-      "l_1"
+      "l_1",
+      "nac"
     ]
   },
   {
@@ -94979,6 +95117,8 @@
         30254,
         30263,
         30282,
+        30293,
+        30294,
         20073,
         20075,
         20084
@@ -101622,7 +101762,8 @@
         30234,
         30269,
         30271,
-        30283
+        30283,
+        30294
       ],
       [
         10096
@@ -103312,6 +103453,7 @@
         30208,
         30227,
         30233,
+        30294,
         20082
       ],
       [
@@ -110719,7 +110861,8 @@
   {
     "activation": 1,
     "char": [
-      108502
+      108502,
+      108202
     ],
     "condition_groups": [
       {
@@ -110743,6 +110886,12 @@
         "card_id": 108502,
         "evos": [
           108502211
+        ]
+      },
+      {
+        "card_id": 108202,
+        "evos": [
+          108202111
         ]
       }
     ],
@@ -110776,7 +110925,8 @@
   {
     "activation": 1,
     "char": [
-      108502
+      108502,
+      108202
     ],
     "char_e": [
       113101
@@ -115457,7 +115607,8 @@
         30253,
         30267,
         30274,
-        30283
+        30283,
+        30294
       ],
       [
         10135
@@ -115548,7 +115699,8 @@
       113101,
       108402,
       109302,
-      102802
+      102802,
+      108202
     ],
     "condition_groups": [
       {
@@ -118909,6 +119061,7 @@
     "sup_e": [
       [
         30274,
+        30295,
         20088
       ],
       [
@@ -119285,6 +119438,7 @@
         30268,
         30281,
         30285,
+        30293,
         20090
       ],
       [
@@ -121923,6 +122077,7 @@
     "sup_e": [
       [
         30254,
+        30294,
         20084,
         20087
       ],
@@ -125555,6 +125710,12 @@
       ],
       []
     ],
+    "sup_hint": [
+      [
+        30293
+      ],
+      []
+    ],
     "type": [
       "mil",
       "l_1"
@@ -125602,7 +125763,8 @@
     "sup_e": [
       [
         30248,
-        30287
+        30287,
+        30293
       ],
       [
         10120
@@ -125614,7 +125776,8 @@
         30243,
         30256,
         30264,
-        30285
+        30285,
+        30293
       ],
       [
         10124,
@@ -126302,7 +126465,8 @@
     "sup_hint": [
       [
         30232,
-        30279
+        30279,
+        30295
       ],
       [
         10116,
@@ -127373,7 +127537,8 @@
       [
         30234,
         30242,
-        30275
+        30275,
+        30295
       ],
       [
         10122
@@ -132590,7 +132755,8 @@
       {
         "card_id": 109802,
         "evos": [
-          109802211
+          109802211,
+          109802221
         ]
       }
     ],
@@ -136684,6 +136850,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      108202
+    ],
     "condition_groups": [
       {
         "base_time": 30000,
@@ -137503,7 +137672,8 @@
     "rarity": 1,
     "sup_hint": [
       [
-        30292
+        30292,
+        30293
       ],
       [
         10144
@@ -138020,7 +138190,8 @@
     "rarity": 1,
     "sup_hint": [
       [
-        30264
+        30264,
+        30294
       ],
       [
         10132
@@ -138420,7 +138591,8 @@
   {
     "activation": 1,
     "char": [
-      109302
+      109302,
+      104103
     ],
     "condition_groups": [
       {
@@ -138443,6 +138615,12 @@
         "evos": [
           109302211
         ]
+      },
+      {
+        "card_id": 104103,
+        "evos": [
+          104103111
+        ]
       }
     ],
     "iconid": 20012,
@@ -138460,7 +138638,8 @@
   {
     "activation": 1,
     "char": [
-      109302
+      109302,
+      104103
     ],
     "condition_groups": [
       {
@@ -138528,6 +138707,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      104103
+    ],
     "condition_groups": [
       {
         "base_time": 24000,
@@ -139939,7 +140121,8 @@
   {
     "activation": 1,
     "char": [
-      102802
+      102802,
+      104103
     ],
     "condition_groups": [
       {
@@ -140626,7 +140809,8 @@
     "sup_hint": [
       [
         30274,
-        30275
+        30275,
+        30295
       ],
       []
     ],
@@ -140917,7 +141101,9 @@
     "sup_hint": [
       [
         30283,
-        30287
+        30287,
+        30293,
+        30294
       ],
       []
     ],
@@ -141941,6 +142127,7 @@
   {
     "activation": 1,
     "char": [
+      100101,
       110002
     ],
     "condition_groups": [
@@ -141960,6 +142147,12 @@
     "enname": "Floating with the Tide",
     "evo": [
       {
+        "card_id": 100101,
+        "evos": [
+          100101311
+        ]
+      },
+      {
         "card_id": 110002,
         "evos": [
           110002211
@@ -141970,6 +142163,23 @@
     "id": 204111,
     "jpdesc": "レース中盤に速度が上がる＜先行/差し＞",
     "jpname": "行雲流水",
+    "loc": {
+      "en": {
+        "char": [
+          100101
+        ]
+      },
+      "ko": {
+        "char": [
+          100101
+        ]
+      },
+      "zh_tw": {
+        "char": [
+          100101
+        ]
+      }
+    },
     "rarity": 2,
     "type": [
       "ldr",
@@ -143794,7 +144004,7 @@
       }
     ],
     "endesc": "If you're trying to overtake someone or someone is trying to overtake you during the first half of the Middle Leg, you will get a speed boost; (Medium only) then, if you're near the front at a random point during the second half of the Middle Leg, your speed will increase",
-    "enname": "",
+    "enname": "Spinning Top of Longevity",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -143911,7 +144121,7 @@
     ],
     "cost": 180,
     "endesc": "Medium・At a random point on a random Middle Leg corner, your speed will increase",
-    "enname": "",
+    "enname": "10000 Days of Practice",
     "evo": [],
     "iconid": 20012,
     "id": 204031,
@@ -144107,7 +144317,8 @@
     ],
     "sup_hint": [
       [
-        30283
+        30283,
+        30294
       ],
       []
     ],
@@ -144210,7 +144421,8 @@
     "activation": 1,
     "char": [
       112402,
-      101003
+      101003,
+      104103
     ],
     "condition_groups": [
       {
@@ -144686,7 +144898,7 @@
     ],
     "endesc": "The description of this skill has recently changed; retranslation is pending.",
     "endesc_old": "Leader・If you're in the first half of the pack at a random point during the second half of the Final Corner, you will get a slight speed boost; (Mile/Medium only) then, during the Final Straight, you will get another speed boost",
-    "enname": "",
+    "enname": "Clear the Haze, Seize the Morning",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -144743,7 +144955,7 @@
     ],
     "cost": 180,
     "endesc": "Leader・At a random point during the second half of the Opening Leg, your speed will increase",
-    "enname": "",
+    "enname": "Explosive Fighting Spirit",
     "evo": [
       {
         "card_id": 112402,
@@ -144781,7 +144993,7 @@
     ],
     "cost": 180,
     "endesc": "Betweener・At a random point during the Middle Leg, your speed will increase",
-    "enname": "",
+    "enname": "Determination Brings Success",
     "evo": [],
     "iconid": 20012,
     "id": 204131,
@@ -144821,7 +145033,7 @@
     ],
     "cost": 180,
     "endesc": "Betweener・At a random point during the Middle Leg, your speed will slightly increase",
-    "enname": "",
+    "enname": "Be Ambitious",
     "iconid": 20011,
     "id": 204132,
     "jpdesc": "レース中盤に速度がわずかに上がる＜作戦・差し＞",
@@ -144871,7 +145083,7 @@
     ],
     "endesc": "The description of this skill has recently changed; retranslation is pending.",
     "endesc_old": "Mile/Medium・If you're first or about to overtake someone, your speed will increase; (Tokyo only) then, during the Last Straight, you will get a speed boost",
-    "enname": "",
+    "enname": "Wind in My Back",
     "evo_cond": [
       [
         [
@@ -144939,7 +145151,7 @@
     ],
     "endesc": "The description of this skill has recently changed; retranslation is pending.",
     "endesc_old": "Leader・At a random point during the second half of the Opening Leg, your speed will increase; (Mile/Medium only) then, during the Final Straight, you will get a slight speed boost",
-    "enname": "",
+    "enname": "Explosive Maverick",
     "evo_cond": [
       [
         [
@@ -145013,7 +145225,7 @@
       }
     ],
     "endesc": "Medium/Long・If you're NOT in the back of the pack during the first half of the Middle Leg, you will get a speed boost; (Oonige/Runaway) the effect changes to 'your speed will slightly increase and your stamina will recover'",
-    "enname": "",
+    "enname": "Imagination × Creation = ∞",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -145066,7 +145278,7 @@
     ],
     "cost": 180,
     "endesc": "Betweener・If you're not in the front at a random point during the second half of the Opening Leg, your speed will increase",
-    "enname": "",
+    "enname": "Inspiration",
     "evo": [
       {
         "card_id": 113701,
@@ -145107,7 +145319,7 @@
     ],
     "cost": 160,
     "endesc": "Betweener・Long・If you're not in the front at a random point during the first quarter of the Final Leg, your acceleration will increase",
-    "enname": "",
+    "enname": "Once in a Lifetime",
     "evo": [
       {
         "card_id": 113701,
@@ -145161,7 +145373,7 @@
       }
     ],
     "endesc": "Runner・At a random point during the second half of the Opening Leg, your speed will increase; (Oonige/Runaway) your speed will only increase slightly, but your stamina will also recover",
-    "enname": "",
+    "enname": "Brush Up!",
     "evo_cond": [
       [
         [
@@ -145224,7 +145436,7 @@
       }
     ],
     "endesc": "Runner・2000 m+・If you're in the first half of the pack at a random point during the first quarter of the Final Leg, your acceleration will increase; if you're first or second, you will also get a slight speed boost",
-    "enname": "",
+    "enname": "Emergency Reprint",
     "evo_cond": [
       [
         [
@@ -145498,7 +145710,8 @@
   {
     "activation": 1,
     "char": [
-      101003
+      101003,
+      104103
     ],
     "condition_groups": [
       {
@@ -145523,6 +145736,12 @@
         "evos": [
           101003211
         ]
+      },
+      {
+        "card_id": 104103,
+        "evos": [
+          104103211
+        ]
       }
     ],
     "iconid": 20042,
@@ -145542,7 +145761,8 @@
   {
     "activation": 1,
     "char": [
-      101003
+      101003,
+      108202
     ],
     "condition_groups": [
       {
@@ -146026,7 +146246,7 @@
       }
     ],
     "endesc": "If you're in the first half of the pack during the Middle Leg and you're being blocked from the side, your speed will increase",
-    "enname": "",
+    "enname": "Showcase Time!",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -146099,7 +146319,7 @@
       }
     ],
     "endesc": "If you're in the first half of the pack during the Middle Leg and you're being blocked from the side, your speed will increase; then, if you participate in a Showdown (追い比べ), you will get a slight speed boost",
-    "enname": "",
+    "enname": "Absolute Strongest ☆ Showcase Time!",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -146821,7 +147041,7 @@
     ],
     "cost": 200,
     "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase; the effect is stronger if the team rank is S or better",
-    "enname": "",
+    "enname": "Struggle Leads to Glory",
     "evo": [],
     "iconid": 20332,
     "id": 210381,
@@ -147166,7 +147386,7 @@
       }
     ],
     "endesc": "Medium・At a random point on a random straight, your speed will greatly increase",
-    "enname": "",
+    "enname": "Festive Dance on Hanamichi",
     "evo_cond": [
       [
         [
@@ -147485,7 +147705,7 @@
     ],
     "cost": 160,
     "endesc": "",
-    "enname": "",
+    "enname": "Hundred Blooming Flowers",
     "evo": [
       {
         "card_id": 113202,
@@ -147526,7 +147746,7 @@
     ],
     "cost": 160,
     "endesc": "",
-    "enname": "",
+    "enname": "Individual",
     "iconid": 20011,
     "id": 204302,
     "jpdesc": "レース中盤の直線で前方にいるとしばらくの間速度がちょっと上がる＜先行・中距離＞",
@@ -147568,7 +147788,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Lots of Love ♡",
     "evo_cond": [
       [
         [
@@ -147635,7 +147855,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Legendary Moment Overseas!",
     "evo_cond": [
       [
         [
@@ -147763,7 +147983,7 @@
       }
     ],
     "endesc": "Your Guts stat is decreased by 40",
-    "enname": "",
+    "enname": "Hidden Flash",
     "iconid": 10044,
     "id": 204251,
     "jpdesc": "勝利のために影で息を潜めるライバルに花を持たせ根性が少し下がる",
@@ -147866,7 +148086,7 @@
       }
     ],
     "endesc": "Medium/Long・At a random point on a random corner, you will get a speed boost; in Medium races, your acceleration will also slightly increase",
-    "enname": "",
+    "enname": "Light in the Dark",
     "evo_cond": [
       [
         [
@@ -147901,6 +148121,681 @@
       "med",
       "cor",
       "lng"
+    ]
+  },
+  {
+    "activation": 0,
+    "char": [
+      108202
+    ],
+    "condition_groups": [
+      {
+        "base_time": 60000,
+        "condition": "distance_rate>=50&order_rate>=40&distance_type==2&order_rate_out50_continue==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          }
+        ]
+      },
+      {
+        "base_time": 40000,
+        "condition": "distance_rate>=50&order_rate>=40",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "gene_version": {
+      "activation": 1,
+      "condition_groups": [
+        {
+          "base_time": 36000,
+          "condition": "distance_rate>=50&order_rate>=40&distance_type==2&order_rate_out50_continue==1",
+          "effects": [
+            {
+              "type": 27,
+              "value": 1500
+            }
+          ]
+        },
+        {
+          "base_time": 24000,
+          "condition": "distance_rate>=50&order_rate>=40",
+          "effects": [
+            {
+              "type": 27,
+              "value": 1500
+            }
+          ]
+        }
+      ],
+      "cost": 200,
+      "iconid": 0,
+      "id": 910821,
+      "inherited": true,
+      "parent_skills": [
+        110821
+      ],
+      "rarity": 1
+    },
+    "iconid": 0,
+    "id": 110821,
+    "jpdesc": "レース後半に中団以降にいると少しの間速度が上がるマイルレースで後方に控え続けていると上げ続ける",
+    "jpname": "煌めき華やぐアローライン",
+    "rarity": 5,
+    "type": [
+      "mil"
+    ]
+  },
+  {
+    "activation": 0,
+    "char": [
+      104103
+    ],
+    "condition_groups": [
+      {
+        "base_time": 40000,
+        "condition": "distance_type==1&distance_rate>=50&distance_rate<=51&order_rate<=40",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          },
+          {
+            "type": 22,
+            "value": 2500
+          }
+        ],
+        "precondition": "running_style==1@running_style==2"
+      },
+      {
+        "base_time": 40000,
+        "condition": "distance_rate>=50&distance_rate<=51&order_rate<=40",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          }
+        ],
+        "precondition": "running_style==1@running_style==2"
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "gene_version": {
+      "activation": 1,
+      "condition_groups": [
+        {
+          "base_time": 24000,
+          "condition": "distance_type==1&distance_rate>=50&distance_rate<=51&order_rate<=40",
+          "effects": [
+            {
+              "type": 27,
+              "value": 1500
+            },
+            {
+              "type": 22,
+              "value": 500
+            }
+          ],
+          "precondition": "running_style==1@running_style==2"
+        },
+        {
+          "base_time": 24000,
+          "condition": "distance_rate>=50&distance_rate<=51&order_rate<=40",
+          "effects": [
+            {
+              "type": 27,
+              "value": 1500
+            }
+          ],
+          "precondition": "running_style==1@running_style==2"
+        }
+      ],
+      "cost": 200,
+      "iconid": 0,
+      "id": 920411,
+      "inherited": true,
+      "parent_skills": [
+        120411
+      ],
+      "rarity": 1
+    },
+    "iconid": 0,
+    "id": 120411,
+    "jpdesc": "レース中間地点で前方にいると少しの間速度が上がる、さらに短距離レースなら少しの間少し前に出る＜逃げ/先行＞",
+    "jpname": "桜吹雪くスプリントバースト",
+    "rarity": 5,
+    "type": [
+      "sho"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      100101
+    ],
+    "condition_groups": [
+      {
+        "base_time": 20000,
+        "condition": "run_at_full_speed_random==1",
+        "effects": [
+          {
+            "type": 22,
+            "value": 2500
+          },
+          {
+            "type": 48,
+            "value": 1000
+          }
+        ]
+      }
+    ],
+    "cost": 200,
+    "endesc": "",
+    "enname": "",
+    "iconid": 2010011,
+    "id": 204262,
+    "jpdesc": "全開スパート中に少し前に出てちょっと伸びを見せる",
+    "jpname": "星の煌き",
+    "loc": {
+      "en": {
+        "char": [
+          100101
+        ]
+      },
+      "ko": {
+        "char": [
+          100101
+        ]
+      },
+      "zh_tw": {
+        "char": [
+          100101
+        ]
+      }
+    },
+    "rarity": 1,
+    "type": [
+      "nac"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      104103
+    ],
+    "condition_groups": [
+      {
+        "base_time": 18000,
+        "condition": "distance_type==1&phase_firsthalf_random==2&order_rate<=50",
+        "effects": [
+          {
+            "type": 31,
+            "value": 2000
+          }
+        ]
+      }
+    ],
+    "cost": 160,
+    "endesc": "",
+    "enname": "",
+    "iconid": 0,
+    "id": 204312,
+    "jpdesc": "レース終盤始めの方で前方にいると加速力がわずかに上がる＜短距離＞",
+    "jpname": "押せ押せムード",
+    "rarity": 1,
+    "type": [
+      "sho",
+      "l_2"
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "same_skill_horse_count>=2&phase_random==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 2500
+          }
+        ],
+        "precondition": "distance_type==2@distance_type==3"
+      },
+      {
+        "base_time": 24000,
+        "condition": "phase_random==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 1500
+          }
+        ],
+        "precondition": "distance_type==2@distance_type==3"
+      }
+    ],
+    "cost": 180,
+    "endesc": "",
+    "enname": "",
+    "iconid": 0,
+    "id": 204322,
+    "jpdesc": "レース中盤に速度がわずかに上がる「阿吽の呼吸」を持つウマ娘が2人以上いるレースだと少し上がる＜マイル/中距離＞",
+    "jpname": "阿吽の呼吸",
+    "rarity": 1,
+    "sup_hint": [
+      [
+        30293,
+        30294
+      ],
+      []
+    ],
+    "type": [
+      "l_1",
+      "nac"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      100101
+    ],
+    "condition_groups": [
+      {
+        "base_time": 40000,
+        "condition": "running_style==2&phase_random==1@running_style==3&phase_random==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 4500
+          }
+        ],
+        "precondition": "track_id==10006&course_distance==2400"
+      },
+      {
+        "base_time": 24000,
+        "condition": "running_style==2&phase_random==1@running_style==3&phase_random==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "a_skill",
+          "strat",
+          2,
+          4
+        ],
+        [
+          "a_skill",
+          "strat",
+          3,
+          4
+        ]
+      ]
+    ],
+    "iconid": 0,
+    "id": 100101311,
+    "jpdesc": "レース中盤に速度が上がる東京レース場の2400mのレースならしばらくの間すごく上がる＜先行/差し＞",
+    "jpname": "強襲のラン",
+    "loc": {
+      "en": {
+        "char": [
+          100101
+        ]
+      },
+      "ko": {
+        "char": [
+          100101
+        ]
+      },
+      "zh_tw": {
+        "char": [
+          100101
+        ]
+      }
+    },
+    "pre_evo": {
+      "card_id": 100101,
+      "old": 204111
+    },
+    "rarity": 6,
+    "type": [
+      "ldr",
+      "l_1",
+      "btw"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      104103
+    ],
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "distance_type==1&always==1",
+        "effects": [
+          {
+            "type": 22,
+            "value": 2500
+          }
+        ]
+      },
+      {
+        "base_time": 24000,
+        "condition": "is_activate_other_skill_detail==1&is_overtake==1&accumulatetime>=5@is_activate_other_skill_detail==1&overtake_target_time>=1&accumulatetime>=5",
+        "effects": [
+          {
+            "type": 22,
+            "value": 3500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "dt_gn_race_w",
+          "dist",
+          0,
+          100,
+          2
+        ],
+        [
+          "a_skill",
+          "dist",
+          0,
+          2
+        ]
+      ],
+      [
+        [
+          "stat",
+          1,
+          800
+        ]
+      ]
+    ],
+    "iconid": 0,
+    "id": 104103111,
+    "jpdesc": "スタート時に少し前に出るその後追い抜こうとするか近寄られると前に出る＜短距離＞",
+    "jpname": "超速×迅雷＝超バクシン！！",
+    "pre_evo": {
+      "card_id": 104103,
+      "old": 203871
+    },
+    "rarity": 6,
+    "type": [
+      "sho"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      104103
+    ],
+    "condition_groups": [
+      {
+        "base_time": 15000,
+        "condition": "phase_firstquarter==2&order==1@order_rate<=50&phase_firstquarter==2&is_overtake==1@phase_firstquarter_random==2&order_rate<=50",
+        "effects": [
+          {
+            "type": 31,
+            "value": 4000
+          }
+        ],
+        "precondition": "distance_type==1"
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "cond_e",
+          7
+        ],
+        [
+          "stat",
+          5,
+          800
+        ]
+      ],
+      [
+        [
+          "stat",
+          3,
+          800
+        ]
+      ]
+    ],
+    "iconid": 0,
+    "id": 104103211,
+    "jpdesc": "レース終盤始めの早めに先頭にいるか前方で追い抜こうとするとき、または終盤始めの方早めに前方だと加速力が上がる＜短距離＞",
+    "jpname": "猛進、桜吹雪の如く",
+    "pre_evo": {
+      "card_id": 104103,
+      "old": 204161
+    },
+    "rarity": 6,
+    "type": [
+      "nac"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      108202
+    ],
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "running_style==4&distance_type==2&phase_laterhalf_random==1&order_rate>=40",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          }
+        ]
+      },
+      {
+        "base_time": 24000,
+        "condition": "is_activate_other_skill_detail==1&is_last_straight==1",
+        "effects": [
+          {
+            "type": 22,
+            "value": 2500
+          },
+          {
+            "type": 9,
+            "value": -200
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "unknown"
+        ],
+        [
+          "a_skill",
+          "dist",
+          1,
+          2
+        ]
+      ],
+      [
+        [
+          "stat",
+          1,
+          800
+        ]
+      ]
+    ],
+    "iconid": 0,
+    "id": 108202111,
+    "jpdesc": "レース終盤が迫ったとき中団以降にいると速度が上がるその後最終直線で持久力を少し使って少し前に出る＜追込・マイル＞",
+    "jpname": "流麗なる急追",
+    "pre_evo": {
+      "card_id": 108202,
+      "old": 202961
+    },
+    "rarity": 6,
+    "type": [
+      "cha",
+      "mil",
+      "l_1"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      108202
+    ],
+    "condition_groups": [
+      {
+        "base_time": 12000,
+        "condition": "running_style==4&distance_type==2&phase_firstquarter_random==2",
+        "effects": [
+          {
+            "type": 31,
+            "value": 4000
+          }
+        ],
+        "precondition": "distance_rate>=50&order_rate_out50_continue==1"
+      },
+      {
+        "base_time": 30000,
+        "condition": "is_activate_other_skill_detail==1&phase_firsthalf_random==3",
+        "effects": [
+          {
+            "type": 22,
+            "value": 1500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "stat",
+          5,
+          800
+        ]
+      ],
+      [
+        [
+          "a_skill",
+          "strat",
+          4,
+          2
+        ],
+        [
+          "e_skill",
+          "accel",
+          2
+        ]
+      ]
+    ],
+    "iconid": 0,
+    "id": 108202211,
+    "jpdesc": "レース後半まで後方に控え続けていると終盤始めの方早めに加速力が上がるその後最終盤始めの方でわずかに前に出る＜追込・マイル＞",
+    "jpname": "春風、蒼穹を駆ける",
+    "pre_evo": {
+      "card_id": 108202,
+      "old": 202491
+    },
+    "rarity": 6,
+    "type": [
+      "cha",
+      "mil",
+      "l_3"
+    ]
+  },
+  {
+    "activation": 0,
+    "char": [
+      109802
+    ],
+    "condition_groups": [
+      {
+        "base_time": -1,
+        "condition": "ground_type==2&motivation==5",
+        "effects": [
+          {
+            "type": 32,
+            "value": 600000
+          }
+        ]
+      },
+      {
+        "base_time": -1,
+        "condition": "ground_type==2&motivation<=4",
+        "effects": [
+          {
+            "type": 1,
+            "value": 600000
+          },
+          {
+            "type": 3,
+            "value": 600000
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "stat",
+          3,
+          800
+        ]
+      ],
+      [
+        [
+          "a_skill",
+          "trn",
+          2,
+          3
+        ]
+      ]
+    ],
+    "iconid": 10016,
+    "id": 109802221,
+    "jpdesc": "スピードとパワーが上がる絶好調なら全ての基礎能力が上がる＜ダート＞",
+    "jpname": "盛運のドラムロール",
+    "pre_evo": {
+      "card_id": 109802,
+      "old": 202254
+    },
+    "rarity": 6,
+    "type": [
+      "dir"
     ]
   }
 ]
