@@ -134,8 +134,7 @@
     "desc_en": "Increase velocity continuously when pressured by another runner and running out of energy toward the front on the final corner or later.",
     "desc_ko": "레이스 종반이면서 최종 코너 이후에 전방에서 누군가 따라붙으면 속도가 계속해서 상승한다",
     "desc_tw": "在競賽後期且在最後彎道之後若位於隊列前方當被逼近時會使速度持續上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Final Corner or beyond, if you're in the top 4 and someone is about to overtake you, your speed will increase",
+    "endesc": "During the Final Corner or beyond, if you're in the top 4 and someone is about to overtake you, your speed will increase",
     "enname": "For the Strongest Name",
     "gene_version": {
       "activation": 1,
@@ -915,8 +914,7 @@
     "desc_en": "Moderately increase acceleration in an attempt to move up on a corner late-race.",
     "desc_ko": "레이스 종반 코너에서 중위권 그룹에 있으면 앞쪽 위치로 가기 위해 가속력이 다소 상승한다",
     "desc_tw": "在競賽後期的彎道若位於隊列中段會為了追趕至前方位置而使加速力稍微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Gain a slight increase in acceleration as you attempt to gain positions during the last corner of the race",
+    "endesc": "If you're in the middle of the pack during any Final Leg corner, your acceleration will increase",
     "enname": "Burning Muscles!",
     "gene_version": {
       "activation": 1,
@@ -1456,8 +1454,7 @@
     "desc_en": "Moderately clear a path forward with the power of divination when the way ahead is jammed late-race.",
     "desc_ko": "레이스 종반에 3위 이후에서 전방이 막히면 계시의 힘으로 길을 다소 개척한다",
     "desc_tw": "在競賽後期若位列第3之後當前方被阻擋時會以神助之力稍微開闢道路",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If during the Final Leg of the race your way to the front of the field is blocked, your power of divination will make it lightly easier to spot an opening",
+    "endesc": "If during the Final Leg of the race your way to the front of the field is blocked, your power of divination will make it lightly easier to spot an opening",
     "enname": "Come, Come!",
     "gene_version": {
       "activation": 1,
@@ -1544,8 +1541,7 @@
     "desc_en": "Moderately increase velocity with an arousal of fighting spirit when positioned 3rd and about to lose late-race.",
     "desc_ko": "레이스 종반에 3위이고 뒤의 우마무스메와의 차이가 1마신 이내라면 투지에 불이 붙어 속도가 다소 상승한다",
     "desc_tw": "在競賽後期若位列第3且與後方賽馬娘相差1身距之內會點燃鬥志，使速度稍微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "When you're in 3rd place at the end of the race and about to lose, you gain a little bit more fighting spirit and lightly increase your speed",
+    "endesc": "When you're in 3rd place at the end of the race and about to lose, you gain a little bit more fighting spirit and lightly increase your speed",
     "enname": "You Know, Sometimes Even I Can...",
     "gene_version": {
       "activation": 1,
@@ -1713,8 +1709,7 @@
     "desc_en": "Ride the momentum to increase velocity and very slightly increase acceleration after passing another runner toward the front late-race.",
     "desc_ko": "레이스 종반에 전방에서 상대를 추월하면 기세를 몰아 앞으로 나가고 추가로 가속력이 아주 조금 상승한다",
     "desc_tw": "在競賽後期若於隊列前方追過對手會順勢向前邁進且加速力些微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "The description of this skill has recently changed; retranslation is pending.",
+    "endesc": "If you're not in the back of the pack and overtake someone during the Final Leg or beyond, you will get a speed boost and your acceleration will slightly increase",
     "enname": "Shooting Star",
     "gene_version": {
       "activation": 1,
@@ -1983,8 +1978,7 @@
     "desc_en": "Greatly increase velocity with flashy footwork when closing the gap to runners ahead on the final straight.",
     "desc_ko": "레이스 종반에 앞과 거리가 좁혀지면 최종 직선에서 화려한 발놀림으로 속도가 많이 상승한다",
     "desc_tw": "在競賽後期若與前方差距縮小會在最後直線展現華麗的步伐使速度大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you tried to overtake another girl right in front of you anywhere during the Final Leg or later, then on the Final Straight, your speed will greatly increase",
+    "endesc": "If you tried to overtake another girl right in front of you anywhere during the Final Leg or later, then on the Final Straight, your speed will greatly increase",
     "enname": "Ultimate Teio Step",
     "gene_version": {
       "activation": 1,
@@ -3072,8 +3066,7 @@
     "desc_en": "Greatly increase velocity on the final straight after passing another runner 3 times late-race.",
     "desc_ko": "레이스 종반에 3회 추월하면 최종 직선에서 속도가 많이 상승한다",
     "desc_tw": "在競賽後期若追過對手3次進入最後直線時速度會大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Final Leg of the race make three overtakes to strongly increase your speed on the final straight",
+    "endesc": "During the Final Leg of the race make three overtakes to strongly increase your speed on the final straight",
     "enname": "Thou, Witness the Heavenly Might of the Emperor",
     "gene_version": {
       "activation": 1,
@@ -3277,8 +3270,7 @@
     "desc_en": "Increase velocity by deriving the winning equation when passing another runner toward the front on the final corner or later.",
     "desc_ko": "종반의 최종 코너 이후에 전방에 있다면 속도가 상승하며, 냉정함을 유지했다면 승리 방정식을 도출해 속도가 많이 상승한다",
     "desc_tw": "在後期的最後彎道之後若位於隊列前方速度會上升，若能保持冷靜則會在導出勝利方程式後大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the front during the Final Corner or beyond, your speed will increase; bonus speed if you haven't panicked (kakari) during the race",
+    "endesc": "If you're in the front during the Final Corner or beyond, your speed will increase; bonus speed if you haven't panicked (kakari) during the race",
     "enname": "∴win Q.E.D.",
     "gene_version": {
       "activation": 1,
@@ -3625,8 +3617,7 @@
     "desc_en": "Increase acceleration in an attempt to move up on a corner late-race.",
     "desc_ko": "레이스 종반 코너에서 중위권 그룹에 있으면 앞쪽 위치로 가기 위해 가속력이 상승한다",
     "desc_tw": "在競賽後期的彎道若位於隊列中段會為了追趕至前方位置而使加速力上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Increase acceleration as you attempt to overtake on a corner in the Final Leg or beyond",
+    "endesc": "If you're in the middle of the pack during any Final Leg corner, your acceleration will increase",
     "enname": "Let's Anabolic!",
     "gene_version": {
       "activation": 1,
@@ -3711,8 +3702,7 @@
     "desc_en": "Increase velocity with strong willpower on the final straight after passing another runner in the front part of the pack on the final corner or later.",
     "desc_ko": "레이스 종반에 추월해서 선두 그룹에 따라붙으면 최종 직선에서 강한 의지를 가지고 속도가 상승한다",
     "desc_tw": "在競賽後期若追過對手並進入領先集團，會在最後直線以堅強的意志使速度上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you've overtaken another girl in the front during the Final Leg or beyond, then on the Final Straight, your speed will increase",
+    "endesc": "If you've overtaken another girl in the front during the Final Leg or beyond, then on the Final Straight, your speed will increase",
     "enname": "Blue Rose Chaser",
     "gene_version": {
       "activation": 1,
@@ -4282,8 +4272,7 @@
     "desc_en": "Clear a path forward with the power of divination when the way ahead is jammed late-race.",
     "desc_ko": "레이스 종반에 3위 이후에서 전방이 막히면 계시의 힘으로 길을 개척한다",
     "desc_tw": "在競賽後期若位列第3之後當前方被阻擋時會以神助之力開闢道路",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "When the front is packed during the Final Leg of the race, the oracle's power will open a path",
+    "endesc": "When the front is packed during the Final Leg of the race, the oracle's power will open a path",
     "enname": "Luck Is Coming",
     "gene_version": {
       "activation": 1,
@@ -4370,8 +4359,7 @@
     "desc_en": "Increase velocity with flaring fighting spirit when positioned 3rd and about to lose late-race.",
     "desc_ko": "레이스 종반에 3위이고 뒤의 우마무스메와의 차이가 1마신 이내라면 품고 있던 투지에 불이 붙어 속도가 상승한다",
     "desc_tw": "在競賽後期若位列第3且與後方賽馬娘相差1身距之內會點燃深藏的鬥志，使速度上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "When you're in 3rd place at the end of the race and about to lose, your speed increases",
+    "endesc": "When you're in 3rd place at the end of the race and about to lose, your speed increases",
     "enname": "Surely, Beyond...!",
     "gene_version": {
       "activation": 1,
@@ -12724,8 +12712,7 @@
     "desc_en": "Recover endurance on a corner with efficient turning.",
     "desc_ko": "군더더기 없는 코너링으로 지구력을 회복한다",
     "desc_tw": "以最佳的路線通過彎道回復持久力",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point on any corner, your stamina will recover",
+    "endesc": "During any Middle Leg corner, your stamina will recover",
     "enname": "Arc Maestro",
     "evo": [
       {
@@ -12917,8 +12904,7 @@
     "desc_en": "Slightly recover endurance on a corner with efficient turning.",
     "desc_ko": "군더더기 없는 코너링으로 지구력을 약간 회복한다",
     "desc_tw": "以最佳的路線通過彎道略微回復持久力",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point on any corner, your stamina will slightly recover",
+    "endesc": "During any Middle Leg corner, your stamina will slightly recover",
     "enname": "Corner Recovery ○",
     "iconid": 20021,
     "id": 200352,
@@ -13201,8 +13187,7 @@
     "desc_en": "Moderately lose endurance on a corner with inefficient turning.",
     "desc_ko": "군더더기가 많은 코너링으로 지구력이 다소 감소한다",
     "desc_tw": "以不佳的路線通過彎道持久力稍微減少",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point on any corner, you will use a little extra stamina",
+    "endesc": "During any Middle Leg corner, you will use a little extra stamina",
     "enname": "Corner Recovery ×",
     "iconid": 20024,
     "id": 200353,
@@ -15026,7 +15011,7 @@
     "desc_en": "Moderately increase time lost to slow starts.",
     "desc_ko": "스타트가 서툴러져 출발 지연 시간이 다소 늘어난다",
     "desc_tw": "變得不擅長起跑延遲時間稍微變多",
-    "endesc": "Worse at starts, lightly increases delay of Late Starts",
+    "endesc": "Your Start Reaction Time is slightly worsened",
     "enname": "Gate Trouble",
     "iconid": 20064,
     "id": 200433,
@@ -16914,8 +16899,7 @@
     "desc_en": "Increase maneuverability when the way ahead is blocked in the last spurt.",
     "desc_ko": "라스트 스퍼트 중에 앞이 가로막혔을 때 가속력이 상승하고 코스를 다소 능숙하게 잡는다",
     "desc_tw": "於最後衝刺階段當前方堵塞時加速力上升且變得稍微擅長爭搶賽道",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If there's another girl right in front of you during the Last Spurt, your acceleration and lane movement speed will increase",
+    "endesc": "If there's another girl right in front of you during your last spurt, your acceleration and lane movement speed will increase",
     "enname": "Non-stop Girl",
     "evo": [
       {
@@ -17098,8 +17082,7 @@
     "desc_en": "Slightly increase maneuverability when the way ahead is blocked in the last spurt.",
     "desc_ko": "라스트 스퍼트 중에 앞이 가로막혔을 때 가속력이 약간 상승하고 코스를 아주 조금 능숙하게 잡는다",
     "desc_tw": "於最後衝刺階段當前方堵塞時加速力略微上升且變得些微擅長爭搶賽道",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "When blocked during Last Spurt, become slightly better at navigating through it",
+    "endesc": "If there's another girl right in front of you during your last spurt, your acceleration and lane movement speed will slightly increase",
     "enname": "Slight Detour",
     "iconid": 20041,
     "id": 200492,
@@ -17429,7 +17412,7 @@
     "desc_en": "Increase navigation late-race.",
     "desc_ko": "레이스 종반에 코스를 능숙하게 잡는다",
     "desc_tw": "在競賽後期變得擅長爭搶賽道",
-    "endesc": "Become a little better at positioning during the Final Leg of the race",
+    "endesc": "At a random point during the Final Leg, your lane movement speed will increase",
     "enname": "Magician of the Lane",
     "evo": [
       {
@@ -17514,7 +17497,7 @@
     "desc_en": "Moderately increase navigation late-race.",
     "desc_ko": "레이스 종반에 코스를 다소 능숙하게 잡는다",
     "desc_tw": "在競賽後期變得稍微擅長爭搶賽道",
-    "endesc": "Become a little better at positioning during the Final Leg of the race",
+    "endesc": "At a random point during the Final Leg, your lane movement speed will slightly increase",
     "enname": "Improvise",
     "iconid": 20051,
     "id": 200502,
@@ -17776,7 +17759,7 @@
     "desc_en": "Increase velocity in the last spurt.",
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 상승한다",
     "desc_tw": "在展開最後衝刺時速度上升",
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Heart and Soul",
     "evo": [
       {
@@ -17973,7 +17956,7 @@
     "desc_en": "Slightly increase velocity in the last spurt.",
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다",
     "desc_tw": "在展開最後衝刺時速度略微上升",
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Last Leg",
     "iconid": 20011,
     "id": 200512,
@@ -22699,8 +22682,7 @@
     "desc_en": "Move up in preparation to close the gap when positioned toward the back late-race. (End Closer)",
     "desc_ko": "레이스 종반에 후방에 있으면 라스트 스퍼트가 한창일 때 속도가 상승한다＜작전·추입＞",
     "desc_tw": "競賽後期若位於隊列後方在展開最後衝刺時會提升速度＜作戰・後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will increase",
     "enname": "Storm and Stress",
     "evo": [
       {
@@ -22827,8 +22809,7 @@
     "desc_en": "Slightly move up in preparation to close the gap when positioned toward the back late-race. (End Closer)",
     "desc_ko": "레이스 종반에 후방에 있으면 라스트 스퍼트가 한창일 때 속도가 약간 상승한다 ＜작전·추입＞",
     "desc_tw": "競賽後期若位於隊列後方在展開最後衝刺時會略微提升速度＜作戰・後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Outstanding Stratagem",
     "iconid": 20011,
     "id": 200632,
@@ -23022,8 +23003,7 @@
     "desc_en": "Increase acceleration on a straight in the last spurt. (End Closer)",
     "desc_ko": "라스트 스퍼트 중에 직선에서 가속력이 상승한다＜작전・추입＞",
     "desc_tw": "在最後衝刺的直線加速力上升＜作戰・後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・During any Last Spurt straight, your acceleration will increase",
+    "endesc": "Chaser・During any Last Spurt straight, your acceleration will increase",
     "enname": "Imminent Shadow",
     "evo": [
       {
@@ -23161,8 +23141,7 @@
     "desc_en": "Slightly increase acceleration on a straight in the last spurt. (End Closer)",
     "desc_ko": "라스트 스퍼트 중에 직선에서 가속력이 약간 상승한다＜작전・추입＞",
     "desc_tw": "在最後衝刺的直線加速力略微上升＜作戰・後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・During any Last Spurt straight, your acceleration will slightly increase",
+    "endesc": "Chaser・During any Last Spurt straight, your acceleration will slightly increase",
     "enname": "Straight Shot",
     "iconid": 20041,
     "id": 200642,
@@ -47127,8 +47106,7 @@
     "desc_en": "Slightly recover endurance after activating many skills late-race.",
     "desc_ko": "레이스 종반에 스킬을 많이 발동하면 지구력을 약간 회복한다",
     "desc_tw": "在競賽後期若發動多個技能會略微回復持久力",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you activate at least 3 other skills during the Final Leg, your stamina will slightly recover",
+    "endesc": "If you activate at least 3 other skills during the Final Leg, your stamina will slightly recover",
     "enname": "Shake It Out",
     "iconid": 20021,
     "id": 201621,
@@ -49160,8 +49138,7 @@
     "desc_en": "Increase acceleration at an opportune moment when in the lead on a corner late-race.",
     "desc_ko": "레이스 종반 코너에서 선두에 있으면 기회를 틈타 가속력이 상승한다",
     "desc_tw": "在競賽後期的彎道若位居領先會把握這個大好機會，使加速力上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the first position on any corner in the Final Leg or beyond, your acceleration will increase",
+    "endesc": "If you're in the first position on any corner in the Final Leg or beyond, your acceleration will increase",
     "enname": "Angling×Scheming",
     "gene_version": {
       "activation": 1,
@@ -49523,8 +49500,7 @@
     "desc_en": "Greatly increase velocity with a dazzling display when just breaking out of the pack toward the front on the final straight.",
     "desc_ko": "종반에 전방에서 다소 앞서 있으면 남은 거리가 300m 이하일 때 반짝임이 더해지며 속도가 많이 상승한다",
     "desc_tw": "在後期若從隊列前方稍微突圍會在剩餘不到300ｍ處更加耀眼而使速度大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Final Leg or beyond, if you were ever in the front with another girl behind you, then with 300 m remaining in the race, your speed will greatly increase",
+    "endesc": "During the Final Leg or beyond, if you were ever in the front with another girl behind you, then with 300 m remaining in the race, your speed will greatly increase",
     "enname": "Glittering Star Vaudeville",
     "gene_version": {
       "activation": 1,
@@ -49943,8 +49919,7 @@
     "desc_en": "Aim for the front with unwavering determination when passing another runner from midpack or further back on a corner late-race.",
     "desc_ko": "레이스 종반에 추월하면 포기하지 않는 마음을 발휘해 앞을 목표로 한다",
     "desc_tw": "在競賽後期若追過對手會發揮不屈不撓之心向前奔馳",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you overtake someone during the Final Leg or beyond, your speed and acceleration will slightly increase",
+    "endesc": "If you overtake someone during the Final Leg or beyond, your speed and acceleration will slightly increase",
     "enname": "I Never Goof Up!",
     "gene_version": {
       "activation": 1,
@@ -50817,8 +50792,7 @@
     "desc_en": "Increase velocity and navigation with the pure euphoria of being within breathing distance of precious waifus after passing another runner 2 times late-race.",
     "desc_ko": "레이스 종반에 2회 추월하면 가까이서 보는 우마무스메가 너무 존귀한 나머지 무심코 속도가 상승하고 코스를 능숙하게 잡는다",
     "desc_tw": "在競賽後期若追過對手2次就會因為在近距離瞻仰的賽馬娘們太尊而不禁使速度上升並變得擅長爭搶賽道",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you overtake others at least twice at the end of the race, your speed will increase",
+    "endesc": "If you overtake others at least twice at the end of the race, your speed will increase",
     "enname": "Kyuute☆Last SpuU(ﾟ∀ﾟ)Uurt!",
     "gene_version": {
       "activation": 1,
@@ -52219,8 +52193,7 @@
     "desc_en": "Increase velocity when well-positioned on a straight in the last spurt. (Medium)",
     "desc_ko": "종반의 최종 직선에서 좋은 위치에 있으면 속도가 상승한다＜중거리＞",
     "desc_tw": "在後期的最後直線位於良好位置時速度上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・If you're in a good position on the Final Straight during the Final Leg, your speed will increase",
+    "endesc": "Medium・If you're in a good position on the Final Straight during the Final Leg, your speed will increase",
     "enname": "Prepared to Die",
     "evo": [
       {
@@ -52398,8 +52371,7 @@
     "desc_en": "Slightly increase velocity when well-positioned on a straight in the last spurt. (Medium)",
     "desc_ko": "종반의 최종 직선에서 좋은 위치에 있으면 속도가 약간 상승한다＜중거리＞",
     "desc_tw": "在後期的最後直線位於良好位置時速度略微上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・If you're in a good position on the Final Straight during the Final Leg, your speed will slightly increase",
+    "endesc": "Medium・If you're in a good position on the Final Straight during the Final Leg, your speed will slightly increase",
     "enname": "All That There Is",
     "iconid": 20011,
     "id": 201702,
@@ -52686,8 +52658,7 @@
     "desc_en": "Increase velocity with a blazing spirit when pressured by another runner in the front part of the pack on the final corner or later.",
     "desc_ko": "레이스 종반에 선두 그룹에서 누군가 따라붙으면 최종 코너 이후에 투지를 불태워 속도가 계속해서 상승한다",
     "desc_tw": "競賽後期若位於領先集團被對手逼近時會在最後彎道之後點燃鬥志使速度持續上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If someone has been trying to overtake you in the first half of the pack during the Final Leg or beyond, then on the Final Corner, your speed will increase",
+    "endesc": "If someone has been trying to overtake you in the first half of the pack during the Final Leg or beyond, then on the Final Corner, your speed will increase",
     "enname": "Howling Arrow Piercing the Darkness",
     "gene_version": {
       "activation": 1,
@@ -53107,8 +53078,7 @@
     "desc_en": "Having run the race calmly, increase acceleration with hardened determination when making a move mid-race, or on a crucial corner late-race whilst in midpack.",
     "desc_ko": "흥분하지 않고 중반의 최종 코너 혹은 종반의 최종 코너가 아닌 코너를 중위권 그룹에서 달리면 분발해서 가속력이 상승한다",
     "desc_tw": "若能夠不暴衝，並在中期的最後彎道或後期不是最後彎道的彎道跑在隊列中段則會振奮精神使加速力上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you keep your calm in the middle of the pack during a Middle or Final Leg corner, your acceleration will increase",
+    "endesc": "If you keep your calm in the middle of the pack during a Middle or Final Leg corner, your acceleration will increase",
     "enname": "Beyond the Other Side",
     "gene_version": {
       "activation": 1,
@@ -53387,8 +53357,7 @@
     "desc_en": "Increase velocity by deriving a path to victory mid-race after staying well-positioned from the start of the race up until the second half.",
     "desc_ko": "스타트 후부터 레이스 후반까지 좋은 위치를 계속 유지하면 레이스 중반에 승리를 향한 코스를 발견하고 속도가 상승한다",
     "desc_tw": "從起跑後到競賽後半為止若持續維持良好位置，會在競賽中期找到通往勝利的道路而使速度上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you maintain good position from the start to the second half of the race, your speed will increase",
+    "endesc": "If you maintain good position from the start to the second half of the race, your speed will increase",
     "enname": "Presents from X",
     "gene_version": {
       "activation": 1,
@@ -57902,8 +57871,7 @@
     "desc_en": "If positioned toward the front on a straight late-race, increase velocity with high spirits. If the straight is on the backstretch, also increase acceleration very slightly.",
     "desc_ko": "종반 직선에서 전방에 있으면 의기양양하게 속도가 상승하며, 그곳이 백스트레치인 경우 추가로 가속력이 약간 상승한다",
     "desc_tw": "在後期的直線若位於隊列前方會意氣風發使速度上升，若位於對向直線跑道會再使加速力略微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Final Leg or beyond, if you're in the front during any straight, your speed will increase; if the straight is on the opposite side from the audience, your acceleration will slightly increase too",
+    "endesc": "During the Final Leg or beyond, if you're in the front during any straight, your speed will increase; if the straight is on the opposite side from the audience, your acceleration will slightly increase too",
     "enname": "Do Ya Breakin!",
     "gene_version": {
       "activation": 1,
@@ -58990,8 +58958,7 @@
     "desc_en": "If the skill user engaged in a challenge on a mid-race corner, increase acceleration when well-positioned late-race at least halfway through the final corner.",
     "desc_ko": "레이스 중반 코너에서 경합할 경우, 종반이면서 최종 코너 절반 이후에 좋은 위치에 있으면 가속력이 상승한다",
     "desc_tw": "在競賽中期的彎道若與對手競爭進入後期且最後彎道過半之後若位於良好位置則會使加速力上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're trying to push for the front near the end of the race, your acceleration will increase",
+    "endesc": "If you're trying to push for the front near the end of the race, your acceleration will increase",
     "enname": "When the Flower Bud Opens",
     "gene_version": {
       "activation": 1,
@@ -60317,8 +60284,7 @@
     "desc_en": "If positioned toward the front from the start of the race until the second half of the race, good vibes recover endurance and moderately increase velocity steadily.",
     "desc_ko": "스타트 후부터 레이스 후반까지 전방을 유지 하면 기분이 엄청 좋아져서 지구력을 회복하 고 추가로 속도가 다소 상승세를 탄다",
     "desc_tw": "從起跑後到競賽後半為止若能維持在隊列前方，會鬥志激昂並回復持久力且使速度逐漸稍微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you've been in the front of the pack for the entire first half of the race, your stamina will recover and your speed will increase",
+    "endesc": "If you've been in the front of the pack for the entire first half of the race, your stamina will recover and your speed will increase",
     "enname": "The Breakaway Road",
     "gene_version": {
       "activation": 1,
@@ -60505,8 +60471,7 @@
     "desc_en": "If well-positioned late-race on the final corner or later, increase velocity. If there's a large distance left to the finish, also increase acceleration very slightly with perfect form.",
     "desc_ko": "종반 최종 코너 이후에 좋은 위치에 있으면 속도가 상승하며 결승점까지 멀면 최고의 달리기로 추가로 가속력이 아주 조금 상승한다",
     "desc_tw": "在後期的最後彎道之後若位於良好位置會使速度上升，當距離終點尚遠時則會以最棒的跑姿使加速力些微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in a good position during the Final Corner or beyond, your speed will increase; if there's still more than 400m left in the race, your acceleration will increase too",
+    "endesc": "If you're in a good position during the Final Corner or beyond, your speed will increase; if there's still more than 400m left in the race, your acceleration will increase too",
     "enname": "Best Day Ever",
     "gene_version": {
       "activation": 1,
@@ -61900,8 +61865,7 @@
     "desc_en": "If the skill user activates another skill on the final corner late-race, take the crowd's cheers to heart and moderately increase velocity. If racing at Nakayama Racecourse, greatly increase velocity instead.",
     "desc_ko": "종반 최종 코너에서 스킬을 발동하면 성원을 품고 속도가 다소 상승한다 나카야마 경기장이라면 많이 상승한다",
     "desc_tw": "在後期最後彎道若發動技能會因為聲援而使速度稍微上升若在中山賽場則會大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you activate any skill on the Final Corner, your speed will increase; the effect is stronger in Nakayama",
+    "endesc": "If you activate any skill on the Final Corner, your speed will increase; the effect is stronger in Nakayama",
     "enname": "Dignified Dreamlike Brocade",
     "gene_version": {
       "activation": 1,
@@ -62587,8 +62551,7 @@
     ],
     "desc_ko": "종반 최종 코너 이후에 후방에서 따라붙으면 짧은 시간 동안 가속력이 아주 조금 상승하며 효과 중에 추월하면 3회까지 효과와 시간이 증가한다",
     "desc_tw": "後期最後彎道之後若從隊列後方向前逼近會使加速力極短時間內些微上升效果期間中如追過對手最多可增加效果與時間3次",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During or after the Final Corner, if you're in the second half of the pack, your acceleration will increase; bonus duration and effect strength for overtaking up to 3 times",
+    "endesc": "During or after the Final Corner, if you're in the second half of the pack, your acceleration will increase; bonus duration and effect strength for overtaking up to 3 times",
     "enname": "Hot-Blooded Disciplinary Attack!",
     "gene_version": {
       "activation": 1,
@@ -63958,8 +63921,7 @@
     "cost": 180,
     "desc_ko": "라스트 스퍼트 때 전방에 있으면 속도가 상승한다＜더트＞",
     "desc_tw": "在最後衝刺階段若位於隊列前方速度會上升＜沙地＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・If you're in the first half of the pack during the Last Spurt, your speed will increase",
+    "endesc": "Dirt・If you're in the first half of the pack during the Last Spurt, your speed will increase",
     "enname": "Full Speed Ahead!",
     "evo": [
       {
@@ -64042,8 +64004,7 @@
     "cost": 180,
     "desc_ko": "라스트 스퍼트 때 전방에 있으면 속도가 약간 상승한다＜더트＞",
     "desc_tw": "在最後衝刺階段若位於隊列前方速度會略微上升＜沙地＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・If you're in the first half of the pack during the Last Spurt, your speed will slightly increase",
+    "endesc": "Dirt・If you're in the first half of the pack during the Last Spurt, your speed will slightly increase",
     "enname": "At Full Speed",
     "iconid": 20011,
     "id": 202282,
@@ -65829,8 +65790,7 @@
     ],
     "desc_ko": "라스트 스퍼트의 최종 직선에서 중위권 그룹 이후일 때 속도가 다소 상승세를 타며, 효과 중 스킬을 발동하면 3회까지 효과가 증가한다",
     "desc_tw": "在最後衝刺的最後直線位於隊列中段之後使速度逐漸稍微上升，若於效果期間發動技能最多可使效果增加3次",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Final Straight, if you're not in the front, your speed will increase; bonus speed for activating skills while this is active (up to 3 times)",
+    "endesc": "During the Final Straight, if you're not in the front, your speed will increase; bonus speed for activating skills while this is active (up to 3 times)",
     "enname": "Delivering Beyond the Dreams!",
     "gene_version": {
       "activation": 1,
@@ -65906,8 +65866,7 @@
     ],
     "desc_ko": "레이스 종반의 최종 코너 후반에 높은 경지를 향해 중위권 그룹에서 속도가 상승한다",
     "desc_tw": "在競賽後期的最後彎道後半會追求更高的名次從隊列中段使速度上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the middle of the pack during the second half of the Final Corner in the Final Leg, your speed will increase",
+    "endesc": "If you're in the middle of the pack during the second half of the Final Corner in the Final Leg, your speed will increase",
     "enname": "Hephaistos",
     "gene_version": {
       "activation": 1,
@@ -66587,8 +66546,7 @@
     "cost": 180,
     "desc_ko": "레이스 종반에 후방에서 추월하려고 하면 가속력이 상승한다＜단거리/마일＞",
     "desc_tw": "在競賽後期若於隊列後方準備追過對手加速力上升＜短距離/一哩＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Short/Mile・If you're about to overtake someone in the second half of the pack during the Final Leg, your acceleration will increase",
+    "endesc": "Short/Mile・If you're about to overtake someone in the second half of the pack during the Final Leg, your acceleration will increase",
     "enname": "Lightning Speed",
     "evo": [
       {
@@ -66694,8 +66652,7 @@
     "cost": 180,
     "desc_ko": "레이스 종반에 후방에서 추월하려고 하면 가속력이 약간 상승한다 ＜단거리/마일＞",
     "desc_tw": "在競賽後期若於隊列後方準備追過對手加速力略微上升＜短距離/一哩＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Short/Mile・If you're about to overtake someone in the second half of the pack during the Final Leg, your acceleration will slightly increase",
+    "endesc": "Short/Mile・If you're about to overtake someone in the second half of the pack during the Final Leg, your acceleration will slightly increase",
     "enname": "Mighty Leap",
     "iconid": 20041,
     "id": 202402,
@@ -67480,8 +67437,7 @@
     "cost": 180,
     "desc_ko": "라스트 스퍼트 때 중위권 그룹 이후에 있으면 지구력을 다소 사용해서 가속력이 상승한다 ＜선입・장거리＞",
     "desc_tw": "在最後衝刺階段若位於隊列中段之後稍微消耗持久力使加速力上升＜居中．長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・Long・During the Last Spurt, if you're not in the front, use some stamina to increase your acceleration",
+    "endesc": "Betweener・Long・During the Last Spurt, if you're not in the front, use some stamina to increase your acceleration",
     "enname": "Lose Yourself",
     "evo": [
       {
@@ -67584,8 +67540,7 @@
     "cost": 180,
     "desc_ko": "라스트 스퍼트 때 중위권 그룹 이후에 있으면 지구력을 다소 사용해서 가속력이 약간 상승한다＜선입・장거리＞",
     "desc_tw": "在最後衝刺階段若位於隊列中段之後稍微消耗持久力使加速力略微上升＜居中．長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・Long・During the Last Spurt, if you're not in the front, use some stamina to slightly increase your acceleration",
+    "endesc": "Betweener・Long・During the Last Spurt, if you're not in the front, use some stamina to slightly increase your acceleration",
     "enname": "Devil-May-Care",
     "iconid": 20041,
     "id": 202422,
@@ -67811,8 +67766,7 @@
     ],
     "desc_ko": "종반 코너에서 후방에서 따라붙으면 최종 직선에서 속도가 상승하며, 종반 코너에서 추월한 횟수에 따라 효과가 증가한다",
     "desc_tw": "在後期的彎道若由隊列後方向前逼近進入最後直線時速度會上升並依照在後期的彎道追過對手的次數使效果增加",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you were in the back of the pack during a Final Leg corner, your speed on the last straight will increase depending on the number of times you've overtaken someone on the corner",
+    "endesc": "If you were in the back of the pack during a Final Leg corner, your speed on the last straight will increase depending on the number of times you've overtaken someone on the corner",
     "enname": "Bristling Lights",
     "gene_version": {
       "activation": 1,
@@ -68524,8 +68478,7 @@
     "cost": 200,
     "desc_ko": "라스트 스퍼트 때 속도가 상승하며 가장 우수한 기초 능력의 수치에 따라 효과가 증가한다",
     "desc_tw": "在最後衝刺階段速度上升依照最優秀的基礎能力數值提高效果",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Increases speed during the Last Spurt (special scaling under investigation)",
+    "endesc": "Increases speed during the Last Spurt (special scaling under investigation)",
     "enname": "Beyond the Limits",
     "evo": [],
     "iconid": 20162,
@@ -68561,8 +68514,7 @@
     "cost": 200,
     "desc_ko": "라스트 스퍼트 때 속도가 약간 상승하며 가장 우수한 기초 능력의 수치에 따라 효과가 증가한다",
     "desc_tw": "在最後衝刺階段速度略微上升依照最優秀的基礎能力數值提高效果",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Increases speed during the Last Spurt (special scaling under investigation)",
+    "endesc": "Increases speed during the Last Spurt (special scaling under investigation)",
     "enname": "Eyes on the Horizon",
     "iconid": 20161,
     "id": 210082,
@@ -68643,8 +68595,7 @@
     "cost": 150,
     "desc_ko": "라스트 스퍼트 때 지구력을 다소 사용해 속도가 다소 상승한다",
     "desc_tw": "在最後衝刺階段稍微消耗持久力使速度稍微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Last Spurt, use a little stamina to increase your speed a little",
+    "endesc": "During the Last Spurt, use a little stamina to increase your speed a little",
     "enname": "Essence of Racing・Stamina",
     "iconid": 20161,
     "id": 210101,
@@ -68681,8 +68632,7 @@
     "cost": 150,
     "desc_ko": "라스트 스퍼트 때 추월하려고 하면 한동안 속도가 약간 상승한다",
     "desc_tw": "在最後衝刺階段若準備追過對手一段時間內速度會略微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you try to overtake someone during the Last Spurt, your speed will increase a little",
+    "endesc": "If you try to overtake someone during the Last Spurt, your speed will increase a little",
     "enname": "Essence of Racing・Power",
     "iconid": 20161,
     "id": 210111,
@@ -69956,8 +69906,7 @@
     ],
     "desc_ko": "레이스 종반 남은 거리 400m 지점에서 전방에 있으면 속도가 상승하며, 추가로 GⅠ등 큰 무대에서 인기가 높은 경우 많이 상승한다",
     "desc_tw": "競賽後期剩餘400m處若位於隊列前方速度上升，且若在GⅠ等大舞台獲得高支持度時大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "With 400 meters remaining, if you're in the front of the pack, your speed will increase; the effect is stronger if it's a big race (G1 or similar) and you're popular",
+    "endesc": "With 400 meters remaining, if you're in the front of the pack, your speed will increase; the effect is stronger if it's a big race (G1 or similar) and you're popular",
     "enname": "Raise Thy Soul's Sword!",
     "gene_version": {
       "activation": 1,
@@ -70051,8 +70000,7 @@
     ],
     "desc_ko": "종반 최종 코너 후반에 선두 그룹에 있으면 속도가 상승하며, 장거리 레이스에서 중반에 경합을 했을 경우에는 아주 많이 상승한다",
     "desc_tw": "在後期的最後彎道後半若位於領先集團速度上升，若在長距離競賽中期與對手競爭時則極大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in front during the second half of the Final Corner, your speed will increase; bonus effect if it's a long race and you were blocked from the side during the Middle Leg",
+    "endesc": "If you're in front during the second half of the Final Corner, your speed will increase; bonus effect if it's a long race and you were blocked from the side during the Middle Leg",
     "enname": "Critical Point: Gray",
     "gene_version": {
       "activation": 1,
@@ -70319,8 +70267,7 @@
     ],
     "desc_ko": "종반 코너에서 전방에 있을 때 결승점까지의 거리가 멀면 잠시 동안 앞으로 나오며 추가로 가속력이 아주 조금 상승한다",
     "desc_tw": "在競賽後期的彎道位於隊列前方時若距離終點尚遠，則短時間內向前邁進並使加速力些微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During a Final Leg corner where at least 600 meters remain, if you're in front of the pack, your speed and acceleration will increase",
+    "endesc": "During a Final Leg corner where at least 600 meters remain, if you're in front of the pack, your speed and acceleration will increase",
     "enname": "Lavish Feast",
     "gene_version": {
       "activation": 1,
@@ -70601,8 +70548,7 @@
     ],
     "desc_ko": "더트 레이스의 중반 코너에서 경합한 경우 라스트 스퍼트 중에 좋은 위치에 있으면 가속력이 약간 상승하고 여력이 충분하면 효과가 증가한다",
     "desc_tw": "在沙地競賽若於中期的彎道與對手競爭當最後衝刺階段取得良好位置時加速力略微上升保有充足餘力時則效果會增加",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・If you were blocked from the side during any Middle Leg corner, then if you're in a good position during the Last Spurt, your acceleration will increase; the effect is stronger if you have plenty of stamina left",
+    "endesc": "Dirt・If you were blocked from the side during any Middle Leg corner, then if you're in a good position during the Last Spurt, your acceleration will increase; the effect is stronger if you have plenty of stamina left",
     "enname": "Shine ☆ Tomakomai",
     "gene_version": {
       "activation": 1,
@@ -71572,8 +71518,7 @@
     ],
     "desc_ko": "중반의 중간에 거리를 벌린 채 선두라면 아주 오랫동안 속도가 계속해서 아주 조금 상승하지만 종반의 끝에 아주 조금 뒤처져 버린다",
     "desc_tw": "在中期的一半若位居領先並拉開一段距離，會使速度超長時間些微持續上升但後期的尾聲會些微力竭",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're leading by at least one length one-third through the race, your speed will marginally increase, but then during the Last Spurt, it will marginally decrease",
+    "endesc": "If you're leading by at least one length one-third through the race, your speed will marginally increase, but then during the Last Spurt, it will marginally decrease",
     "enname": "Engine Ignition!",
     "gene_version": {
       "activation": 1,
@@ -71763,8 +71708,7 @@
     ],
     "desc_ko": "중반의 중간에 거리를 벌린 채 선두라면 아주 오랫동안 속도가 계속해서 약간 상승하지만 종반의 끝에 아주 조금 뒤처져 버린다",
     "desc_tw": "在中期的一半若位居領先並拉開一段距離，會使速度超長時間略微持續上升但後期的尾聲會些微力竭",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're leading by at least one length one-third through the race, your speed will slightly increase, but then during the Last Spurt, it will marginally decrease",
+    "endesc": "If you're leading by at least one length one-third through the race, your speed will slightly increase, but then during the Last Spurt, it will marginally decrease",
     "enname": "Engine, Full Throttle! Turbo Time!",
     "gene_version": {
       "activation": 1,
@@ -72443,8 +72387,7 @@
     "cost": 200,
     "desc_ko": "레이스 종반의 중간쯤에서 속도가 상승하고 획득한 스킬 수에 따라 효과가 상승한다",
     "desc_tw": "在競賽後期的中途左右速度會上升依照已獲得的技能數量提高效果",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the second half of the Final Leg, your speed will increase based on the number of skills you have (up to 20)",
+    "endesc": "During the second half of the Final Leg, your speed will increase based on the number of skills you have (up to 20)",
     "enname": "Wisdom of the Land",
     "evo": [],
     "iconid": 20192,
@@ -72483,8 +72426,7 @@
     "cost": 200,
     "desc_ko": "레이스 종반의 중간쯤에서 속도가 약간 상승하고 획득한 스킬 수에 따라 효과가 상승한다",
     "desc_tw": "在競賽後期的中途左右速度會略微上升依照已獲得的技能數量提高效果",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the second half of the Final Leg, your speed will increase based on the number of skills you have (up to 20)",
+    "endesc": "During the second half of the Final Leg, your speed will increase based on the number of skills you have (up to 20)",
     "enname": "Blessing of the Land",
     "iconid": 20191,
     "id": 210282,
@@ -72528,8 +72470,7 @@
     ],
     "desc_ko": "레이스 중반에 지구력을 회복하고 추가로 속도가 약간 상승한다＜작전·선행＞",
     "desc_tw": "在競賽中期回復持久力且速度會略微上升＜作戰．前列＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・At a random point during the Middle Leg, your speed will slightly increase and your stamina will recover",
+    "endesc": "Leader/Betweener・At a random point during the Middle Leg, your speed will slightly increase and your stamina will recover",
     "enname": "Hungry Commander",
     "evo_cond": [
       [
@@ -72639,7 +72580,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Dream-fulfilling Sprint",
     "evo_cond": [
       [
@@ -74837,8 +74778,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 앞이 가로막혔을 때 가속력이 상승하며 코스를 다소 능숙하게 잡고 지구력을 약간 회복한다",
     "desc_tw": "於最後衝刺階段當前方堵塞時加速力上升且變得稍微擅長爭搶賽道並略微回復持久力",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If there's another girl right in front of you during the Last Spurt, your acceleration and lane movement speed will increase, and your stamina will slightly recover",
+    "endesc": "If there's another girl right in front of you during the Last Spurt, your acceleration and lane movement speed will increase, and your stamina will slightly recover",
     "enname": "I'll Leave You in the Dust!",
     "evo_cond": [
       [
@@ -75944,8 +75884,7 @@
     ],
     "desc_ko": "레이스 종반에 후방에 있으면 라스트 스퍼트가 한창일 때 속도가 많이 상승한다＜작전·추입＞",
     "desc_tw": "在競賽後期若位於隊列後方在展開最後衝刺時速度會大幅上升＜作戰．後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Tempestuous Pororoca",
     "evo_cond": [
       [
@@ -76905,8 +76844,7 @@
     ],
     "desc_ko": "코너에서 지구력을 많이 회복한다",
     "desc_tw": "在彎道大幅回復持久力",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point on any corner, your stamina will greatly recover",
+    "endesc": "During any Middle Leg corner, your stamina will greatly recover",
     "enname": "Waltz Maestro",
     "evo_cond": [
       [
@@ -77172,7 +77110,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Hungry Wolf's Fang",
     "evo_cond": [
       [
@@ -79487,7 +79425,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Full Power Santa Claus",
     "evo_cond": [
       [
@@ -79637,8 +79575,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 앞이 가로막혔을 때 가속력이 상승하며 코스를 다소 능숙하게 잡고 지구력을 약간 회복한다",
     "desc_tw": "於最後衝刺階段當前方堵塞時加速力上升且變得稍微擅長爭搶賽道並略微回復持久力",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If there's another girl right in front of you during the Last Spurt, your acceleration and lane movement speed will increase, and your stamina will slightly recover",
+    "endesc": "If there's another girl right in front of you during the Last Spurt, your acceleration and lane movement speed will increase, and your stamina will slightly recover",
     "enname": "I Copy!",
     "evo_cond": [
       [
@@ -79790,8 +79727,7 @@
     ],
     "desc_ko": "군더더기 없는 코너링으로 지구력을 많이 회복한다",
     "desc_tw": "以最佳的路線通過彎道大幅回復持久力",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point on a random corner, your stamina will recover greatly",
+    "endesc": "During any Middle Leg corner, your stamina will greatly recover",
     "enname": "Barrel Roll",
     "evo_cond": [
       [
@@ -80852,8 +80788,7 @@
     ],
     "desc_ko": "라스트 스퍼트에서 앞이 가로막혔을 때 한동안 가속력이 상승하며 코스를 다소 능숙하게 잡는다",
     "desc_tw": "於最後衝刺階段當前方堵塞時一段時間內加速力上升變得稍微擅長爭搶賽道",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If there's another girl right in front of you during the Last Spurt, your acceleration and lane movement speed will increase",
+    "endesc": "If there's another girl right in front of you during the Last Spurt, your acceleration and lane movement speed will increase",
     "enname": "Admired City Girl",
     "evo_cond": [
       [
@@ -81825,8 +81760,7 @@
     ],
     "desc_ko": "레이스 종반에 후방에 있으면 라스트 스퍼트가 한창일 때 속도가 많이 상승한다＜작전·추입＞",
     "desc_tw": "在競賽後期若位於隊列後方在展開最後衝刺時速度會大幅上升＜作戰．後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Immolated Comet",
     "evo_cond": [
       [
@@ -82122,8 +82056,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 직선에서 가속력이 상승하며 추가로 시야가 약간 넓어진다 ＜작전·추입＞",
     "desc_tw": "在最後衝刺的直線加速力上升且使視野略微變得寬廣＜作戰・後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・During a Last Spurt straight, your acceleration and FoV will increase",
+    "endesc": "Chaser・During a Last Spurt straight, your acceleration and FoV will increase",
     "enname": "Dramatic Finale",
     "evo_cond": [
       [
@@ -82413,9 +82346,8 @@
     ],
     "desc_ko": "종반의 최종 직선에서 좋은 위치에 있으면 한동안 속도가 상승한다＜중거리＞",
     "desc_tw": "在後期的最後直線位於良好位置時一段時間內速度會上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・If you're in a good position on the Final Straight during the Final Leg, your speed will increase",
-    "enname": "You'll fly for sure!",
+    "endesc": "Medium・If you're in a good position on the Final Straight during the Final Leg, your speed will increase",
+    "enname": "You'll Fly for Sure!",
     "evo_cond": [
       [
         [
@@ -82712,7 +82644,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Betting My Pride",
     "evo_cond": [
       [
@@ -83266,8 +83198,7 @@
     ],
     "desc_ko": "라스트 스퍼트에서 앞이 가로막혔을 때 가속력이 많이 상승하며 코스를 다소 능숙하게 잡는다",
     "desc_tw": "於最後衝刺階段當前方堵塞時加速力大幅上升變得稍微擅長爭搶賽道",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If there's another girl right in front of you during the Last Spurt, your acceleration will greatly increase and your lane movement speed will slightly increase",
+    "endesc": "If there's another girl right in front of you during the Last Spurt, your acceleration will greatly increase and your lane movement speed will slightly increase",
     "enname": "Non-stop Princess",
     "evo_cond": [
       [
@@ -84059,8 +83990,7 @@
     ],
     "desc_ko": "라스트 스퍼트 때 전방에 있으면 속도가 많이 상승한다＜더트＞",
     "desc_tw": "在最後衝刺階段若位於隊列前方速度會大幅上升＜沙地＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・At a random point during the Last Spurt, if you're in the first half of the pack, your speed will greatly increase",
+    "endesc": "Dirt・At a random point during the Last Spurt, if you're in the first half of the pack, your speed will greatly increase",
     "enname": "Full Speed Ahead, Nanoda!",
     "evo_cond": [
       [
@@ -84431,8 +84361,7 @@
     ],
     "desc_ko": "군더더기 없는 코너링으로 지구력을 많이 회복한다",
     "desc_tw": "以最佳的路線通過彎道大幅回復持久力",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point on a random corner, your stamina will recover greatly",
+    "endesc": "During any Middle Leg corner, your stamina will greatly recover",
     "enname": "Healing Maestro",
     "evo_cond": [
       [
@@ -85560,8 +85489,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 직선에서 가속력이 상승하며 추가로 시야가 약간 넓어진다 ＜작전・추입＞",
     "desc_tw": "在最後衝刺的直線加速力上升且使視野略微變得寬廣＜作戰・後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・During a Last Spurt straight, your acceleration and FoV will increase",
+    "endesc": "Chaser・During a Last Spurt straight, your acceleration and FoV will increase",
     "enname": "Spurring Emotions",
     "evo_cond": [
       [
@@ -86745,8 +86673,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 직선에서 가속력이 상승하며 시야가 약간 넓어진다 ＜작전·추입＞",
     "desc_tw": "在最後衝刺的直線加速力上升且使視野略微變得寬廣＜作戰・後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・During a Last Spurt straight, your acceleration and FoV will increase",
+    "endesc": "Chaser・During a Last Spurt straight, your acceleration and FoV will increase",
     "enname": "Supple Land",
     "evo_cond": [
       [
@@ -87027,8 +86954,7 @@
     ],
     "desc_ko": "코너에서 지구력을 회복하고, 속도가 약간 상승한다",
     "desc_tw": "在彎道回復持久力速度略微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "At a random point on any corner, your speed will slightly increase and your stamina recover",
+    "endesc": "During any Middle Leg corner, your speed will slightly increase and your stamina will recover",
     "enname": "Soul Guide",
     "evo_cond": [
       [
@@ -87440,8 +87366,7 @@
     ],
     "desc_ko": "레이스 종반에 앞이 막히면 한동안 가속력이 상승한다＜중거리＞",
     "desc_tw": "在競賽後期當前方被阻擋時一段時間內加速力會上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・During the Final Leg or beyond, if someone blocks you front the front, your acceleration will increase",
+    "endesc": "Medium・During the Final Leg or beyond, if someone blocks you front the front, your acceleration will increase",
     "enname": "Charming Cynical Girl",
     "evo_cond": [
       [
@@ -87680,8 +87605,7 @@
     ],
     "desc_ko": "라스트 스퍼트에서 앞이 가로막혔을 때 가속력이 상승하고 코스를 다소 능숙하게 잡으며, 지구력을 약간 회복한다",
     "desc_tw": "於最後衝刺階段當前方堵塞時加速力上升且變得稍微擅長爭搶賽道並略微回復持久力",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Last Spurt, if you still have some stamina and there's another girl in front of you, your speed and acceleration will increase and your stamina will slightly recover",
+    "endesc": "During the Last Spurt, if you still have some stamina and there's another girl in front of you, your speed and acceleration will increase and your stamina will slightly recover",
     "enname": "Non-stop Cheer",
     "evo_cond": [
       [
@@ -88827,8 +88751,7 @@
     ],
     "desc_ko": "라스트 스퍼트에서 중위권 그룹 이후에 있으면 지구력을 아주 조금 사용해서 가속력이 상승한다 ＜선입·장거리＞",
     "desc_tw": "在最後衝刺階段若位於隊列中段之後些微消耗持久力使加速力上升＜居中．長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・Long・During the Last Spurt, if you're not in the front, you will use up a little extra stamina to increase your acceleration",
+    "endesc": "Betweener・Long・During the Last Spurt, if you're not in the front, you will use up a little extra stamina to increase your acceleration",
     "enname": "Realm of No-Self",
     "evo_cond": [
       [
@@ -89545,8 +89468,7 @@
     ],
     "desc_ko": "종반의 최종 직선에서 좋은 위치에 있으면 속도가 많이 상승한다＜중거리＞",
     "desc_tw": "在後期的最後直線位於良好位置時速度大幅上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・If you are in a good position on the Final Straight during the Final Leg, your speed will greatly increase",
+    "endesc": "Medium・If you are in a good position on the Final Straight during the Final Leg, your speed will greatly increase",
     "enname": "Moment's Readiness",
     "evo_cond": [
       [
@@ -91047,8 +90969,7 @@
     ],
     "desc_ko": "레이스 종반에 후방에서 추월하려고 하면 가속력이 상승하며, 추가로 눈앞의 우마무스메를 약간 위축시킨다＜단거리/마일＞",
     "desc_tw": "在競賽後期若於隊列後方準備追過對手會提升加速力並使眼前的賽馬娘略微感到畏縮＜短距離/一哩＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Short/Mile・If you're about to overtake someone in the second half of the pack during the Final Leg, your acceleration will increase and you will slow down girls around(?) you",
+    "endesc": "Short/Mile・If you're about to overtake someone in the second half of the pack during the Final Leg, your acceleration will increase and you will slow down girls around(?) you",
     "enname": "Pursuing Greater Brilliance",
     "evo_cond": [
       [
@@ -91624,8 +91545,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 중위권 그룹 이후에 있으면 지구력을 다소 사용해서 가속력이 상승하며 나카야마 경기장이라면 지구력을 사용하지 않고 약간 회복한다＜선입・장거리＞",
     "desc_tw": "在最後衝刺階段若位於隊列中段之後稍微消耗持久力使加速力上升若是中山賽場則不會消耗持久力且會略微回復＜居中．長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・Long・Increase your acceleration by slightly using stamina during the second half of the Last Spurt, or recover instead of using stamina on the Nakayama Racetrack",
+    "endesc": "Betweener・Long・Increase your acceleration by slightly using stamina during the second half of the Last Spurt, or recover instead of using stamina on the Nakayama Racetrack",
     "enname": "Ironclad",
     "evo_cond": [
       [
@@ -91871,8 +91791,7 @@
     ],
     "desc_ko": "종반의 최종 직선에서 좋은 위치에 있을 때 뒤의 우마무스메와 가까우면 지구력을 사용해 속도가 상승하고 추가로 약간 앞으로 나간다",
     "desc_tw": "在後期的最後直線位於良好位置時當後方賽馬娘接近，會消耗持久力使速度上升並略微向前邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the last straight of the Final Leg, if there are other girls closely behind you while you're in a good position, use extra stamina to increase your speed and get a slight speed boost",
+    "endesc": "During the last straight of the Final Leg, if there are other girls closely behind you while you're in a good position, use extra stamina to increase your speed and get a slight speed boost",
     "enname": "Danser le Présent",
     "gene_version": {
       "activation": 1,
@@ -92324,8 +92243,7 @@
     ],
     "desc_ko": "종반의 최종 직선에서 지구력을 다소 사용해서 속도가 아주 많이 상승한다 ＜선행・중거리＞",
     "desc_tw": "在後期的最後直線稍微消耗持久力使速度極大幅上升＜前列．中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・Medium・On the Final Straight during the Final Leg, use a little extra stamina to tremendously increase your speed",
+    "endesc": "Leader・Medium・On the Final Straight during the Final Leg, use a little extra stamina to tremendously increase your speed",
     "enname": "Ephemeral Afterglow",
     "evo_cond": [
       [
@@ -93125,8 +93043,7 @@
     ],
     "desc_ko": "종반의 최종 직선에서 좋은 위치에 있으면 속도가 많이 상승한다＜중거리＞",
     "desc_tw": "在後期的最後直線位於良好位置時速度大幅上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・If you are in a good position on the Final Straight during the Final Leg, your speed will greatly increase",
+    "endesc": "Medium・If you are in a good position on the Final Straight during the Final Leg, your speed will greatly increase",
     "enname": "Beyond the Milky Way With You",
     "evo_cond": [
       [
@@ -93827,7 +93744,7 @@
     "desc_ko": "레이스 종반이 다가올 때 전방에 있으면 속도가 많이 상승한다＜단거리＞",
     "desc_tw": "接近競賽後期時若位於隊列前方速度會大幅上升＜短距離＞",
     "endesc": "Short・If you're in the first half of the pack during the second half of the Middle Leg, your speed will greatly increase",
-    "enname": "Red-hot Rush! Bakushin Road!",
+    "enname": "Red-Hot Rush! Bakushin Road!",
     "evo_cond": [
       [
         [
@@ -94634,8 +94551,7 @@
     ],
     "desc_ko": "팀의 스킬 발동 수가 6 이상이면 종반에 가속력이 다소 상승하고 지구력을 회복하며 발동 수가 10 이상이면 효과가 증가한다",
     "desc_tw": "隊伍的技能發動數量在6個以上時後期會稍微提升加速力及回復持久力發動數量在10個以上則使效果增加",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Final Leg, if your team has activated at least 6 skills combined during the race, your acceleration will increase and your stamina will recover; bonus effect if the skill count is 10 or more",
+    "endesc": "During the Final Leg, if your team has activated at least 6 skills combined during the race, your acceleration will increase and your stamina will recover; bonus effect if the skill count is 10 or more",
     "enname": "Linkage Hero",
     "iconid": 1010041,
     "id": 1300061,
@@ -94873,8 +94789,7 @@
     ],
     "desc_ko": "레이스 종반에 후방에 있으면 최종 직선에서 힘을 해방해 앞으로 나가며, 도쿄 경기장의 중거리 레이스라면 아주 많이 앞으로 나간다",
     "desc_tw": "在競賽後期若位於隊列後方會在最後直線解放力量向前邁進在東京賽場的中距離競賽則會極大幅邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you were in the second half of the pack during the Final Leg or beyond, then on the Final Straight, your speed will increase; the effect is stronger in medium Tokyo races",
+    "endesc": "If you were in the second half of the pack during the Final Leg or beyond, then on the Final Straight, your speed will increase; the effect is stronger in medium Tokyo races",
     "enname": "Thunderstorm Sublation",
     "gene_version": {
       "activation": 1,
@@ -95413,8 +95328,7 @@
     ],
     "desc_ko": "레이스 종반에 후방에 있으면 라스트 스퍼트가 한창일 때 속도가 많이 상승한다＜작전·추입＞",
     "desc_tw": "在競賽後期若位於隊列後方在展開最後衝刺時速度會大幅上升＜作戰．後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Chaser・If you were in the second half of the pack in the Final Leg, then during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Storm-Calling God of Destruction",
     "evo_cond": [
       [
@@ -96314,8 +96228,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 앞이 가로막혔을 때 가속력이 상승하며 코스를 다소 능숙하게 잡고 추가로 결승점까지 멀면 약간 앞으로 나간다",
     "desc_tw": "於最後衝刺階段當前方堵塞時加速力上升且變得稍微擅長爭搶賽道若距離終點尚遠則略微向前邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If there's another girl right in front of you during the Last Spurt, your acceleration and lane movement speed will increase; if there's at least 600 remaining, you will also get a speed boost",
+    "endesc": "If there's another girl right in front of you during the Last Spurt, your acceleration and lane movement speed will increase; if there's at least 600 remaining, you will also get a speed boost",
     "enname": "Marvelous World Plan☆",
     "evo_cond": [
       [
@@ -96495,8 +96408,7 @@
     ],
     "desc_ko": "남은 거리가 200m일 때 전방에 있으면 속도가 다소 상승하며, 단거리 레이스에서 종반에 추월했을 경우에는 많이 상승한다",
     "desc_tw": "在剩餘200m處若位於隊列前方速度稍微上升，當在短距離競賽的後期追過對手時則大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the first half of the pack (but not in the lead) with 200 m remaining, your speed will increase; bonus speed if the race is Short and you've overtaken someone since entering the Final Leg",
+    "endesc": "If you're in the first half of the pack (but not in the lead) with 200 m remaining, your speed will increase; bonus speed if the race is Short and you've overtaken someone since entering the Final Leg",
     "enname": "Secret Technique: Everlasting Summer!!",
     "gene_version": {
       "activation": 1,
@@ -97749,8 +97661,7 @@
     ],
     "desc_ko": "종반의 최종 직선에서 좋은 위치에 있으면 속도가 많이 상승한다＜중거리＞",
     "desc_tw": "在後期的最後直線位於良好位置時速度大幅上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・If you are in a good position on the Final Straight during the Final Leg, your speed will greatly increase",
+    "endesc": "Medium・If you are in a good position on the Final Straight during the Final Leg, your speed will greatly increase",
     "enname": "Unwavering Aster",
     "evo_cond": [
       [
@@ -98986,8 +98897,7 @@
     "cost": 180,
     "desc_ko": "종반의 최종 코너에서 중위권 그룹 이전에 있을 때 결승점까지 멀면 가속력이 상승한다 ＜선행/선입＞",
     "desc_tw": "在後期的最後彎道若位於隊列中段之前如距離終點尚遠則加速力上升＜前列/居中＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader/Betweener・If you're on the final corner in the Final Leg, you're not in the back of the pack, and there's at least 600 m remaining in the race, your acceleration will greatly increase",
+    "endesc": "Leader/Betweener・If you're on the final corner in the Final Leg, you're not in the back of the pack, and there's at least 600 m remaining in the race, your acceleration will greatly increase",
     "enname": "Check",
     "evo": [
       {
@@ -99081,8 +98991,7 @@
     "cost": 180,
     "desc_ko": "종반의 최종 코너에서 중위권 그룹 이전에 있을 때 결승점까지 멀면 가속력이 약간 상승한다＜선행/선입＞",
     "desc_tw": "在後期的最後彎道若位於隊列中段之前如距離終點尚遠則加速力略微上升＜前列/居中＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader/Betweener・If you're on the final corner in the Final Leg, you're not in the back of the pack, and there's at least 600 m remaining in the race, your acceleration will slightly increase",
+    "endesc": "Leader/Betweener・If you're on the final corner in the Final Leg, you're not in the back of the pack, and there's at least 600 m remaining in the race, your acceleration will slightly increase",
     "enname": "Satisfying Pace",
     "iconid": 20041,
     "id": 202712,
@@ -99748,8 +99657,7 @@
     ],
     "desc_ko": "레이스 종반이 다가올 때 전방에 있으면 속도가 상승하고, 그 후 라스트 스퍼트 중에 가속력이 약간 상승한다＜장거리＞",
     "desc_tw": "接近競賽後期時若位於隊列前方速度會上升，之後在最終衝刺時加速力略微上升＜長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Long・During the second half of the Middle Leg, if you're in the first half of the pack, your speed will increase; then during the Last Spurt, your acceleration will slightly increase",
+    "endesc": "Long・During the second half of the Middle Leg, if you're in the first half of the pack, your speed will increase; then during the Last Spurt, your acceleration will slightly increase",
     "enname": "The Right Path",
     "evo_cond": [
       [
@@ -99994,8 +99902,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 직선에서 가속력이 상승하고 그 후 최종 직선에서 속도가 약간 상승한다 ＜작전・추입＞",
     "desc_tw": "在最後衝刺的直線加速力上升之後在最後直線速度略微上升＜作戰・後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・During any Last Spurt straight, your acceleration will increase; then, during the Last Straight, your speed will slightly increase",
+    "endesc": "Chaser・During any Last Spurt straight, your acceleration will increase; then, during the Last Straight, your speed will slightly increase",
     "enname": "Flood of \"Je t'aime\"",
     "evo_cond": [
       [
@@ -100779,8 +100686,7 @@
     ],
     "desc_ko": "종반의 최종 코너 후반 이후에 추월하려고 하면 속도가 상승하며, 레이스 중반에 중위권 그룹에서 추월당했다면 많이 상승한다",
     "desc_tw": "在後期的最後彎道後半之後準備追過對手時會使速度上升若競賽中期於隊列中段被對手追過則大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you try to overtake someone during the second half of the Final Corner or later, your speed will increase; the effect will be stronger if someone previously overtook you from the middle of the pack during the Middle Leg",
+    "endesc": "If you try to overtake someone during the second half of the Final Corner or later, your speed will increase; the effect will be stronger if someone previously overtook you from the middle of the pack during the Middle Leg",
     "enname": "...found you.",
     "gene_version": {
       "activation": 1,
@@ -102011,8 +101917,7 @@
     ],
     "desc_ko": "레이스 후반에 전방에서 누군가 따라붙으면 종반의 최종 코너 후반 이후에 속도가 상승하고 2400m~2500m 레이스에서는 추가로 약간 앞으로 나간다",
     "desc_tw": "在競賽後半若位於隊列前方被對手逼近會在後期最後彎道後半之後使速度上升且若是2400m～2500m的競賽則會再略微向前邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If someone tried to overtake you in the first half of the pack during the second half of the race, then during the second half of the Final Corner, your speed will increase; you will also get a speed boost in races between 2400 and 2500 m long",
+    "endesc": "If someone tried to overtake you in the first half of the pack during the second half of the race, then during the second half of the Final Corner, your speed will increase; you will also get a speed boost in races between 2400 and 2500 m long",
     "enname": "Merrymaking Song and Dance",
     "gene_version": {
       "activation": 1,
@@ -103167,8 +103072,7 @@
     ],
     "desc_ko": "종반의 최종 직선에서 선두에 있으면 속도가 다소 상승하며, 종반 시작까지 벌린 리드 거리에 따라 효과가 증가한다",
     "desc_tw": "在後期的最後直線若位居領先速度會稍微上升，並依照後期開始前取得的領先距離使效果增加",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the lead during the final straight, your speed will slightly increase (special scaling under investigation)",
+    "endesc": "If you're in the lead during the final straight, your speed will slightly increase (special scaling under investigation)",
     "enname": "Billions of Stars",
     "gene_version": {
       "activation": 1,
@@ -103731,8 +103635,7 @@
     ],
     "desc_ko": "중반에 중위권 그룹에 있을 때 속도를 약간 떨어뜨리고 지구력을 많이 회복하며 스태미나가 더욱 높으면 그 후 종반에 오랫동안 계속해서 약간 앞으로 나간다",
     "desc_tw": "在中期位於隊列中段時會略微降低速度並大幅回復持久力當持久力數值十二分強大時之後在後期會長時間略微持續向前邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the middle of the pack during the Middle Leg, your stamina will greatly recover but your speed will slightly decrease; then, during the Final Leg, if your Stamina stat is at least 1200, you will get a slight speed boost",
+    "endesc": "If you're in the middle of the pack during the Middle Leg, your stamina will greatly recover but your speed will slightly decrease; then, during the Final Leg, if your Stamina stat is at least 1200, you will get a slight speed boost",
     "enname": "Illuminate You",
     "gene_version": {
       "activation": 1,
@@ -104983,7 +104886,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Full-Power Pitch",
     "evo_cond": [
       [
@@ -105280,8 +105183,7 @@
     "cost": 170,
     "desc_ko": "라스트 스퍼트 중에 직선에서 전방이라면 가속력이 상승한다＜도주・장거리＞",
     "desc_tw": "在最後衝刺的直線若位於隊列前方加速力上升＜領頭．長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner・Long・If you're 3rd or better during any last spurt straight, your acceleration will increase",
+    "endesc": "Runner・Long・If you're 3rd or better during any last spurt straight, your acceleration will increase",
     "enname": "One Sky, One Goal",
     "evo": [
       {
@@ -105366,8 +105268,7 @@
     "cost": 170,
     "desc_ko": "라스트 스퍼트 중에 직선에서 전방이라면 가속력이 약간 상승한다＜도주・장거리＞",
     "desc_tw": "在最後衝刺的直線若位於隊列前方加速力略微上升＜領頭．長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner・Long・If you're 3rd or better during any last spurt straight, your acceleration will slightly increase",
+    "endesc": "Runner・Long・If you're 3rd or better during any last spurt straight, your acceleration will slightly increase",
     "enname": "No Hesitation",
     "iconid": 20041,
     "id": 202822,
@@ -105433,8 +105334,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다",
     "desc_tw": "在展開最後衝刺時速度大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the last spurt, your speed will greatly increase",
+    "endesc": "During your last spurt, your speed will greatly increase",
     "enname": "Master's Drive",
     "iconid": 20013,
     "id": 1400011,
@@ -105817,8 +105717,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 직선에서 전방이면 가속력이 상승하고, 그 후 최종 직선에서 약간 앞으로 나간다＜도주・장거리＞",
     "desc_tw": "在最後衝刺的直線若位於隊列前方加速力會上升，之後在最後直線會略微向前邁進＜領頭．長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner・Long・If you're in the front during any last spurt straight, your acceleration will increase; then, during the Final Straight, you will get a speed boost",
+    "endesc": "Runner・Long・If you're in the front during any last spurt straight, your acceleration will increase; then, during the Final Straight, you will get a speed boost",
     "enname": "Thousand Mile Cheer!",
     "evo_cond": [
       [
@@ -105889,8 +105788,7 @@
     ],
     "desc_ko": "레이스 종반에 최종 코너 이후에서 추월하려고 하면 한동안 앞으로 나간다 ＜중거리＞",
     "desc_tw": "在競賽後期的最後彎道之後準備追過對手時一段時間內向前邁進＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・During the Final Corner, if you're about to overtake someone, you will get a speed boost",
+    "endesc": "Medium・During the Final Corner, if you're about to overtake someone, you will get a speed boost",
     "enname": "Ardent Desire for Victory",
     "evo_cond": [
       [
@@ -105975,8 +105873,7 @@
     ],
     "desc_ko": "종반의 최종 코너 이후에 중위권 그룹 이후라면 잠시 동안 속도가 많이 상승하며 중거리 레이스에서는 효과가 바뀌어 잠시 동안 많이 앞으로 나간다",
     "desc_tw": "在後期的最後彎道之後若位於隊列中段之後短時間內會使速度大幅上升在中距離競賽則使效果變為短時間內大幅向前邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're not in the front on the Final Corner during the Final Leg, your speed will greatly increase; in Middle distance races, you will receive a great instant speed boost instead",
+    "endesc": "If you're not in the front on the Final Corner during the Final Leg, your speed will greatly increase; in Middle distance races, you will receive a great instant speed boost instead",
     "enname": "Springy Festivities",
     "gene_version": {
       "activation": 1,
@@ -106221,8 +106118,7 @@
     ],
     "desc_ko": "레이스 종반의 최종 직선에 들어왔을 때 중위권 그룹에 있으면 남은 거리가 300m 이하일 때 속도가 다소 상승하며, 레이스를 침착하게 진행했다면 많이 상승한다",
     "desc_tw": "進入競賽後期的最後直線時若位於隊列中段會在剩餘不到300m處使速度稍微上升若一直保持冷靜表現則大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you entered the Final Straight in the middle of the pack, then when there's 300 m remaining in the race, your speed will increase; it will increase greatly if you didn't panic (kakari) during the race",
+    "endesc": "If you entered the Final Straight in the middle of the pack, then when there's 300 m remaining in the race, your speed will increase; it will increase greatly if you didn't panic (kakari) during the race",
     "enname": "Deluxe☆Fountain",
     "gene_version": {
       "activation": 1,
@@ -106317,8 +106213,7 @@
     "cost": 200,
     "desc_ko": "레이스 중반에 스킬을 발동하면 속도가 다소 상승하며, 그 후 레이스 종반에 스킬을 발동하면 다소 앞으로 나간다＜더트＞",
     "desc_tw": "在競賽中期若發動技能速度會稍微上升之後在競賽後期若發動技能會再稍微向前邁進＜沙地＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・If you activate any other skill during the Middle Leg, your speed will increase; then, if you activate any other skill during the Final Leg or beyond, you will get a speed boost",
+    "endesc": "Dirt・If you activate any other skill during the Middle Leg, your speed will increase; then, if you activate any other skill during the Final Leg or beyond, you will get a speed boost",
     "enname": "Call & Response",
     "evo": [
       {
@@ -106417,8 +106312,7 @@
     "cost": 200,
     "desc_ko": "레이스 중반에 스킬을 발동하면 속도가 아주 조금 상승하며, 그 후 레이스 종반에 스킬을 발동하면 아주 조금 앞으로 나간다＜더트＞",
     "desc_tw": "在競賽中期若發動技能速度會些微上升之後在競賽後期若發動技能會再些微向前邁進＜沙地＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・If you activate any other skill during the Middle Leg, your speed will marginally increase; then, if you activate any other skill during the Final Leg or beyond, you will get a marginal speed boost",
+    "endesc": "Dirt・If you activate any other skill during the Middle Leg, your speed will marginally increase; then, if you activate any other skill during the Final Leg or beyond, you will get a marginal speed boost",
     "enname": "Backup Planning",
     "iconid": 20011,
     "id": 202832,
@@ -106779,8 +106673,7 @@
     ],
     "desc_ko": "레이스 전반에 중위권 그룹 이후에서 계속 대기하면 레이스 종반의 최종 코너 이후에 다소 앞으로 나가며 장거리 레이스라면 효과가 증가한다",
     "desc_tw": "在競賽前半若持續潛伏於隊列中段之後競賽後期且在最後彎道之後會稍微向前邁進若是長距離競賽則效果增加",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you stayed in the back of the pack for the entire first half of the race, then during the Final Corner, you will get a speed boost; the effect is stronger in Long races",
+    "endesc": "If you stayed in the back of the pack for the entire first half of the race, then during the Final Corner, you will get a speed boost; the effect is stronger in Long races",
     "enname": "Purrfect Hospitality",
     "gene_version": {
       "activation": 1,
@@ -107429,8 +107322,7 @@
     ],
     "desc_ko": "라스트 스퍼트 중에 직선에서 가속력이 상승하고 그 후 최종 직선에서 속도가 약간 상승한다 ＜작전・추입＞",
     "desc_tw": "在最後衝刺的直線加速力上升之後在最後直線速度略微上升＜作戰・後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・During any Last Spurt straight, your acceleration will increase; then, during the Last Straight, your speed will slightly increase",
+    "endesc": "Chaser・During any Last Spurt straight, your acceleration will increase; then, during the Last Straight, your speed will slightly increase",
     "enname": "Imminent Twilight",
     "evo_cond": [
       [
@@ -108214,8 +108106,7 @@
     ],
     "desc_ko": "레이스를 침착하게 진행하면 라스트 스퍼트가 한창일 때 속도가 계속해서 약간 상승한다",
     "desc_tw": "在場上若能冷靜表現在展開最後衝刺時使速度略微持續上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you haven't panicked (kakari) during the race, then during the last spurt, your speed will slightly increase",
+    "endesc": "If you haven't panicked (kakari) during the race, then during your last spurt, your speed will slightly increase",
     "enname": "Strike and Strengthen",
     "gene_version": {
       "activation": 1,
@@ -108288,8 +108179,7 @@
     ],
     "desc_ko": "레이스를 침착하게 진행하면 라스트 스퍼트가 한창일 때 속도가 계속해서 다소 상승한다",
     "desc_tw": "在場上若能冷靜表現在展開最後衝刺時使速度稍微持續上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you haven't panicked (kakari) during the race, then during the last spurt, your speed will slightly increase",
+    "endesc": "If you haven't panicked (kakari) during the race, then during your last spurt, your speed will slightly increase",
     "enname": "Forged From a Hundred Trials",
     "gene_version": {
       "activation": 1,
@@ -108372,8 +108262,7 @@
     ],
     "desc_ko": "레이스 중간 지점에서 후방에 있으면 속도가 상승하며, 그 후 종반의 최종 코너에서 추월하려고 하면 짧은 시간 동안 약간 앞으로 나간다",
     "desc_tw": "在競賽中間點若位於隊列後方速度會上升，之後在後期的最後彎道當準備追過對手時在極短時間內略微向前邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the second half of the pack halfway through the race, your speed will increase; then, if you try to overtake someone during the Final Corner in the Final Leg, you will get a slight speed boost",
+    "endesc": "If you're in the second half of the pack halfway through the race, your speed will increase; then, if you try to overtake someone during the Final Corner in the Final Leg, you will get a slight speed boost",
     "enname": "Scarlet Ascension of the Rakshasa",
     "gene_version": {
       "activation": 1,
@@ -108527,8 +108416,7 @@
     "cost": 180,
     "desc_ko": "종반의 최종 코너에서 중위권 그룹 이후에 있으면 가속력이 상승한다＜추입・중거리＞",
     "desc_tw": "在後期的最後彎道若位於隊列中段之後加速力上升＜後追．中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・Medium・If you're not in the front during the Final Corner in the Final Leg, your acceleration will increase",
+    "endesc": "Chaser・Medium・If you're not in the front during the Final Corner in the Final Leg, your acceleration will increase",
     "enname": "Reign",
     "evo": [
       {
@@ -108610,8 +108498,7 @@
     "cost": 180,
     "desc_ko": "종반의 최종 코너에서 중위권 그룹 이후에 있으면 가속력이 약간 상승한다＜추입・중거리＞",
     "desc_tw": "在後期的最後彎道若位於隊列中段之後加速力略微上升＜後追．中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・Medium・If you're not in the front during the Final Corner in the Final Leg, your acceleration will slightly increase",
+    "endesc": "Chaser・Medium・If you're not in the front during the Final Corner in the Final Leg, your acceleration will slightly increase",
     "enname": "Mighty Step",
     "iconid": 20041,
     "id": 202872,
@@ -109468,7 +109355,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다＜마일/중거리＞",
     "desc_tw": "在展開最後衝刺時速度會大幅上升＜一哩/中距離＞",
-    "endesc": "Mile/Medium・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Mile/Medium・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Doing My Best!",
     "evo_cond": [
       [
@@ -109947,8 +109834,7 @@
     ],
     "desc_ko": "종반의 최종 코너 혹은 나카야마 경기장의 종반 코너에서 중위권 그룹 이후라면 가속력이 상승하고, 그 후 최종 직선에서 속도가 약간 상승한다＜추입・중거리＞",
     "desc_tw": "在後期的最後彎道或中山賽場的後期彎道若位於隊列中段之後加速力上升，之後在最後直線速度略微上升＜後追．中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・Medium・If you're not in the front during the Final Corner in the Final Leg (or a Final Leg corner of the Nakayama Racecourse), your acceleration will increase; then, during the Last Straight, your speed will slightly increase",
+    "endesc": "Chaser・Medium・If you're not in the front during the Final Corner in the Final Leg (or a Final Leg corner of the Nakayama Racecourse), your acceleration will increase; then, during the Last Straight, your speed will slightly increase",
     "enname": "Blazing Brilliance",
     "evo_cond": [
       [
@@ -110946,7 +110832,7 @@
     "cost": 180,
     "desc_ko": "레이스 종반이 다가왔을 때 중위권 그룹 이후에 있으면 속도가 약간 상승한다 ＜마일＞",
     "desc_tw": "接近競賽後期時若位於隊列中段之後速度會略微上升＜一哩＞",
-    "endesc": "Mile・If you're not in the front during the second half of the Middle Leg, your speed will slightly increase",
+    "endesc": "Mile・If you're not in the front at a random point during the second half of the Middle Leg, your speed will slightly increase",
     "enname": "Boiling Emotions",
     "iconid": 20011,
     "id": 202962,
@@ -112737,8 +112623,7 @@
     ],
     "desc_ko": "종반의 최종 코너에서 중위권 그룹 이전에 있을 때 결승점까지 멀면 가속력이 상승하고 그 후 라스트 스퍼트가 한창일 때 속도가 약간 상승한다＜선행/선입＞",
     "desc_tw": "在後期的最後彎道若位於隊列中段之前如距離終點尚遠則加速力上升之後在展開最後衝刺時速度略微上升＜前列/居中＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader/Betweener・If you're on the final corner in the Final Leg, you're not in the back of the pack, and there's at least 600 m remaining in the race, your acceleration will greatly increase; then, during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Leader/Betweener・If you're on the final corner in the Final Leg, you're not in the back of the pack, and there's at least 600 m remaining in the race, your acceleration will greatly increase; then, during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "General's Swift Strike",
     "evo_cond": [
       [
@@ -112978,8 +112863,7 @@
     ],
     "desc_ko": "종반 최종 코너 이후에서 전방이라면 잠시 동안 속도가 많이 상승하며 중거리 레이스에서는 효과가 바뀌어 잠시 동안 많이 앞으로 나간다",
     "desc_tw": "在後期的最後彎道之後若位於隊列前方短時間內會使速度大幅上升在中距離競賽則使效果變為短時間內大幅向前邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the first half of the pack during the Final Leg, your (target) speed will greatly increase; in Medium races, you will receive an (immediate) great speed boost instead",
+    "endesc": "If you're in the first half of the pack during the Final Leg, your (target) speed will greatly increase; in Medium races, you will receive an (immediate) great speed boost instead",
     "enname": "Tachyon Potential",
     "gene_version": {
       "activation": 1,
@@ -113711,8 +113595,7 @@
     ],
     "desc_ko": "레이스 중반 이후 내리막에서 후방에 있으면 지구력을 다소 사용해서 짧은 시간 동안 앞으로 나가고, 그 후 컨디션이 양호나 최상이면 종반의 최종 직선에서 짧은 시간 동안 속도가 상승한다",
     "desc_tw": "在競賽中期之後的下坡若位於隊列後方會稍微消耗持久力極短時間內向前邁進之後幹勁狀態為良好或絕佳時在後期的最後直線極短時間內使速度上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the second half of the pack on any downhill during the Middle Leg or later, you will use a little extra stamina to get a speed boost; then, during the Last Straight, if your motivation is at least Good, your speed will increase",
+    "endesc": "If you're in the second half of the pack on any downhill during the Middle Leg or later, you will use a little extra stamina to get a speed boost; then, during the Last Straight, if your motivation is at least Good, your speed will increase",
     "enname": "Special Materialization",
     "gene_version": {
       "activation": 1,
@@ -113792,8 +113675,7 @@
     ],
     "desc_ko": "남은 거리가 600m 이하일 때 중위권 그룹 바깥쪽에서 추월하면 라스트 스퍼트가 한창일 때 속도가 계속해서 상승한다",
     "desc_tw": "在剩餘不到600m處若位於隊列中段並由外側追過對手，則在最後衝刺途中使速度持續上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "When there's less than 600 m remaining, if you're in the middle of the pack and overtake someone from the outside, then during the Last Spurt, your speed will increase",
+    "endesc": "When there's less than 600 m remaining, if you're in the middle of the pack and overtake someone from the outside, then during the Last Spurt, your speed will increase",
     "enname": "The Winding Road to Ideals",
     "gene_version": {
       "activation": 1,
@@ -114258,8 +114140,7 @@
     ],
     "desc_ko": "레이스 중반에 지구력을 다소 사용해서 속도가 많이 상승하고 그 후 종반의 최종 직선에서 속도가 약간 상승한다＜작전・추입＞",
     "desc_tw": "在競賽中期稍微消耗持久力使速度大幅上升，之後在後期的最後直線使速度略微上升＜作戰．後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・At a random point during the Middle Leg, use a little extra stamina to greatly increase your speed; then, near the end of the race on the Final Straight, your speed will slightly increase again",
+    "endesc": "Chaser・At a random point during the Middle Leg, use a little extra stamina to greatly increase your speed; then, near the end of the race on the Final Straight, your speed will slightly increase again",
     "enname": "Emergency Magic Boost",
     "evo_cond": [
       [
@@ -115174,8 +115055,7 @@
     "cost": 180,
     "desc_ko": "레이스 종반 코너에서 추월하려고 하면 한동안 다소 앞으로 나간다 ＜작전・추입＞",
     "desc_tw": "在競賽後期的彎道準備追過對手時一段時間內稍微向前邁進＜作戰．後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・If you're trying to overtake someone during any Final Leg corner, you will get a speed boost",
+    "endesc": "Chaser・If you're trying to overtake someone during any Final Leg corner, you will get a speed boost",
     "enname": "Manipulation",
     "evo": [
       {
@@ -115234,8 +115114,7 @@
     "cost": 180,
     "desc_ko": "레이스 종반 코너에서 추월하려고 하면 한동안 아주 조금 앞으로 나간다 ＜작전・추입＞",
     "desc_tw": "在競賽後期的彎道準備追過對手時一段時間內些微向前邁進＜作戰．後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・If you're trying to overtake someone during any Final Leg corner, you will get a marginal speed boost",
+    "endesc": "Chaser・If you're trying to overtake someone during any Final Leg corner, you will get a marginal speed boost",
     "enname": "Art of Coaxing",
     "iconid": 20011,
     "id": 203002,
@@ -115810,8 +115689,7 @@
     "cost": 200,
     "desc_ko": "라스트 스퍼트에서 앞으로 나가며 획득한 요리 Pt의 합계가 높을수록 효과가 증가한다＜단거리/마일＞",
     "desc_tw": "在最後衝刺階段向前邁進獲得的料理Pt合計越多則效果越高＜短距離/一哩＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Short/Mile・During the Last Spurt, your speed will increase; the effect scales with the number of Cooking Points you got during training",
+    "endesc": "Short/Mile・During the Last Spurt, your speed will increase; the effect scales with the number of Cooking Points you got during training",
     "enname": "The Races We Run",
     "evo": [],
     "iconid": 20242,
@@ -115847,8 +115725,7 @@
     "cost": 200,
     "desc_ko": "라스트 스퍼트에서 약간 앞으로 나간다 ＜단거리/마일＞",
     "desc_tw": "在最後衝刺階段略微向前邁進＜短距離/一哩＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Short/Mile・During the Last Spurt, your speed will slightly increase",
+    "endesc": "Short/Mile・During the Last Spurt, your speed will slightly increase",
     "enname": "Forever Healthy",
     "iconid": 20241,
     "id": 210322,
@@ -115975,8 +115852,7 @@
     ],
     "desc_ko": "레이스 종반에 후방에서 추월하려고 하면 가속력이 상승하고 그 후 남은 거리가 200m 이하일 때 속도가 약간 상승한다＜단거리/마일＞",
     "desc_tw": "在競賽後期若位於隊列後方準備追過對手加速力上升，之後在剩餘不到200m處速度會略微上升＜短距離/一哩＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Short/Mile・If you're about to overtake someone in the second half of the pack during the Final Leg, your acceleration will increase; then, when there's 200 m remaining in the race, your speed will slightly increase",
+    "endesc": "Short/Mile・If you're about to overtake someone in the second half of the pack during the Final Leg, your acceleration will increase; then, when there's 200 m remaining in the race, your speed will slightly increase",
     "enname": "Here You Go!",
     "evo_cond": [
       [
@@ -116409,8 +116285,7 @@
     ],
     "desc_ko": "레이스 종반 코너에서 추월하려고 하면 한동안 앞으로 나가며 나카야마 경기장에서 지능이 더욱 높으면 효과가 증가한다＜작전・추입＞",
     "desc_tw": "在競賽後期的彎道準備追過對手時一段時間內向前邁進在中山賽場且當智力數值十二分強大時使效果增加＜作戰．後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・If you're trying to overtake someone during any Final Leg corner, you will get a speed boost; the effect is stronger if your Wisdom is at least 1200 and the race is in Nakayama",
+    "endesc": "Chaser・If you're trying to overtake someone during any Final Leg corner, you will get a speed boost; the effect is stronger if your Wisdom is at least 1200 and the race is in Nakayama",
     "enname": "Trance",
     "evo_cond": [
       [
@@ -116480,8 +116355,7 @@
     ],
     "desc_ko": "종반의 최종 코너에서 전방에 있으면 속도가 상승하며, 교토 경기장의 장거리 레이스라면 아주 많이 상승한다",
     "desc_tw": "在後期的最後彎道若位於隊列前方會使速度上升，在京都賽場的長距離競賽則會極大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the front during the Final Corner, your speed will increase; it will increase tremendously in Long races in Kyoto",
+    "endesc": "If you're in the front during the Final Corner, your speed will increase; it will increase tremendously in Long races in Kyoto",
     "enname": "Clear Sky Cooking♪",
     "gene_version": {
       "activation": 1,
@@ -116931,7 +116805,7 @@
     ],
     "desc_ko": "4펄롱째에 전방이면 잠시 동안 속도가 상승하며 「무이」, 「무삼」을 모두 발동했다면 효과량이 바뀌어 잠시 동안 속도가 엄청 많이 상승한다",
     "desc_tw": "在第4化朗時若位於隊列前方短時間內速度會上升，若有發動「無二」「無三」兩技能則效果量改變短時間內速度極巨幅上升",
-    "endesc": "If you're in the first half of the pack during at the fourth furlong, your speed will increase; it will increase tremendously if you've also activated the 無二 and 無三 skills",
+    "endesc": "If you're in the first half of the pack during the fourth furlong, your speed will increase; it will increase tremendously if you've also activated the 無二 and 無三 skills",
     "enname": "Path of Singular Focus",
     "gene_version": {
       "activation": 1,
@@ -118499,8 +118373,7 @@
     ],
     "desc_ko": "레이스 중반에 스킬을 발동하면 속도가 많이 상승하고 그 후 레이스 종반에 스킬을 발동하면 가속력이 약간 상승한다＜선행・더트＞",
     "desc_tw": "在競賽中期若發動技能速度會大幅上升，之後在競賽後期若發動技能，加速力會略微上升＜前列．沙地＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・Dirt・If you activate any other skill during the Middle Leg, your speed will greatly increase; then, if you activate any other skill during the Final Leg or beyond, your acceleration will increase",
+    "endesc": "Leader・Dirt・If you activate any other skill during the Middle Leg, your speed will greatly increase; then, if you activate any other skill during the Final Leg or beyond, your acceleration will increase",
     "enname": "Hometown Medley",
     "evo_cond": [
       [
@@ -118891,8 +118764,7 @@
     ],
     "desc_ko": "레이스 전반 코너에서 전방에 있으면 속도가 다소 상승하고 그 후 종반의 최종 직선에서 선두 그룹에 있으면 짧은 시간 동안 속도가 많이 상승한다",
     "desc_tw": "在競賽前半的彎道若位於隊列前方使速度稍微上升，之後在後期的最後直線若位於領先集團極短時間內速度大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the first half of the pack on any corner during the first half of the race, your speed will slightly increase; then, if you're near the front during the Last Straight, your speed will greatly increase",
+    "endesc": "If you're in the first half of the pack on any corner during the first half of the race, your speed will slightly increase; then, if you're near the front during the Last Straight, your speed will greatly increase",
     "enname": "Rose Conquest",
     "gene_version": {
       "activation": 1,
@@ -119711,8 +119583,7 @@
     ],
     "desc_ko": "종반의 최종 직선에서 전방에 있으면 속도가 다소 상승하며, 도쿄 경기장의 중거리 또는 나카야마 경기장의 2500m 레이스에서는 추가로 다소 앞으로 나간다",
     "desc_tw": "在後期的最後直線若位於隊列前方會使速度稍微上升，若在東京賽場中距離或中山賽場2500m的競賽時會再稍微向前邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're near the front during the Final Straight, your (target) speed will slightly increase; in Nakayama or Tokyo, you will also get a slight (immediate) speed boost",
+    "endesc": "If you're near the front during the Final Straight, your (target) speed will slightly increase; in Nakayama or Tokyo, you will also get a slight (immediate) speed boost",
     "enname": "Close Encounters of the Literary Kind",
     "gene_version": {
       "activation": 1,
@@ -119810,8 +119681,7 @@
     ],
     "desc_ko": "종반의 최종 직선에서 2위 이후라면 속도가 상승하고 레이스 중반에 스킬을 정확히 7번 또는 13번 발동했다면 아주 많이 상승한다",
     "desc_tw": "在後期的最後直線若位列第2之後會使速度上升，在競賽中期若剛好發動了7次或13次技能則會極大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're not in the lead during the Final Straight, your speed will increase; it will increase tremendously if you activated exactly 7 or 13 skills during the Middle Leg",
+    "endesc": "If you're not in the lead during the Final Straight, your speed will increase; it will increase tremendously if you activated exactly 7 or 13 skills during the Middle Leg",
     "enname": "Encounter With U",
     "gene_version": {
       "activation": 1,
@@ -121124,8 +120994,7 @@
     ],
     "desc_ko": "종반의 최종 직선에서 좋은 위치에 있으면 한동안 속도가 상승한다＜중거리＞",
     "desc_tw": "在後期的最後直線位於良好位置時一段時間內速度會上升＜中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium・If you're in a good position on the Final Straight during the Final Leg, your speed will increase",
+    "endesc": "Medium・If you're in a good position on the Final Straight during the Final Leg, your speed will increase",
     "enname": "Become the Foundation",
     "evo_cond": [
       [
@@ -121291,8 +121160,7 @@
     ],
     "desc_ko": "최종 코너에서 추월하면 라스트 스퍼트 때 속도가 상승하며 단거리나 마일 레이스에서 스킬 발동 시 중위권 그룹에 있으면 많이 상승한다",
     "desc_tw": "在最後彎道若追過對手會在最後衝刺時使速度上升在短距離或一哩競賽發動技能時若位於隊列中段則會大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you overtook someone during the Final Corner, then during the Last Spurt, your speed will increase; if it's a Short or Mile race and you're in the middle of the pack, it will increase greatly",
+    "endesc": "If you overtook someone during the Final Corner, then during the Last Spurt, your speed will increase; if it's a Short or Mile race and you're in the middle of the pack, it will increase greatly",
     "enname": "Lame de Vent",
     "gene_version": {
       "activation": 1,
@@ -121404,8 +121272,7 @@
     ],
     "desc_ko": "긍정적인 마음이 흐려져 레이스 종반에 가속력이 절망적으로 하락한다",
     "desc_tw": "積極的心情蒙上一層陰影在競賽後期加速力將絕望性地下降",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Final Leg, your acceleration will hopelessly decrease",
+    "endesc": "During the Final Leg, your acceleration will hopelessly decrease",
     "enname": "Binding Fog",
     "evo": [],
     "iconid": 20045,
@@ -121519,8 +121386,7 @@
     ],
     "desc_ko": "레이스 종반에 추월하려고 하면 가속력이 상승하며 스킬 발동 시 최종 코너에 있으면 많이 상승한다＜단거리/마일＞",
     "desc_tw": "在競賽後期若準備追過對手加速力上升發動技能時若位於最後彎道則會大幅上升＜短距離/一哩＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Short/Mile・If you're about to overtake someone during the Final Leg, your acceleration will increase; if you're currently on the Final Corner, it will increase greatly",
+    "endesc": "Short/Mile・If you're about to overtake someone during the Final Leg, your acceleration will increase; if you're currently on the Final Corner, it will increase greatly",
     "enname": "Olifant's Roar",
     "evo_cond": [
       [
@@ -122312,8 +122178,7 @@
     ],
     "desc_ko": "라스트 스퍼트 때 직선에서 전방이라면 가속력이 상승하며 선두라면 지구력을 다소 사용해서 효과 시간이 2배가 된다＜도주・장거리＞",
     "desc_tw": "在最後衝刺的直線若位於隊列前方加速力會上升，若位居領先則會稍微消耗持久力使效果時間變成2倍＜領頭．長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner・Long・If you're 3rd or better during any last spurt straight, your acceleration will increase; if you're in the first place, use a little extra stamina to double the effect duration",
+    "endesc": "Runner・Long・If you're 3rd or better during any last spurt straight, your acceleration will increase; if you're in the first place, use a little extra stamina to double the effect duration",
     "enname": "Going Ahead☆Tailwind",
     "evo_cond": [
       [
@@ -122486,7 +122351,7 @@
     ],
     "desc_ko": "종반 직선에서 가속력이 상승하고 속도가 약간 상승하며, 도쿄 경기장이라면 종반이 시작될 때 직선에서 가속력이 상승하고 속도가 약간 상승한다＜단거리/마일＞",
     "desc_tw": "在後期的直線加速力上升並使速度略微上升，若在東京賽場時則在後期一開始的直線加速力上升並使速度略微上升＜短距離/一哩＞",
-    "endesc": "Short/Mile・At a random point during any Final Leg straight, your acceleration will increase and your speed will slightly increase; in Tokyo, this skill will always trigger in the first half of the Final Leg",
+    "endesc": "Short/Mile・At a random point on a random straight during the first half of the Final Leg, your acceleration will increase and your speed will slightly increase; in Tokyo, this skill will always trigger in the first half of the Final Leg",
     "enname": "Riding the Mistral",
     "evo_cond": [
       [
@@ -124125,7 +123990,7 @@
     ],
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 많이 상승한다＜중거리/장거리＞",
     "desc_tw": "在展開最後衝刺時速度大幅上升＜中距離/長距離＞",
-    "endesc": "Medium/Long・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Medium/Long・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Limiter Release",
     "evo_cond": [
       [
@@ -124636,8 +124501,7 @@
     ],
     "desc_ko": "레이스 종반의 코너에서 후방에 있을 때 결승점까지 거리가 멀면 잠시 동안 앞으로 나가며 나카야마 경기장의 중거리 레이스라면 효과가 증가해 가속력도 아주 조금 상승한다",
     "desc_tw": "在競賽後期的彎道若位於隊列後方如距離終點尚遠，短時間內向前邁進若在中山賽場的中距離競賽時則會使效果增加並使加速力些微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the second half of the pack during any Final Leg corner, you will get a speed boost; in Medium-distance Nakayama races, the effect is stronger and your acceleration will also slightly increase",
+    "endesc": "If you're in the second half of the pack during any Final Leg corner, you will get a speed boost; in Medium-distance Nakayama races, the effect is stronger and your acceleration will also slightly increase",
     "enname": "Overdrive Speed",
     "gene_version": {
       "activation": 1,
@@ -126259,8 +126123,7 @@
     ],
     "desc_ko": "레이스 중반 이후에 추월하면 종반의 최종 직선에 들어왔을 때 잠시 동안 속도가 상승하며 작전이 추입이고 중반 이후에 3회 이상 추월했을 경우 잠시 동안 아주 많이 상승한다",
     "desc_tw": "在競賽中期之後若追過對手，進入後期的最後直線時短時間內使速度上升若作戰為後追且中期之後追過對手3次以上，則短時間內極大幅上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you overtake someone during the Middle Leg or later, then on the Last Straight, your speed will increase; (Chaser only) if you overtake at least three times, your speed will increase tremendously instead",
+    "endesc": "If you overtake someone during the Middle Leg or later, then on the Last Straight, your speed will increase; (Chaser only) if you overtake at least three times, your speed will increase tremendously instead",
     "enname": "Allegro of Valor",
     "gene_version": {
       "activation": 1,
@@ -126499,7 +126362,7 @@
     "cost": 180,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 상승한다 ＜작전・선행＞",
     "desc_tw": "在展開最後衝刺時速度上升＜作戰．前列＞",
-    "endesc": "Leader・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Leader・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Forthright",
     "evo": [],
     "iconid": 20012,
@@ -126549,7 +126412,7 @@
     "cost": 180,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다 ＜작전・선행＞",
     "desc_tw": "在展開最後衝刺時速度略微上升＜作戰．前列＞",
-    "endesc": "Leader・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Leader・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Believe in Yourself",
     "iconid": 20011,
     "id": 203422,
@@ -126811,8 +126674,7 @@
     "cost": 180,
     "desc_ko": "종반 최종 코너 이후에 있을 때 라이벌 우마무스메가 속도 스킬을 발동하면 한동안 다소 앞으로 나간다 ＜중거리/장거리＞",
     "desc_tw": "在後期的最後彎道之後若競爭對手賽馬娘發動速度技能時一段時間內稍微向前邁進＜中距離/長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium/Long・When another girl activates a speed skill during the Final Corner or beyond, you will get a speed boost",
+    "endesc": "Medium/Long・When another girl activates a speed skill during the Final Corner or beyond, you will get a speed boost",
     "enname": "Seize the Initiative",
     "evo": [
       {
@@ -126861,8 +126723,7 @@
     "cost": 180,
     "desc_ko": "종반 최종 코너 이후에 있을 때 라이벌 우마무스메가 속도 스킬을 발동하면 한동안 아주 조금 앞으로 나간다 ＜중거리/장거리＞",
     "desc_tw": "在後期的最後彎道之後若競爭對手賽馬娘發動速度技能時一段時間內些微向前邁進＜中距離/長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium/Long・When another girl activates a speed skill during the Final Corner or beyond, you will get a marginal speed boost",
+    "endesc": "Medium/Long・When another girl activates a speed skill during the Final Corner or beyond, you will get a marginal speed boost",
     "enname": "Striking Back",
     "iconid": 20011,
     "id": 203372,
@@ -126975,8 +126836,7 @@
     ],
     "desc_ko": "종반 최종 코너 이후에 있을 때 라이벌 우마무스메가 속도 스킬을 발동하면 한동안 앞으로 나간다＜중거리/장거리＞",
     "desc_tw": "位於後期的最後彎道之後若競爭對手賽馬娘發動速度技能時一段時間內向前邁進＜中距離/長距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Medium/Long・When another girl activates a speed skill during the Final Corner or beyond, you will get a speed boost",
+    "endesc": "Medium/Long・When another girl activates a speed skill during the Final Corner or beyond, you will get a speed boost",
     "enname": "Seizing Victory",
     "evo_cond": [
       [
@@ -127222,8 +127082,7 @@
     "cost": 180,
     "desc_ko": "종반의 최종 코너에서 3위 이내에 있으면 가속력이 상승한다＜도주・중거리＞",
     "desc_tw": "在後期的最後彎道若位列第3以內加速力上升＜領頭．中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner・Medium・If you're third or better during the Final Corner or beyond, your acceleration will increase",
+    "endesc": "Runner・Medium・If you're third or better during the Final Corner or beyond, your acceleration will increase",
     "enname": "The Fight's Not Over Yet!",
     "evo": [
       {
@@ -127278,8 +127137,7 @@
     "cost": 180,
     "desc_ko": "종반의 최종 코너에서 3위 이내에 있으면 가속력이 약간 상승한다＜도주・중거리＞",
     "desc_tw": "在後期的最後彎道若位列第3以內加速力略微上升＜領頭．中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner・Medium・If you're third or better during the Final Corner or beyond, your acceleration will slightly increase",
+    "endesc": "Runner・Medium・If you're third or better during the Final Corner or beyond, your acceleration will slightly increase",
     "enname": "Pulling Away",
     "iconid": 20041,
     "id": 203382,
@@ -127466,7 +127324,7 @@
     "cost": 170,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다 ＜중거리＞",
     "desc_tw": "在展開最後衝刺時速度略微上升＜中距離＞",
-    "endesc": "Medium・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Medium・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Dynamic Motion",
     "iconid": 20011,
     "id": 203432,
@@ -127793,8 +127651,7 @@
     ],
     "desc_ko": "종반의 최종 코너에서 3위 이내에 있으면 가속력이 상승하고 앞으로 나간다 ＜도주・중거리＞",
     "desc_tw": "在後期的最後彎道若位列第3以內加速力上升並向前邁進＜領頭．中距離＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner・Medium・If you're third or better during the Final Corner or beyond, your acceleration will increase and you will get a speed boost",
+    "endesc": "Runner・Medium・If you're third or better during the Final Corner or beyond, your acceleration will increase and you will get a speed boost",
     "enname": "Dormant Dragon's Rise",
     "evo_cond": [
       [
@@ -129253,8 +129110,7 @@
     ],
     "desc_ko": "레이스 종반에 추월하면 최종 직선에서 속도가 다소 상승한다",
     "desc_tw": "在競賽後期若追過對手會在最後直線使速度稍微上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you've overtaken someone during the Final Leg, then on the Final Straight, your speed will slightly increase",
+    "endesc": "If you've overtaken someone during the Final Leg, then on the Final Straight, your speed will slightly increase",
     "enname": "Steel Your Heart, Tsuyoshi!",
     "gene_version": {
       "activation": 1,
@@ -129314,8 +129170,7 @@
     ],
     "desc_ko": "레이스 종반에 추월하면 최종 직선에서 속도가 상승한다",
     "desc_tw": "在競賽後期若追過對手會在最後直線使速度上升",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you've overtaken someone during the Final Leg, then on the Final Straight, your speed will increase",
+    "endesc": "If you've overtaken someone during the Final Leg, then on the Final Straight, your speed will increase",
     "enname": "Flames of Unyielding Resolve",
     "gene_version": {
       "activation": 1,
@@ -129654,7 +129509,7 @@
     "cost": 170,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 상승한다 ＜중거리＞",
     "desc_tw": "在展開最後衝刺時速度上升＜中距離＞",
-    "endesc": "Medium・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Medium・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Brilliant Mind",
     "evo": [
       {
@@ -130003,7 +129858,7 @@
     "cost": 200,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 상승하며 팬이 많을수록 효과가 상승한다",
     "desc_tw": "在展開最後衝刺時速度上升粉絲越多效果越高",
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase; the value scales with the number of your fans",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will increase; the value scales with the number of your fans",
     "enname": "Forger of Legends",
     "evo": [],
     "iconid": 20292,
@@ -130038,7 +129893,7 @@
     "cost": 200,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다",
     "desc_tw": "在展開最後衝刺時速度略微上升",
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Herald of a New Age",
     "iconid": 20291,
     "id": 210352,
@@ -130208,8 +130063,7 @@
     ],
     "desc_ko": "스타트 시에 가속력이 상승하고 그 후 라스트 스퍼트가 한창일 때 약간 앞으로 나간다＜작전・도주＞",
     "desc_tw": "起跑時加速力上升之後在展開最後衝刺時會略微向前邁進＜作戰．領頭＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner・At the start of the race, your acceleration will increase; then, at a random point during the first half of the Last Spurt, you will get a slight speed boost",
+    "endesc": "Runner・At the start of the race, your acceleration will increase; then, at a random point during the first half of the Last Spurt, you will get a slight speed boost",
     "enname": "Pioneer of Dreams",
     "evo_cond": [
       [
@@ -130329,8 +130183,7 @@
     ],
     "desc_ko": "종반의 최종 코너에서 중위권 그룹 이전에 있을 때 결승점까지 멀면 가속력이 상승하고 그 후 최종 직선에서 약간 앞으로 나간다 ＜선행/선입＞",
     "desc_tw": "在後期的最後彎道若位於隊列中段之前如距離終點尚遠則加速力上升之後在最後直線會略微向前邁進＜前列/居中＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader/Betweener・If you're on the Final Corner in the Final Leg, you're not in the back of the pack, and there's at least 600 m remaining in the race, your acceleration will greatly increase; then, during the Final Straight, you will get a slight speed boost",
+    "endesc": "Leader/Betweener・If you're on the Final Corner in the Final Leg, you're not in the back of the pack, and there's at least 600 m remaining in the race, your acceleration will greatly increase; then, during the Final Straight, you will get a slight speed boost",
     "enname": "Guidance of Many Moons",
     "evo_cond": [
       [
@@ -130400,8 +130253,7 @@
     ],
     "desc_ko": "레이스 종반이 다가올 때 중위권 그룹 이후에 있으면 속도가 상승하고 그 후 라스트 스퍼트가 한창일 때 약간 앞으로 나간다＜작전・추입＞",
     "desc_tw": "接近競賽後期時若位於隊列中段之後速度上升之後在展開最後衝刺時會略微向前邁進＜作戰．後追＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・If you're not in the front at a random point during the second half of the Middle Leg, your speed will increase; then, at a random point during the first half of the Last Spurt, you will get a slight speed boost",
+    "endesc": "Chaser・If you're not in the front at a random point during the second half of the Middle Leg, your speed will increase; then, at a random point during the first half of the Last Spurt, you will get a slight speed boost",
     "enname": "Soar Above The Clouds",
     "evo_cond": [
       [
@@ -130612,8 +130464,7 @@
     ],
     "desc_ko": "2000m 이상 레이스라면 라스트 스퍼트 중에 가속력이 상승한다 ＜추입・잔디＞",
     "desc_tw": "若是2000m以上的競賽時在最後衝刺時加速力上升＜後追．草地＞",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・Turf・During the Last Spurt in races of 2000 m or more, your acceleration will increase",
+    "endesc": "Chaser・Turf・During the Last Spurt in races of 2000 m or more, your acceleration will increase",
     "enname": "My Will is Divine",
     "evo_cond": [
       [
@@ -130810,8 +130661,7 @@
     ],
     "desc_ko": "레이스 중간 지점에서 중위권 그룹 이후에 있으면 짧은 시간 동안 앞으로 나가며 단거리나 마일 레이스라면 그 후 라스트 스퍼트 때 짧은 시간 동안 많이 앞으로 나간다",
     "desc_tw": "在競賽中間點若位於隊列中段之後短時間內向前邁進，在短距離或一哩競賽的最終衝刺時短時間內大幅向前邁進",
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're not in the front halfway through the race, you will get a speed boost; (Short/Mile only) then, during the Last Spurt, you will get a great speed boost",
+    "endesc": "If you're not in the front halfway through the race, you will get a speed boost; (Short/Mile only) then, during the Last Spurt, you will get a great speed boost",
     "enname": "¡Qué alegría!",
     "gene_version": {
       "activation": 1,
@@ -131013,7 +130863,7 @@
     "cost": 170,
     "desc_ko": "라스트 스퍼트가 한창일 때 속도가 약간 상승한다＜장거리＞",
     "desc_tw": "在展開最後衝刺時速度略微上升＜長距離＞",
-    "endesc": "Long・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Long・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Fierce Struggle",
     "iconid": 20011,
     "id": 203562,
@@ -131213,8 +131063,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the middle of the pack in the second half of the race on corner 3, your speed will increase; then, when you're about to overtake someone on the Final Straight, your speed will increase slightly",
+    "endesc": "If you're in the middle of the pack in the second half of the race on corner 3, your speed will increase; then, when you're about to overtake someone on the Final Straight, your speed will increase slightly",
     "enname": "Deceive Thy Foe and Be Certain of Victory",
     "gene_version": {
       "activation": 1,
@@ -131393,8 +131242,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the second half of the pack during the Final Leg, you will get a slight speed boost; the effect is much stronger if the race is Mile and you've been at the back of the pack (last 30%) the entire time until now",
+    "endesc": "If you're in the second half of the pack during the Final Leg, you will get a slight speed boost; the effect is much stronger if the race is Mile and you've been at the back of the pack (last 30%) the entire time until now",
     "enname": "Terpsichore of the Abyss",
     "gene_version": {
       "activation": 1,
@@ -131774,8 +131622,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "During the Last Spurt, your acceleration will increase",
+    "endesc": "During the Last Spurt, your acceleration will increase",
     "enname": "Legendary Accel",
     "iconid": 20043,
     "id": 1400021,
@@ -131813,8 +131660,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・Long・During any Last Spurt straight, your acceleration will increase; then, on the Final Corner, you will get a slight speed boost",
+    "endesc": "Chaser・Long・During any Last Spurt straight, your acceleration will increase; then, on the Final Corner, you will get a slight speed boost",
     "enname": "Fleet Foot of Idaten",
     "evo_cond": [
       [
@@ -131961,8 +131807,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・During the Final Straight, your (target) speed will increase; in Mile races, your will get an (immediate) speed boost instead",
+    "endesc": "Chaser・During the Final Straight, your (target) speed will increase; in Mile races, your will get an (immediate) speed boost instead",
     "enname": "Arrow of Artemis",
     "evo_cond": [
       [
@@ -132193,7 +132038,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "Betweener・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Betweener・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Independence",
     "evo": [],
     "iconid": 20012,
@@ -132234,7 +132079,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "Betweener・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Betweener・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Pushing Through!",
     "iconid": 20011,
     "id": 203592,
@@ -132629,8 +132474,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・If you're in the first half of the pack during the Final Leg and there's at least 500 m remaining, you will get a speed boost",
+    "endesc": "Dirt・If you're in the first half of the pack during the Final Leg and there's at least 500 m remaining, you will get a speed boost",
     "enname": "Parade of the Five Heavenly Beasts",
     "gene_version": {
       "activation": 1,
@@ -132871,7 +132715,7 @@
       }
     ],
     "cost": 170,
-    "endesc": "Dirt・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Dirt・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Sum of Small Efforts",
     "evo": [
       {
@@ -132919,7 +132763,7 @@
       }
     ],
     "cost": 170,
-    "endesc": "Dirt・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Dirt・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Diligence",
     "iconid": 20011,
     "id": 203612,
@@ -133031,8 +132875,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・Runner・If you activate any other skill during the Middle Leg, your speed will increase; then, if you activate any other skill during the Final Leg or beyond, you will get a speed boost and your acceleration will slightly increase",
+    "endesc": "Dirt・Runner・If you activate any other skill during the Middle Leg, your speed will increase; then, if you activate any other skill during the Final Leg or beyond, you will get a speed boost and your acceleration will slightly increase",
     "enname": "Fanservice For You☆",
     "evo_cond": [
       [
@@ -133083,7 +132926,7 @@
         ]
       }
     ],
-    "endesc": "Dirt・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Dirt・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "The Yellow Dragon Ascends",
     "evo_cond": [
       [
@@ -133213,8 +133056,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・If you're being blocked from the side during the Middle Leg, your speed will increase; then, if you have plenty of stamina left during the Last Spurt, your acceleration will slightly increase",
+    "endesc": "Dirt・If you're being blocked from the side during the Middle Leg, your speed will increase; then, if you have plenty of stamina left during the Last Spurt, your acceleration will slightly increase",
     "enname": "Give Your All, Star of Tomakomai!",
     "evo_cond": [
       [
@@ -133289,8 +133131,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Turf・If you're in the first half of the pack on any corner during the first half of the race, your speed will increase; (Mile/Medium only) then, if someone is trying to overtake you during the Last Straight, you will get a speed boost",
+    "endesc": "Turf・If you're in the first half of the pack on any corner during the first half of the race, your speed will increase; (Mile/Medium only) then, if someone is trying to overtake you during the Last Straight, you will get a speed boost",
     "enname": "Queen's Rebirth",
     "gene_version": {
       "activation": 1,
@@ -133950,8 +133791,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・Your speed will increase greatly during the last spurt; the effect is stronger in Medium races",
+    "endesc": "Leader・Your speed will increase greatly during a last spurt; the effect is stronger in Medium races",
     "enname": "Perennial Babbles",
     "gene_version": {
       "activation": 1,
@@ -134585,8 +134425,7 @@
         "precondition": "phase>=2&blocked_side_continuetime>=2&corner!=0&is_activate_other_skill_detail==1"
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the middle of the pack 40% into the race, your speed will slightly increase; then, if you were blocked from the side on any Final Leg corner, then with 350 m remaining in the race, your speed will greatly increase",
+    "endesc": "If you're in the middle of the pack 40% into the race, your speed will slightly increase; then, if you were blocked from the side on any Final Leg corner, then with 350 m remaining in the race, your speed will greatly increase",
     "enname": "Silent Sunset Gold",
     "gene_version": {
       "activation": 1,
@@ -135213,7 +135052,7 @@
         ]
       }
     ],
-    "endesc": "Medium/Long・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Medium/Long・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Earth-Shaking Dash",
     "evo_cond": [
       [
@@ -135968,8 +135807,7 @@
         "precondition": "track_id==10009&course_distance==1600@track_id==10008&course_distance==2000@track_id==10006&course_distance==2400"
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Triple Tiara races only・During any Final Leg corner, you will get a speed boost; if the corner is on a downhill, your acceleration will also slightly increase",
+    "endesc": "Triple Tiara races only・During any Final Leg corner, you will get a speed boost; if the corner is on a downhill, your acceleration will also slightly increase",
     "enname": "Shine on Forever",
     "gene_version": {
       "activation": 1,
@@ -136535,8 +136373,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・If you're spurting on any straight, your acceleration will increase",
+    "endesc": "Leader・If you're in a last spurt on any straight, your acceleration will increase",
     "enname": "Showdown",
     "evo": [
       {
@@ -136584,8 +136421,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・If you're spurting on any straight, your acceleration will slightly increase",
+    "endesc": "Leader・If you're in a last spurt on any straight, your acceleration will slightly increase",
     "enname": "One Brave Step",
     "iconid": 20041,
     "id": 203712,
@@ -136866,7 +136702,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "Chaser・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Chaser・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Give Chase",
     "iconid": 20011,
     "id": 203762,
@@ -136961,8 +136797,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner・Long・If you're in the first half of the pack at a random point during the second half of the Opening Leg, your speed will increase; then, during the Last Spurt, your acceleration will slightly increase",
+    "endesc": "Runner・Long・If you're in the first half of the pack at a random point during the second half of the Opening Leg, your speed will increase; then, during the Last Spurt, your acceleration will slightly increase",
     "enname": "Scarlet Radiance",
     "evo_cond": [
       [
@@ -137209,8 +137044,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・Long・If you're spurting and on a straight, your acceleration will greatly increase and you'll get a slight speed boost",
+    "endesc": "Leader・Long・If you're in a last spurt and on a straight, your acceleration will greatly increase and you'll get a slight speed boost",
     "enname": "Not My Usual Self!",
     "evo_cond": [
       [
@@ -137407,7 +137241,7 @@
         ]
       }
     ],
-    "endesc": "Medium・If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "Medium・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "Desert Jewel's Allure",
     "evo_cond": [
       [
@@ -137534,8 +137368,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the middle of the pack with 300m remaining, your speed will greatly increase; (Medium only) or, if you've activated the Impulse skill, then during a Final Leg corner, your acceleration will increase",
+    "endesc": "If you're in the middle of the pack with 300m remaining, your speed will greatly increase; (Medium only) or, if you've activated the Impulse skill, then during a Final Leg corner, your acceleration will increase",
     "enname": "Scarlet Lily's Elation",
     "gene_version": {
       "activation": 1,
@@ -137857,8 +137690,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・Medium・During the Last Straight, you will get a slight speed boost; the effect is stronger if you stayed in the middle of the pack or beyond until 2/3 of the race",
+    "endesc": "Betweener・Medium・During the Last Straight, you will get a slight speed boost; the effect is stronger if you stayed in the middle of the pack or beyond until 2/3 of the race",
     "enname": "Beast Within",
     "iconid": 20011,
     "id": 203822,
@@ -138423,8 +138255,7 @@
         "precondition": "phase==1&order_rate<=70&order_rate>=20&blocked_side_continuetime>=2"
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you were blocked from the side while in the middle of the pack during the Middle Leg, then in the Last Spurt, your speed will increase; (Short only) if you're currently 3rd or better, you will also get a slight (immediate) speed boost",
+    "endesc": "If you were blocked from the side while in the middle of the pack during the Middle Leg, then in the Last Spurt, your speed will increase; (Short only) if you're currently 3rd or better, you will also get a slight (immediate) speed boost",
     "enname": "Miracle, Hopes, Melody",
     "gene_version": {
       "activation": 1,
@@ -138502,8 +138333,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're trying to overtake someone in the Middle Leg, you will get a speed boost; then, if you're NOT in the front in the second half of the Final Corner, your speed will increase",
+    "endesc": "If you're trying to overtake someone in the Middle Leg, you will get a speed boost; then, if you're NOT in the front in the second half of the Final Corner, your speed will increase",
     "enname": "A Small Miracle for You♪",
     "gene_version": {
       "activation": 1,
@@ -138566,7 +138396,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "Chaser・If you're spurting at a random point during the first half of the Last Spurt, your speed will increase",
+    "endesc": "Chaser・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will increase",
     "enname": "Swift Decision",
     "evo": [],
     "iconid": 20012,
@@ -139333,8 +139163,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner/Leader・During any Final Leg corner, you will get a speed boost; in Dirt races, your acceleration will also slightly increase",
+    "endesc": "Runner/Leader・During any Final Leg corner, you will get a speed boost; in Dirt races, your acceleration will also slightly increase",
     "enname": "Punkish Bite",
     "gene_version": {
       "activation": 1,
@@ -140025,8 +139854,7 @@
         "precondition": "phase>=2&is_finalcorner==1&corner!=0&near_count>=1&order_rate>=30&order_rate<=70"
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you were in the middle of the pack during the Final Corner in the Final Leg and there was another girls nearby, then during the Last Straight, your speed will increase; if your Mood is Great, you will also get a slight (immediate) speed boost",
+    "endesc": "If you were in the middle of the pack during the Final Corner in the Final Leg and there was another girls nearby, then during the Last Straight, your speed will increase; if your Mood is Great, you will also get a slight (immediate) speed boost",
     "enname": "Bravo ☆ Wonder Doll!",
     "gene_version": {
       "activation": 1,
@@ -140917,8 +140745,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader/Betweener・During the Final Corner in the Final Leg in races over 2000 m, your acceleration will increase tremendously; if the race is Long, you will get a speed boost instead",
+    "endesc": "Leader/Betweener・During the Final Corner in the Final Leg in races over 2000 m, your acceleration will increase tremendously; if the race is Long, you will get a speed boost instead",
     "enname": "Now's the Time to Go Wild!",
     "evo_cond": [
       [
@@ -141469,7 +141296,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase; the effect is stronger if your Onsen level is maxed",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will increase; the effect is stronger if your Onsen level is maxed",
     "enname": "Miracle of Recreation",
     "evo": [],
     "iconid": 20322,
@@ -141500,7 +141327,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Rest and Rise",
     "iconid": 20321,
     "id": 210372,
@@ -141759,8 +141586,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Mile・If someone is trying to overtake you during the Final Leg, you will get a speed boost",
+    "endesc": "Mile・If someone is trying to overtake you during the Final Leg, you will get a speed boost",
     "enname": "Break Through the Red Zone",
     "evo_cond": [
       [
@@ -141843,8 +141669,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Mile/Medium・If you've activated at least 3 skills during the Opening Leg, your acceleration will increase; then, at the start of your last spurt, if you didn't have a late start, your acceleration will slightly increase",
+    "endesc": "Mile/Medium・If you've activated at least 3 skills during the Opening Leg, your acceleration will increase; then, at the start of your last spurt, if you didn't have a late start, your acceleration will slightly increase",
     "enname": "Victory Path Domination",
     "evo_cond": [
       [
@@ -142060,8 +141885,7 @@
       }
     ],
     "cost": 170,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・During your spurt, if you overtake another girl or if you've been blocked from the side, you will get a speed boost",
+    "endesc": "Dirt・During your spurt, if you overtake another girl or if you've been blocked from the side, you will get a speed boost",
     "enname": "Earthshaker",
     "evo": [
       {
@@ -142101,8 +141925,7 @@
       }
     ],
     "cost": 170,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・During your spurt, if you overtake another girl or if you've been blocked from the side, you will get a slight speed boost",
+    "endesc": "Dirt・During your spurt, if you overtake another girl or if you've been blocked from the side, you will get a slight speed boost",
     "enname": "Thunderous Footfall",
     "iconid": 20011,
     "id": 204102,
@@ -142247,8 +142070,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Dirt・During your spurt, if you overtake another girl or if you've been blocked from the side, you will get a great speed boost",
+    "endesc": "Dirt・During your spurt, if you overtake another girl or if you've been blocked from the side, you will get a great speed boost",
     "enname": "Ground-Shaking Geyser",
     "evo_cond": [
       [
@@ -142573,8 +142395,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Chaser・Turf・At a random point during the first half of the Final Leg in Mile races, OR during the Final Corner in Medium races, your acceleration will increase and you will get a speed boost",
+    "endesc": "Chaser・Turf・At a random point during the first half of the Final Leg in Mile races, OR during the Final Corner in Medium races, your acceleration will increase and you will get a speed boost",
     "enname": "Sincere-Hearted Radiance",
     "evo_cond": [
       [
@@ -142707,8 +142528,7 @@
         "precondition": "distance_type==4&phase>=2&corner!=0&change_order_onetime<0&is_activate_other_skill_detail==1"
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the second half of the pack with 1000 m remaining, you will get a speed boost; (Long only) then, if you overtook someone on any Final Leg corner, then during the Final Straight, your speed will increase",
+    "endesc": "If you're in the second half of the pack with 1000 m remaining, you will get a speed boost; (Long only) then, if you overtook someone on any Final Leg corner, then during the Final Straight, your speed will increase",
     "enname": "Dreaming of the Silver World",
     "gene_version": {
       "activation": 1,
@@ -142953,8 +142773,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・If you're less than 10 lengths away from the first place during the Final Straight, your speed will greatly increase; (Medium only) if you've overtaken someone during the Final Leg, you will also get a small (immediate) speed boost",
+    "endesc": "Betweener・If you're less than 10 lengths away from the first place during the Final Straight, your speed will greatly increase; (Medium only) if you've overtaken someone during the Final Leg, you will also get a small (immediate) speed boost",
     "enname": "All in on One Bet",
     "evo_cond": [
       [
@@ -143628,8 +143447,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener/Chaser・In the second half of the race, your speed will slightly increase; (2000+ m races only) then, when you start spurting, your acceleration will increase",
+    "endesc": "Betweener/Chaser・In the second half of the race, your speed will slightly increase; (2000+ m races only) then, when you start a last spurt, your acceleration will increase",
     "enname": "In Search of Gold",
     "gene_version": {
       "activation": 1,
@@ -143701,8 +143519,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're spurting on the Final Straight, your speed will increase; it will increase greatly if you have plenty of stamina left",
+    "endesc": "If you're in a last spurt on the Final Straight, your speed will increase; it will increase greatly if you have plenty of stamina left",
     "enname": "To the Far Beyond",
     "evo": [
       {
@@ -143752,8 +143569,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're spurting on the Final Straight, your speed will slightly increase; the effect is stronger if you have plenty of stamina left",
+    "endesc": "If you're in a last spurt on the Final Straight, your speed will slightly increase; the effect is stronger if you have plenty of stamina left",
     "enname": "Putting All on the Line",
     "iconid": 20011,
     "id": 204122,
@@ -143806,8 +143622,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・If you're spurting on the Final Straight, your speed will greatly increase; if your mood is Great, you will use a little extra stamina and your speed will increase tremendously",
+    "endesc": "Betweener・If you're in a last spurt on the Final Straight, your speed will greatly increase; if your mood is Great, you will use a little extra stamina and your speed will increase tremendously",
     "enname": "Unfinished Journey",
     "evo_cond": [
       [
@@ -144067,8 +143882,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you're in the middle of the pack during the second half of the Final Corner, your speed will increase; (Long only) if you were blocked from the side in the Middle Leg, your speed will increase tremendously instead",
+    "endesc": "If you're in the middle of the pack during the second half of the Final Corner, your speed will increase; (Long only) if you were blocked from the side in the Middle Leg, your speed will increase tremendously instead",
     "enname": "Spring Light: Bon Appétit",
     "gene_version": {
       "activation": 1,
@@ -144438,8 +144252,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner/Leader・When there's less than 600 m remaining during the Final Leg, and you're either first or trying to overtake someone in the first half of the pack, your acceleration will slightly increase",
+    "endesc": "Runner/Leader・When there's less than 600 m remaining during the Final Leg, and you're either first or trying to overtake someone in the first half of the pack, your acceleration will slightly increase",
     "enname": "Committed Push",
     "iconid": 20041,
     "id": 204162,
@@ -144828,8 +144641,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Betweener・Long・If you try to overtake someone in the second half of the race, your speed will greatly increase; then, at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Betweener・Long・If you try to overtake someone in the second half of the race, your speed will greatly increase; then, at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Spring Awakened: Lumière",
     "evo_cond": [
       [
@@ -144896,8 +144708,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・If you're in the first half of the pack at a random point during the second half of the Final Corner, you will get a slight speed boost; (Mile/Medium only) then, during the Final Straight, you will get another speed boost",
+    "endesc": "Leader・If you're in the first half of the pack at a random point during the second half of the Final Corner, you will get a slight speed boost; (Mile/Medium only) then, during the Final Straight, you will get another speed boost",
     "enname": "Clear the Haze, Seize the Morning",
     "gene_version": {
       "activation": 1,
@@ -145081,8 +144892,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Mile/Medium・If you're first or about to overtake someone, your speed will increase; (Tokyo only) then, during the Last Straight, you will get a speed boost",
+    "endesc": "Mile/Medium・If you're first or about to overtake someone, your speed will increase; (Tokyo only) then, during the Last Straight, you will get a speed boost",
     "enname": "Wind in My Back",
     "evo_cond": [
       [
@@ -145149,8 +144959,7 @@
         ]
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Leader・At a random point during the second half of the Opening Leg, your speed will increase; (Mile/Medium only) then, during the Final Straight, you will get a slight speed boost",
+    "endesc": "Leader・At a random point during the second half of the Opening Leg, your speed will increase; (Mile/Medium only) then, during the Final Straight, you will get a slight speed boost",
     "enname": "Explosive Maverick",
     "evo_cond": [
       [
@@ -145495,8 +145304,7 @@
         "precondition": "distance_rate>=50&order_rate_in50_continue==1"
       }
     ],
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "If you stay in the first half of the pack for the entire first half of the race, then on the Final Straight, your speed will increase; in Medium races, it will increase greatly",
+    "endesc": "If you stay in the first half of the pack for the entire first half of the race, then on the Final Straight, your speed will increase; in Medium races, it will increase greatly",
     "enname": "Che Piacevole!",
     "gene_version": {
       "activation": 1,
@@ -145727,8 +145535,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "The description of this skill has recently changed; retranslation is pending.",
-    "endesc_old": "Runner/Leader・When there's less than 600 m remaining during the Final Leg, and you're either first or trying to overtake someone in the first half of the pack, your acceleration will increase",
+    "endesc": "Runner/Leader・When there's less than 600 m remaining during the Final Leg, and you're either first or trying to overtake someone in the first half of the pack, your acceleration will increase",
     "enname": "Headlong Charge",
     "evo": [
       {
@@ -145777,7 +145584,7 @@
       }
     ],
     "cost": 170,
-    "endesc": "Mile・If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "Mile・If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Lively",
     "iconid": 20011,
     "id": 204172,
@@ -146537,7 +146344,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Turf・If you're in the first half of the pack on any Middle Leg corner, you will get a speed boost (effect is stronger in Medium races); then, at a random point during your Zenkai Spurt, your Zenkai acceleration will increase",
     "enname": "Peerless Heroine",
     "gene_version": {
       "activation": 1,
@@ -146754,7 +146561,7 @@
       }
     ],
     "cost": 190,
-    "endesc": "",
+    "endesc": "Leader・If you're in the first half of the pack at a random point during the second half of the Middle Leg, your speed will increase",
     "enname": "Paradigm Shift",
     "evo": [
       {
@@ -146795,7 +146602,7 @@
       }
     ],
     "cost": 190,
-    "endesc": "",
+    "endesc": "Leader・If you're in the first half of the pack at a random point during the second half of the Middle Leg, your speed will slightly increase",
     "enname": "Outstanding Run",
     "iconid": 20011,
     "id": 204212,
@@ -146825,7 +146632,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "Medium・At a random point during your Zenkai Spurt, your Zenkai acceleration will slightly increase",
     "enname": "One More Push",
     "iconid": 20351,
     "id": 204222,
@@ -147040,7 +146847,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will increase; the effect is stronger if the team rank is S or better",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will increase; the effect is stronger if the team rank is S or better",
     "enname": "Struggle Leads to Glory",
     "evo": [],
     "iconid": 20332,
@@ -147071,7 +146878,7 @@
       }
     ],
     "cost": 200,
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will slightly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "American Dream",
     "iconid": 20331,
     "id": 210382,
@@ -147101,7 +146908,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "If another girl has been right in front of you for at least three seconds OR if you're first and someone has been right behind you for at least three seconds, your speed will greatly increase",
     "enname": "Aiming for Stardom!",
     "evo_cond": [
       [
@@ -147147,7 +146954,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "If you're first or you overtake someone during the Middle Leg, your speed will increase; then, at a random point during the first half of the Last Spurt, your speed will slightly increase",
     "enname": "Journey to a New Dream",
     "evo_cond": [
       [
@@ -147185,7 +146992,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Dirt・At a random point during the Middle Leg, your speed will increase",
     "enname": "Turn the Tables!",
     "evo_cond": [
       [
@@ -147230,7 +147037,7 @@
         ]
       }
     ],
-    "endesc": "If you're spurting at a random point during the first half of the Last Spurt, your speed will greatly increase",
+    "endesc": "If you're in a last spurt at a random point during the first half of the Last Spurt, your speed will greatly increase",
     "enname": "World-Captivating Brilliance",
     "evo_cond": [
       [
@@ -147650,7 +147457,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "If you're in the first half of the pack during any Middle Leg straight, your speed will slightly increase; the effect is stronger if the race takes place abroad",
     "enname": "Watch Us Flourish",
     "gene_version": {
       "activation": 1,
@@ -147704,7 +147511,7 @@
       }
     ],
     "cost": 160,
-    "endesc": "",
+    "endesc": "Leader・Medium・If you're in the first half of the pack at a random point during a random Middle Leg straight, your speed will slightly increase",
     "enname": "Hundred Blooming Flowers",
     "evo": [
       {
@@ -147745,7 +147552,7 @@
       }
     ],
     "cost": 160,
-    "endesc": "",
+    "endesc": "Leader・Medium・If you're in the first half of the pack at a random point during a random Middle Leg straight, your speed will marginally increase",
     "enname": "Individual",
     "iconid": 20011,
     "id": 204302,
@@ -147787,7 +147594,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Medium・If you're in the first half of the pack at a random point during the first half of the Final Leg, your acceleration will increase; in overseas Turf races, the skill will instead immediately activate when you're on any straight during your last spurt",
     "enname": "Lots of Love ♡",
     "evo_cond": [
       [
@@ -147854,7 +147661,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・Medium・At a random point on a random straight during the second half of the Middle Leg, you speed will slightly increase; if you're in the first half of the pack and the race takes place abroad, you will also get a slight (immediate) speed boost",
     "enname": "Legendary Moment Overseas!",
     "evo_cond": [
       [
@@ -147920,7 +147727,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Betweener・If you were in the second half of the pack at the start of the Middle Leg, then at a random point during the second half of the Middle Leg, you will get a speed boost; (Medium only) then, if you're in the first half of the pack when entering the Final Straight, you will get another slight speed boost",
     "enname": "Ring-a-Link",
     "gene_version": {
       "activation": 1,
@@ -147948,7 +147755,7 @@
         }
       ],
       "cost": 200,
-      "iconid": 0,
+      "iconid": 20011,
       "id": 901431,
       "inherited": true,
       "parent_skills": [
@@ -147956,7 +147763,7 @@
       ],
       "rarity": 1
     },
-    "iconid": 0,
+    "iconid": 20013,
     "id": 101431,
     "jpdesc": "中盤突入時に後方だと終盤が迫ったとき前に出る、中距離レースならその後最終直線に入ったとき前方だとわずかに前に出る＜作戦・差し＞",
     "jpname": "Ring-a-Link",
@@ -148039,7 +147846,7 @@
         ]
       ]
     ],
-    "iconid": 0,
+    "iconid": 20016,
     "id": 114301111,
     "jpdesc": "レース中盤の直線で中団以降にいるとしばらくの間少し前に出る、その後終盤以降の最終直線で好位置にいると速度がわずかに上がる＜作戦・差し＞",
     "jpname": "Chain of Hearts",
@@ -148108,7 +147915,7 @@
         ]
       ]
     ],
-    "iconid": 0,
+    "iconid": 20016,
     "id": 114301211,
     "jpdesc": "最終コーナー前の第3コーナーで前に出る、さらに中距離レースなら加速力がわずかに上がる＜中距離/長距離＞",
     "jpname": "暗夜の灯",
@@ -148150,8 +147957,8 @@
         ]
       }
     ],
-    "endesc": "",
-    "enname": "",
+    "endesc": "If you're not in the front anywhere during the second half of the race, your speed will increase; the effect lasts longer if it's a Mile race and you've been in the second half of the pack the entire race",
+    "enname": "Sparkling Arrow Line",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -148177,7 +147984,7 @@
         }
       ],
       "cost": 200,
-      "iconid": 0,
+      "iconid": 20011,
       "id": 910821,
       "inherited": true,
       "parent_skills": [
@@ -148185,7 +147992,7 @@
       ],
       "rarity": 1
     },
-    "iconid": 0,
+    "iconid": 20013,
     "id": 110821,
     "jpdesc": "レース後半に中団以降にいると少しの間速度が上がるマイルレースで後方に控え続けていると上げ続ける",
     "jpname": "煌めき華やぐアローライン",
@@ -148227,8 +148034,8 @@
         "precondition": "running_style==1@running_style==2"
       }
     ],
-    "endesc": "",
-    "enname": "",
+    "endesc": "Runner/Leader・If you're in top 40% halfway through the race, your speed will increase; in Sprint races, you will also get an (immediate) speed boost",
+    "enname": "Sakura Storm Spring Burst",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -148260,7 +148067,7 @@
         }
       ],
       "cost": 200,
-      "iconid": 0,
+      "iconid": 20011,
       "id": 920411,
       "inherited": true,
       "parent_skills": [
@@ -148268,7 +148075,7 @@
       ],
       "rarity": 1
     },
-    "iconid": 0,
+    "iconid": 20013,
     "id": 120411,
     "jpdesc": "レース中間地点で前方にいると少しの間速度が上がる、さらに短距離レースなら少しの間少し前に出る＜逃げ/先行＞",
     "jpname": "桜吹雪くスプリントバースト",
@@ -148299,8 +148106,8 @@
       }
     ],
     "cost": 200,
-    "endesc": "",
-    "enname": "",
+    "endesc": "At a random point during your Zenkai Spurt, your Zenkai acceleration will slightly increase and you will get a slight speed boost",
+    "enname": "Twinkling Star",
     "iconid": 2010011,
     "id": 204262,
     "jpdesc": "全開スパート中に少し前に出てちょっと伸びを見せる",
@@ -148345,9 +148152,9 @@
       }
     ],
     "cost": 160,
-    "endesc": "",
-    "enname": "",
-    "iconid": 0,
+    "endesc": "Short・If you're in the first half of the pack at a random point during the first half of the Final Leg, your acceleration will slightly increase",
+    "enname": "On the Offensive",
+    "iconid": 20041,
     "id": 204312,
     "jpdesc": "レース終盤始めの方で前方にいると加速力がわずかに上がる＜短距離＞",
     "jpname": "押せ押せムード",
@@ -148384,9 +148191,9 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
-    "enname": "",
-    "iconid": 0,
+    "endesc": "Mile/Medium・At a random point during the Middle Leg, your speed will slightly increase; the effect is stronger if there's another girl with the same skill",
+    "enname": "Perfect Sync",
+    "iconid": 20011,
     "id": 204322,
     "jpdesc": "レース中盤に速度がわずかに上がる「阿吽の呼吸」を持つウマ娘が2人以上いるレースだと少し上がる＜マイル/中距離＞",
     "jpname": "阿吽の呼吸",
@@ -148431,8 +148238,8 @@
         ]
       }
     ],
-    "endesc": "",
-    "enname": "",
+    "endesc": "Leader/Betweener・At a random point during the Middle Leg, your speed will increase; it will increase greatly in 2400 m Tokyo races",
+    "enname": "Assault Run",
     "evo_cond": [
       [
         [
@@ -148449,7 +148256,7 @@
         ]
       ]
     ],
-    "iconid": 0,
+    "iconid": 20016,
     "id": 100101311,
     "jpdesc": "レース中盤に速度が上がる東京レース場の2400mのレースならしばらくの間すごく上がる＜先行/差し＞",
     "jpname": "強襲のラン",
@@ -148508,8 +148315,8 @@
         ]
       }
     ],
-    "endesc": "",
-    "enname": "",
+    "endesc": "Short・At the start of the race, you will get a speed boost; then, when you try overtaking someone or someone tries overtaking you, you will get another speed boost",
+    "enname": "Superspeed × Thunderclap = Super Bakushin!!",
     "evo_cond": [
       [
         [
@@ -148534,7 +148341,7 @@
         ]
       ]
     ],
-    "iconid": 0,
+    "iconid": 20016,
     "id": 104103111,
     "jpdesc": "スタート時に少し前に出るその後追い抜こうとするか近寄られると前に出る＜短距離＞",
     "jpname": "超速×迅雷＝超バクシン！！",
@@ -148565,8 +148372,8 @@
         "precondition": "distance_type==1"
       }
     ],
-    "endesc": "",
-    "enname": "",
+    "endesc": "Short・If you're first during the first quarter of the Final Leg OR you're in the first half of the pack and trying to overtake someone during the first quarter of the Final Leg OR if you're in the first half of the pack at a random point during the first quarter of the Final Leg, your acceleration will increase",
+    "enname": "Sakura Storm Charge",
     "evo_cond": [
       [
         [
@@ -148587,7 +148394,7 @@
         ]
       ]
     ],
-    "iconid": 0,
+    "iconid": 20046,
     "id": 104103211,
     "jpdesc": "レース終盤始めの早めに先頭にいるか前方で追い抜こうとするとき、または終盤始めの方早めに前方だと加速力が上がる＜短距離＞",
     "jpname": "猛進、桜吹雪の如く",
@@ -148631,8 +148438,8 @@
         ]
       }
     ],
-    "endesc": "",
-    "enname": "",
+    "endesc": "Mile・If you're not in the front at a random point during the second half of the Middle Leg, your speed will increase",
+    "enname": "Elegant Pursuit",
     "evo_cond": [
       [
         [
@@ -148653,7 +148460,7 @@
         ]
       ]
     ],
-    "iconid": 0,
+    "iconid": 20016,
     "id": 108202111,
     "jpdesc": "レース終盤が迫ったとき中団以降にいると速度が上がるその後最終直線で持久力を少し使って少し前に出る＜追込・マイル＞",
     "jpname": "流麗なる急追",
@@ -148696,8 +148503,8 @@
         ]
       }
     ],
-    "endesc": "",
-    "enname": "",
+    "endesc": "Chaser・Mile・If you were in the second half of the pack for the entire first half of the race, then at a random point during the first quarter of the Final Leg, your acceleration will increase; then, at a random point during the first half of the Last Spurt, you will get a slight speed boost",
+    "enname": "Breeze Across the Spring Sky",
     "evo_cond": [
       [
         [
@@ -148720,7 +148527,7 @@
         ]
       ]
     ],
-    "iconid": 0,
+    "iconid": 20046,
     "id": 108202211,
     "jpdesc": "レース後半まで後方に控え続けていると終盤始めの方早めに加速力が上がるその後最終盤始めの方でわずかに前に出る＜追込・マイル＞",
     "jpname": "春風、蒼穹を駆ける",
@@ -148766,8 +148573,8 @@
         ]
       }
     ],
-    "endesc": "",
-    "enname": "",
+    "endesc": "Dirt・Your Speed and Power stats are increased by 60; if your Motivation is Great, all your stats are increased by 60 instead",
+    "enname": "Drumroll of Prosperity",
     "evo_cond": [
       [
         [
