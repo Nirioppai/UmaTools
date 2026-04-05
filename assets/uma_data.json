@@ -5302,9 +5302,9 @@
     "UmaImage": "/assets/character_thumbs/103001-rice-shower.png"
   },
   {
-    "UmaKey": "Agnes Tachyon :: tach-nology",
+    "UmaKey": "Agnes Tachyon :: Tach-nology",
     "UmaName": "Agnes Tachyon",
-    "UmaNickname": "tach-nology",
+    "UmaNickname": "Tach-nology",
     "UmaSlug": "103201-agnes-tachyon",
     "UmaId": "103201",
     "UmaServer": "global",
@@ -11390,7 +11390,7 @@
     "UmaNickname": "Succès Étoilé",
     "UmaSlug": "100502-fuji-kiseki",
     "UmaId": "100502",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -11536,20 +11536,20 @@
     ],
     "UmaEvents": [
       {
-        "EventName": "The Way I See You",
+        "EventName": "The Shape of a Miracle",
         "EventOptions": {
           "Top Option": "Guts +10",
           "Bottom Option": "Energy +15\nMotivation +1\nSkill Pts +10"
         }
       },
       {
-        "EventName": "The Shape of a Miracle",
+        "EventName": "A Proffered Hand",
         "EventOptions": {
           "": "Speed +20\nWit +20\nRight-Handed ○ hint +3\nRight-Handed ○ hint +1"
         }
       },
       {
-        "EventName": "A Proffered Hand",
+        "EventName": "The Way I See You",
         "EventOptions": {
           "Top Option": "Wit +10",
           "Bottom Option": "Unyielding Spirit hint +2"
@@ -11564,7 +11564,7 @@
     "UmaNickname": "Soirée des Chatons",
     "UmaSlug": "102002-seiun-sky",
     "UmaId": "102002",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {

@@ -69613,7 +69613,7 @@
     "SupportId": "30090",
     "SupportName": "Symboli Rudolf (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Stamina",
     "SupportEffects": [
       {
@@ -69849,7 +69849,7 @@
     "SupportId": "30091",
     "SupportName": "Sirius Symboli (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Wit",
     "SupportEffects": [
       {
@@ -70101,7 +70101,7 @@
     "SupportId": "30092",
     "SupportName": "Air Shakur (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Speed",
     "SupportEffects": [
       {

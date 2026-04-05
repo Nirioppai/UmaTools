@@ -2775,7 +2775,7 @@
     }
   },
   {
-    "EventName": "High and Low at Once",
+    "EventName": "Both High and Low",
     "EventOptions": {
       "Top Option": "Speed +10\nPower +10\nBond +5",
       "Bottom Option": "Eager hint +1\nBond +5"

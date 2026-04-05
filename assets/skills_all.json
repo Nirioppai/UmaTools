@@ -4593,6 +4593,10 @@
           102201,
           106701
         ],
+        "char_e": [
+          100502,
+          102002
+        ],
         "sup_e": [
           [
             30065,
@@ -8173,6 +8177,7 @@
             30043,
             30048,
             30075,
+            30091,
             20006,
             20008,
             20010,
@@ -8544,7 +8549,8 @@
         "char": [
           100302,
           101301,
-          106901
+          106901,
+          102002
         ],
         "char_e": [
           106801
@@ -10012,6 +10018,7 @@
         "sup_e": [
           [
             30085,
+            30090,
             20005
           ],
           [
@@ -16373,6 +16380,7 @@
             30013,
             30027,
             30048,
+            30092,
             20010,
             20040
           ],
@@ -18649,7 +18657,8 @@
         "char": [
           100401,
           102601,
-          106801
+          106801,
+          102002
         ],
         "char_e": [
           100201,
@@ -19048,7 +19057,8 @@
       "en": {
         "char": [
           102001,
-          102602
+          102602,
+          102002
         ],
         "sup_e": [
           [
@@ -19165,11 +19175,13 @@
         "char": [
           100201,
           102001,
-          102602
+          102602,
+          102002
         ],
         "char_e": [
           100402,
-          102001
+          102001,
+          102002
         ],
         "sup_e": [
           [
@@ -20323,7 +20335,8 @@
         ],
         "char_e": [
           100501,
-          102201
+          102201,
+          100502
         ],
         "sup_e": [
           [
@@ -20615,7 +20628,8 @@
           101501,
           105801,
           102201,
-          106901
+          106901,
+          100502
         ],
         "sup_e": [
           [
@@ -20758,6 +20772,7 @@
           105801,
           102201,
           106901,
+          100502,
           100901
         ],
         "char_e": [
@@ -20773,6 +20788,7 @@
           102302,
           101502,
           107101,
+          100502,
           104501
         ],
         "sup_e": [
@@ -22537,6 +22553,7 @@
             30004,
             30057,
             30073,
+            30092,
             20014
           ],
           [
@@ -23169,6 +23186,7 @@
           [
             30004,
             30057,
+            30092,
             20003
           ],
           [
@@ -25178,7 +25196,8 @@
       "en": {
         "char": [
           100201,
-          102601
+          102601,
+          102002
         ],
         "sup_hint": [
           [
@@ -25548,6 +25567,7 @@
             30041,
             30047,
             30048,
+            30092,
             20002,
             20004,
             20010,
@@ -26025,6 +26045,7 @@
           104502,
           107101,
           107401,
+          102002,
           100901
         ],
         "condition_groups": [
@@ -26507,7 +26528,8 @@
           100402,
           102001,
           103002,
-          106701
+          106701,
+          102002
         ],
         "condition_groups": [
           {
@@ -27393,7 +27415,8 @@
         "char": [
           100501,
           101102,
-          103002
+          103002,
+          100502
         ],
         "condition_groups": [
           {
@@ -28266,7 +28289,9 @@
           ]
         ],
         "sup_hint": [
-          [],
+          [
+            30090
+          ],
           [
             10013
           ]
@@ -28698,7 +28723,8 @@
         "sup_hint": [
           [
             30023,
-            30034
+            30034,
+            30090
           ],
           [
             10013,
@@ -29144,7 +29170,8 @@
           101701
         ],
         "char_e": [
-          102001
+          102001,
+          102002
         ],
         "sup_e": [
           [
@@ -29153,7 +29180,9 @@
           []
         ],
         "sup_hint": [
-          [],
+          [
+            30090
+          ],
           [
             10013
           ]
@@ -29374,7 +29403,8 @@
           106001
         ],
         "char_e": [
-          102001
+          102001,
+          102002
         ],
         "sup_e": [
           [
@@ -29518,7 +29548,9 @@
     "loc": {
       "en": {
         "sup_hint": [
-          [],
+          [
+            30090
+          ],
           [
             10013
           ]
@@ -31846,7 +31878,8 @@
     "loc": {
       "en": {
         "char": [
-          100501
+          100501,
+          100502
         ],
         "char_e": [
           101901,
@@ -32901,6 +32934,7 @@
           104001,
           104002,
           105901,
+          100502,
           100901
         ],
         "sup_e": [
@@ -33637,6 +33671,7 @@
             30048,
             30069,
             30084,
+            30090,
             20004,
             20005,
             20010,
@@ -34045,6 +34080,8 @@
             30069,
             30070,
             30084,
+            30090,
+            30091,
             20011,
             20012,
             20022,
@@ -34985,7 +35022,8 @@
           [
             30001,
             30062,
-            30073
+            30073,
+            30090
           ],
           []
         ],
@@ -35339,6 +35377,7 @@
             30006,
             30029,
             30077,
+            30090,
             20012,
             20041
           ],
@@ -37644,7 +37683,8 @@
           102601
         ],
         "char_e": [
-          102001
+          102001,
+          102002
         ],
         "sup_e": [
           [
@@ -38249,6 +38289,7 @@
       "en": {
         "char": [
           106801,
+          102002,
           102401
         ],
         "char_e": [
@@ -39745,7 +39786,8 @@
       "en": {
         "char": [
           100301,
-          102402
+          102402,
+          100502
         ],
         "sup_e": [
           [
@@ -40925,10 +40967,12 @@
           104501
         ],
         "char_e": [
-          100501
+          100501,
+          100502
         ],
         "sup_e": [
           [
+            30091,
             20038
           ],
           [
@@ -41175,6 +41219,7 @@
             30079,
             30085,
             30088,
+            30091,
             20005,
             20013,
             20017
@@ -43270,6 +43315,12 @@
         "char_e": [
           103301
         ],
+        "sup_e": [
+          [
+            30092
+          ],
+          []
+        ],
         "sup_hint": [
           [
             30077,
@@ -43515,6 +43566,7 @@
         "sup_hint": [
           [
             30073,
+            30092,
             20014
           ],
           [
@@ -44134,6 +44186,12 @@
               }
             ]
           }
+        ],
+        "sup_e": [
+          [
+            30092
+          ],
+          []
         ]
       },
       "ko": {
@@ -44234,6 +44292,7 @@
           [
             30013,
             30077,
+            30092,
             20041
           ],
           [
@@ -45357,6 +45416,7 @@
         "sup_e": [
           [
             30006,
+            30091,
             20012
           ],
           [
@@ -46181,7 +46241,8 @@
           102501
         ],
         "char_e": [
-          102001
+          102001,
+          102002
         ],
         "sup_hint": [
           [
@@ -47120,7 +47181,8 @@
           106201
         ],
         "char_e": [
-          102001
+          102001,
+          102002
         ],
         "sup_e": [
           [
@@ -47480,6 +47542,7 @@
         "sup_hint": [
           [
             30073,
+            30091,
             20014,
             20038
           ],
@@ -47901,7 +47964,8 @@
           [
             30032,
             30068,
-            30070
+            30070,
+            30091
           ],
           []
         ],
@@ -51524,7 +51588,8 @@
     "loc": {
       "en": {
         "char": [
-          103002
+          103002,
+          100502
         ],
         "condition_groups": [
           {
@@ -51774,7 +51839,8 @@
         ],
         "sup_hint": [
           [
-            30088
+            30088,
+            30091
           ],
           []
         ]
@@ -52414,7 +52480,8 @@
           [
             30043,
             30085,
-            30086
+            30086,
+            30090
           ],
           [
             10067,
@@ -53596,6 +53663,9 @@
     "jpname": "真っ向勝負",
     "loc": {
       "en": {
+        "char": [
+          100502
+        ],
         "char_e": [
           100301,
           100302,
@@ -57410,7 +57480,7 @@
       }
     ],
     "cost": 360,
-    "desc_en": "Everyone's expectations strongly inspire the skill user, increasing velocity on the final corner. (Long)",
+    "desc_en": "Everyone's expectations strongly inspire the user, increasing velocity on the final corner. (Long)",
     "desc_ko": "기대를 짊어진 강한 마음이 힘으로 바뀌어 최종 코너에서 속도가 상승한다 ＜장거리＞",
     "desc_tw": "將背負期待的強烈意志轉化為力量在最後彎道速度上升＜長距離＞",
     "endesc": "Long・Your speed will increase on the Final Corner",
@@ -57816,6 +57886,11 @@
     "jpdesc": "最終コーナー以降に先団で追い抜くと煌めくような華麗な動きを披露し少しの間速度がすごく上がる",
     "jpname": "Ravissant",
     "loc": {
+      "en": {
+        "char": [
+          100502
+        ]
+      },
       "ko": {
         "char": [
           100502
@@ -57921,6 +57996,65 @@
     "jpdesc": "終盤以降の直線で前方にいると意気揚々と速度を上げる、さらにそこが向正面の場合加速力をわずかに上げる",
     "jpname": "Do Ya Breakin!",
     "loc": {
+      "en": {
+        "char": [
+          102002
+        ],
+        "condition_groups": [
+          {
+            "base_time": 50000,
+            "condition": "phase>=2&corner==0&order<=2&straight_front_type==2",
+            "effects": [
+              {
+                "type": 27,
+                "value": 3500
+              },
+              {
+                "type": 31,
+                "value": 1000
+              }
+            ]
+          },
+          {
+            "base_time": 50000,
+            "condition": "phase>=2&corner==0&order<=2",
+            "effects": [
+              {
+                "type": 27,
+                "value": 3500
+              }
+            ]
+          }
+        ],
+        "gene_version": {
+          "condition_groups": [
+            {
+              "base_time": 30000,
+              "condition": "phase>=2&corner==0&order<=2&straight_front_type==2",
+              "effects": [
+                {
+                  "type": 27,
+                  "value": 1500
+                },
+                {
+                  "type": 31,
+                  "value": 500
+                }
+              ]
+            },
+            {
+              "base_time": 30000,
+              "condition": "phase>=2&corner==0&order<=2",
+              "effects": [
+                {
+                  "type": 27,
+                  "value": 1500
+                }
+              ]
+            }
+          ]
+        }
+      },
       "ko": {
         "char": [
           102002
@@ -57985,6 +58119,11 @@
     "jpdesc": "レース序盤または中盤に追い抜かれるか競り合ったとき速度が上がる＜作戦・逃げ＞",
     "jpname": "トップランナー",
     "loc": {
+      "en": {
+        "char": [
+          102002
+        ]
+      },
       "ko": {
         "char": [
           102002
@@ -58112,6 +58251,26 @@
     "jpdesc": "レース終盤始めの方で中団以降にいると加速力が上がる＜中距離＞",
     "jpname": "起死回生",
     "loc": {
+      "en": {
+        "condition_groups": [
+          {
+            "base_time": 12000,
+            "condition": "distance_type==3&phase_random==2&order_rate>=50",
+            "effects": [
+              {
+                "type": 31,
+                "value": 4000
+              }
+            ]
+          }
+        ],
+        "sup_e": [
+          [
+            30091
+          ],
+          []
+        ]
+      },
       "ko": {
         "char": [
           105902,
@@ -58213,6 +58372,26 @@
     "jpdesc": "レース終盤始めの方で中団以降にいると加速力がわずかに上がる＜中距離＞",
     "jpname": "ワンチャンス",
     "loc": {
+      "en": {
+        "condition_groups": [
+          {
+            "base_time": 12000,
+            "condition": "distance_type==3&phase_random==2&order_rate>=50",
+            "effects": [
+              {
+                "type": 31,
+                "value": 2000
+              }
+            ]
+          }
+        ],
+        "sup_e": [
+          [
+            30091
+          ],
+          []
+        ]
+      },
       "ko": {
         "char": [
           106002,
@@ -58404,6 +58583,30 @@
     "jpdesc": "レース中盤に中団で競り合うと持久力が少し回復し、速度が上がる＜中距離＞",
     "jpname": "気炎万丈",
     "loc": {
+      "en": {
+        "condition_groups": [
+          {
+            "base_time": 18000,
+            "condition": "distance_type==3&phase==1&order_rate<=70&order_rate>=40&blocked_side_continuetime>=2",
+            "effects": [
+              {
+                "type": 27,
+                "value": 2500
+              },
+              {
+                "type": 9,
+                "value": 350
+              }
+            ]
+          }
+        ],
+        "sup_e": [
+          [
+            30090
+          ],
+          []
+        ]
+      },
       "ko": {
         "char": [
           106902,
@@ -58497,6 +58700,24 @@
     "jpdesc": "レース中盤に中団で競り合うと持久力がちょっと回復し速度がわずかに上がる＜中距離＞",
     "jpname": "闘争心",
     "loc": {
+      "en": {
+        "condition_groups": [
+          {
+            "base_time": 18000,
+            "condition": "distance_type==3&phase==1&order_rate<=70&order_rate>=40&blocked_side_continuetime>=2",
+            "effects": [
+              {
+                "type": 27,
+                "value": 1500
+              },
+              {
+                "type": 9,
+                "value": 50
+              }
+            ]
+          }
+        ]
+      },
       "ko": {
         "char": [
           107201,
@@ -58806,6 +59027,14 @@
     "jpdesc": "レース中盤に後ろの方にいると速度がわずかに上がる＜中距離＞",
     "jpname": "前のめり",
     "loc": {
+      "en": {
+        "sup_e": [
+          [
+            30092
+          ],
+          []
+        ]
+      },
       "ko": {
         "char": [
           103601,
@@ -58955,7 +59184,7 @@
         "precondition": "phase==1&blocked_side_continuetime>=2&corner!=0"
       }
     ],
-    "desc_en": "If the skill user engaged in a challenge on a mid-race corner, increase acceleration when well-positioned late-race at least halfway through the final corner.",
+    "desc_en": "If the user engaged in a challenge on a mid-race corner, increase acceleration when well-positioned late-race at least halfway through the final corner.",
     "desc_ko": "레이스 중반 코너에서 경합할 경우, 종반이면서 최종 코너 절반 이후에 좋은 위치에 있으면 가속력이 상승한다",
     "desc_tw": "在競賽中期的彎道若與對手競爭進入後期且最後彎道過半之後若位於良好位置則會使加速力上升",
     "endesc": "If you're trying to push for the front near the end of the race, your acceleration will increase",
@@ -58976,7 +59205,7 @@
         }
       ],
       "cost": 200,
-      "desc_en": "If the skill user engaged in a challenge on a mid-race corner, slightly increase acceleration when well-positioned late-race at least halfway through the final corner.",
+      "desc_en": "If the user engaged in a challenge on a mid-race corner, slightly increase acceleration when well-positioned late-race at least halfway through the final corner.",
       "desc_ko": "레이스 중반 코너에서 경합할 경우, 종반이면서 최종 코너 절반 이후에 좋은 위치에 있으면 가속력이 약간 상승한다",
       "desc_tw": "在競賽中期的彎道若與對手競爭進入後期且最後彎道過半之後若位於良好位置則會使加速力略微上升",
       "iconid": 20041,
@@ -59221,7 +59450,7 @@
         "precondition": "is_finalcorner==1&change_order_onetime<0"
       }
     ],
-    "desc_en": "If the skill user passes another runner on the final corner or later, increase velocity with fiery fighting spirit when in the front part of the pack with 300m remaining.",
+    "desc_en": "If the user passes another runner on the final corner or later, increase velocity with fiery fighting spirit when in the front part of the pack with 300m or less remaining.",
     "desc_ko": "최종 코너 이후 추월한 경우 남은 거리 300m 이하일 때 선두 그룹에 있으면 열화와 같은 투쟁심으로 속도가 상승한다",
     "desc_tw": "在最後彎道之後若追過對手在剩餘不到300m處位於領先集團時會以宛如烈火般的鬥爭心使速度上升",
     "endesc": "If you've overtaken someone during or after the Final Corner, your speed will increase in the last 300 meters if you're in front of the pack",
@@ -59242,7 +59471,7 @@
         }
       ],
       "cost": 200,
-      "desc_en": "If the skill user passed another runner on the final corner or later, slightly increase velocity when in the front part of the pack with 300m remaining.",
+      "desc_en": "If the user passed another runner on the final corner or later, slightly increase velocity when in the front part of the pack with 300m or less remaining.",
       "desc_ko": "최종 코너 이후 추월한 경우 남은 거리 300m 이하일 때 선두 그룹에 있으면 속도가 약간 상승한다",
       "desc_tw": "在最後彎道之後若追過對手在剩餘不到300m處位於領先集團時會使速度略微上升",
       "iconid": 20011,
@@ -59309,7 +59538,7 @@
         "precondition": "is_finalcorner==1&change_order_onetime<0"
       }
     ],
-    "desc_en": "If the skill user passes another runner on the final corner or later, increase velocity from the midpack onward on the final straight. If the skill user isn't one of the top favorites, muster resolve to keep steadily increasing velocity.",
+    "desc_en": "If the user passes another runner on the final corner or later, increase velocity from the midpack onward on the final straight. If the user isn't one of the top favorites, muster resolve to keep steadily increasing velocity.",
     "desc_ko": "최종 코너 이후에 추월한 경우 최종 직선에서 중위권 그룹에 있으면 속도가 상승하며 인기가 낮을 경우 분발해 계속해서 상승한다",
     "desc_tw": "在最後彎道之後若追過對手且最後直線位於隊列中段，會使速度上升若支持度低則會奮起並使速度持續上升",
     "endesc": "If you're in the middle of the pack during the Final Straight, and you've overtaken someone since entering the final corner, your speed will increase (bonus duration if you're not popular)",
@@ -59341,7 +59570,7 @@
         }
       ],
       "cost": 200,
-      "desc_en": "If the skill user passed another runner on the final corner or later, slightly increase velocity from the midpack onward on the final straight. If the skill user isn't one of the top favorites, keep steadily increasing velocity slightly.",
+      "desc_en": "If the user passed another runner on the final corner or later, slightly increase velocity from the midpack onward on the final straight. If the user isn't one of the top favorites, keep steadily increasing velocity slightly.",
       "desc_ko": "최종 코너 이후에 추월한 경우 최종 직선에서 중위권 그룹에 있으면 속도가 약간 상승하며 인기가 낮을 경우 계속해서 약간 상승한다",
       "desc_tw": "在最後彎道之後若追過對手且最後直線位居隊列中段會使速度略微上升，若支持度低則會使速度略微持續上升",
       "iconid": 20011,
@@ -59397,7 +59626,7 @@
         "precondition": "distance_rate>=50&order_rate_out70_continue==1&temptation_count==0"
       }
     ],
-    "desc_en": "If the skill user stays toward the very back during the first half of the race without being rushed, unleash fighting spirit to increase acceleration on the final straight.",
+    "desc_en": "If the user stays toward the very back during the first half of the race without being rushed, unleash fighting spirit to increase acceleration on the final straight.",
     "desc_ko": "레이스 전반에 흥분하지 않고 최후방 부근에서 계속 대기하면, 최종 직선에서 기합을 폭발시켜 가속력이 상승한다",
     "desc_tw": "競賽前半若不暴衝並持續潛伏於隊列最後方附近，會在最後直線爆發毅力使加速力上升",
     "endesc": "If you stay near the back of the pack without panicking during the first half of the race, your acceleration will increase on the Final Straight",
@@ -59418,7 +59647,7 @@
         }
       ],
       "cost": 200,
-      "desc_en": "If the skill user stayed toward the very back during the first half of the race without being rushed, slightly increase acceleration on the final straight.",
+      "desc_en": "If the user stayed toward the very back during the first half of the race without being rushed, slightly increase acceleration on the final straight.",
       "desc_ko": "레이스 전반에 흥분하지 않고 최후방 부근에서 계속 대기하면, 최종 직선에서 가속력이 약간 상승한다",
       "desc_tw": "競賽前半若不暴衝並持續潛伏於隊列最後方附近，會在最後直線使加速力略微上升",
       "iconid": 20041,
@@ -60114,7 +60343,7 @@
       }
     ],
     "cost": 160,
-    "desc_en": "When positioned toward the front mid-race, increase velocity and slightly decrease the velocity of runners behind the skill user. (Medium)",
+    "desc_en": "When positioned toward the front mid-race, increase velocity and slightly decrease the velocity of runners behind the user. (Medium)",
     "desc_ko": "레이스 중반에 전방에 있으면 뒤의 속도를 약간 늦추고 자신의 속도가 상승한다＜중거리＞",
     "desc_tw": "在競賽中期若位於隊列前方會使後方的速度略微下降使自己的速度上升＜中距離＞",
     "endesc": "Medium・If you're in the front during the Middle Leg, you will drain the speed of the girls behind you and speed up yourself",
@@ -60186,7 +60415,7 @@
       }
     ],
     "cost": 160,
-    "desc_en": "When positioned toward the front mid-race, slightly increase velocity and minimally decrease the velocity of runners behind the skill user. (Medium)",
+    "desc_en": "When positioned toward the front mid-race, slightly increase velocity and minimally decrease the velocity of runners behind the user. (Medium)",
     "desc_ko": "레이스 중반에 전방에 있으면 뒤의 속도를 아주 약간 늦추고 자신의 속도가 약간 상승한다＜중거리＞",
     "desc_tw": "在競賽中期若位於隊列前方會使後方的速度稍稍下降使自己的速度略微上升＜中距離＞",
     "endesc": "Medium・If you're in the front during the Middle Leg, you will slightly drain the speed of the girls behind you and slightly speed up yourself",
@@ -60565,7 +60794,7 @@
         ]
       }
     ],
-    "desc_en": "If positioned toward the front with 350m remaining and there is another Umamusume close behind, the determination to stay ahead makes it easier to break out of the pack.",
+    "desc_en": "If positioned toward the front with 350m or less remaining and there is another Umamusume close behind, the determination to stay ahead makes it easier to break out of the pack.",
     "desc_ko": "남은 거리 350m 이하일 때 전방에서 뒤의 우마무스메와의 거리가 가까우면 양보하지 않겠다는 마음으로 빠져나가기 쉬워진다",
     "desc_tw": "在剩餘不到350m處若於隊列前方與後方賽馬娘拉近距離會以不願退讓的意志變得容易突圍",
     "endesc": "If you're in a good position with less than 350m remaining in the race and there's another girl right behind you, your speed and acceleration will increase",
@@ -61049,7 +61278,7 @@
         "precondition": "order_rate_out50_continue==1&temptation_count==0&is_finalcorner==1"
       }
     ],
-    "desc_en": "If positioned toward the back until the start of the final corner, when there are 300m remaining, cast a magic spell to increase velocity continuously.",
+    "desc_en": "If positioned toward the back and racing calmly until the start of the final corner, when there are 300m remaining, cast a magic spell to increase velocity continuously.",
     "desc_ko": "최종 코너 돌입 시까지 냉정히 후방에서 대기 하고 있으면 남은 거리 300m 지점에서 스피드 업 마법을 걸어 속도가 계속해서 상승한다",
     "desc_tw": "在衝進最後彎道前若冷靜潛伏於隊列後方在剩餘300m處會施予加速魔法使速度持續上升",
     "endesc": "If you stay in the second half of the pack for the entire race without panicking, you will speed up on the Final Corner or beyond when there's 300 m remaining in the race",
@@ -61070,7 +61299,7 @@
         }
       ],
       "cost": 200,
-      "desc_en": "If positioned toward the back until the start of the final corner, when there are 300m remaining, slightly increase velocity continuously.",
+      "desc_en": "If positioned toward the back and racing calmly until the start of the final corner, when there are 300m remaining, slightly increase velocity continuously.",
       "desc_ko": "최종 코너 돌입 시까지 냉정히 후방에서 대기하고 있으면 남은 거리 300m 지점에서 속도가 계속해서 약간 상승한다",
       "desc_tw": "在衝進最後彎道前若冷靜潛伏於隊列後方由剩餘300m處開始使速度略微持續上升",
       "iconid": 20011,
@@ -61862,7 +62091,7 @@
         ]
       }
     ],
-    "desc_en": "If the skill user activates another skill on the final corner late-race, take the crowd's cheers to heart and moderately increase velocity. If racing at Nakayama Racecourse, greatly increase velocity instead.",
+    "desc_en": "If the user activates another skill on the final corner late-race, take the crowd's cheers to heart and moderately increase velocity. If racing at Nakayama Racecourse, greatly increase velocity instead.",
     "desc_ko": "종반 최종 코너에서 스킬을 발동하면 성원을 품고 속도가 다소 상승한다 나카야마 경기장이라면 많이 상승한다",
     "desc_tw": "在後期最後彎道若發動技能會因為聲援而使速度稍微上升若在中山賽場則會大幅上升",
     "endesc": "If you activate any skill on the Final Corner, your speed will increase; the effect is stronger in Nakayama",
@@ -61893,7 +62122,7 @@
         }
       ],
       "cost": 200,
-      "desc_en": "If the skill user activates another skill on the final corner late-race, very slightly increase velocity. If racing at Nakayama Racecourse, moderately increase velocity instead.",
+      "desc_en": "If the user activates another skill on the final corner late-race, very slightly increase velocity. If racing at Nakayama Racecourse, moderately increase velocity instead.",
       "desc_ko": "종반 최종 코너에서 스킬을 발동하면 속도가 아주 조금 상승하고, 나카야마 경기장이라면 다소 상승한다",
       "desc_tw": "在後期最後彎道若發動技能會使速度些微上升如果在中山賽場則會稍微上升",
       "iconid": 20011,
@@ -62108,7 +62337,7 @@
         ]
       }
     ],
-    "desc_en": "Increase proficiency in Medium Turf races. This skill is exclusive to the event.",
+    "desc_en": "Increase performance in Medium Turf races. This skill is exclusive to the event.",
     "desc_ko": "잔디・중거리 레이스에 강해진다 이 스킬은 이벤트 전용입니다",
     "desc_tw": "變得擅長草地．中距離競賽此技能為活動專用",
     "endesc": "Turf・Medium・Your Wisdom stat is increased by 60",
@@ -62140,7 +62369,7 @@
         ]
       }
     ],
-    "desc_en": "Increase proficiency in Long Turf races. This skill is exclusive to the event.",
+    "desc_en": "Increase performance in Long Turf races. This skill is exclusive to the event.",
     "desc_ko": "잔디・장거리 레이스에 강해진다 이 스킬은 이벤트 전용입니다",
     "desc_tw": "變得擅長草地．長距離競賽此技能為活動專用",
     "endesc": "Turf・Long・Your Stamina stat is increased by 60",
@@ -62172,7 +62401,7 @@
         ]
       }
     ],
-    "desc_en": "Increase proficiency in Mile Turf races. This skill is exclusive to the event.",
+    "desc_en": "Increase performance in Mile Turf races. This skill is exclusive to the event.",
     "desc_ko": "잔디・마일 레이스에 강해진다 이 스킬은 이벤트 전용입니다",
     "desc_tw": "變得擅長草地．一哩競賽此技能為活動專用",
     "endesc": "Turf・Mile・Your Power stat is increased by 60",
@@ -73882,6 +74111,11 @@
     "jpdesc": "レース中盤に前の方にいるとき後ろのウマ娘が掛かるとその持久力を削り、自分の速度が上がる",
     "jpname": "圧巻のトリック",
     "loc": {
+      "en": {
+        "char": [
+          100502
+        ]
+      },
       "ko": {
         "char": [
           100502
@@ -73957,6 +74191,11 @@
     "jpdesc": "最終コーナーで前の方にいると速度がすごく上がる＜作戦・先行＞",
     "jpname": "煌めきのトップスタァ",
     "loc": {
+      "en": {
+        "char": [
+          100502
+        ]
+      },
       "ko": {
         "char": [
           100502
@@ -78508,6 +78747,11 @@
     "jpdesc": "レース中盤で前方にいると速度が上がり持久力をわずかに回復する＜作戦・逃げ＞",
     "jpname": "逃げろ～♪",
     "loc": {
+      "en": {
+        "char": [
+          102002
+        ]
+      },
       "ko": {
         "char": [
           102002
@@ -78589,6 +78833,11 @@
     "jpdesc": "レース序盤か中盤に追い抜かれるか競り合いをすると速度が上がり持久力をわずかに回復する＜作戦・逃げ＞",
     "jpname": "レコードランナー",
     "loc": {
+      "en": {
+        "char": [
+          102002
+        ]
+      },
       "ko": {
         "char": [
           102002
@@ -107270,6 +107519,11 @@
     "jpdesc": "最終コーナーで速度がすごく上がる",
     "jpname": "見惚れるコーナリング",
     "loc": {
+      "en": {
+        "char": [
+          100502
+        ]
+      },
       "ko": {
         "char": [
           100502
@@ -112364,6 +112618,11 @@
     "jpdesc": "レース中盤に前方にいると速度がすごく上がる＜作戦・逃げ＞",
     "jpname": "サプライズ大成功～☆",
     "loc": {
+      "en": {
+        "char": [
+          102002
+        ]
+      },
       "ko": {
         "char": [
           102002
