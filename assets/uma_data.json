@@ -39426,5 +39426,168 @@
     ],
     "UmaEvents": [],
     "UmaImage": "/assets/character_thumbs/108202-north-flight.png"
+  },
+  {
+    "UmaKey": "Lucky Lilac :: 113001-lucky-lilac",
+    "UmaName": "Lucky Lilac",
+    "UmaNickname": null,
+    "UmaSlug": "113001-lucky-lilac",
+    "UmaId": "113001",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 92,
+        "Stamina": 84,
+        "Power": 94,
+        "Guts": 89,
+        "Wit": 91
+      },
+      "5★": {
+        "Speed": 112,
+        "Stamina": 102,
+        "Power": 115,
+        "Guts": 109,
+        "Wit": 112
+      },
+      "4★": {
+        "Speed": 102,
+        "Stamina": 93,
+        "Power": 105,
+        "Guts": 99,
+        "Wit": 101
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 0,
+      "Power": 10,
+      "Guts": 10,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "A",
+        "Medium": "A",
+        "Long": "C"
+      },
+      "Strategy": {
+        "Front": "F",
+        "Pace": "A",
+        "Late": "A",
+        "End": "G"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Hanshin Juvenile Fillies",
+        "Turn": "23",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Oka Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japanese Oaks",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Shuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Nakayama Kinen",
+        "Turn": "52",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Osaka Hai",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Victoria Mile",
+        "Turn": "57",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Queen Elizabeth Cup",
+        "Turn": "69",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [
+      {
+        "EventName": "冬越える紫丁香花",
+        "EventOptions": {
+          "Top Option": "Speed +20",
+          "Bottom Option": "Guts +20"
+        }
+      },
+      {
+        "EventName": "黄金に咲くは薄紫の花",
+        "EventOptions": {
+          "Top Option": "Speed +20",
+          "Bottom Option": "Stamina +20"
+        }
+      },
+      {
+        "EventName": "テキパキのち、まったり",
+        "EventOptions": {
+          "Top Option": "Stamina +20",
+          "Bottom Option": "Wit +20"
+        }
+      }
+    ],
+    "UmaImage": "/assets/character_thumbs/113001-lucky-lilac.png"
   }
 ]

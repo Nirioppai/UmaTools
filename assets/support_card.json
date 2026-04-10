@@ -1199,7 +1199,7 @@
   {
     "EventName": "聖女の誓いは鋼より固く",
     "EventOptions": {
-      "Top Option": "Skill Pts +20\nerror no match\nBond +5",
+      "Top Option": "Skill Pts +20\nOn the Move hint +1\nBond +5",
       "Bottom Option": "Energy +15\nGuts +20\nBond +5"
     }
   },
@@ -1226,6 +1226,19 @@
     "EventName": "ふれ愛、学び愛、尽くし愛",
     "EventOptions": {
       "": "Energy +10\nPower +10\nOpening Leg Adept hint +1\nFervor hint +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "深夜の怪？",
+    "EventOptions": {
+      "": "Energy +5\nWit +10\nBond +5"
+    }
+  },
+  {
+    "EventName": "タイマン学習法？",
+    "EventOptions": {
+      "Top Option": "Energy +20\nMotivation +1\nWit +10\nBond +5",
+      "Bottom Option": "Wit +20\nCapture hint +1\nBond +5"
     }
   },
   {
@@ -6325,6 +6338,87 @@
     "EventName": "重なる『愛』",
     "EventOptions": {
       "": "Energy +5\nMotivation +1\nSpeed +15\nSum of Small Efforts hint +1\nLeisurely Dust Bath hint +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "運命を乗りこなして",
+    "EventOptions": {
+      "": "Motivation +1\nPower +5\nGuts +10\nBond +5"
+    }
+  },
+  {
+    "EventName": "伝え、繋いで",
+    "EventOptions": {
+      "Top Option": "Bond +5\nMotivation +1\nPower +10\nGuts +5\nSkill Pts +10",
+      "Bottom Option": "Bond +5\nEnergy +10\nGuts +5\nBoiling Emotions hint +1",
+      "Option 3": "Bond +5\nEnergy +5\nGuts +110\nFoothold hint +1"
+    }
+  },
+  {
+    "EventName": "シンデレラの行く末",
+    "EventOptions": {
+      "": "Power +5\nGuts +20\nKiller Instict hint +1\nSoul Ablaze hint +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "どんな言葉も『プラス』に変えて",
+    "EventOptions": {
+      "": "Motivation +1\nGuts +15\nBond +5"
+    }
+  },
+  {
+    "EventName": "もっとも輝く『魅力』",
+    "EventOptions": {
+      "Top Option": "Bond +5\nMotivation +1\nGuts +15\nSkill Pts +10",
+      "Bottom Option": "Bond +5\nEnergy +10\nGuts +5\nRushing in Blind hint +1",
+      "Option 3": "Bond +5\nEnergy +5\nGuts +10\nUnshakeable Faith hint +1"
+    }
+  },
+  {
+    "EventName": "積み重ねられた『今』",
+    "EventOptions": {
+      "": "Guts +25\nAscendance hint +1\nPure Perfection hint +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "紅藍の調和",
+    "EventOptions": {
+      "": "Power +10\nBond +5"
+    }
+  },
+  {
+    "EventName": "ブーケの拳",
+    "EventOptions": {
+      "Top Option": "Power +10\nBond +5",
+      "Bottom Option": "Skill Pts +10\nBond +5"
+    }
+  },
+  {
+    "EventName": "素敵な花束を",
+    "EventOptions": {
+      "": "Power +10\nSkill Pts +10\nBravery Slash hint +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "いっぱい、いっぱいですね？",
+    "EventOptions": {
+      "Top Option": "Guts +10\nSkill Pts +20\nBond +10",
+      "Bottom Option": "Energy +10\nGuts +20\nBond +10"
+    }
+  },
+  {
+    "EventName": "ターちゃんマーちゃん、行くのです！",
+    "EventOptions": {
+      "Top Option": "Energy +20\nMotivation +1\nGuts +10\nSkill Pts +15\nBond +5",
+      "Bottom Option": "Motivation +1\nSpeed +30\nDodging Danger hint +1\nBond +5",
+      "Option 3": "Motivation +1\nGuts +30\nSprinting Gear hint +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "この香りが残りますように",
+    "EventOptions": {
+      "Top Option": "Guts +35\n匠のステアリング hint +2\n圧倒 hint +1\nBond +5",
+      "Bottom Option": "On the Offensive hint +5\nBlessing of the Ocean hint +5\nForever Healthy hint +5\nBond +5"
     }
   }
 ]
