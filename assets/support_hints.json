@@ -38028,7 +38028,7 @@
     "SupportId": "20046",
     "SupportName": "Sweep Tosho (SR)",
     "SupportRarity": "SR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Wit",
     "SupportEffects": [
       {
@@ -70554,7 +70554,7 @@
     "SupportId": "30093",
     "SupportName": "Daiwa Scarlet (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Power",
     "SupportEffects": [
       {
