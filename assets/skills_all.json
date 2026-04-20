@@ -7150,7 +7150,8 @@
         ],
         "char_e": [
           103701,
-          103702
+          103702,
+          107201
         ],
         "sup_e": [
           [
@@ -12499,7 +12500,8 @@
         "char": [
           100601,
           101802,
-          106901
+          106901,
+          107201
         ],
         "char_e": [
           100302
@@ -15817,7 +15819,8 @@
     "loc": {
       "en": {
         "char": [
-          100102
+          100102,
+          107201
         ],
         "sup_e": [
           [
@@ -15947,10 +15950,12 @@
           101302,
           101802,
           103801,
+          107201,
           104501
         ],
         "char_e": [
-          107101
+          107101,
+          107201
         ],
         "sup_e": [
           [
@@ -18029,6 +18034,7 @@
           101901,
           103901,
           103702,
+          107201,
           101801,
           106001
         ],
@@ -25959,7 +25965,8 @@
     "loc": {
       "en": {
         "char": [
-          101201
+          101201,
+          107201
         ],
         "condition_groups": [
           {
@@ -26100,6 +26107,7 @@
         "char": [
           100101,
           101201,
+          107201,
           103501
         ],
         "char_e": [
@@ -39571,7 +39579,8 @@
           101701,
           101802,
           104502,
-          107101
+          107101,
+          107201
         ],
         "char_e": [
           101702,
@@ -41289,6 +41298,7 @@
       110502,
       104003,
       109102,
+      111801,
       103501
     ],
     "condition_groups": [
@@ -48118,6 +48128,9 @@
     "jpname": "遊びはおしまいっ！",
     "loc": {
       "en": {
+        "char_e": [
+          107201
+        ],
         "sup_e": [
           [
             30032,
@@ -58887,6 +58900,9 @@
     "jpname": "闘争心",
     "loc": {
       "en": {
+        "char": [
+          107201
+        ],
         "condition_groups": [
           {
             "base_time": 18000,
@@ -59701,6 +59717,11 @@
     "jpdesc": "最終コーナー以降に追い抜いていた場合残り300mを切って先団にいるとき烈火の如き闘争心で速度が上がる",
     "jpname": "烈火繚乱、無敵之舞",
     "loc": {
+      "en": {
+        "char": [
+          107201
+        ]
+      },
       "ko": {
         "char": [
           107201
@@ -90073,6 +90094,11 @@
     "jpdesc": "レース中盤に追い抜くとしばらくの間速度が上がる",
     "jpname": "昂る焔",
     "loc": {
+      "en": {
+        "char": [
+          107201
+        ]
+      },
       "ko": {
         "char": [
           107201
@@ -90143,6 +90169,11 @@
     "jpdesc": "最終コーナー以降に詰め寄られると速度がすごく上がり加速力がちょっと上がる＜中距離＞",
     "jpname": "八重の向こう意気",
     "loc": {
+      "en": {
+        "char": [
+          107201
+        ]
+      },
       "ko": {
         "char": [
           107201
@@ -93433,7 +93464,8 @@
       110202
     ],
     "char_e": [
-      113202
+      113202,
+      111801
     ],
     "condition_groups": [
       {
@@ -106370,6 +106402,11 @@
     "jpdesc": "レース終盤以降に最終コーナー以降で追い抜こうとするとしばらくの間前に出る＜中距離＞",
     "jpname": "勝利に焦がれる激情",
     "loc": {
+      "en": {
+        "char": [
+          107201
+        ]
+      },
       "ko": {
         "char": [
           107201
@@ -136613,6 +136650,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      111801
+    ],
     "condition_groups": [
       {
         "base_time": 30000,
@@ -137633,7 +137673,8 @@
   {
     "activation": 1,
     "char": [
-      108802
+      108802,
+      111801
     ],
     "condition_groups": [
       {
@@ -138691,7 +138732,8 @@
     "activation": 0,
     "char": [
       109701,
-      114301
+      114301,
+      111801
     ],
     "condition_groups": [
       {
@@ -138773,6 +138815,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      111801
+    ],
     "condition_groups": [
       {
         "base_time": 12000,
@@ -138788,7 +138833,14 @@
     "cost": 170,
     "endesc": "Betweener・Medium・If you're not in the front of the pack at a random point during the first quarter of the Final Leg, your acceleration will increase",
     "enname": "Natural Talent",
-    "evo": [],
+    "evo": [
+      {
+        "card_id": 111801,
+        "evos": [
+          111801211
+        ]
+      }
+    ],
     "iconid": 20042,
     "id": 203831,
     "jpdesc": "レース終盤始めの方早めに中団以降にいると加速力が上がる＜差し・中距離＞",
@@ -138810,6 +138862,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      111801
+    ],
     "condition_groups": [
       {
         "base_time": 12000,
@@ -138848,6 +138903,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      111801
+    ],
     "condition_groups": [
       {
         "base_time": 40000,
@@ -138863,7 +138921,14 @@
     "cost": 160,
     "endesc": "Medium・If you're not in the front at a random point during the Middle leg, your speed will slightly increase",
     "enname": "Brains and Beauty",
-    "evo": [],
+    "evo": [
+      {
+        "card_id": 111801,
+        "evos": [
+          111801111
+        ]
+      }
+    ],
     "iconid": 20012,
     "id": 203841,
     "jpdesc": "レース中盤に中団以降にいるとしばらくの間速度が少し上がる＜中距離＞",
@@ -138885,6 +138950,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      111801
+    ],
     "condition_groups": [
       {
         "base_time": 40000,
@@ -150067,6 +150135,232 @@
       "l_1",
       "tur",
       "slo"
+    ]
+  },
+  {
+    "activation": 0,
+    "char": [
+      111801
+    ],
+    "condition_groups": [
+      {
+        "base_time": 70000,
+        "condition": "distance_rate>=40&distance_rate<=41&order_rate>=40&distance_type==3&ground_type==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          }
+        ]
+      },
+      {
+        "base_time": 50000,
+        "condition": "distance_rate>=40&distance_rate<=41",
+        "effects": [
+          {
+            "type": 27,
+            "value": 2500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "gene_version": {
+      "activation": 1,
+      "condition_groups": [
+        {
+          "base_time": 42000,
+          "condition": "distance_rate>=40&distance_rate<=41&order_rate>=40&distance_type==3&ground_type==1",
+          "effects": [
+            {
+              "type": 27,
+              "value": 1500
+            }
+          ]
+        },
+        {
+          "base_time": 30000,
+          "condition": "distance_rate>=40&distance_rate<=41",
+          "effects": [
+            {
+              "type": 27,
+              "value": 500
+            }
+          ]
+        }
+      ],
+      "cost": 200,
+      "iconid": 20011,
+      "id": 901181,
+      "inherited": true,
+      "parent_skills": [
+        101181
+      ],
+      "rarity": 1
+    },
+    "iconid": 20013,
+    "id": 101181,
+    "jpdesc": "レース中間付近で速度が少し上がる芝の中距離レースでスキル発動時中団以降にいると長めに速度を上げ続ける",
+    "jpname": "悠遠のファーノース",
+    "rarity": 5,
+    "type": [
+      "med",
+      "tur"
+    ]
+  },
+  {
+    "activation": 0,
+    "condition_groups": [
+      {
+        "base_time": -1,
+        "condition": "always==1",
+        "effects": [
+          {
+            "type": 3,
+            "value": -400000
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "iconid": 10034,
+    "id": 204421,
+    "jpdesc": "冷たい氷が放つ輝きの中に紅が揺れる己の牙を陰に潜ませパワーが少し下がる",
+    "jpname": "潜む紅",
+    "rarity": 1,
+    "type": [
+      "nac"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      111801
+    ],
+    "condition_groups": [
+      {
+        "base_time": 40000,
+        "condition": "running_style==3&distance_type==3&phase_random==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 2500
+          }
+        ]
+      },
+      {
+        "base_time": 12000,
+        "condition": "is_activate_other_skill_detail==1&run_at_full_speed_random==1&order_rate>=20&order_rate<=50",
+        "effects": [
+          {
+            "type": 48,
+            "value": 4000
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "stat",
+          1,
+          800
+        ]
+      ],
+      [
+        [
+          "a_skill",
+          "dist",
+          2,
+          2
+        ]
+      ]
+    ],
+    "iconid": 20016,
+    "id": 111801111,
+    "jpdesc": "レース中盤にしばらくの間速度が少し上がるその後全開スパート中に好位置にいると伸びを見せる＜差し・中距離＞",
+    "jpname": "雪魄氷姿",
+    "pre_evo": {
+      "card_id": 111801,
+      "old": 203841
+    },
+    "rarity": 6,
+    "type": [
+      "btw",
+      "med",
+      "l_1"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      111801
+    ],
+    "condition_groups": [
+      {
+        "base_time": 12000,
+        "condition": "running_style==3&distance_type==3&is_lastspurt==1",
+        "effects": [
+          {
+            "type": 31,
+            "value": 2000
+          },
+          {
+            "type": 22,
+            "value": 1500
+          }
+        ]
+      },
+      {
+        "base_time": 12000,
+        "condition": "is_activate_other_skill_detail==1&run_at_full_speed_random==1&order_rate>=20&order_rate<=50",
+        "effects": [
+          {
+            "type": 48,
+            "value": 4000
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "cond_e",
+          7
+        ],
+        [
+          "stat",
+          5,
+          800
+        ]
+      ],
+      [
+        [
+          "a_skill",
+          "strat",
+          3,
+          2
+        ]
+      ]
+    ],
+    "iconid": 20046,
+    "id": 111801211,
+    "jpdesc": "ラストスパートの最中なら加速力がわずかに上がりわずかに前に出るその後全開スパート中に好位置にいると伸びを見せる＜差し・中距離＞",
+    "jpname": "無比なる六花",
+    "pre_evo": {
+      "card_id": 111801,
+      "old": 203831
+    },
+    "rarity": 6,
+    "type": [
+      "btw",
+      "med"
     ]
   }
 ]
