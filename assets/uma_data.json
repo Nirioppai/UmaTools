@@ -12040,7 +12040,7 @@
     "UmaNickname": "Run & Win",
     "UmaSlug": "106002-nice-nature",
     "UmaId": "106002",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -12168,7 +12168,7 @@
     ],
     "UmaEvents": [
       {
-        "EventName": "Cheers on Film!",
+        "EventName": "Cheers on Video!",
         "EventOptions": {
           "Top Option": "Power +10\nSkill Pts +15",
           "Bottom Option": "Fighter hint +2"
@@ -12195,7 +12195,7 @@
     "UmaNickname": "Cheerleader in Noble White",
     "UmaSlug": "106102-king-halo",
     "UmaId": "106102",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -12498,7 +12498,7 @@
         }
       },
       {
-        "EventName": "The Part-Time Pro!",
+        "EventName": "Part-Time Pro!",
         "EventOptions": {
           "Top Option": "5s +4",
           "Bottom Option": "Power +20"

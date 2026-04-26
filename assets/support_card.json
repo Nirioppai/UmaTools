@@ -2826,7 +2826,7 @@
     }
   },
   {
-    "EventName": "The Ultimate Omelet Training Arc",
+    "EventName": "The Ultimate Omlet Training Arc",
     "EventOptions": {
       "Top Option": "Motivation +1\nEnergy -5\nGuts +15\nPosition Pilfer hint +1\nBond +1",
       "Bottom Option": "Skill Pts +30\nBond +5"
@@ -2839,26 +2839,26 @@
     }
   },
   {
-    "EventName": "Miracle Makers! The Red-hot Cheer Squad!",
+    "EventName": "Miracle Makers! The Red-Hot Cheer Squad!",
     "EventOptions": {
       "": "Energy -10\nStamina +20\nGuts +20\nFull of Vigor hint +3\nBond +5\nEnergy -10\nStamina +15\nGuts +15\nPumped hint +1\nBond +5"
     }
   },
   {
-    "EventName": "It will be fine",
+    "EventName": "It'll All Turn Out Fine",
     "EventOptions": {
       "": "Speed +10\nWit +10\nMax Energy +4\nBond +5"
     }
   },
   {
-    "EventName": "Re:START！",
+    "EventName": "Re: START!",
     "EventOptions": {
       "Top Option": "Energy +10\nWit +10\nUpdrafters hint +2\nBond +5",
       "Bottom Option": "Power +20\nSkill Pts +10\nLight as a Feather hint +2\nBond +5"
     }
   },
   {
-    "EventName": "You are Me",
+    "EventName": "You Are Me",
     "EventOptions": {
       "": "Speed +14\nGuts +7\nWit +7\nDauntless hint +1\nBond +5"
     }
@@ -2870,7 +2870,7 @@
     }
   },
   {
-    "EventName": "Allies Assemble! A Princess Must be Regal!",
+    "EventName": "Allies Assemble! A Princess Must Be Regal!",
     "EventOptions": {
       "": "Energy -10\nPower +20\nBond +5"
     }
@@ -2882,7 +2882,7 @@
     }
   },
   {
-    "EventName": "Ditching Parties",
+    "EventName": "Party Ditcher",
     "EventOptions": {
       "": "Wit +10\nSkill Pts +10\nBond +5"
     }

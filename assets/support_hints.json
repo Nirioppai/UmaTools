@@ -70757,7 +70757,7 @@
     "SupportId": "30094",
     "SupportName": "Bamboo Memory (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Guts",
     "SupportEffects": [
       {
@@ -70970,7 +70970,7 @@
     "SupportId": "30095",
     "SupportName": "Seeking the Pearl (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Speed",
     "SupportEffects": [
       {
@@ -71229,7 +71229,7 @@
     "SupportId": "30096",
     "SupportName": "Kawakami Princess (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Power",
     "SupportEffects": [
       {
