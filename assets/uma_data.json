@@ -12350,7 +12350,7 @@
     "UmaNickname": "Always Electrifying",
     "UmaSlug": "103101-ines-fujin",
     "UmaId": "103101",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -39752,5 +39752,299 @@
       }
     ],
     "UmaImage": "/assets/character_thumbs/111801-admire-groove.png"
+  },
+  {
+    "UmaKey": "Fuji Kiseki :: 100503-fuji-kiseki",
+    "UmaName": "Fuji Kiseki",
+    "UmaNickname": null,
+    "UmaSlug": "100503-fuji-kiseki",
+    "UmaId": "100503",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 92,
+        "Stamina": 82,
+        "Power": 89,
+        "Guts": 87,
+        "Wit": 100
+      },
+      "5★": {
+        "Speed": 113,
+        "Stamina": 101,
+        "Power": 109,
+        "Guts": 106,
+        "Wit": 121
+      },
+      "4★": {
+        "Speed": 102,
+        "Stamina": 92,
+        "Power": 99,
+        "Guts": 96,
+        "Wit": 111
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 10,
+      "Power": 0,
+      "Guts": 13,
+      "Wit": 7
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "F"
+      },
+      "Distance": {
+        "Short": "B",
+        "Mile": "A",
+        "Medium": "A",
+        "Long": "E"
+      },
+      "Strategy": {
+        "Front": "C",
+        "Pace": "A",
+        "Late": "C",
+        "End": "G"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Asahi Hai Futurity Stakes",
+        "Turn": "23",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Yayoi Sho",
+        "Turn": "29",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Satsuki Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "NHK Mile Cup",
+        "Turn": "33",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tokyo Yushun (Japanese Derby)",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Kikuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Mile Championship",
+        "Turn": "46",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Takamatsunomiya Kinen",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Yasuda Kinen",
+        "Turn": "59",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Autumn)",
+        "Turn": "68",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "72",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/100503-fuji-kiseki.png"
+  },
+  {
+    "UmaKey": "Jungle Pocket :: 109402-jungle-pocket",
+    "UmaName": "Jungle Pocket",
+    "UmaNickname": null,
+    "UmaSlug": "109402-jungle-pocket",
+    "UmaId": "109402",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 94,
+        "Stamina": 84,
+        "Power": 97,
+        "Guts": 97,
+        "Wit": 78
+      },
+      "5★": {
+        "Speed": 115,
+        "Stamina": 102,
+        "Power": 119,
+        "Guts": 119,
+        "Wit": 95
+      },
+      "4★": {
+        "Speed": 105,
+        "Stamina": 93,
+        "Power": 108,
+        "Guts": 108,
+        "Wit": 86
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 7,
+      "Power": 10,
+      "Guts": 13,
+      "Wit": 0
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "C",
+        "Medium": "A",
+        "Long": "B"
+      },
+      "Strategy": {
+        "Front": "G",
+        "Pace": "D",
+        "Late": "A",
+        "End": "B"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Hopeful Stakes",
+        "Turn": "24",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Satsuki Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tokyo Yushun (Japanese Derby)",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Kikuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "46",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Hanshin Daishoten",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Spring)",
+        "Turn": "56",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "72",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/109402-jungle-pocket.png"
   }
 ]
