@@ -50785,6 +50785,266 @@
     ]
   },
   {
+    "SupportSlug": "20099-mejiro-ardan",
+    "SupportId": "20099",
+    "SupportName": "Mejiro Ardan (SR)",
+    "SupportRarity": "SR",
+    "SupportServer": "jp",
+    "SupportType": "Stamina",
+    "SupportEffects": [
+      {
+        "id": 1,
+        "name": "Friendship Bonus",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          30,
+          30
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Stamina Bonus",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Training Effectiveness",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5
+        ]
+      },
+      {
+        "id": 14,
+        "name": "Initial Friendship Gauge",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          10,
+          20,
+          20,
+          20
+        ]
+      },
+      {
+        "id": 15,
+        "name": "Race Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": 16,
+        "name": "Fan Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          5,
+          5,
+          5,
+          5,
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": 17,
+        "name": "Hint Levels",
+        "symbol": "level",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "id": 18,
+        "name": "Hint Frequency",
+        "symbol": "percent",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          30,
+          30,
+          30,
+          30,
+          40,
+          40
+        ]
+      },
+      {
+        "id": 19,
+        "name": "Specialty Priority",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          35,
+          35,
+          35,
+          35,
+          50,
+          50
+        ]
+      },
+      {
+        "id": 30,
+        "name": "Skill Point Bonus",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "SupportUnique": {
+      "level": 0,
+      "effects": [
+        {
+          "id": 8,
+          "name": "Training Effectiveness",
+          "symbol": "percent",
+          "value": 5
+        },
+        {
+          "id": 12,
+          "name": "Initial Guts",
+          "symbol": "none",
+          "value": 20
+        }
+      ]
+    },
+    "SupportImage": "/assets/support_thumbs/20099-mejiro-ardan.png",
+    "SupportHints": [
+      {
+        "SkillId": "200582",
+        "Name": "Prepared to Pass",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200732",
+        "Name": "Steadfast",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201142",
+        "Name": "Soft Step",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201631",
+        "Name": "Sympathy",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202742",
+        "Name": "Refined Conduct",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203112",
+        "Name": "Frontal Breakthrough",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203312",
+        "Name": "Towards the Light",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204322",
+        "Name": "Perfect Sync",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Stamina bonus",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Guts bonus",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
     "SupportSlug": "30001-special-week",
     "SupportId": "30001",
     "SupportName": "Special Week (SSR)",
@@ -123467,6 +123727,339 @@
       {
         "SkillId": "",
         "Name": "Initial Power bonus",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Guts bonus",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "30300-sakura-chiyono-o",
+    "SupportId": "30300",
+    "SupportName": "Sakura Chiyono O (SSR)",
+    "SupportRarity": "SSR",
+    "SupportServer": "jp",
+    "SupportType": "Stamina",
+    "SupportEffects": [
+      {
+        "id": 1,
+        "name": "Friendship Bonus",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          20,
+          25,
+          25,
+          25,
+          25,
+          30
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Mood Effect",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          20,
+          20,
+          20,
+          20,
+          30,
+          30
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Guts Bonus",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Training Effectiveness",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          20
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Initial Stamina",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          10,
+          25,
+          25,
+          25
+        ]
+      },
+      {
+        "id": 12,
+        "name": "Initial Guts",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          35
+        ]
+      },
+      {
+        "id": 14,
+        "name": "Initial Friendship Gauge",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          35
+        ]
+      },
+      {
+        "id": 15,
+        "name": "Race Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5
+        ]
+      },
+      {
+        "id": 16,
+        "name": "Fan Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5,
+          5,
+          5,
+          10,
+          10
+        ]
+      },
+      {
+        "id": 17,
+        "name": "Hint Levels",
+        "symbol": "level",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          4
+        ]
+      },
+      {
+        "id": 18,
+        "name": "Hint Frequency",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          60,
+          60,
+          60,
+          60,
+          100
+        ]
+      },
+      {
+        "id": 19,
+        "name": "Specialty Priority",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          35,
+          50,
+          50,
+          50,
+          50,
+          65
+        ]
+      },
+      {
+        "id": 30,
+        "name": "Skill Point Bonus",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2
+        ]
+      }
+    ],
+    "SupportUnique": {
+      "level": 0,
+      "effects": [
+        {
+          "id": 101,
+          "name": "Effect #101",
+          "symbol": "",
+          "value": 80
+        }
+      ]
+    },
+    "SupportImage": "/assets/support_thumbs/30300-sakura-chiyono-o.png",
+    "SupportHints": [
+      {
+        "SkillId": "200562",
+        "Name": "Stamina to Spare",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200722",
+        "Name": "Up-Tempo",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202092",
+        "Name": "Fighting Spirit",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202602",
+        "Name": "Ignition",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202712",
+        "Name": "Satisfying Pace",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202742",
+        "Name": "Refined Conduct",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203052",
+        "Name": "Unshakeable Faith",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203122",
+        "Name": "To Greater Heights",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203442",
+        "Name": "Surpassing Ambitions",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203862",
+        "Name": "Carefree Step",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204012",
+        "Name": "Brute Force",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204082",
+        "Name": "Ride the Momentum",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204332",
+        "Name": "実直な走り",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Stamina bonus",
         "HintLevel": null
       },
       {

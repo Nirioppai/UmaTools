@@ -40046,5 +40046,152 @@
     ],
     "UmaEvents": [],
     "UmaImage": "/assets/character_thumbs/109402-jungle-pocket.png"
+  },
+  {
+    "UmaKey": "Daring Heart :: Daring Darling!",
+    "UmaName": "Daring Heart",
+    "UmaNickname": "Daring Darling!",
+    "UmaSlug": "111201-daring-heart",
+    "UmaId": "111201",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 93,
+        "Stamina": 78,
+        "Power": 97,
+        "Guts": 88,
+        "Wit": 94
+      },
+      "5★": {
+        "Speed": 113,
+        "Stamina": 95,
+        "Power": 119,
+        "Guts": 108,
+        "Wit": 115
+      },
+      "4★": {
+        "Speed": 103,
+        "Stamina": 87,
+        "Power": 108,
+        "Guts": 98,
+        "Wit": 104
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 0,
+      "Power": 0,
+      "Guts": 20,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "D"
+      },
+      "Distance": {
+        "Short": "B",
+        "Mile": "A",
+        "Medium": "E",
+        "Long": "G"
+      },
+      "Strategy": {
+        "Front": "D",
+        "Pace": "A",
+        "Late": "F",
+        "End": "G"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Hanshin Juvenile Fillies",
+        "Turn": "23",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Fillies' Revue",
+        "Turn": "29",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Oka Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "NHK Mile Cup",
+        "Turn": "33",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Shuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Hanshin Umamusume Stakes",
+        "Turn": "55",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Victoria Mile",
+        "Turn": "57",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Queen Stakes",
+        "Turn": "62",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Fuchu Umamusume Stakes",
+        "Turn": "67",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Mile Championship",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/111201-daring-heart.png"
   }
 ]
