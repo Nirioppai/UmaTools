@@ -122866,12 +122866,12 @@
       },
       {
         "SkillId": "204272",
-        "Name": "急旋回",
+        "Name": "Sharp Turn",
         "HintLevel": null
       },
       {
         "SkillId": "204282",
-        "Name": "猛プッシュ",
+        "Name": "Fierce Push",
         "HintLevel": null
       },
       {
@@ -123168,17 +123168,17 @@
       },
       {
         "SkillId": "204352",
-        "Name": "勇を奮って",
+        "Name": "Muster Your Courage",
         "HintLevel": null
       },
       {
         "SkillId": "204362",
-        "Name": "大立ち回り",
+        "Name": "Grand Fight",
         "HintLevel": null
       },
       {
         "SkillId": "204372",
-        "Name": "流れに任せて",
+        "Name": "Go With the Flow",
         "HintLevel": null
       },
       {
@@ -123480,7 +123480,7 @@
       },
       {
         "SkillId": "204342",
-        "Name": "弾みをつけて",
+        "Name": "Building Momentum",
         "HintLevel": null
       },
       {
@@ -124054,7 +124054,7 @@
       },
       {
         "SkillId": "204332",
-        "Name": "実直な走り",
+        "Name": "Honest Run",
         "HintLevel": null
       },
       {

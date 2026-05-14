@@ -152641,8 +152641,8 @@
         ]
       }
     ],
-    "endesc": "",
-    "enname": "",
+    "endesc": "If you're in the first half of the pack with 1000 m to go, your speed will slightly increase; if the race is Turf and Mile or Medium and the skill activates on a straight, you will get an (immediate) speed boost instead",
+    "enname": "Blooming Star",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -152693,8 +152693,8 @@
       }
     ],
     "cost": 170,
-    "endesc": "",
-    "enname": "",
+    "endesc": "Short・If you're in the first half of the pack at a random point on a random corner, you will get a speed boost",
+    "enname": "Masterful Steering",
     "evo": [],
     "iconid": 20012,
     "id": 204271,
@@ -152731,8 +152731,8 @@
       }
     ],
     "cost": 170,
-    "endesc": "",
-    "enname": "",
+    "endesc": "Short・If you're in the first half of the pack at a random point on a random corner, you will get a slight speed boost",
+    "enname": "Sharp Turn",
     "iconid": 20011,
     "id": 204272,
     "jpdesc": "コーナーで前方にいるとわずかに前に出る＜短距離＞",
@@ -152772,8 +152772,8 @@
       }
     ],
     "cost": 160,
-    "endesc": "",
-    "enname": "",
+    "endesc": "Short・If you're in the first half of the pack at a random point during the Middle Leg, you will use a little extra stamina to increase your speed slightly",
+    "enname": "Fierce Push",
     "iconid": 20011,
     "id": 204282,
     "jpdesc": "レース中盤に前方にいると持久力を少し使って速度を少し上げる＜短距離＞",
@@ -152807,7 +152807,7 @@
     ],
     "cost": 160,
     "endesc": "",
-    "enname": "",
+    "enname": "Overwhelm",
     "evo": [],
     "iconid": 20042,
     "id": 204311,
@@ -152844,7 +152844,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Hidden Strongest",
     "iconid": 10034,
     "id": 204401,
     "jpdesc": "最強の闘志も今日だけは花の影に隠れる女王に脚光を譲りパワーが少し下がる",
@@ -152883,7 +152883,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Drifting Purple Fragrance",
     "evo_cond": [
       [
         [
@@ -152956,7 +152956,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Haze-Cutting Star",
     "evo_cond": [
       [
         [
@@ -153017,7 +153017,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Distant Far North",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -153078,7 +153078,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Lurking Crimson",
     "iconid": 10034,
     "id": 204421,
     "jpdesc": "冷たい氷が放つ輝きの中に紅が揺れる己の牙を陰に潜ませパワーが少し下がる",
@@ -153117,7 +153117,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Icy Beauty",
     "evo_cond": [
       [
         [
@@ -153183,7 +153183,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Peerless Snow Crystal",
     "evo_cond": [
       [
         [
@@ -153248,7 +153248,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Twilight Blood Pact",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -153363,7 +153363,7 @@
     ],
     "cost": 170,
     "endesc": "",
-    "enname": "",
+    "enname": "Cloud-Riding Dragon",
     "evo": [],
     "iconid": 20042,
     "id": 203401,
@@ -153395,7 +153395,7 @@
     ],
     "cost": 180,
     "endesc": "",
-    "enname": "",
+    "enname": "Building Momentum",
     "iconid": 20011,
     "id": 204342,
     "jpdesc": "レース終盤が迫ったとき前方にいると速度がわずかに上がる＜作戦・逃げ＞",
@@ -153429,7 +153429,7 @@
     ],
     "cost": 180,
     "endesc": "",
-    "enname": "",
+    "enname": "Mighty Warrior",
     "evo": [],
     "iconid": 20012,
     "id": 204351,
@@ -153460,7 +153460,7 @@
     ],
     "cost": 180,
     "endesc": "",
-    "enname": "",
+    "enname": "Muster Your Courage",
     "iconid": 20011,
     "id": 204352,
     "jpdesc": "レース中盤のコーナーで中団以降にいるとしばらくの間速度がちょっと上がる＜作戦・差し＞",
@@ -153501,7 +153501,7 @@
     ],
     "cost": 180,
     "endesc": "",
-    "enname": "",
+    "enname": "Grand Fight",
     "iconid": 20011,
     "id": 204362,
     "jpdesc": "レース中盤に持久力を少し使って速度を少し上げる＜先行/差し＞",
@@ -153536,7 +153536,7 @@
     ],
     "cost": 180,
     "endesc": "",
-    "enname": "",
+    "enname": "Go With the Flow",
     "iconid": 20011,
     "id": 204372,
     "jpdesc": "レース終盤が迫ったとき速度がわずかに上がる＜先行/差し＞",
@@ -153582,7 +153582,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Let the Roaring Applause Ring",
     "evo_cond": [
       [
         [
@@ -153648,7 +153648,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Radiant White King",
     "evo_cond": [
       [
         [
@@ -153724,7 +153724,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Spirited Cheers!",
     "evo_cond": [
       [
         [
@@ -153792,7 +153792,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "The Strongest Flame",
     "evo_cond": [
       [
         [
@@ -153860,7 +153860,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Light Bursts Forth!",
     "evo_cond": [
       [
         [
@@ -153985,7 +153985,7 @@
     ],
     "cost": 140,
     "endesc": "",
-    "enname": "",
+    "enname": "Persistence Is Power",
     "evo": [],
     "iconid": 20012,
     "id": 204331,
@@ -154017,7 +154017,7 @@
     ],
     "cost": 140,
     "endesc": "",
-    "enname": "",
+    "enname": "Honest Run",
     "iconid": 20011,
     "id": 204332,
     "jpdesc": "レース中盤に速度がわずかに上がる＜作戦・先行＞",
@@ -154057,7 +154057,7 @@
     ],
     "cost": 160,
     "endesc": "",
-    "enname": "",
+    "enname": "No Worries",
     "iconid": 20011,
     "id": 204412,
     "jpdesc": "レース中盤始めの方に前方にいると速度がわずかに上がる＜作戦・先行＞",

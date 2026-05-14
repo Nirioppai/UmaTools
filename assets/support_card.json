@@ -6417,7 +6417,7 @@
   {
     "EventName": "この香りが残りますように",
     "EventOptions": {
-      "Top Option": "Guts +35\n匠のステアリング hint +2\n圧倒 hint +1\nBond +5",
+      "Top Option": "Guts +35\nMasterful Steering hint +2\nOverwhelm hint +1\nBond +5",
       "Bottom Option": "On the Offensive hint +5\nBlessing of the Ocean hint +5\nForever Healthy hint +5\nBond +5"
     }
   }
