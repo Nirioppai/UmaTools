@@ -14979,7 +14979,8 @@
         30021,
         30062,
         30149,
-        30237
+        30237,
+        30298
       ],
       []
     ],
@@ -21024,7 +21025,8 @@
         30038,
         30102,
         30159,
-        30231
+        30231,
+        30299
       ],
       []
     ],
@@ -59111,7 +59113,8 @@
       [
         30107,
         30181,
-        30227
+        30227,
+        30298
       ],
       []
     ],
@@ -62178,7 +62181,8 @@
     "sup_e": [
       [
         30099,
-        30179
+        30179,
+        30297
       ],
       []
     ],
@@ -121555,6 +121559,12 @@
     "name_ko": "강자의 증명",
     "name_tw": "強者的證明",
     "rarity": 2,
+    "sup_e": [
+      [
+        30300
+      ],
+      []
+    ],
     "tid": "n2",
     "type": [
       "l_1",
@@ -128541,7 +128551,8 @@
       [
         30248,
         30287,
-        30293
+        30293,
+        30297
       ],
       [
         10120
@@ -145676,6 +145687,12 @@
     "jpdesc": "レース中盤に速度がわずかに上がる＜作戦・逃げ＞",
     "jpname": "逃げるが勝ち！",
     "rarity": 1,
+    "sup_e": [
+      [
+        30298
+      ],
+      []
+    ],
     "sup_hint": [
       [
         30277
@@ -147921,6 +147938,12 @@
     "jpdesc": "追い抜くとわずかに前に出る＜中距離＞",
     "jpname": "華麗な足取り",
     "rarity": 1,
+    "sup_e": [
+      [
+        20099
+      ],
+      []
+    ],
     "sup_hint": [
       [
         30282
@@ -152806,7 +152829,7 @@
       }
     ],
     "cost": 160,
-    "endesc": "",
+    "endesc": "Short・If you're in the first half of the pack at a random point during the first half of the Final Leg, your acceleration will increase",
     "enname": "Overwhelm",
     "evo": [],
     "iconid": 20042,
@@ -152843,7 +152866,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Your Power stat is decreased by 40",
     "enname": "Hidden Strongest",
     "iconid": 10034,
     "id": 204401,
@@ -152882,7 +152905,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "At a random point during the Middle Leg, you will get a speed boost; the effect lasts longer if you're in the first half of the pack",
     "enname": "Drifting Purple Fragrance",
     "evo_cond": [
       [
@@ -152955,7 +152978,7 @@
         "precondition": "running_style==2@running_style==3"
       }
     ],
-    "endesc": "",
+    "endesc": "Leader/Betweener・At a random point during the Middle Leg, you'll use a little extra stamina to increase your speed tremendously; (Mile/Medium + Turf only) if you're running downhill or uphill, you will also get a slight (immediate) speed boost",
     "enname": "Haze-Cutting Star",
     "evo_cond": [
       [
@@ -153370,6 +153393,12 @@
     "jpdesc": "レース終盤始めの方早めに前方にいると加速力が上がる＜逃げ・中距離＞",
     "jpname": "飛竜乗雲",
     "rarity": 2,
+    "sup_e": [
+      [
+        30298
+      ],
+      []
+    ],
     "tid": "wL",
     "type": [
       "run",
@@ -153436,6 +153465,12 @@
     "jpdesc": "レース中盤のコーナーで中団以降にいるとしばらくの間速度が少し上がる＜作戦・差し＞",
     "jpname": "一騎当千",
     "rarity": 2,
+    "sup_e": [
+      [
+        30297
+      ],
+      []
+    ],
     "tid": "wN",
     "type": [
       "btw"
@@ -153992,6 +154027,12 @@
     "jpdesc": "レース中盤に速度が上がる＜作戦・先行＞",
     "jpname": "継続は力なり",
     "rarity": 2,
+    "sup_e": [
+      [
+        30300
+      ],
+      []
+    ],
     "tid": "wY",
     "type": [
       "ldr",

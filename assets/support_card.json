@@ -1242,6 +1242,19 @@
     }
   },
   {
+    "EventName": "見たかった情景",
+    "EventOptions": {
+      "": "Stamina +20\nBond +5"
+    }
+  },
+  {
+    "EventName": "変わらないモノ",
+    "EventOptions": {
+      "Top Option": "Energy +10\nStamina +25\nBond +5",
+      "Bottom Option": "Stamina +10\nGuts +10\nGorgeous Step hint +1\nBond +5"
+    }
+  },
+  {
     "EventName": "Dance in Cleats!",
     "EventOptions": {
       "": "Speed +10\nStamina +10\nSoft Step hint +1"
@@ -6419,6 +6432,71 @@
     "EventOptions": {
       "Top Option": "Guts +35\nMasterful Steering hint +2\nOverwhelm hint +1\nBond +5",
       "Bottom Option": "On the Offensive hint +5\nBlessing of the Ocean hint +5\nForever Healthy hint +5\nBond +5"
+    }
+  },
+  {
+    "EventName": "おお！汝、壁となれ。",
+    "EventOptions": {
+      "": "Motivation +1\nPower +15\nSkill Pts +15\nBond +5"
+    }
+  },
+  {
+    "EventName": "おお！汝目覚めよ！",
+    "EventOptions": {
+      "Top Option": "Energy +10\nPower +25\nForward Step by Step hint +1\nBond +5",
+      "Bottom Option": "Energy +10\nPower +20\nSkill Pts +20\nBond +5"
+    }
+  },
+  {
+    "EventName": "逃げぬ者、戦う者。すなわち汝。",
+    "EventOptions": {
+      "": "Power +30\nSkill Pts +10\nKeep Going! hint +1\nMighty Warrior hint +2\nBond +5"
+    }
+  },
+  {
+    "EventName": "最強チーム結成？",
+    "EventOptions": {
+      "Top Option": "Motivation +1\nSpeed +25\nBond +10",
+      "Bottom Option": "Energy +10\nMotivation +1\nSkill Pts +15\nBond +10"
+    }
+  },
+  {
+    "EventName": "心のカギは",
+    "EventOptions": {
+      "Top Option": "Speed +35\nRunning is Winning! hint +1\nBond +5",
+      "Bottom Option": "Speed +20\nSkill Pts +30\nBond +5"
+    }
+  },
+  {
+    "EventName": "仲間というロマン",
+    "EventOptions": {
+      "Top Option": "Motivation +1\nSpeed +30\nConcentration hint +1\nTop Runner hint +2\nBond +5",
+      "Bottom Option": "Motivation +1\nSpeed +20\nStamina +10\nConcentration hint +1\nCloud-Riding Dragon hint +2\nBond +5",
+      "Option 3": "Motivation +1\nSpeed +15\nStamina +15\nTop Runner hint +2\nCloud-Riding Dragon hint +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "常識知らずのサイエンティスト",
+    "EventOptions": {
+      "": "Guts +15\nBond +5"
+    }
+  },
+  {
+    "EventName": "サイエンティストが生まれた日",
+    "EventOptions": {
+      "": "Motivation +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "サイエンティストは加速する",
+    "EventOptions": {
+      "": "Guts +10\nSkill Pts +10\nSpeed Star hint +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "どすこいカード列伝！",
+    "EventOptions": {
+      "": "Motivation +1\nSpeed +20\nStamina +30\nPower +10\nWit +5\nProof of Strength hint +2\nPersistence Is Power hint +2\nBond +15"
     }
   }
 ]
