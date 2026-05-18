@@ -34553,9 +34553,9 @@
     "UmaImage": "/assets/character_thumbs/111301-fusaichi-pandora.png"
   },
   {
-    "UmaKey": "Satono Crown :: 108802-satono-crown",
+    "UmaKey": "Satono Crown :: Sunny Island Floral Beauty",
     "UmaName": "Satono Crown",
-    "UmaNickname": null,
+    "UmaNickname": "Sunny Island Floral Beauty",
     "UmaSlug": "108802-satono-crown",
     "UmaId": "108802",
     "UmaServer": "jp",
@@ -34716,9 +34716,9 @@
     "UmaImage": "/assets/character_thumbs/108802-satono-crown.png"
   },
   {
-    "UmaKey": "Cheval Grand :: 108902-cheval-grand",
+    "UmaKey": "Cheval Grand :: Summer Lull Navy Drop",
     "UmaName": "Cheval Grand",
-    "UmaNickname": null,
+    "UmaNickname": "Summer Lull Navy Drop",
     "UmaSlug": "108902-cheval-grand",
     "UmaId": "108902",
     "UmaServer": "jp",
@@ -35179,9 +35179,9 @@
     "UmaImage": "/assets/character_thumbs/109701-still-in-love.png"
   },
   {
-    "UmaKey": "K.S.Miracle :: 109302-ksmiracle",
+    "UmaKey": "K.S.Miracle :: Andante in Autumn Hues",
     "UmaName": "K.S.Miracle",
-    "UmaNickname": null,
+    "UmaNickname": "Andante in Autumn Hues",
     "UmaSlug": "109302-ksmiracle",
     "UmaId": "109302",
     "UmaServer": "jp",
@@ -35358,9 +35358,9 @@
     "UmaImage": "/assets/character_thumbs/109302-ksmiracle.png"
   },
   {
-    "UmaKey": "Hishi Miracle :: 110602-hishi-miracle",
+    "UmaKey": "Hishi Miracle :: Happy Little Notes",
     "UmaName": "Hishi Miracle",
-    "UmaNickname": null,
+    "UmaNickname": "Happy Little Notes",
     "UmaSlug": "110602-hishi-miracle",
     "UmaId": "110602",
     "UmaServer": "jp",
@@ -35682,9 +35682,9 @@
     "UmaImage": "/assets/character_thumbs/108101-espoir-city.png"
   },
   {
-    "UmaKey": "Believe :: 109501-believe",
+    "UmaKey": "Believe :: Purity",
     "UmaName": "Believe",
-    "UmaNickname": null,
+    "UmaNickname": "Purity",
     "UmaSlug": "109501-believe",
     "UmaId": "109501",
     "UmaServer": "jp",
@@ -36473,9 +36473,9 @@
     "UmaImage": "/assets/character_thumbs/109201-dantsu-flame.png"
   },
   {
-    "UmaKey": "Transcend :: 108002-transcend",
+    "UmaKey": "Transcend :: Twilit Neo-Kagura",
     "UmaName": "Transcend",
-    "UmaNickname": null,
+    "UmaNickname": "Twilit Neo-Kagura",
     "UmaSlug": "108002-transcend",
     "UmaId": "108002",
     "UmaServer": "jp",
@@ -36614,9 +36614,9 @@
     "UmaImage": "/assets/character_thumbs/108002-transcend.png"
   },
   {
-    "UmaKey": "Wonder Acute :: 110002-wonder-acute",
+    "UmaKey": "Wonder Acute :: Soft Light・Hot Spring Scent",
     "UmaName": "Wonder Acute",
-    "UmaNickname": null,
+    "UmaNickname": "Soft Light・Hot Spring Scent",
     "UmaSlug": "110002-wonder-acute",
     "UmaId": "110002",
     "UmaServer": "jp",
@@ -36951,9 +36951,9 @@
     "UmaImage": "/assets/character_thumbs/111401-buena-vista.png"
   },
   {
-    "UmaKey": "Nakayama Festa :: 104902-nakayama-festa",
+    "UmaKey": "Nakayama Festa :: Festive Play",
     "UmaName": "Nakayama Festa",
-    "UmaNickname": null,
+    "UmaNickname": "Festive Play",
     "UmaSlug": "104902-nakayama-festa",
     "UmaId": "104902",
     "UmaServer": "jp",
@@ -37102,9 +37102,9 @@
     "UmaImage": "/assets/character_thumbs/104902-nakayama-festa.png"
   },
   {
-    "UmaKey": "Dream Journey :: 111902-dream-journey",
+    "UmaKey": "Dream Journey :: Snow-White Dream Road",
     "UmaName": "Dream Journey",
-    "UmaNickname": null,
+    "UmaNickname": "Snow-White Dream Road",
     "UmaSlug": "111902-dream-journey",
     "UmaId": "111902",
     "UmaServer": "jp",
@@ -37585,9 +37585,9 @@
     "UmaImage": "/assets/character_thumbs/113501-stay-gold.png"
   },
   {
-    "UmaKey": "Ikuno Dictus :: 106302-ikuno-dictus",
+    "UmaKey": "Ikuno Dictus :: Strolling an Orderly Path",
     "UmaName": "Ikuno Dictus",
-    "UmaNickname": null,
+    "UmaNickname": "Strolling an Orderly Path",
     "UmaSlug": "106302-ikuno-dictus",
     "UmaId": "106302",
     "UmaServer": "jp",
@@ -37927,9 +37927,9 @@
     "UmaImage": "/assets/character_thumbs/107602-sakura-laurel.png"
   },
   {
-    "UmaKey": "Bubble Gum Fellow :: 112402-bubble-gum-fellow",
+    "UmaKey": "Bubble Gum Fellow :: Dawn Light",
     "UmaName": "Bubble Gum Fellow",
-    "UmaNickname": null,
+    "UmaNickname": "Dawn Light",
     "UmaSlug": "112402-bubble-gum-fellow",
     "UmaId": "112402",
     "UmaServer": "jp",
@@ -38365,7 +38365,28 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "いい夢、ハグ心地",
+        "EventOptions": {
+          "Top Option": "Energy +10\nGuts +5\nWit +5\nSkill Pts +15\nGuts +5\nWit +5\nSkill Pts +15",
+          "Bottom Option": "Energy -10\nPower +5\nSkill Pts +30"
+        }
+      },
+      {
+        "EventName": "全力サビシイ・ビッグシス！",
+        "EventOptions": {
+          "": "Speed +10\nPower +5\nFearless Advance hint +3"
+        }
+      },
+      {
+        "EventName": "言葉はアニマートなパッションで",
+        "EventOptions": {
+          "Top Option": "Power +5\nHead-On hint +1",
+          "Bottom Option": "Energy +5\nSpeed +5\nPower +5\nWit +5"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/101003-taiki-shuttle.png"
   },
   {
@@ -38506,7 +38527,28 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "愛の日、愛の音",
+        "EventOptions": {
+          "Top Option": "Energy +10\nSpeed +5\nPower +5\nSkill Pts +15\nGuts +5\nWit +5\nSkill Pts +15",
+          "Bottom Option": "Energy -10\nStamina +5\nSkill Pts +30"
+        }
+      },
+      {
+        "EventName": "砂糖の焦げは、カラメル",
+        "EventOptions": {
+          "": "Stamina +10\nGuts +5\nPlaytime's Over! hint +3"
+        }
+      },
+      {
+        "EventName": "生活にムジカを！",
+        "EventOptions": {
+          "Top Option": "Stamina +5\nNo Stagnation hint +1",
+          "Bottom Option": "Energy +5\nSpeed +5\nPower +5\nGuts +5"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/110202-sounds-of-earth.png"
   },
   {
@@ -39142,7 +39184,29 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "それは天使の輪のように",
+        "EventOptions": {
+          "Top Option": "Speed +20",
+          "Bottom Option": "Stamina +20"
+        }
+      },
+      {
+        "EventName": "二人だからできること",
+        "EventOptions": {
+          "Top Option": "Power +20",
+          "Bottom Option": "Wit +20"
+        }
+      },
+      {
+        "EventName": "ありふれた、愛しき光景",
+        "EventOptions": {
+          "Top Option": "Speed +20",
+          "Bottom Option": "Power +20"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/114301-victoire-pisa.png"
   },
   {
@@ -39289,7 +39353,28 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "七転びバクシンバクシン！",
+        "EventOptions": {
+          "Top Option": "Motivation +1\nGuts +10\nSkill Pts +15\nSprint Corners ○ hint +1\nMotivation +1\nGuts +10\nWit +5",
+          "Bottom Option": "Energy +15\nSkill Pts +15\nSprint Corners ○ hint +1\nEnergy +10\nWit +10"
+        }
+      },
+      {
+        "EventName": "超学級委員長の『デート論』",
+        "EventOptions": {
+          "": "Power +5\nSkill Pts +15"
+        }
+      },
+      {
+        "EventName": "ヴィクトリー倶楽部へようこそ！",
+        "EventOptions": {
+          "Top Option": "Speed +10\nSkill Pts +15",
+          "Bottom Option": "Energy +5\nSpring Runner ○ hint +1"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/104103-sakura-bakushin-o.png"
   },
   {
@@ -39424,13 +39509,34 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "これがわたしのポリシーです！",
+        "EventOptions": {
+          "Top Option": "Motivation +1\nWit +10\nSkill Pts +15\nFootloose hint +1\nMotivation +1\nPower +5\nWit +10",
+          "Bottom Option": "Energy +15\nSkill Pts +15\nFootloose hint +1\nEnergy +10\nPower +10"
+        }
+      },
+      {
+        "EventName": "これがわたしのコーデです♪",
+        "EventOptions": {
+          "": "Motivation +1\nSpeed +10\nSkill Pts +15\nFootloose hint +1"
+        }
+      },
+      {
+        "EventName": "マイラーたちの海外フライト",
+        "EventOptions": {
+          "Top Option": "Energy +5\nMile Corners ○ hint +1",
+          "Bottom Option": "Guts +10\nSkill Pts +15"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/108202-north-flight.png"
   },
   {
-    "UmaKey": "Lucky Lilac :: 113001-lucky-lilac",
+    "UmaKey": "Lucky Lilac :: Standard of Unyielding Resolve",
     "UmaName": "Lucky Lilac",
-    "UmaNickname": null,
+    "UmaNickname": "Standard of Unyielding Resolve",
     "UmaSlug": "113001-lucky-lilac",
     "UmaId": "113001",
     "UmaServer": "jp",
@@ -39754,9 +39860,9 @@
     "UmaImage": "/assets/character_thumbs/111801-admire-groove.png"
   },
   {
-    "UmaKey": "Fuji Kiseki :: 100503-fuji-kiseki",
+    "UmaKey": "Fuji Kiseki :: Blanche Étoile",
     "UmaName": "Fuji Kiseki",
-    "UmaNickname": null,
+    "UmaNickname": "Blanche Étoile",
     "UmaSlug": "100503-fuji-kiseki",
     "UmaId": "100503",
     "UmaServer": "jp",
@@ -39903,13 +40009,34 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "君にエールを",
+        "EventOptions": {
+          "Top Option": "Wit +15",
+          "Bottom Option": "Energy -15\nSkill Pts +15"
+        }
+      },
+      {
+        "EventName": "全力エールで！",
+        "EventOptions": {
+          "": "Energy +20\nSpeed +10\nWit +10\nSkill Pts +15\nIgnition hint +1"
+        }
+      },
+      {
+        "EventName": "たまには、回想劇を",
+        "EventOptions": {
+          "Top Option": "Energy +10\nMotivation +1",
+          "Bottom Option": "Tooth and Tail hint +1"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/100503-fuji-kiseki.png"
   },
   {
-    "UmaKey": "Jungle Pocket :: 109402-jungle-pocket",
+    "UmaKey": "Jungle Pocket :: Vermilion Head",
     "UmaName": "Jungle Pocket",
-    "UmaNickname": null,
+    "UmaNickname": "Vermilion Head",
     "UmaSlug": "109402-jungle-pocket",
     "UmaId": "109402",
     "UmaServer": "jp",
@@ -40044,7 +40171,28 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "“総長”＆“船長”",
+        "EventOptions": {
+          "Top Option": "Power +15",
+          "Bottom Option": "Energy -15\nSkill Pts +15"
+        }
+      },
+      {
+        "EventName": "エンジン再始動",
+        "EventOptions": {
+          "": "Power +20\nSkill Pts +15\nPushing Through! hint +2"
+        }
+      },
+      {
+        "EventName": "優しい姉貴",
+        "EventOptions": {
+          "Top Option": "Energy +10\nMotivation +1",
+          "Bottom Option": "Position Pilfer hint +1"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/109402-jungle-pocket.png"
   },
   {
@@ -40191,7 +40339,29 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "A Serious Showdown",
+        "EventOptions": {
+          "Top Option": "Power +20",
+          "Bottom Option": "Stamina +20"
+        }
+      },
+      {
+        "EventName": "See You Again",
+        "EventOptions": {
+          "Top Option": "Guts +20",
+          "Bottom Option": "Power +20"
+        }
+      },
+      {
+        "EventName": "An Iron Will",
+        "EventOptions": {
+          "Top Option": "Wit +20",
+          "Bottom Option": "Power +20"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/111201-daring-heart.png"
   }
 ]

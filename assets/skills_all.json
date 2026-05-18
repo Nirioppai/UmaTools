@@ -8677,7 +8677,8 @@
       107601,
       106803,
       107802,
-      107602
+      107602,
+      104103
     ],
     "condition_groups": [
       {
@@ -21609,6 +21610,7 @@
       111002,
       110602,
       107602,
+      109402,
       103501
     ],
     "condition_groups": [
@@ -30804,6 +30806,7 @@
       104102,
       108502,
       108702,
+      104103,
       105401
     ],
     "condition_groups": [
@@ -32323,6 +32326,7 @@
       108502,
       104202,
       100403,
+      108202,
       106201
     ],
     "condition_groups": [
@@ -48038,7 +48042,8 @@
       106402,
       104702,
       110902,
-      111301
+      111301,
+      114301
     ],
     "condition_groups": [
       {
@@ -48681,7 +48686,8 @@
       107202,
       110402,
       103103,
-      113701
+      113701,
+      110202
     ],
     "condition_groups": [
       {
@@ -65374,6 +65380,9 @@
     "char": [
       101902
     ],
+    "char_e": [
+      114301
+    ],
     "condition_groups": [
       {
         "base_time": 24000,
@@ -71235,6 +71244,9 @@
       108902,
       109102,
       106302,
+      113001,
+      100503,
+      111201,
       106301
     ],
     "condition_groups": [
@@ -95014,7 +95026,8 @@
     ],
     "char_e": [
       113202,
-      111801
+      111801,
+      100503
     ],
     "condition_groups": [
       {
@@ -122673,7 +122686,8 @@
       109001
     ],
     "char_e": [
-      107802
+      107802,
+      101003
     ],
     "condition_groups": [
       {
@@ -134290,6 +134304,9 @@
     "char": [
       113101
     ],
+    "char_e": [
+      108202
+    ],
     "condition_groups": [
       {
         "base_time": 18000,
@@ -135625,7 +135642,8 @@
     "activation": 1,
     "char_e": [
       113201,
-      113202
+      113202,
+      109402
     ],
     "condition_groups": [
       {
@@ -145860,6 +145878,9 @@
       110002,
       113001
     ],
+    "char_e": [
+      110202
+    ],
     "condition_groups": [
       {
         "base_time": 24000,
@@ -153039,7 +153060,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "40% through the race, your speed will slightly increase; (Medium + Turf only) if you're not in the front at the time of activation, the effect is longer and stronger",
     "enname": "Distant Far North",
     "gene_version": {
       "activation": 1,
@@ -153100,7 +153121,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Your Power stat is decreased by 40",
     "enname": "Lurking Crimson",
     "iconid": 10034,
     "id": 204421,
@@ -153139,7 +153160,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Betweener・Medium・At a random point during Middle Leg, your speed will slightly increase; then, if you're near the front during the Zenkai Spurt, your acceleration will increase",
     "enname": "Icy Beauty",
     "evo_cond": [
       [
@@ -153205,7 +153226,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Betweener・Medium・During your last spurt, your acceleration will slightly increase and you will get a slight speed boost; then, if you're near the front during your Zenkai Spurt, your acceleration will increase",
     "enname": "Peerless Snow Crystal",
     "evo_cond": [
       [
@@ -153270,7 +153291,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "If you're not in the front and you're being blocked from the side during the Middle Leg, your speed will increase; the effect is stronger in Medium races",
     "enname": "Twilight Blood Pact",
     "gene_version": {
       "activation": 1,
@@ -153334,7 +153355,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "If you activate another skill in the second half of the race, your speed will increase; it will increase greatly in core Medium races",
     "enname": "Gloire à toi!",
     "gene_version": {
       "activation": 1,
@@ -153385,7 +153406,7 @@
       }
     ],
     "cost": 170,
-    "endesc": "",
+    "endesc": "Runner・Medium・If you're in the first half of the pack at a random point during the first quarter of the Final Leg, your acceleration will increase",
     "enname": "Cloud-Riding Dragon",
     "evo": [],
     "iconid": 20042,
@@ -153423,7 +153444,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "Runner・If you're in the first half of the pack at a random point during the second half of the Middle Leg, your speed will slightly increase",
     "enname": "Building Momentum",
     "iconid": 20011,
     "id": 204342,
@@ -153457,7 +153478,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "Betweener・If you're not in the front at a random point on a random Middle Leg corner, your speed will slightly increase",
     "enname": "Mighty Warrior",
     "evo": [],
     "iconid": 20012,
@@ -153494,7 +153515,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "Betweener・If you're not in the front at a random point on a random Middle Leg corner, your speed will marginally increase",
     "enname": "Muster Your Courage",
     "iconid": 20011,
     "id": 204352,
@@ -153535,7 +153556,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "Leader/Betweener・At a random point during the Middle Leg, you will use a little extra stamina to slightly increase your speed",
     "enname": "Grand Fight",
     "iconid": 20011,
     "id": 204362,
@@ -153570,7 +153591,7 @@
       }
     ],
     "cost": 180,
-    "endesc": "",
+    "endesc": "Leader/Betweener・At a random point during the second half of the Middle Leg, your speed will slightly increase",
     "enname": "Go With the Flow",
     "iconid": 20011,
     "id": 204372,
@@ -153616,7 +153637,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・Medium・Halfway through the race, you will get a great speed boost; (Nakayama only) then, if you have at least 1000 base Stamina, your Zenkai Spurt acceleration will increase",
     "enname": "Let the Roaring Applause Ring",
     "evo_cond": [
       [
@@ -153682,7 +153703,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・Medium・If you're not in the back of the pack during the Final Corner, your acceleration will increase (in Nakayama, it can be any Final Leg corner); then, during the Final Straight, your speed will slightly increase",
     "enname": "Radiant White King",
     "evo_cond": [
       [
@@ -153758,7 +153779,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Betweener・Medium・At a random point during the Middle Leg, you will get a speed boost; if you're in the middle of the pack at that moment, a random team member's (can be yourself) target speed will also increase",
     "enname": "Spirited Cheers!",
     "evo_cond": [
       [
@@ -153826,7 +153847,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Betweener・Medium・If you're not first but you're within 10 meters from the first place during the Final Straight, you will get a great speed boost; the boost will be tremendous if you were blocked from the side in the Middle Leg",
     "enname": "The Strongest Flame",
     "evo_cond": [
       [
@@ -153894,7 +153915,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Runner・Short・At the start of the race, you will get a slight speed boost; then, during any Middle Leg straight, you will get another speed boost",
     "enname": "Light Bursts Forth!",
     "evo_cond": [
       [
@@ -153967,7 +153988,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "In the second half of the Final Leg, your speed will increase; the effect is stronger if the race is Mile and you're in the first half of the pack",
     "enname": "With All My Heart",
     "gene_version": {
       "activation": 1,
@@ -154019,7 +154040,7 @@
       }
     ],
     "cost": 140,
-    "endesc": "",
+    "endesc": "Leader・At a random point during the Middle Leg, your speed will increase",
     "enname": "Persistence Is Power",
     "evo": [],
     "iconid": 20012,
@@ -154057,7 +154078,7 @@
       }
     ],
     "cost": 140,
-    "endesc": "",
+    "endesc": "Leader・At a random point during the Middle Leg, your speed will slightly increase",
     "enname": "Honest Run",
     "iconid": 20011,
     "id": 204332,
@@ -154097,7 +154118,7 @@
       }
     ],
     "cost": 160,
-    "endesc": "",
+    "endesc": "Leader・If you're in the first half of the pack at a random point during the first half of the Middle Leg, your speed will slightly increase",
     "enname": "No Worries",
     "iconid": 20011,
     "id": 204412,
@@ -154137,7 +154158,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・At a random point during the Middle Leg, your speed will greatly increase; the effect is stronger in Mile races",
     "enname": "Rush to Catch Me!",
     "evo_cond": [
       [
@@ -154199,7 +154220,7 @@
         ]
       }
     ],
-    "endesc": "",
+    "endesc": "Leader・At a random point during the Middle Leg, your speed will greatly increase; the effect is stronger in Mile races",
     "enname": "Out in Front",
     "evo_cond": [
       [
