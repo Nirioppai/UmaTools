@@ -12664,7 +12664,7 @@
     "UmaNickname": "Titania",
     "UmaSlug": "102202-fine-motion",
     "UmaId": "102202",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -12843,7 +12843,7 @@
     "UmaNickname": "Ma Chérie of the New Moon",
     "UmaSlug": "103802-curren-chan",
     "UmaId": "103802",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -12971,20 +12971,20 @@
     ],
     "UmaEvents": [
       {
-        "EventName": "Where are you, Curren？",
+        "EventName": "Where Could Curren Be?",
         "EventOptions": {
           "": "Power +5\nSprint Corners ○ hint +1\nPower +20\nSprint Corners ○ hint +3"
         }
       },
       {
-        "EventName": "Curren's Black",
+        "EventName": "Curren in Black",
         "EventOptions": {
           "Top Option": "Speed +15",
           "Bottom Option": "Disorient hint +2"
         }
       },
       {
-        "EventName": "Rush Rush Rush Curren！",
+        "EventName": "#CuteBakushin",
         "EventOptions": {
           "": "Guts +30\nGuts +30\nGuts +15"
         }

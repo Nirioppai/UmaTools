@@ -71955,7 +71955,7 @@
     "SupportId": "30098",
     "SupportName": "Haru Urara (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Power",
     "SupportEffects": [
       {
@@ -72133,35 +72133,14 @@
       ]
     },
     "SupportImage": "/assets/support_thumbs/30098-haru-urara.png",
-    "SupportHints": [
-      {
-        "SkillId": "",
-        "Name": "Initial Stamina bonus",
-        "HintLevel": null
-      },
-      {
-        "SkillId": "",
-        "Name": "Initial Power bonus",
-        "HintLevel": null
-      },
-      {
-        "SkillId": "",
-        "Name": "Initial Stamina bonus",
-        "HintLevel": null
-      },
-      {
-        "SkillId": "",
-        "Name": "Initial Power bonus",
-        "HintLevel": null
-      }
-    ]
+    "SupportHints": []
   },
   {
     "SupportSlug": "30099-ikuno-dictus",
     "SupportId": "30099",
     "SupportName": "Ikuno Dictus (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Stamina",
     "SupportEffects": [
       {
@@ -72392,7 +72371,7 @@
     "SupportId": "30100",
     "SupportName": "Rice Shower (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Wit",
     "SupportEffects": [
       {
