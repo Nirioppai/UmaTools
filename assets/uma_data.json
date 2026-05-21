@@ -40363,5 +40363,168 @@
       }
     ],
     "UmaImage": "/assets/character_thumbs/111201-daring-heart.png"
+  },
+  {
+    "UmaKey": "Red Desire :: Divine Raiment",
+    "UmaName": "Red Desire",
+    "UmaNickname": "Divine Raiment",
+    "UmaSlug": "113601-red-desire",
+    "UmaId": "113601",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 93,
+        "Stamina": 83,
+        "Power": 95,
+        "Guts": 92,
+        "Wit": 87
+      },
+      "5★": {
+        "Speed": 114,
+        "Stamina": 101,
+        "Power": 117,
+        "Guts": 113,
+        "Wit": 105
+      },
+      "4★": {
+        "Speed": 103,
+        "Stamina": 92,
+        "Power": 106,
+        "Guts": 103,
+        "Wit": 96
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 10,
+      "Stamina": 0,
+      "Power": 0,
+      "Guts": 10,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "B"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "A",
+        "Medium": "A",
+        "Long": "F"
+      },
+      "Strategy": {
+        "Front": "G",
+        "Pace": "B",
+        "Late": "A",
+        "End": "F"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Earn 5,000 fans",
+        "Turn": "27",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Oka Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japanese Oaks",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Shuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "46",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Osaka Hai",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Victoria Mile",
+        "Turn": "57",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Sapporo Kinen",
+        "Turn": "64",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [
+      {
+        "EventName": "紫へと少しずつ",
+        "EventOptions": {
+          "Top Option": "Stamina +20",
+          "Bottom Option": "Power +20"
+        }
+      },
+      {
+        "EventName": "試練の先に光あれ",
+        "EventOptions": {
+          "Top Option": "Power +20",
+          "Bottom Option": "Guts +20"
+        }
+      },
+      {
+        "EventName": "聖女メンタリティ",
+        "EventOptions": {
+          "Top Option": "Power +20",
+          "Bottom Option": "Guts +20"
+        }
+      }
+    ],
+    "UmaImage": "/assets/character_thumbs/113601-red-desire.png"
   }
 ]
