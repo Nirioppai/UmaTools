@@ -6291,6 +6291,25 @@
     }
   },
   {
+    "EventName": "瞳に映るはあの子の影",
+    "EventOptions": {
+      "": "Wit +15\nBond +5\nWit +5\nBond +5"
+    }
+  },
+  {
+    "EventName": "幸せ、想い、半分",
+    "EventOptions": {
+      "Top Option": "Wit +10\nBond +5",
+      "Bottom Option": "Energy +10\nBond +5"
+    }
+  },
+  {
+    "EventName": "いつかあなたを置いていく",
+    "EventOptions": {
+      "": "Wit +15\nBond +5\nGale Flash hint +1"
+    }
+  },
+  {
     "EventName": "Young & Unstoppable",
     "EventOptions": {
       "Top Option": "Motivation +1\nEnergy +20\nWit +10\nBond +5",
@@ -6364,7 +6383,7 @@
     "EventOptions": {
       "Top Option": "Bond +5\nMotivation +1\nPower +10\nGuts +5\nSkill Pts +10",
       "Bottom Option": "Bond +5\nEnergy +10\nGuts +5\nBoiling Emotions hint +1",
-      "Option 3": "Bond +5\nEnergy +5\nGuts +110\nFoothold hint +1"
+      "Option 3": "Bond +5\nEnergy +5\nGuts +10\nFoothold hint +1"
     }
   },
   {

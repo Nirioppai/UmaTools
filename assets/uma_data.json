@@ -12831,7 +12831,7 @@
       {
         "EventName": "Even Though We're Apart",
         "EventOptions": {
-          "": "Speed +20\nSkill Pts +15"
+          "": "Speed +20\nSkill Pts +15\nSpeed +5\nSkill Pts +10"
         }
       }
     ],
