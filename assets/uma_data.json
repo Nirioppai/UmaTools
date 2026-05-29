@@ -40526,5 +40526,309 @@
       }
     ],
     "UmaImage": "/assets/character_thumbs/113601-red-desire.png"
+  },
+  {
+    "UmaKey": "Manhattan Cafe :: 102503-manhattan-cafe",
+    "UmaName": "Manhattan Cafe",
+    "UmaNickname": null,
+    "UmaSlug": "102503-manhattan-cafe",
+    "UmaId": "102503",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 85,
+        "Stamina": 94,
+        "Power": 92,
+        "Guts": 83,
+        "Wit": 96
+      },
+      "5★": {
+        "Speed": 104,
+        "Stamina": 115,
+        "Power": 112,
+        "Guts": 102,
+        "Wit": 117
+      },
+      "4★": {
+        "Speed": 94,
+        "Stamina": 105,
+        "Power": 102,
+        "Guts": 92,
+        "Wit": 107
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 5,
+      "Power": 10,
+      "Guts": 5,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "F",
+        "Medium": "B",
+        "Long": "A"
+      },
+      "Strategy": {
+        "Front": "G",
+        "Pace": "C",
+        "Late": "A",
+        "End": "C"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Earn 4,000 fans",
+        "Turn": "26",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Yayoi Sho",
+        "Turn": "29",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "St. Lite Kinen",
+        "Turn": "42",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Kikuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "48",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Spring)",
+        "Turn": "56",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Takarazuka Kinen",
+        "Turn": "60",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "72",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [
+      {
+        "EventName": "繰り返す、アナタが選ぶまで",
+        "EventOptions": {
+          "Top Option": "Energy +10\nSkill Pts +15",
+          "Bottom Option": "Stamina +5\nPushing Through! hint +1"
+        }
+      }
+    ],
+    "UmaImage": "/assets/character_thumbs/102503-manhattan-cafe.png"
+  },
+  {
+    "UmaKey": "Gentildonna :: La dama perfetta",
+    "UmaName": "Gentildonna",
+    "UmaNickname": "La dama perfetta",
+    "UmaSlug": "111602-gentildonna",
+    "UmaId": "111602",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 95,
+        "Stamina": 82,
+        "Power": 103,
+        "Guts": 78,
+        "Wit": 92
+      },
+      "5★": {
+        "Speed": 116,
+        "Stamina": 100,
+        "Power": 126,
+        "Guts": 95,
+        "Wit": 113
+      },
+      "4★": {
+        "Speed": 105,
+        "Stamina": 91,
+        "Power": 114,
+        "Guts": 87,
+        "Wit": 103
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 0,
+      "Power": 10,
+      "Guts": 10,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "A",
+        "Medium": "A",
+        "Long": "A"
+      },
+      "Strategy": {
+        "Front": "E",
+        "Pace": "A",
+        "Late": "A",
+        "End": "D"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Shinzan Kinen",
+        "Turn": "25",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Oka Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japanese Oaks",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Shuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "46",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Osaka Hai",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Takarazuka Kinen",
+        "Turn": "60",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Autumn)",
+        "Turn": "68",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "72",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [
+      {
+        "EventName": "ジェンティルドンナの部屋",
+        "EventOptions": {
+          "Top Option": "Energy +10\nSkill Pts +15",
+          "Bottom Option": "Power +5\nEager hint +1"
+        }
+      }
+    ],
+    "UmaImage": "/assets/character_thumbs/111602-gentildonna.png"
   }
 ]

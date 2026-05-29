@@ -6517,5 +6517,18 @@
     "EventOptions": {
       "": "Motivation +1\nSpeed +20\nStamina +30\nPower +10\nWit +5\nProof of Strength hint +2\nPersistence Is Power hint +2\nBond +15"
     }
+  },
+  {
+    "EventName": "最強のミューズへ",
+    "EventOptions": {
+      "": "Motivation +1\nPower +20\nCarefree Stride hint +1\n元気溌剌 hint +2\nBond +5"
+    }
+  },
+  {
+    "EventName": "そして、未来を誓う",
+    "EventOptions": {
+      "Top Option": "Motivation +1\nSpeed +5\nSkill Pts +10\nChain Reaction hint +1\n一所懸命 hint +1\nBond +5",
+      "Bottom Option": "Motivation +1\nStamina +10\nSkill Pts +5\n一所懸命 hint +1\n光輝燦然 hint +1\nBond +5"
+    }
   }
 ]

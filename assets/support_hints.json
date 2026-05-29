@@ -124047,5 +124047,889 @@
         "HintLevel": null
       }
     ]
+  },
+  {
+    "SupportSlug": "30301-gran-alegria",
+    "SupportId": "30301",
+    "SupportName": "Gran Alegria (SSR)",
+    "SupportRarity": "SSR",
+    "SupportServer": "jp",
+    "SupportType": "Power",
+    "SupportEffects": [
+      {
+        "id": 1,
+        "name": "Friendship Bonus",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          15,
+          20,
+          20,
+          20,
+          25,
+          25
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Mood Effect",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          20,
+          40,
+          40,
+          40
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Power Bonus",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Training Effectiveness",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          10,
+          10,
+          10,
+          20
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Initial Stamina",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          15,
+          15,
+          15,
+          15,
+          20,
+          20
+        ]
+      },
+      {
+        "id": 14,
+        "name": "Initial Friendship Gauge",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          15,
+          30
+        ]
+      },
+      {
+        "id": 15,
+        "name": "Race Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5,
+          5,
+          5,
+          5,
+          10
+        ]
+      },
+      {
+        "id": 16,
+        "name": "Fan Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          10,
+          10,
+          10,
+          10,
+          15
+        ]
+      },
+      {
+        "id": 17,
+        "name": "Hint Levels",
+        "symbol": "level",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          3,
+          3
+        ]
+      },
+      {
+        "id": 18,
+        "name": "Hint Frequency",
+        "symbol": "percent",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          50,
+          50,
+          50,
+          80,
+          80
+        ]
+      },
+      {
+        "id": 19,
+        "name": "Specialty Priority",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          50,
+          50,
+          50,
+          50,
+          80
+        ]
+      },
+      {
+        "id": 30,
+        "name": "Skill Point Bonus",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2
+        ]
+      }
+    ],
+    "SupportUnique": {
+      "level": 0,
+      "effects": [
+        {
+          "id": 101,
+          "name": "Effect #101",
+          "symbol": "",
+          "value": 80
+        }
+      ]
+    },
+    "SupportImage": "/assets/support_thumbs/30301-gran-alegria.png",
+    "SupportHints": [
+      {
+        "SkillId": "201032",
+        "Name": "Mile Straightaways ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201042",
+        "Name": "Mile Corners ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201072",
+        "Name": "Unyielding Spirit",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202112",
+        "Name": "Pumped",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202402",
+        "Name": "Mighty Leap",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202962",
+        "Name": "Boiling Emotions",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203042",
+        "Name": "Pounding Chest",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203542",
+        "Name": "Footloose",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203552",
+        "Name": "Step Up",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203942",
+        "Name": "Electrifying Run",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204172",
+        "Name": "Lively",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204462",
+        "Name": "いざ我が道へ！",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Stamina bonus",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Power bonus",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "30302-satono-diamond",
+    "SupportId": "30302",
+    "SupportName": "Satono Diamond (SSR)",
+    "SupportRarity": "SSR",
+    "SupportServer": "jp",
+    "SupportType": "Speed",
+    "SupportEffects": [
+      {
+        "id": 1,
+        "name": "Friendship Bonus",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          35
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Mood Effect",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          20,
+          20,
+          20,
+          20,
+          30,
+          30
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Training Effectiveness",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          20
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Initial Speed",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          10,
+          25,
+          25,
+          25
+        ]
+      },
+      {
+        "id": 11,
+        "name": "Initial Power",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          15,
+          15,
+          15,
+          15,
+          20,
+          20
+        ]
+      },
+      {
+        "id": 14,
+        "name": "Initial Friendship Gauge",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          35
+        ]
+      },
+      {
+        "id": 15,
+        "name": "Race Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5,
+          5,
+          5,
+          5,
+          10
+        ]
+      },
+      {
+        "id": 16,
+        "name": "Fan Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          10,
+          10,
+          10,
+          10,
+          15
+        ]
+      },
+      {
+        "id": 17,
+        "name": "Hint Levels",
+        "symbol": "level",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          4
+        ]
+      },
+      {
+        "id": 18,
+        "name": "Hint Frequency",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          60,
+          60,
+          60,
+          60,
+          100
+        ]
+      },
+      {
+        "id": 19,
+        "name": "Specialty Priority",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          60,
+          60,
+          60,
+          60,
+          100
+        ]
+      },
+      {
+        "id": 30,
+        "name": "Skill Point Bonus",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2
+        ]
+      }
+    ],
+    "SupportUnique": {
+      "level": 0,
+      "effects": [
+        {
+          "id": 101,
+          "name": "Effect #101",
+          "symbol": "",
+          "value": 80
+        }
+      ]
+    },
+    "SupportImage": "/assets/support_thumbs/30302-satono-diamond.png",
+    "SupportHints": [
+      {
+        "SkillId": "200382",
+        "Name": "Straightaway Recovery",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200752",
+        "Name": "Inside Scoop",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201172",
+        "Name": "Long Straightaways ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201182",
+        "Name": "Long Corners ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202562",
+        "Name": "Lock On",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203242",
+        "Name": "Fuse",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203512",
+        "Name": "High Ambitions",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203562",
+        "Name": "Fierce Struggle",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203772",
+        "Name": "Unwavering Heart",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204022",
+        "Name": "Crucial Stage",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204202",
+        "Name": "Strategist",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204293",
+        "Name": "超長距離回復○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204382",
+        "Name": "輝きを放って",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Speed bonus",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Power bonus",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "30303-blast-onepiece",
+    "SupportId": "30303",
+    "SupportName": "Blast Onepiece (SSR)",
+    "SupportRarity": "SSR",
+    "SupportServer": "jp",
+    "SupportType": "Stamina",
+    "SupportEffects": [
+      {
+        "id": 1,
+        "name": "Friendship Bonus",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          20,
+          25,
+          25,
+          25,
+          25,
+          30
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Mood Effect",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          20,
+          20,
+          20,
+          20,
+          30,
+          30
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Initial Stamina",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          10,
+          25,
+          25,
+          25
+        ]
+      },
+      {
+        "id": 12,
+        "name": "Initial Guts",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          30
+        ]
+      },
+      {
+        "id": 14,
+        "name": "Initial Friendship Gauge",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          15,
+          30
+        ]
+      },
+      {
+        "id": 15,
+        "name": "Race Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5
+        ]
+      },
+      {
+        "id": 16,
+        "name": "Fan Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5,
+          5,
+          5,
+          10,
+          10
+        ]
+      },
+      {
+        "id": 17,
+        "name": "Hint Levels",
+        "symbol": "level",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2
+        ]
+      },
+      {
+        "id": 18,
+        "name": "Hint Frequency",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          5,
+          5,
+          20,
+          20,
+          20,
+          20,
+          50,
+          50
+        ]
+      },
+      {
+        "id": 19,
+        "name": "Specialty Priority",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          20,
+          35,
+          35,
+          35,
+          50,
+          50
+        ]
+      }
+    ],
+    "SupportUnique": {
+      "level": 0,
+      "effects": [
+        {
+          "id": 101,
+          "name": "Effect #101",
+          "symbol": "",
+          "value": 80
+        }
+      ]
+    },
+    "SupportImage": "/assets/support_thumbs/30303-blast-onepiece.png",
+    "SupportHints": [
+      {
+        "SkillId": "200332",
+        "Name": "Corner Adept ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200572",
+        "Name": "Preferred Position",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201422",
+        "Name": "A Small Breather",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202452",
+        "Name": "Razor-Sharp Stride",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202662",
+        "Name": "Rising Passion",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202792",
+        "Name": "Middle Leg Adept",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203952",
+        "Name": "Natural Genius",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204112",
+        "Name": "No Stagnation",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204132",
+        "Name": "Be Ambitious",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Stamina bonus",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Guts bonus",
+        "HintLevel": null
+      }
+    ]
   }
 ]
