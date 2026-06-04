@@ -585,14 +585,14 @@
     }
   },
   {
-    "EventName": "I Just Can't Quit Food - Oguri Cap",
+    "EventName": "\"I Just Can't Quit Food\" —Oguri Cap",
     "EventOptions": {
       "Top Option": "Bond +15",
       "Bottom Option": "Energy -10\nGuts +15\nBond +5"
     }
   },
   {
-    "EventName": "Happiness? Don't Mind If I Do - Oguri Cap",
+    "EventName": "\"Happiness? Don't Mind If I Do\" —Oguri Cap",
     "EventOptions": {
       "": "Power +7\nGuts +7\nSkill Pts +10\nWet Conditions ○ hint +1\nBond +5"
     }
