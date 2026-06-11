@@ -2996,7 +2996,7 @@
     }
   },
   {
-    "EventName": "A Mask With Many Faces",
+    "EventName": "A Mask with Many Faces",
     "EventOptions": {
       "Top Option": "Motivation +1\nSkill Pts +30\nBond +5\nEnergy -10\nSkill Pts +5",
       "Bottom Option": "Speed +7\nPower +7\nGuts +7\nBond +5"
@@ -3027,13 +3027,13 @@
     }
   },
   {
-    "EventName": "A Nostalgic Book",
+    "EventName": "A Half-Remembered Book",
     "EventOptions": {
       "": "Stamina +10\nWit +10\nStudious hint +1\nBond +5"
     }
   },
   {
-    "EventName": "Rainbow-Colored Cooking",
+    "EventName": "Cooking Up a Rainbow",
     "EventOptions": {
       "": "Stamina +10\nSkill Pts +10\nTactical Tweak hint +1\nBond +5"
     }

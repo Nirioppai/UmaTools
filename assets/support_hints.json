@@ -72846,7 +72846,7 @@
     "SupportId": "30102",
     "SupportName": "El Condor Pasa (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Guts",
     "SupportEffects": [
       {
@@ -73082,7 +73082,7 @@
     "SupportId": "30103",
     "SupportName": "Matikanetannhauser (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Wit",
     "SupportEffects": [
       {
@@ -73321,7 +73321,7 @@
     "SupportId": "30104",
     "SupportName": "Zenno Rob Roy (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Stamina",
     "SupportEffects": [
       {
