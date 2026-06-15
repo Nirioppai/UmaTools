@@ -40830,5 +40830,152 @@
       }
     ],
     "UmaImage": "/assets/character_thumbs/111602-gentildonna.png"
+  },
+  {
+    "UmaKey": "Curren Bouquetd'or :: 113401-curren-bouquetdor",
+    "UmaName": "Curren Bouquetd'or",
+    "UmaNickname": null,
+    "UmaSlug": "113401-curren-bouquetdor",
+    "UmaId": "113401",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 91,
+        "Stamina": 96,
+        "Power": 80,
+        "Guts": 91,
+        "Wit": 92
+      },
+      "5★": {
+        "Speed": 111,
+        "Stamina": 118,
+        "Power": 98,
+        "Guts": 111,
+        "Wit": 112
+      },
+      "4★": {
+        "Speed": 101,
+        "Stamina": 107,
+        "Power": 89,
+        "Guts": 101,
+        "Wit": 102
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 10,
+      "Power": 0,
+      "Guts": 10,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "B",
+        "Medium": "A",
+        "Long": "B"
+      },
+      "Strategy": {
+        "Front": "E",
+        "Pace": "A",
+        "Late": "B",
+        "End": "G"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Earn 3,000 fans",
+        "Turn": "23",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Sweetpea Stakes",
+        "Turn": "32",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japanese Oaks",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Shuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Kyoto Kinen",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Nikkei Sho",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Spring)",
+        "Turn": "56",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Takarazuka Kinen",
+        "Turn": "60",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "All Comers",
+        "Turn": "66",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/113401-curren-bouquetdor.png"
   }
 ]

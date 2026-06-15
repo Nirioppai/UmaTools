@@ -47368,6 +47368,7 @@
       105702,
       105502,
       113501,
+      113401,
       100701
     ],
     "char_e": [
@@ -63101,6 +63102,7 @@
       106003,
       111001,
       108702,
+      113401,
       106301
     ],
     "char_e": [
@@ -116200,7 +116202,8 @@
       103203,
       111601,
       113301,
-      106302
+      106302,
+      113401
     ],
     "char_e": [
       104702,
@@ -130462,7 +130465,8 @@
   {
     "activation": 1,
     "char": [
-      101103
+      101103,
+      113401
     ],
     "condition_groups": [
       {
@@ -130486,6 +130490,12 @@
         "card_id": 101103,
         "evos": [
           101103211
+        ]
+      },
+      {
+        "card_id": 113401,
+        "evos": [
+          113401211
         ]
       }
     ],
@@ -130524,7 +130534,8 @@
   {
     "activation": 1,
     "char": [
-      101103
+      101103,
+      113401
     ],
     "condition_groups": [
       {
@@ -145216,7 +145227,8 @@
   {
     "activation": 1,
     "char": [
-      110202
+      110202,
+      113401
     ],
     "condition_groups": [
       {
@@ -145249,6 +145261,12 @@
         "evos": [
           110202211
         ]
+      },
+      {
+        "card_id": 113401,
+        "evos": [
+          113401111
+        ]
       }
     ],
     "iconid": 20012,
@@ -145275,7 +145293,8 @@
     "activation": 1,
     "char": [
       100603,
-      110202
+      110202,
+      113401
     ],
     "condition_groups": [
       {
@@ -156363,6 +156382,201 @@
     "type": [
       "btw",
       "l_1"
+    ]
+  },
+  {
+    "activation": 0,
+    "char": [
+      113401
+    ],
+    "condition_groups": [
+      {
+        "base_time": 60000,
+        "condition": "near_count>=2&phase==1&order_rate<=50",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          }
+        ],
+        "precondition": "distance_type==3@distance_type==4"
+      },
+      {
+        "base_time": 60000,
+        "condition": "near_count>=2&phase==1&order_rate<=50",
+        "effects": [
+          {
+            "type": 27,
+            "value": 2500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "gene_version": {
+      "activation": 1,
+      "condition_groups": [
+        {
+          "base_time": 36000,
+          "condition": "near_count>=2&phase==1&order_rate<=50",
+          "effects": [
+            {
+              "type": 27,
+              "value": 500
+            }
+          ]
+        }
+      ],
+      "cost": 200,
+      "iconid": 20011,
+      "id": 901341,
+      "inherited": true,
+      "parent_skills": [
+        101341
+      ],
+      "rarity": 1,
+      "tid": "xv"
+    },
+    "iconid": 20013,
+    "id": 101341,
+    "jpdesc": "レース中盤に前方にいるとき近くにウマ娘が2人以上いると速度を少し上げ続ける中距離か長距離レースなら効果が増える",
+    "jpname": "いずれあなたに咲くフローラ",
+    "rarity": 5,
+    "tid": "xu",
+    "type": [
+      "l_1",
+      "nac"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      113401
+    ],
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "running_style==2&phase_random==1&order_rate<=50",
+        "effects": [
+          {
+            "type": 22,
+            "value": 3500
+          },
+          {
+            "type": 27,
+            "value": 1500
+          }
+        ]
+      },
+      {
+        "base_time": 24000,
+        "condition": "running_style==2&phase_random==1",
+        "effects": [
+          {
+            "type": 22,
+            "value": 3500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "stat",
+          2,
+          600
+        ]
+      ],
+      [
+        [
+          "a_skill",
+          "strat",
+          2,
+          2
+        ]
+      ]
+    ],
+    "iconid": 20016,
+    "id": 113401111,
+    "jpdesc": "レース中盤に前に出るさらにスキル発動時、前方にいると速度がわずかに上がる＜作戦・先行＞",
+    "jpname": "舞いひらく花路",
+    "pre_evo": {
+      "card_id": 113401,
+      "old": 203991
+    },
+    "rarity": 6,
+    "tid": "xw",
+    "type": [
+      "ldr",
+      "l_1"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      113401
+    ],
+    "condition_groups": [
+      {
+        "base_time": 40000,
+        "condition": "phase>=2&is_finalcorner==1&is_popularity_top_character_activate_advantage_skill==-1&base_wiz>=1200",
+        "effects": [
+          {
+            "type": 22,
+            "value": 4000
+          }
+        ],
+        "precondition": "distance_type==3@distance_type==4"
+      },
+      {
+        "base_time": 40000,
+        "condition": "phase>=2&is_finalcorner==1&is_popularity_top_character_activate_advantage_skill==-1",
+        "effects": [
+          {
+            "type": 22,
+            "value": 3500
+          }
+        ],
+        "precondition": "distance_type==3@distance_type==4"
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "stat",
+          5,
+          800
+        ]
+      ],
+      [
+        [
+          "e_skill",
+          "speed",
+          3
+        ]
+      ]
+    ],
+    "iconid": 20016,
+    "id": 113401211,
+    "jpdesc": "終盤以降の最終コーナー以降にいるとき1番人気のウマ娘がスキルを発動するとしばらくの間前に出る、賢さが十二分に高いと効果が増える＜中距離/長距離＞",
+    "jpname": "想い束ね、前へ",
+    "pre_evo": {
+      "card_id": 113401,
+      "old": 203371
+    },
+    "rarity": 6,
+    "tid": "xx",
+    "type": [
+      "l_2",
+      "l_3",
+      "f_s",
+      "f_c",
+      "nac"
     ]
   }
 ]
