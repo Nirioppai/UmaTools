@@ -13632,7 +13632,7 @@
     "UmaNickname": "unsigned",
     "UmaSlug": "103601-air-shakur",
     "UmaId": "103601",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -40975,7 +40975,29 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "誰がために咲く……",
+        "EventOptions": {
+          "Top Option": "Power +20",
+          "Bottom Option": "Stamina +20"
+        }
+      },
+      {
+        "EventName": "花風に夜話を",
+        "EventOptions": {
+          "Top Option": "Stamina +20",
+          "Bottom Option": "Power +20"
+        }
+      },
+      {
+        "EventName": "陰ひなたの大輪",
+        "EventOptions": {
+          "Top Option": "Wit +20",
+          "Bottom Option": "Speed +20"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/113401-curren-bouquetdor.png"
   }
 ]

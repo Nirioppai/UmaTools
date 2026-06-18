@@ -6519,16 +6519,64 @@
     }
   },
   {
+    "EventName": "最強≒ミューズ",
+    "EventOptions": {
+      "": "Motivation +1\nPower +10\nSkill Pts +10\nBond +10"
+    }
+  },
+  {
+    "EventName": "勝利へのマイルストーン",
+    "EventOptions": {
+      "Top Option": "Energy +5\nPower +15\nSkill Pts +10\nBond +5",
+      "Bottom Option": "Power +10\nSkill Pts +5\nHigh Pitch hint +1\nBond +5"
+    }
+  },
+  {
     "EventName": "最強のミューズへ",
     "EventOptions": {
-      "": "Motivation +1\nPower +20\nCarefree Stride hint +1\n元気溌剌 hint +2\nBond +5"
+      "": "Motivation +1\nPower +20\nCarefree Stride hint +1\nBursting with Energy hint +2\nBond +5"
+    }
+  },
+  {
+    "EventName": "この式典で、祝福を",
+    "EventOptions": {
+      "Top Option": "Motivation +1\nSpeed +15\nSkill Pts +10\nBond +5",
+      "Bottom Option": "Energy +10\nSkill Pts +15\nBond +10"
+    }
+  },
+  {
+    "EventName": "まず、知るより始めよう",
+    "EventOptions": {
+      "Top Option": "Motivation +1\nSpeed +15\nSkill Pts +10\nBond +5",
+      "Bottom Option": "Energy +15\nSkill Pts +15\nBond +5",
+      "Option 3": "Speed +15\nDevil-May-Care hint +1\nBond +5"
     }
   },
   {
     "EventName": "そして、未来を誓う",
     "EventOptions": {
-      "Top Option": "Motivation +1\nSpeed +5\nSkill Pts +10\nChain Reaction hint +1\n一所懸命 hint +1\nBond +5",
-      "Bottom Option": "Motivation +1\nStamina +10\nSkill Pts +5\n一所懸命 hint +1\n光輝燦然 hint +1\nBond +5"
+      "Top Option": "Motivation +1\nSpeed +5\nSkill Pts +10\nChain Reaction hint +1\nWith All My Might hint +1\nBond +5",
+      "Bottom Option": "Motivation +1\nStamina +10\nSkill Pts +5\nWith All My Might hint +1\nDazzling Brilliance hint +1\nBond +5"
+    }
+  },
+  {
+    "EventName": "仲良きことは美しいぞー！",
+    "EventOptions": {
+      "Top Option": "Energy +15\nBond +5",
+      "Bottom Option": "Stamina +15\nBond +5"
+    }
+  },
+  {
+    "EventName": "話そう、話そう、ふたりのこと",
+    "EventOptions": {
+      "Top Option": "Energy +10\nMotivation +1\nBond +5",
+      "Bottom Option": "Stamina +15\nBond +5"
+    }
+  },
+  {
+    "EventName": "違う手と手を、繋ぐんだ！",
+    "EventOptions": {
+      "": "Stamina +15\nHot Pursuit hint +1\nBond +5"
     }
   }
 ]
