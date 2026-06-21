@@ -1589,13 +1589,13 @@
   {
     "EventName": "Trying Hard with Rice!",
     "EventOptions": {
-      "": "Energy +10"
+      "": "Energy +10\nBond +5"
     }
   },
   {
     "EventName": "Trying Hard with King!",
     "EventOptions": {
-      "": "Motivation +1\nBond +5\nEnergy +10"
+      "": "Energy +10\nMotivation +1\nBond +5"
     }
   },
   {
