@@ -14924,7 +14924,7 @@
     "SupportId": "10081",
     "SupportName": "Tsurumaru Tsuyoshi (R)",
     "SupportRarity": "R",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Guts",
     "SupportEffects": [
       {
@@ -35205,7 +35205,7 @@
     "SupportId": "20033",
     "SupportName": "El Condor Pasa (SR)",
     "SupportRarity": "SR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Speed",
     "SupportEffects": [
       {
@@ -65019,7 +65019,7 @@
     "SupportId": "30067",
     "SupportName": "The Throne's Assemblage (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Group",
     "SupportEffects": [
       {
@@ -73565,7 +73565,7 @@
     "SupportId": "30105",
     "SupportName": "Special Week (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Guts",
     "SupportEffects": [
       {
