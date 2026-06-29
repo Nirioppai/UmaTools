@@ -12610,6 +12610,7 @@
         30242,
         30264,
         30303,
+        30304,
         20007,
         20036,
         20066
@@ -13528,6 +13529,7 @@
         30231,
         30274,
         30291,
+        30304,
         20020,
         20054,
         20066,
@@ -15133,7 +15135,8 @@
         30062,
         30149,
         30237,
-        30298
+        30298,
+        30305
       ],
       []
     ],
@@ -15359,6 +15362,7 @@
         30121,
         30141,
         30277,
+        30305,
         20007,
         20009
       ],
@@ -20349,6 +20353,7 @@
       101303,
       109901,
       100303,
+      107703,
       100901,
       101401
     ],
@@ -25279,6 +25284,7 @@
       [
         30021,
         30026,
+        30305,
         20024
       ],
       [
@@ -32935,6 +32941,12 @@
         "evos": [
           106501111
         ]
+      },
+      {
+        "evos": [
+          414051
+        ],
+        "scenario_id": 14
       }
     ],
     "iconid": 20012,
@@ -40095,7 +40107,8 @@
       104503,
       107702,
       111002,
-      110902
+      110902,
+      107703
     ],
     "condition_groups": [
       {
@@ -40630,6 +40643,7 @@
         30079,
         30140,
         30230,
+        30304,
         20017,
         20022,
         20033
@@ -47769,6 +47783,7 @@
         30286,
         30291,
         30293,
+        30304,
         20061,
         20077
       ],
@@ -48297,6 +48312,7 @@
         30157,
         30206,
         30241,
+        30305,
         20042
       ],
       [
@@ -49125,6 +49141,7 @@
         30262,
         30264,
         30271,
+        30304,
         20023,
         20024,
         20030,
@@ -56421,6 +56438,7 @@
         30139,
         30152,
         30279,
+        30304,
         20036,
         20054,
         20058
@@ -62443,6 +62461,12 @@
           412011
         ],
         "scenario_id": 12
+      },
+      {
+        "evos": [
+          414011
+        ],
+        "scenario_id": 14
       }
     ],
     "iconid": 20012,
@@ -63792,7 +63816,8 @@
         30248,
         30263,
         30283,
-        30293
+        30293,
+        30304
       ],
       [
         10120
@@ -76996,11 +77021,6 @@
     "evo_cond": [
       [
         [
-          "ev_trs_t",
-          "気まぐれオトメのゴルシちゃん☆",
-          1
-        ],
-        [
           "a_skill",
           "strat",
           4,
@@ -81599,12 +81619,6 @@
     "evo_cond": [
       [
         [
-          "ev_cn_on",
-          "More Fun!",
-          0,
-          0
-        ],
-        [
           "e_skill",
           "speed",
           3
@@ -81831,12 +81845,6 @@
     "enname": "Morrígan's Spear",
     "evo_cond": [
       [
-        [
-          "ev_cn_on",
-          "More Fun!",
-          0,
-          0
-        ],
         [
           "gn_race_w",
           100,
@@ -86157,12 +86165,6 @@
     "evo_cond": [
       [
         [
-          "ev_cn_on",
-          "寝坊した……！",
-          0,
-          0
-        ],
-        [
           "stat",
           4,
           600
@@ -86403,12 +86405,6 @@
     "enname": "Eagle-eyed",
     "evo_cond": [
       [
-        [
-          "ev_cn_on",
-          "寝坊した……！",
-          0,
-          0
-        ],
         [
           "gn_race_w",
           100,
@@ -86716,12 +86712,6 @@
     "evo_cond": [
       [
         [
-          "ev_cn_on",
-          "五目の輝きをつかめ！",
-          0,
-          0
-        ],
-        [
           "stat",
           5,
           800
@@ -86946,12 +86936,6 @@
     "enname": "After-School Magical Girl",
     "evo_cond": [
       [
-        [
-          "ev_cn_on",
-          "これがやりたい！",
-          0,
-          0
-        ],
         [
           "e_skill",
           "speed",
@@ -96028,7 +96012,8 @@
         30264,
         30287,
         30291,
-        30300
+        30300,
+        30304
       ],
       [
         10106,
@@ -98218,6 +98203,7 @@
       111501,
       105502,
       104803,
+      107703,
       107301
     ],
     "condition_groups": [
@@ -99916,7 +99902,8 @@
   {
     "activation": 1,
     "char": [
-      106402
+      106402,
+      107703
     ],
     "condition_groups": [
       {
@@ -118655,6 +118642,12 @@
           412041
         ],
         "scenario_id": 12
+      },
+      {
+        "evos": [
+          414041
+        ],
+        "scenario_id": 14
       }
     ],
     "iconid": 20012,
@@ -130321,7 +130314,8 @@
       {
         "card_id": 111701,
         "evos": [
-          111701111
+          111701111,
+          111701121
         ]
       },
       {
@@ -139431,7 +139425,8 @@
     "sup_hint": [
       [
         30274,
-        30275
+        30275,
+        30304
       ],
       []
     ],
@@ -139440,6 +139435,9 @@
       "med",
       "l_2",
       "lng"
+    ],
+    "versions": [
+      203641
     ]
   },
   {
@@ -139709,6 +139707,12 @@
           413051
         ],
         "scenario_id": 13
+      },
+      {
+        "evos": [
+          414031
+        ],
+        "scenario_id": 14
       }
     ],
     "iconid": 20012,
@@ -139774,7 +139778,8 @@
         30261,
         30274,
         30287,
-        30291
+        30291,
+        30304
       ],
       [
         10131,
@@ -141533,7 +141538,8 @@
   {
     "activation": 1,
     "char": [
-      108902
+      108902,
+      107703
     ],
     "condition_groups": [
       {
@@ -141668,6 +141674,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      107703
+    ],
     "condition_groups": [
       {
         "base_time": 30000,
@@ -141687,7 +141696,14 @@
     "cost": 200,
     "endesc": "Long・At a random point during the first half of the Middle Leg, your speed will increase and your stamina will slightly recover",
     "enname": "Energetic",
-    "evo": [],
+    "evo": [
+      {
+        "card_id": 107703,
+        "evos": [
+          107703111
+        ]
+      }
+    ],
     "iconid": 20012,
     "id": 203731,
     "jpdesc": "レース中盤始めの方に速度が少し上がり持久力を少し回復する＜長距離＞",
@@ -141710,6 +141726,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      107703
+    ],
     "condition_groups": [
       {
         "base_time": 30000,
@@ -148648,6 +148667,7 @@
     "activation": 1,
     "char": [
       100603,
+      107703,
       110301
     ],
     "condition_groups": [
@@ -150954,6 +150974,9 @@
   },
   {
     "activation": 1,
+    "char": [
+      107703
+    ],
     "condition_groups": [
       {
         "base_time": 30000,
@@ -150969,7 +150992,14 @@
     "cost": 160,
     "endesc": "Leader・Long・If you have enough stamina for a full spurt at a random point in the first half of the Final Leg, you will get a speed boost",
     "enname": "Gordian Cut",
-    "evo": [],
+    "evo": [
+      {
+        "card_id": 107703,
+        "evos": [
+          107703211
+        ]
+      }
+    ],
     "iconid": 20012,
     "id": 203701,
     "jpdesc": "レース終盤始めの方で余力十分なら前に出る＜先行・長距離＞",
@@ -156407,7 +156437,14 @@
     "cost": 170,
     "endesc": "",
     "enname": "Bursting with Energy",
-    "evo": [],
+    "evo": [
+      {
+        "evos": [
+          414061
+        ],
+        "scenario_id": 14
+      }
+    ],
     "iconid": 20012,
     "id": 204171,
     "jpdesc": "レース最終盤始めの方でラストスパートの最中なら速度が上がる＜マイル＞",
@@ -157313,6 +157350,769 @@
       "f_c",
       "med",
       "lng"
+    ]
+  },
+  {
+    "activation": 0,
+    "char": [
+      107703
+    ],
+    "condition_groups": [
+      {
+        "base_time": 50000,
+        "condition": "activate_count_heal>=3&distance_rate>=60&phase==1&distance_type==4&running_style==2&order_rate<=50",
+        "effects": [
+          {
+            "type": 22,
+            "value": 3500
+          },
+          {
+            "type": 31,
+            "value": 3000
+          }
+        ]
+      },
+      {
+        "base_time": 50000,
+        "condition": "activate_count_heal>=3&distance_rate>=60&phase==1&distance_type==4&running_style==2",
+        "effects": [
+          {
+            "type": 22,
+            "value": 3500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "gene_version": {
+      "activation": 1,
+      "condition_groups": [
+        {
+          "base_time": 30000,
+          "condition": "activate_count_heal>=3&distance_rate>=60&phase==1&distance_type==4&running_style==2",
+          "effects": [
+            {
+              "type": 22,
+              "value": 1500
+            }
+          ]
+        }
+      ],
+      "cost": 200,
+      "iconid": 20011,
+      "id": 920771,
+      "inherited": true,
+      "parent_skills": [
+        120771
+      ],
+      "rarity": 1,
+      "tid": "xz"
+    },
+    "iconid": 20013,
+    "id": 120771,
+    "jpdesc": "スキルで持久力を3回以上回復するとレース終盤目前で前に出るさらにスキル発動時前方にいると加速力が少し上がる＜先行・長距離＞",
+    "jpname": "一杯全力、お届けします！",
+    "rarity": 5,
+    "tid": "xy",
+    "type": [
+      "l_1",
+      "lng",
+      "ldr"
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 30000,
+        "condition": "distance_type==3&phase_firsthalf_random==2&order_rate<=50@distance_type==4&phase_firsthalf_random==2&order_rate<=50",
+        "effects": [
+          {
+            "type": 22,
+            "value": 3500
+          }
+        ]
+      }
+    ],
+    "cost": 180,
+    "endesc": "",
+    "enname": "",
+    "evo": [],
+    "iconid": 20012,
+    "id": 203641,
+    "jpdesc": "レース終盤始めの方に前方にいると前に出る＜中距離/長距離＞",
+    "jpname": "曙光",
+    "rarity": 2,
+    "tid": "xA",
+    "type": [
+      "med",
+      "l_2",
+      "lng"
+    ],
+    "versions": [
+      203642
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "phase_firsthalf_random==1",
+        "effects": [
+          {
+            "type": 9,
+            "value": 550
+          },
+          {
+            "type": 22,
+            "value": 1500
+          }
+        ],
+        "precondition": "distance_type==3@distance_type==4"
+      }
+    ],
+    "cost": 190,
+    "endesc": "",
+    "enname": "",
+    "evo": [
+      {
+        "evos": [
+          414021
+        ],
+        "scenario_id": 14
+      }
+    ],
+    "iconid": 0,
+    "id": 204391,
+    "jpdesc": "レース中盤始めの方に持久力を回復しわずかに前に出る＜中距離/長距離＞",
+    "jpname": "悠々自適",
+    "rarity": 2,
+    "tid": "xB",
+    "type": [
+      "l_1",
+      "med",
+      "lng"
+    ],
+    "versions": [
+      204392
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "phase_firsthalf_random==1",
+        "effects": [
+          {
+            "type": 9,
+            "value": 150
+          },
+          {
+            "type": 22,
+            "value": 350
+          }
+        ],
+        "precondition": "distance_type==3@distance_type==4"
+      }
+    ],
+    "cost": 190,
+    "endesc": "",
+    "enname": "",
+    "iconid": 0,
+    "id": 204392,
+    "jpdesc": "レース中盤始めの方に持久力をわずかに回復しほんのわずかに前に出る＜中距離/長距離＞",
+    "jpname": "息抜き上手",
+    "rarity": 1,
+    "sup_hint": [
+      [
+        30304
+      ],
+      []
+    ],
+    "tid": "xC",
+    "type": [
+      "l_1",
+      "med",
+      "lng"
+    ],
+    "versions": [
+      204391
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 30000,
+        "condition": "distance_type==3&corner_random==3&order_rate<=50@distance_type==4&corner_random==3&order_rate<=50",
+        "effects": [
+          {
+            "type": 22,
+            "value": 1500
+          }
+        ]
+      }
+    ],
+    "cost": 180,
+    "endesc": "",
+    "enname": "",
+    "iconid": 20011,
+    "id": 204472,
+    "jpdesc": "最終コーナー前の第3コーナーで前方にいるとわずかに前に出る＜中距離/長距離＞",
+    "jpname": "奮い立つ心",
+    "rarity": 1,
+    "sup_hint": [
+      [
+        30304
+      ],
+      []
+    ],
+    "tid": "xD",
+    "type": [
+      "med",
+      "cor",
+      "lng"
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "is_lastspurt==1&phase_firsthalf_random==3",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500,
+            "value_scale": 40
+          }
+        ]
+      }
+    ],
+    "cost": 200,
+    "endesc": "",
+    "enname": "",
+    "evo": [],
+    "iconid": 20362,
+    "id": 210391,
+    "jpdesc": "レース最終盤始めの方でラストスパートの最中なら速度が上がる獲得した総盛り上がりPtが高いほど効果が増える",
+    "jpname": "極上の感謝を！",
+    "rarity": 2,
+    "tid": "xE",
+    "type": [
+      "l_3",
+      "nac"
+    ],
+    "versions": [
+      210392
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "is_lastspurt==1&phase_firsthalf_random==3",
+        "effects": [
+          {
+            "type": 27,
+            "value": 1500
+          }
+        ]
+      }
+    ],
+    "cost": 200,
+    "endesc": "",
+    "enname": "",
+    "iconid": 20361,
+    "id": 210392,
+    "jpdesc": "レース最終盤始めの方でラストスパートの最中なら速度がわずかに上がる",
+    "jpname": "恩返し、召し上がれ",
+    "rarity": 1,
+    "tid": "xF",
+    "type": [
+      "l_3",
+      "nac"
+    ],
+    "versions": [
+      210391
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 30000,
+        "cd": 300000,
+        "condition": "behind_near_lane_time>=3&accumulatetime>=10",
+        "effects": [
+          {
+            "type": 27,
+            "value": 4500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "unknown"
+        ]
+      ]
+    ],
+    "iconid": 20366,
+    "id": 414011,
+    "jpdesc": "すぐ後ろにウマ娘が長くいると速度がすごく上がる",
+    "jpname": "バリカタ、一丁上がり！",
+    "pre_evo": {
+      "old": 201662,
+      "scenario_id": 14
+    },
+    "rarity": 6,
+    "tid": "xG",
+    "type": [
+      "nac"
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "phase_firsthalf_random==1",
+        "effects": [
+          {
+            "type": 9,
+            "value": 750
+          },
+          {
+            "type": 22,
+            "value": 1500
+          }
+        ],
+        "precondition": "distance_type==3@distance_type==4"
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "unknown"
+        ]
+      ]
+    ],
+    "iconid": 20376,
+    "id": 414021,
+    "jpdesc": "レース中盤始めの方に持久力をすごく回復しわずかに前に出る＜中距離/長距離＞",
+    "jpname": "じっくり仕込みの一杯",
+    "pre_evo": {
+      "old": 204391,
+      "scenario_id": 14
+    },
+    "rarity": 6,
+    "tid": "xH",
+    "type": [
+      "l_1",
+      "med",
+      "lng"
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 40000,
+        "condition": "distance_type==3&phase_random==1@distance_type==4&phase_random==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "a_skill",
+          "dist",
+          2,
+          2
+        ],
+        [
+          "a_skill",
+          "dist",
+          3,
+          2
+        ]
+      ],
+      [
+        [
+          "unknown"
+        ]
+      ]
+    ],
+    "iconid": 20366,
+    "id": 414031,
+    "jpdesc": "レース中盤にしばらくの間速度が上がる＜中距離/長距離＞",
+    "jpname": "麺の極意、見つけたり",
+    "pre_evo": {
+      "old": 203651,
+      "scenario_id": 14
+    },
+    "rarity": 6,
+    "tid": "xI",
+    "type": [
+      "med",
+      "l_1",
+      "lng"
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 18000,
+        "condition": "phase_random==1&distance_type==3&base_speed>=1000&base_stamina>=1000&base_power>=1000&base_guts>=1000&base_wiz>=1000",
+        "effects": [
+          {
+            "type": 22,
+            "value": 5500
+          }
+        ]
+      },
+      {
+        "base_time": 18000,
+        "condition": "phase_random==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 4500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "unknown"
+        ]
+      ]
+    ],
+    "iconid": 20366,
+    "id": 414041,
+    "jpdesc": "レース中盤に速度がすごく上がる中距離レースで全ての基礎能力が十分に高いと効果が変わりものすごく前に出る",
+    "jpname": "湯切りの妙技",
+    "pre_evo": {
+      "old": 202791,
+      "scenario_id": 14
+    },
+    "rarity": 6,
+    "tid": "xJ",
+    "type": [
+      "l_1",
+      "med",
+      "nac"
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "distance_type==2&phase_random==1&order_rate<=50",
+        "effects": [
+          {
+            "type": 27,
+            "value": 4500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "a_skill",
+          "dist",
+          1,
+          2
+        ]
+      ],
+      [
+        [
+          "unknown"
+        ]
+      ]
+    ],
+    "iconid": 20366,
+    "id": 414051,
+    "jpdesc": "レース中盤に前の方にいると速度がすごく上がる＜マイル＞",
+    "jpname": "秘伝の味変アレンジ！",
+    "pre_evo": {
+      "old": 201051,
+      "scenario_id": 14
+    },
+    "rarity": 6,
+    "tid": "xK",
+    "type": [
+      "mil",
+      "l_1"
+    ]
+  },
+  {
+    "activation": 1,
+    "condition_groups": [
+      {
+        "base_time": 30000,
+        "condition": "distance_type==2&is_lastspurt==1&phase_firsthalf_random==3",
+        "effects": [
+          {
+            "type": 27,
+            "value": 4500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "a_skill",
+          "dist",
+          1,
+          2
+        ]
+      ],
+      [
+        [
+          "unknown"
+        ]
+      ]
+    ],
+    "iconid": 20366,
+    "id": 414061,
+    "jpdesc": "レース最終盤始めの方でラストスパートの最中なら速度がすごく上がる＜マイル＞",
+    "jpname": "元気特盛りのおもてなし",
+    "pre_evo": {
+      "old": 204171,
+      "scenario_id": 14
+    },
+    "rarity": 6,
+    "tid": "xL",
+    "type": [
+      "mil",
+      "l_3"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      107703
+    ],
+    "condition_groups": [
+      {
+        "base_time": 30000,
+        "condition": "distance_type==4&phase_firsthalf_random==1&running_style==2",
+        "effects": [
+          {
+            "type": 22,
+            "value": 4500
+          },
+          {
+            "type": 9,
+            "value": 350
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "dt_gn_race_w",
+          "dist",
+          3,
+          100,
+          2
+        ],
+        [
+          "e_skill",
+          "speed",
+          3
+        ]
+      ],
+      [
+        [
+          "stat",
+          2,
+          600
+        ]
+      ]
+    ],
+    "iconid": 20016,
+    "id": 107703111,
+    "jpdesc": "レース中盤始めの方にすごく前に出て持久力を少し回復する＜先行・長距離＞",
+    "jpname": "湯気立つ勝負道",
+    "pre_evo": {
+      "card_id": 107703,
+      "old": 203731
+    },
+    "rarity": 6,
+    "tid": "xM",
+    "type": [
+      "lng",
+      "l_1",
+      "ldr"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      107703
+    ],
+    "condition_groups": [
+      {
+        "base_time": 30000,
+        "condition": "distance_type==4&running_style==2&phase_firsthalf_random==2&lastspurt==2",
+        "effects": [
+          {
+            "type": 22,
+            "value": 3500
+          }
+        ]
+      },
+      {
+        "base_time": 30000,
+        "condition": "is_activate_other_skill_detail==1&is_last_straight==1",
+        "effects": [
+          {
+            "type": 22,
+            "value": 1500
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "stat",
+          3,
+          800
+        ]
+      ],
+      [
+        [
+          "a_skill",
+          "strat",
+          2,
+          3
+        ],
+        [
+          "a_skill",
+          "dist",
+          3,
+          3
+        ]
+      ]
+    ],
+    "iconid": 20016,
+    "id": 107703211,
+    "jpdesc": "レース終盤始めの方で余力十分なら前に出る、その後最終直線でわずかに前に出る＜先行・長距離＞",
+    "jpname": "いざ、開店です！",
+    "pre_evo": {
+      "card_id": 107703,
+      "old": 203701
+    },
+    "rarity": 6,
+    "tid": "xN",
+    "type": [
+      "lng",
+      "ldr",
+      "l_2"
+    ]
+  },
+  {
+    "activation": 1,
+    "char": [
+      111701
+    ],
+    "condition_groups": [
+      {
+        "base_time": 24000,
+        "condition": "running_style==4&distance_type==4&phase==1&is_overtake==1",
+        "effects": [
+          {
+            "type": 27,
+            "value": 3500
+          },
+          {
+            "type": 9,
+            "value": 350
+          }
+        ]
+      }
+    ],
+    "endesc": "",
+    "enname": "",
+    "evo_cond": [
+      [
+        [
+          "e_ev",
+          "mo",
+          3
+        ]
+      ],
+      [
+        [
+          "a_skill",
+          "dist",
+          3,
+          2
+        ]
+      ]
+    ],
+    "iconid": 20016,
+    "id": 111701121,
+    "jpdesc": "レース中盤に追い抜こうとすると速度が上がり持久力を少し回復する＜追込・長距離＞",
+    "jpname": "凱歌へのプレパラシオン",
+    "loc": {
+      "ko": {
+        "char": [
+          111701
+        ]
+      },
+      "zh_tw": {
+        "char": [
+          111701
+        ]
+      }
+    },
+    "pre_evo": {
+      "card_id": 111701,
+      "old": 202931
+    },
+    "rarity": 6,
+    "tid": "xO",
+    "type": [
+      "cha",
+      "lng",
+      "l_1"
     ]
   }
 ]

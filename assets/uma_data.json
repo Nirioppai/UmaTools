@@ -40922,7 +40922,7 @@
       },
       {
         "ObjectiveName": "Kyoto Kinen",
-        "Turn": "54",
+        "Turn": "51",
         "Time": "Senior Year",
         "ObjectiveCondition": ""
       },
@@ -40999,5 +40999,152 @@
       }
     ],
     "UmaImage": "/assets/character_thumbs/113401-curren-bouquetdor.png"
+  },
+  {
+    "UmaKey": "Narita Top Road :: 107703-narita-top-road",
+    "UmaName": "Narita Top Road",
+    "UmaNickname": null,
+    "UmaSlug": "107703-narita-top-road",
+    "UmaId": "107703",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 84,
+        "Stamina": 107,
+        "Power": 75,
+        "Guts": 92,
+        "Wit": 92
+      },
+      "5★": {
+        "Speed": 102,
+        "Stamina": 130,
+        "Power": 92,
+        "Guts": 112,
+        "Wit": 114
+      },
+      "4★": {
+        "Speed": 93,
+        "Stamina": 119,
+        "Power": 84,
+        "Guts": 102,
+        "Wit": 102
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 5,
+      "Power": 10,
+      "Guts": 0,
+      "Wit": 15
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "G",
+        "Mile": "C",
+        "Medium": "A",
+        "Long": "A"
+      },
+      "Strategy": {
+        "Front": "F",
+        "Pace": "A",
+        "Late": "B",
+        "End": "D"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Earn 3,000 fans",
+        "Turn": "24",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Yayoi Sho",
+        "Turn": "29",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Satsuki Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tokyo Yushun (Japanese Derby)",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Kikuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Spring)",
+        "Turn": "56",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Takarazuka Kinen",
+        "Turn": "60",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Autumn)",
+        "Turn": "68",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japan Cup",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "72",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [],
+    "UmaImage": "/assets/character_thumbs/107703-narita-top-road.png"
   }
 ]

@@ -124931,5 +124931,495 @@
         "HintLevel": null
       }
     ]
+  },
+  {
+    "SupportSlug": "30304-meisho-doto",
+    "SupportId": "30304",
+    "SupportName": "Meisho Doto (SSR)",
+    "SupportRarity": "SSR",
+    "SupportServer": "jp",
+    "SupportType": "Stamina",
+    "SupportEffects": [
+      {
+        "id": 1,
+        "name": "Friendship Bonus",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          40
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Mood Effect",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          20,
+          40,
+          40,
+          40
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Training Effectiveness",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          10,
+          10,
+          10,
+          10,
+          15
+        ]
+      },
+      {
+        "id": 12,
+        "name": "Initial Guts",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          30
+        ]
+      },
+      {
+        "id": 14,
+        "name": "Initial Friendship Gauge",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          35
+        ]
+      },
+      {
+        "id": 15,
+        "name": "Race Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5,
+          5,
+          5,
+          5,
+          10
+        ]
+      },
+      {
+        "id": 16,
+        "name": "Fan Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          10,
+          10,
+          10,
+          10,
+          20
+        ]
+      },
+      {
+        "id": 17,
+        "name": "Hint Levels",
+        "symbol": "level",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          4
+        ]
+      },
+      {
+        "id": 18,
+        "name": "Hint Frequency",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          60,
+          60,
+          60,
+          60,
+          100
+        ]
+      },
+      {
+        "id": 19,
+        "name": "Specialty Priority",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          60,
+          120
+        ]
+      },
+      {
+        "id": 30,
+        "name": "Skill Point Bonus",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2
+        ]
+      },
+      {
+        "id": 32,
+        "name": "Effect #32",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          30,
+          30,
+          30,
+          30,
+          60
+        ]
+      }
+    ],
+    "SupportUnique": {
+      "level": 0,
+      "effects": [
+        {
+          "id": 101,
+          "name": "Effect #101",
+          "symbol": "",
+          "value": 80
+        }
+      ]
+    },
+    "SupportImage": "/assets/support_thumbs/30304-meisho-doto.png",
+    "SupportHints": [
+      {
+        "SkillId": "200332",
+        "Name": "Corner Adept ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200352",
+        "Name": "Corner Recovery ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201591",
+        "Name": "Uma Stan",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201651",
+        "Name": "Slipstream",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202012",
+        "Name": "Feature Act",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202172",
+        "Name": "Downhill Speedster",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "202602",
+        "Name": "Ignition",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203642",
+        "Name": "Luminance",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "203652",
+        "Name": "Find a Way!",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204392",
+        "Name": "息抜き上手",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204472",
+        "Name": "奮い立つ心",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Stamina bonus",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Guts bonus",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "30305-tazuna-hayakawa",
+    "SupportId": "30305",
+    "SupportName": "Tazuna Hayakawa (SSR)",
+    "SupportRarity": "SSR",
+    "SupportServer": "jp",
+    "SupportType": "Friend",
+    "SupportEffects": [
+      {
+        "id": 8,
+        "name": "Training Effectiveness",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          10,
+          10,
+          10,
+          20
+        ]
+      },
+      {
+        "id": 14,
+        "name": "Initial Friendship Gauge",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          15,
+          30
+        ]
+      },
+      {
+        "id": 15,
+        "name": "Race Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": 16,
+        "name": "Fan Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          15,
+          15,
+          15
+        ]
+      },
+      {
+        "id": 25,
+        "name": "Event Recovery",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          40,
+          40,
+          40,
+          40,
+          60
+        ]
+      },
+      {
+        "id": 26,
+        "name": "Event Effectiveness",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          10,
+          10,
+          10,
+          20,
+          20,
+          20,
+          20,
+          20,
+          30
+        ]
+      },
+      {
+        "id": 27,
+        "name": "Failure Protection",
+        "symbol": "percent",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          10,
+          10,
+          10,
+          10,
+          15,
+          15
+        ]
+      },
+      {
+        "id": 28,
+        "name": "Energy Cost Reduction",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          15,
+          15,
+          15,
+          15,
+          30
+        ]
+      },
+      {
+        "id": 32,
+        "name": "Effect #32",
+        "symbol": "none",
+        "values": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          30,
+          30,
+          30,
+          30,
+          40,
+          40
+        ]
+      }
+    ],
+    "SupportUnique": {
+      "level": 0,
+      "effects": [
+        {
+          "id": 101,
+          "name": "Effect #101",
+          "symbol": "",
+          "value": 60
+        }
+      ]
+    },
+    "SupportImage": "/assets/support_thumbs/30305-tazuna-hayakawa.png",
+    "SupportHints": []
   }
 ]
