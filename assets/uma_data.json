@@ -41144,7 +41144,30 @@
         "ObjectiveCondition": ""
       }
     ],
-    "UmaEvents": [],
+    "UmaEvents": [
+      {
+        "EventName": "燃えろ！ラーメンワールド！？",
+        "EventOptions": {
+          "Top Option": "hs +20\nTrue Worth hint +1",
+          "Bottom Option": "hs +20\nTrue Worth hint +1",
+          "Option 3": "Energy +10\nMotivation +1\nSkill Pts +30"
+        }
+      },
+      {
+        "EventName": "ウマさにまっすぐ！",
+        "EventOptions": {
+          "Top Option": "Energy +20\nFaultless hint +1",
+          "Bottom Option": "Energy +10\nMotivation +1\nSkill Pts +30"
+        }
+      },
+      {
+        "EventName": "青春ストライカー！",
+        "EventOptions": {
+          "Top Option": "Wit +10",
+          "Bottom Option": "Skill Pts +15"
+        }
+      }
+    ],
     "UmaImage": "/assets/character_thumbs/107703-narita-top-road.png"
   }
 ]
