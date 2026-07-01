@@ -440,7 +440,7 @@
   {
     "EventName": "弾けろ！感謝のバーベキュー",
     "EventOptions": {
-      "": "Stamina +15\nUp the Vibes hint +2\nBond +5"
+      "": "Stamina +15\nPop Off! hint +2\nBond +5"
     }
   },
   {
@@ -686,7 +686,7 @@
     "EventName": "あがくのです、新天地まで",
     "EventOptions": {
       "Top Option": "Energy +10\nIntimidate hint +3\nBond +10",
-      "Bottom Option": "Speed +7\nPower +7\nFrantic State hint +3\nBond +5"
+      "Bottom Option": "Speed +7\nPower +7\nMad Dash hint +3\nBond +5"
     }
   },
   {
@@ -799,14 +799,14 @@
   {
     "EventName": "キミの幸せは誰かが、どこかで――",
     "EventOptions": {
-      "Top Option": "Speed +10\nTight Turns ○ hint +1\nBond +5",
-      "Bottom Option": "Power +10\nMud Play ○ hint +1\nBond +5"
+      "Top Option": "Speed +10\nSharp Turns ○ hint +1\nBond +5",
+      "Bottom Option": "Power +10\nMuddy ○ hint +1\nBond +5"
     }
   },
   {
     "EventName": "トレセン学園が滅ぶ！？",
     "EventOptions": {
-      "": "Speed +10\nPower +10\nSkillful Step hint +1\nBond +5"
+      "": "Speed +10\nPower +10\nSolid Steps hint +1\nBond +5"
     }
   },
   {
@@ -844,7 +844,7 @@
   {
     "EventName": "甘えてもいいんデスヨ？",
     "EventOptions": {
-      "": "Wit +15\nHigh Hopes hint +2\nBond +5"
+      "": "Wit +15\nBeating Heart hint +2\nBond +5"
     }
   },
   {
@@ -871,7 +871,7 @@
   {
     "EventName": "地球最後の日！……か？",
     "EventOptions": {
-      "": "Speed +15\nFrom the First Step hint +2\nBond +5"
+      "": "Speed +15\nFirst Step hint +2\nBond +5"
     }
   },
   {
@@ -883,7 +883,7 @@
   {
     "EventName": "長姉と素直になれない次女",
     "EventOptions": {
-      "": "Speed +5\nPower +5\nGuts +5\nRushing in Blind hint +1\nBond +5"
+      "": "Speed +5\nPower +5\nGuts +5\nNo Looking Back hint +1\nBond +5"
     }
   },
   {
@@ -921,7 +921,7 @@
   {
     "EventName": "えらすぎ賞あげてーんだが",
     "EventOptions": {
-      "Top Option": "Speed +10\nTooth and Tail hint +2",
+      "Top Option": "Speed +10\nLatch On hint +2",
       "Bottom Option": "Energy +15\nBond +5"
     }
   },
@@ -946,7 +946,7 @@
   {
     "EventName": "Sloppy Captain?",
     "EventOptions": {
-      "": "Speed +5\nPower +5\nGuts +5\nSteadfast hint +1\nBond +5"
+      "": "Speed +5\nPower +5\nGuts +5\nFirm Resolve hint +1\nBond +5"
     }
   },
   {
@@ -971,7 +971,7 @@
   {
     "EventName": "すべすべ。ぷにぷに。",
     "EventOptions": {
-      "Top Option": "Speed +5\nWit +10\nFirm Step hint +1\nBond +5",
+      "Top Option": "Speed +5\nWit +10\nSteady Gait hint +1\nBond +5",
       "Bottom Option": "Skill Pts +30\nBond +5"
     }
   },
@@ -1009,7 +1009,7 @@
   {
     "EventName": "サクラの想いは重なって",
     "EventOptions": {
-      "": "Wit +15\nGreat Haste hint +1\nBond +5"
+      "": "Wit +15\nHurry Up! hint +1\nBond +5"
     }
   },
   {
@@ -1021,7 +1021,7 @@
   {
     "EventName": "しっかりとちゃっかりと",
     "EventOptions": {
-      "": "Power +15\nAttack Stance hint +2\nBond +5"
+      "": "Power +15\nOn the Attack hint +2\nBond +5"
     }
   },
   {
@@ -1083,7 +1083,7 @@
   {
     "EventName": "学園見学で……",
     "EventOptions": {
-      "": "Speed +10\nTrue Worth hint +1\nBond +5"
+      "": "Speed +10\nMy True Strength hint +1\nBond +5"
     }
   },
   {
@@ -1122,7 +1122,7 @@
   {
     "EventName": "タッグ結成！今、手を取り合って！",
     "EventOptions": {
-      "": "Guts +10\nRazor-Sharp Stride hint +1\nBond +5"
+      "": "Guts +10\nPedal to the Metal hint +1\nBond +5"
     }
   },
   {
@@ -1199,7 +1199,7 @@
   {
     "EventName": "聖女の誓いは鋼より固く",
     "EventOptions": {
-      "Top Option": "Skill Pts +20\nOn the Move hint +1\nBond +5",
+      "Top Option": "Skill Pts +20\nStart the Charge hint +1\nBond +5",
       "Bottom Option": "Energy +15\nGuts +20\nBond +5"
     }
   },
@@ -1562,7 +1562,7 @@
     }
   },
   {
-    "EventName": "My Umadol Way ☆",
+    "EventName": "My Umadol Way! ☆",
     "EventOptions": {
       "": "Max Energy +4\nStamina +5\nPower +5\nWit +5\nPrudent Positioning hint +1\nMax Energy +4\nStamina +15\nPower +15\nWit +15\nCenter Stage hint +3"
     }
@@ -3083,56 +3083,56 @@
     }
   },
   {
-    "EventName": "渚のリゾート Romanticに恋して",
+    "EventName": "A Seaside Resort, Love is in the Air",
     "EventOptions": {
       "": "Speed +10\nSpeed +15\nWit +5\nBond +15"
     }
   },
   {
-    "EventName": "思い出のときめき 今も My Heartに",
+    "EventName": "Thrilling Memories Still in My Heart",
     "EventOptions": {
       "": "Speed +10\nSpeed +15\nPower +5\nFocus hint +1\nBond +15"
     }
   },
   {
-    "EventName": "ずっと Zutto 輝いて Forever",
+    "EventName": "Shine On Forever",
     "EventOptions": {
       "": "Speed +30\nWit +10\nTop Runner hint +1"
     }
   },
   {
-    "EventName": "揺るぎなき眼",
+    "EventName": "All In",
     "EventOptions": {
       "": "Wit +10\nSkill Pts +20\nBond +5"
     }
   },
   {
-    "EventName": "炎は冷たい背の内に",
+    "EventName": "Eat 'Em and Weep",
     "EventOptions": {
       "Top Option": "Bond +10",
       "Bottom Option": "Bond +10"
     }
   },
   {
-    "EventName": "デスパレートに輝いて",
+    "EventName": "Upping the Ante",
     "EventOptions": {
       "": "brp 1\nSpeed +20\nStamina +20\nWit +20\nSkill Pts +30\nNothing Ventured hint +3\nBond +5\nbrp 2\nSpeed +10\nWit +10\nSkill Pts +20\nNothing Ventured hint +1\nBond +5\nSkill Pts +10\nRisky Business hint +1"
     }
   },
   {
-    "EventName": "優しいあなたに",
+    "EventName": "Repaying Your Kindness",
     "EventOptions": {
       "": "Motivation +1\nGuts +10\nBond +5"
     }
   },
   {
-    "EventName": "思いっきり笑ってほしいから",
+    "EventName": "Because I Want You to Smile",
     "EventOptions": {
       "": "Guts +15\nBond +5"
     }
   },
   {
-    "EventName": "『楽しい』を贈ります！",
+    "EventName": "I Gift You Fun and Joy!",
     "EventOptions": {
       "": "Guts +10\nWit +10\nStep on the Gas! hint +3\nBond +5\nGuts +5\nWit +5\nAcceleration hint +2/+3\nBond +5"
     }
@@ -3185,13 +3185,13 @@
   {
     "EventName": "ターボとゲームして！",
     "EventOptions": {
-      "": "Energy -5\nSpeed +15\nGuts +15\nSkill Pts +15\nBond +5\nEnergy -20\nSpeed +10\nGuts +10\n1000% Output! hint +1\nBond +5"
+      "": "Energy -5\nSpeed +15\nGuts +15\nSkill Pts +15\nBond +5\nEnergy -20\nSpeed +10\nGuts +10\nGivin' It 1000% hint +1\nBond +5"
     }
   },
   {
     "EventName": "ターボが最強！",
     "EventOptions": {
-      "": "Energy -20\nSpeed +10\nGuts +10\n1000% Output! hint +2\nBond +5\nEnergy -5\nSpeed +15\nGuts +15\n1000% Output! hint +3\nBond +5"
+      "": "Energy -20\nSpeed +10\nGuts +10\nGivin' It 1000% hint +2\nBond +5\nEnergy -5\nSpeed +15\nGuts +15\nGivin' It 1000% hint +3\nBond +5"
     }
   },
   {
@@ -3229,7 +3229,7 @@
   {
     "EventName": "その優しさは誰のため",
     "EventOptions": {
-      "": "Power +15\nSkill Pts +25\nLightning Speed hint +1\nBond +5"
+      "": "Power +15\nSkill Pts +25\nFlash Forward hint +1\nBond +5"
     }
   },
   {
@@ -3266,7 +3266,7 @@
   {
     "EventName": "アゲヘヴン・延長戦！",
     "EventOptions": {
-      "": "Speed +10\nGuts +5\nSkill Pts +10\nIn the Right Place! hint +1\nBond +5\nSpeed +15\nGuts +10\nSkill Pts +10\nIn the Right Place! hint +3\nBond +5"
+      "": "Speed +10\nGuts +5\nSkill Pts +10\nPerfect Spot! hint +1\nBond +5\nSpeed +15\nGuts +10\nSkill Pts +10\nPerfect Spot! hint +3\nBond +5"
     }
   },
   {
@@ -3278,13 +3278,13 @@
   {
     "EventName": "びっくり計画なのだ！",
     "EventOptions": {
-      "": "Power +15\nAt Full Speed hint +1\nBond +5"
+      "": "Power +15\nFull Tilt hint +1\nBond +5"
     }
   },
   {
     "EventName": "計画実行なのだ！",
     "EventOptions": {
-      "": "Guts +20\nSkill Pts +10\nMud Master hint +1\nBond +5"
+      "": "Guts +20\nSkill Pts +10\nMaestro of the Mud hint +1\nBond +5"
     }
   },
   {
@@ -3303,7 +3303,7 @@
   {
     "EventName": "鬼教官クリスエス",
     "EventOptions": {
-      "": "Stamina +15\nGuts +15\nSkill Pts +10\nLose Yourself hint +1\nBond +5"
+      "": "Stamina +15\nGuts +15\nSkill Pts +10\nClaw Forward hint +1\nBond +5"
     }
   },
   {
@@ -3378,7 +3378,7 @@
   {
     "EventName": "汝、苫小牧を愛す友を愛すべし",
     "EventOptions": {
-      "": "Energy +10\nSpeed +5\nSkill Pts +5\nIncisive Flash hint +1\nBond +5\nEnergy +20\nSpeed +10\nSkill Pts +10\nIncisive Flash hint +3\nBond +5"
+      "": "Energy +10\nSpeed +5\nSkill Pts +5\nSharp Streak hint +1\nBond +5\nEnergy +20\nSpeed +10\nSkill Pts +10\nSharp Streak hint +3\nBond +5"
     }
   },
   {
@@ -3391,7 +3391,7 @@
   {
     "EventName": "今はまだ、その光には気づけない",
     "EventOptions": {
-      "": "Stamina +10\nPower +10\nTrue Worth hint +1\nBond +5"
+      "": "Stamina +10\nPower +10\nMy True Strength hint +1\nBond +5"
     }
   },
   {
@@ -3454,7 +3454,7 @@
   {
     "EventName": "いつか見た夢を",
     "EventOptions": {
-      "": "Speed +3\nPower +3\nGuts +10\nWinds of Change hint +1\nBond +5\nSpeed +7\nPower +7\nGuts +15\nWinds of Change hint +3\nBond +5"
+      "": "Speed +3\nPower +3\nGuts +10\nAmbitious Breeze hint +1\nBond +5\nSpeed +7\nPower +7\nGuts +15\nAmbitious Breeze hint +3\nBond +5"
     }
   },
   {
@@ -3492,7 +3492,7 @@
   {
     "EventName": "みらい、鼻緒はきりりと",
     "EventOptions": {
-      "": "Power +7\nWit +7\nUnrivaled Wits hint +1\nBond +5\nPower +15\nWit +15\nUnrivaled Wits hint +3\nBond +5"
+      "": "Power +7\nWit +7\nRazor-Sharp Steps hint +1\nBond +5\nPower +15\nWit +15\nRazor-Sharp Steps hint +3\nBond +5"
     }
   },
   {
@@ -3569,7 +3569,7 @@
   {
     "EventName": "変身！ネイチャはプリファイ！？",
     "EventOptions": {
-      "": "Speed +7\nPower +7\nGuts +7\nIncisive Slash hint +2\nBond +5"
+      "": "Speed +7\nPower +7\nGuts +7\nSharp Arc hint +2\nBond +5"
     }
   },
   {
@@ -3608,7 +3608,7 @@
   {
     "EventName": "金剛石を履き潰して",
     "EventOptions": {
-      "": "Wit +10\nSpeed +7\nStamina +7\nAscendance hint +1\nBond +5"
+      "": "Wit +10\nSpeed +7\nStamina +7\nSuperb Gait hint +1\nBond +5"
     }
   },
   {
@@ -3665,26 +3665,26 @@
   {
     "EventName": "それがアタシの生きる道",
     "EventOptions": {
-      "": "Stamina +10\nPower +10\nIn the Right Place! hint +3\nBond +5\nStamina +5\nPower +5\nIn the Right Place! hint +1\nBond +5"
+      "": "Stamina +10\nPower +10\nPerfect Spot! hint +3\nBond +5\nStamina +5\nPower +5\nPerfect Spot! hint +1\nBond +5"
     }
   },
   {
     "EventName": "優美なる花々を仰いで",
     "EventOptions": {
-      "Top Option": "Speed +7\nStamina +7\nFaultless hint +1\nBond +5",
+      "Top Option": "Speed +7\nStamina +7\nAll Set hint +1\nBond +5",
       "Bottom Option": "Stamina +7\nGuts +7\nSkill Pts +15\nBond +5"
     }
   },
   {
     "EventName": "つぼみの記憶",
     "EventOptions": {
-      "": "brp 1\nSpeed +10\nStamina +10\nTrue Worth hint +1\nBond +5\nbrp 2\nStamina +10\nGuts +10\nSkill Pts +20\nBond +5"
+      "": "brp 1\nSpeed +10\nStamina +10\nMy True Strength hint +1\nBond +5\nbrp 2\nStamina +10\nGuts +10\nSkill Pts +20\nBond +5"
     }
   },
   {
     "EventName": "凜々しく、花開き",
     "EventOptions": {
-      "": "Energy +10\nStamina +20\nAhead of the Game hint +3\nBond +5\nEnergy +5\nStamina +10\nAhead of the Game hint +1\nBond +5"
+      "": "Energy +10\nStamina +20\nLight-Footed as a Hare hint +3\nBond +5\nEnergy +5\nStamina +10\nLight-Footed as a Hare hint +1\nBond +5"
     }
   },
   {
@@ -3723,13 +3723,13 @@
   {
     "EventName": "緊急ミッション『エネルギー注入』",
     "EventOptions": {
-      "": "Energy +10\nWit +10\nSkill Pts +10\nUnshakable Stance hint +1\nBond +5"
+      "": "Energy +10\nWit +10\nSkill Pts +10\nSolid Preparation hint +1\nBond +5"
     }
   },
   {
     "EventName": "みんなはひとりのために！",
     "EventOptions": {
-      "": "Stamina +10\nOverflowing Passion hint +2\nBond +10\nStamina +5\nOverflowing Passion hint +1\nBond +5"
+      "": "Stamina +10\nUnrestrained Passion hint +2\nBond +10\nStamina +5\nUnrestrained Passion hint +1\nBond +5"
     }
   },
   {
@@ -3799,7 +3799,7 @@
   {
     "EventName": "みんなと笑顔になりたくて",
     "EventOptions": {
-      "": "Speed +10\nWit +10\nSkill Pts +20\nSteady Advance hint +3\nBond +5\nSpeed +7\nWit +7\nSkill Pts +15\nSteady Advance hint +1\nBond +5"
+      "": "Speed +10\nWit +10\nSkill Pts +20\nSolid Strike hint +3\nBond +5\nSpeed +7\nWit +7\nSkill Pts +15\nSolid Strike hint +1\nBond +5"
     }
   },
   {
@@ -3812,13 +3812,13 @@
   {
     "EventName": "衝撃が心臓を殴りつけて",
     "EventOptions": {
-      "": "Speed +10\nStamina +10\nAll I've Got hint +3\nBond +10\nEnergy -10\nSpeed +10\nStamina +10\nSurging Beat hint +1\nBond +5"
+      "": "Speed +10\nStamina +10\nAll I've Got hint +3\nBond +10\nEnergy -10\nSpeed +10\nStamina +10\nRising Pulse hint +1\nBond +5"
     }
   },
   {
     "EventName": "咆哮はすべてを飲み込んで",
     "EventOptions": {
-      "": "Speed +15\nStamina +15\nSurging Beat hint +3\nBond +5\nSpeed +10\nStamina +10\nSurging Beat hint +2\nBond +5"
+      "": "Speed +15\nStamina +15\nRising Pulse hint +3\nBond +5\nSpeed +10\nStamina +10\nRising Pulse hint +2\nBond +5"
     }
   },
   {
@@ -3837,7 +3837,7 @@
   {
     "EventName": "幸せを彩るヒト",
     "EventOptions": {
-      "": "Speed +10\nPower +10\nGuts +10\nUntouchable Shadow hint +3\nBond +5\nSpeed +5\nPower +5\nGuts +5\nUntouchable Shadow hint +1\nBond +5"
+      "": "Speed +10\nPower +10\nGuts +10\nCan't Even Catch My Shadow hint +3\nBond +5\nSpeed +5\nPower +5\nGuts +5\nCan't Even Catch My Shadow hint +1\nBond +5"
     }
   },
   {
@@ -3915,7 +3915,7 @@
   {
     "EventName": "輝きの影で",
     "EventOptions": {
-      "Top Option": "Stamina +10\nWit +10\nMonster hint +1\nBond +5",
+      "Top Option": "Stamina +10\nWit +10\nBeast Mode hint +1\nBond +5",
       "Bottom Option": "Speed +10\nWit +10\nBeeline Burst hint +1\nBond +5"
     }
   },
@@ -3935,7 +3935,7 @@
   {
     "EventName": "伝えるべき言葉は",
     "EventOptions": {
-      "Top Option": "Wit +10\nSkill Pts +15\nSummer Gale hint +1\nBond +5",
+      "Top Option": "Wit +10\nSkill Pts +15\nSummer Gust hint +1\nBond +5",
       "Bottom Option": "Guts +10\nSkill Pts +15\nHigh Voltage hint +1\nBond +5"
     }
   },
@@ -3949,13 +3949,13 @@
     "EventName": "ほどよく、コスパよく",
     "EventOptions": {
       "Top Option": "Energy +10\nSkill Pts +20\nBond +5",
-      "Bottom Option": "Speed +3\nStamina +3\nPower +3\nSeriously☆Good↑Vibes hint +1"
+      "Bottom Option": "Speed +3\nStamina +3\nPower +3\nSend It! ☆ hint +1"
     }
   },
   {
     "EventName": "サイコーに、テンアゲで！！",
     "EventOptions": {
-      "": "Speed +10\nStamina +10\nPower +10\nSeriously☆Good↑Vibes hint +3\nBond +5\nSpeed +5\nStamina +5\nPower +5\nSeriously☆Good↑Vibes hint +2\nBond +5"
+      "": "Speed +10\nStamina +10\nPower +10\nSend It! ☆ hint +3\nBond +5\nSpeed +5\nStamina +5\nPower +5\nSend It! ☆ hint +2\nBond +5"
     }
   },
   {
@@ -3986,13 +3986,13 @@
     "EventName": "指先に想い込めて",
     "EventOptions": {
       "Top Option": "Power +20\nTail Held High hint +1\nBond +5",
-      "Bottom Option": "Energy -10\nPower +5\nGuts +10\nLeisurely Dust Bath hint +1\nBond +5"
+      "Bottom Option": "Energy -10\nPower +5\nGuts +10\nDancer in the Dirt hint +1\nBond +5"
     }
   },
   {
     "EventName": "あたしができること、全部",
     "EventOptions": {
-      "Top Option": "Power +20\nGuts +10\nSkill Pts +10\nLeisurely Dust Bath hint +3\nBond +5",
+      "Top Option": "Power +20\nGuts +10\nSkill Pts +10\nDancer in the Dirt hint +3\nBond +5",
       "Bottom Option": "Energy +10\nPower +20\nGuts +20\nBond +5"
     }
   },
@@ -4013,7 +4013,7 @@
   {
     "EventName": "水面の向こうに",
     "EventOptions": {
-      "Top Option": "Stamina +20\nWit +10\nLose Yourself hint +2\nBond +5",
+      "Top Option": "Stamina +20\nWit +10\nClaw Forward hint +2\nBond +5",
       "Bottom Option": "Stamina +10\nWit +20\nCooldown hint +2\nBond +5"
     }
   },
@@ -4026,13 +4026,13 @@
   {
     "EventName": "仲間ってのは……",
     "EventOptions": {
-      "": "Guts +15\nSkill Pts +15\nBond +15\nEnergy -10\nGuts +20\nBlitzing Spirit hint +1\nBond +5"
+      "": "Guts +15\nSkill Pts +15\nBond +15\nEnergy -10\nGuts +20\nRampaging Passion hint +1\nBond +5"
     }
   },
   {
     "EventName": "頂上作戦",
     "EventOptions": {
-      "Top Option": "Speed +10\nGuts +30\nBlitzing Spirit hint +3\nBond +5\nGuts +20\nBlitzing Spirit hint +2\nBond +5",
+      "Top Option": "Speed +10\nGuts +30\nRampaging Passion hint +3\nBond +5\nGuts +20\nRampaging Passion hint +2\nBond +5",
       "Bottom Option": "Energy +15\nPower +15\nSkill Pts +15\nBond +5"
     }
   },
@@ -4246,7 +4246,7 @@
   {
     "EventName": "キングの流儀／相伝編",
     "EventOptions": {
-      "Top Option": "Speed +15\nPower +15\nDignified hint +1\nBond +5",
+      "Top Option": "Speed +15\nPower +15\nVying for the Throne hint +1\nBond +5",
       "Bottom Option": "Energy +15\nGuts +15\nUnyielding Tenacity hint +1"
     }
   },
@@ -4374,7 +4374,7 @@
     "EventName": "野球！みんなでやろうよ！",
     "EventOptions": {
       "Top Option": "Energy +15\nWit +10\nBond +5",
-      "Bottom Option": "Skill Pts +15\nOn the Move hint +2\nBond +5"
+      "Bottom Option": "Skill Pts +15\nStart the Charge hint +2\nBond +5"
     }
   },
   {
@@ -4412,7 +4412,7 @@
   {
     "EventName": "シリマナイトの渚",
     "EventOptions": {
-      "": "Energy +10\nSpeed +10\nSkill Pts +10\nRising Passion hint +2\nBond +5"
+      "": "Energy +10\nSpeed +10\nSkill Pts +10\nRising Heat hint +2\nBond +5"
     }
   },
   {
@@ -4469,7 +4469,7 @@
   {
     "EventName": "完敗！？全力クッキング！！",
     "EventOptions": {
-      "": "Energy +5\nPower +10\nGuts +5\nRazor-Sharp Stride hint +3\nBond +5"
+      "": "Energy +5\nPower +10\nGuts +5\nPedal to the Metal hint +3\nBond +5"
     }
   },
   {
@@ -4544,7 +4544,7 @@
   {
     "EventName": "王の下知",
     "EventOptions": {
-      "Top Option": "Guts +20\nRapid hint +1\nBond +5",
+      "Top Option": "Guts +20\nHigh Speed hint +1\nBond +5",
       "Bottom Option": "5s +3\nDivine Speed hint +1\nBond +5"
     }
   },
@@ -4695,13 +4695,13 @@
   {
     "EventName": "本音を聞かせて",
     "EventOptions": {
-      "": "Energy +10\nSpeed +15\nRushing in Blind hint +2\nBond +5"
+      "": "Energy +10\nSpeed +15\nNo Looking Back hint +2\nBond +5"
     }
   },
   {
     "EventName": "あなたの止まり木",
     "EventOptions": {
-      "": "Energy +10\nSpeed +25\nPower +10\nReckless hint +3\nBond +5"
+      "": "Energy +10\nSpeed +25\nPower +10\nReckless Charge hint +3\nBond +5"
     }
   },
   {
@@ -4745,7 +4745,7 @@
   {
     "EventName": "普通に見えても……？",
     "EventOptions": {
-      "Top Option": "Stamina +20\nLock On hint +1\nBond +5",
+      "Top Option": "Stamina +20\nLocked On hint +1\nBond +5",
       "Bottom Option": "Energy +25\nBond +5"
     }
   },
@@ -4753,13 +4753,13 @@
     "EventName": "無意識の特技……？",
     "EventOptions": {
       "Top Option": "Stamina +20\nGuts +10\nBond +5",
-      "Bottom Option": "Stamina +10\nOne-shot hint +1\nBond +5"
+      "Bottom Option": "Stamina +10\nSure Shot hint +1\nBond +5"
     }
   },
   {
     "EventName": "やっぱり普通だ！",
     "EventOptions": {
-      "": "Stamina +25\nSkill Pts +15\nOne-shot hint +3\nBond +5\nStamina +15\nSkill Pts +10\nOne-shot hint +2\nBond +5"
+      "": "Stamina +25\nSkill Pts +15\nSure Shot hint +3\nBond +5\nStamina +15\nSkill Pts +10\nSure Shot hint +2\nBond +5"
     }
   },
   {
@@ -4810,14 +4810,14 @@
   {
     "EventName": "俺のノーティ・キッズ",
     "EventOptions": {
-      "Top Option": "Energy +10\nGuts +10\nMighty Leap hint +2\nBond +5",
-      "Bottom Option": "Guts +15\nLightning Speed hint +1\nBond +5"
+      "Top Option": "Energy +10\nGuts +10\nLeap Forward hint +2\nBond +5",
+      "Bottom Option": "Guts +15\nFlash Forward hint +1\nBond +5"
     }
   },
   {
     "EventName": "俺なりにストレート！！",
     "EventOptions": {
-      "": "Speed +7\nPower +7\nGuts +10\nLightning Speed hint +2\nBond +5"
+      "": "Speed +7\nPower +7\nGuts +10\nFlash Forward hint +2\nBond +5"
     }
   },
   {
@@ -4848,14 +4848,14 @@
   {
     "EventName": "そぶりも、見せず",
     "EventOptions": {
-      "Top Option": "Skill Pts +15\nEarly Bird hint +2\nBond +5",
-      "Bottom Option": "Stamina +5\nPower +10\nFurther Than Anyone hint +1\nBond +5"
+      "Top Option": "Skill Pts +15\nGoin' First hint +2\nBond +5",
+      "Bottom Option": "Stamina +5\nPower +10\nBefore Anyone! hint +1\nBond +5"
     }
   },
   {
     "EventName": "誰にも、悟られず",
     "EventOptions": {
-      "": "Power +30\nStamina +15\nFurther Than Anyone hint +3\nBond +5\nPower +20\nStamina +10\nFurther Than Anyone hint +2\nBond +5"
+      "": "Power +30\nStamina +15\nBefore Anyone! hint +3\nBond +5\nPower +20\nStamina +10\nBefore Anyone! hint +2\nBond +5"
     }
   },
   {
@@ -4989,7 +4989,7 @@
   {
     "EventName": "困ったときはお互い様",
     "EventOptions": {
-      "": "Stamina +10\nGuts +5\nFull Speed Ahead! hint +1\nBond +5"
+      "": "Stamina +10\nGuts +5\nFull Speed! hint +1\nBond +5"
     }
   },
   {
@@ -5160,7 +5160,7 @@
   {
     "EventName": "メンツの問題",
     "EventOptions": {
-      "Top Option": "Stamina +20\nPower +20\nOutstanding Step hint +2\nBond +5",
+      "Top Option": "Stamina +20\nPower +20\nStrong Steps hint +2\nBond +5",
       "Bottom Option": "Energy +15\nPower +10\nSkill Pts +15\nEmbracing Virtue and Vice hint +2\nBond +5"
     }
   },
@@ -5197,7 +5197,7 @@
   {
     "EventName": "『共鳴』",
     "EventOptions": {
-      "Top Option": "Energy +10\nSpeed +15\nPower +15\nMonster hint +2\nBond +5",
+      "Top Option": "Energy +10\nSpeed +15\nPower +15\nBeast Mode hint +2\nBond +5",
       "Bottom Option": "Speed +10\nSkill Pts +30\nBreaking Free hint +2\nBond +5"
     }
   },
@@ -5217,7 +5217,7 @@
   {
     "EventName": "伝説再臨",
     "EventOptions": {
-      "": "Speed +5\nPower +5\nGuts +5\nIncisive Slash hint +1\nBond +5"
+      "": "Speed +5\nPower +5\nGuts +5\nSharp Arc hint +1\nBond +5"
     }
   },
   {
@@ -5270,15 +5270,15 @@
   {
     "EventName": "The Best Partner",
     "EventOptions": {
-      "Top Option": "Energy +10\nDevil-May-Care hint +2\nBond +5",
-      "Bottom Option": "Stamina +10\nFrom the First Step hint +2\nBond +5"
+      "Top Option": "Energy +10\nScramble hint +2\nBond +5",
+      "Bottom Option": "Stamina +10\nFirst Step hint +2\nBond +5"
     }
   },
   {
     "EventName": "WOTAGEI",
     "EventOptions": {
-      "Top Option": "Stamina +30\nPower +10\nLose Yourself hint +2\nBond +5",
-      "Bottom Option": "Power +25\nSkill Pts +15\nThousand-Mile Journey hint +2\nBond +5"
+      "Top Option": "Stamina +30\nPower +10\nClaw Forward hint +2\nBond +5",
+      "Bottom Option": "Power +25\nSkill Pts +15\nA Journey in a Step hint +2\nBond +5"
     }
   },
   {
@@ -5309,14 +5309,14 @@
   {
     "EventName": "これぞはなむけ、ウマ景色",
     "EventOptions": {
-      "Top Option": "Energy +10\nSpeed +5\nPower +5\nOn the Move hint +2\nBond +5",
-      "Bottom Option": "Speed +15\nBlitzing Spirit hint +1\nBond +5"
+      "Top Option": "Energy +10\nSpeed +5\nPower +5\nStart the Charge hint +2\nBond +5",
+      "Bottom Option": "Speed +15\nRampaging Passion hint +1\nBond +5"
     }
   },
   {
     "EventName": "栄光は唐辛子を添えて",
     "EventOptions": {
-      "": "Energy +5\nSpeed +20\nPower +20\nBlitzing Spirit hint +3\nBond +5\nEnergy +5\nSpeed +15\nPower +10\nBlitzing Spirit hint +2\nBond +5"
+      "": "Energy +5\nSpeed +20\nPower +20\nRampaging Passion hint +3\nBond +5\nEnergy +5\nSpeed +15\nPower +10\nRampaging Passion hint +2\nBond +5"
     }
   },
   {
@@ -5377,7 +5377,7 @@
     "EventName": "尊き大望はその胸に",
     "EventOptions": {
       "Top Option": "5s +5\nSkill Pts +15\nCheck hint +3\nBond +5\n5s +3\nCheck hint +1\nBond +5",
-      "Bottom Option": "Speed +10\nWit +20\nSkill Pts +10\nIn the Right Place! hint +3\nBond +5\nSpeed +5\nWit +10\nIn the Right Place! hint +1\nBond +5"
+      "Bottom Option": "Speed +10\nWit +20\nSkill Pts +10\nPerfect Spot! hint +3\nBond +5\nSpeed +5\nWit +10\nPerfect Spot! hint +1\nBond +5"
     }
   },
   {
@@ -5415,7 +5415,7 @@
   {
     "EventName": "アコガレの背中",
     "EventOptions": {
-      "": "Speed +15\nUntouchable Shadow hint +1\nBond +5"
+      "": "Speed +15\nCan't Even Catch My Shadow hint +1\nBond +5"
     }
   },
   {
@@ -5556,7 +5556,7 @@
   {
     "EventName": "見せつけよ暗き眩き閃光を",
     "EventOptions": {
-      "": "Stamina +10\nPower +15\nIncisive Flash hint +1\nBreach hint +1\nBond +5"
+      "": "Stamina +10\nPower +15\nSharp Streak hint +1\nBreach hint +1\nBond +5"
     }
   },
   {
@@ -5569,7 +5569,7 @@
     "EventName": "それはただただ咲き誇る",
     "EventOptions": {
       "Top Option": "Energy +5\nSpeed +15\nPower +5\nBond +5",
-      "Bottom Option": "Energy +5\nBreakthrough Plan hint +2\nBond +5"
+      "Bottom Option": "Energy +5\nBreakin' Out hint +2\nBond +5"
     }
   },
   {
@@ -5607,7 +5607,7 @@
   {
     "EventName": "母なる大地の教え",
     "EventOptions": {
-      "": "Motivation +1\nSpeed +15\nWit +15\nGraceful Step hint +1\nBond +5"
+      "": "Motivation +1\nSpeed +15\nWit +15\nGraceful Gait hint +1\nBond +5"
     }
   },
   {
@@ -5722,14 +5722,14 @@
   {
     "EventName": "彼方の栄冠へ",
     "EventOptions": {
-      "Top Option": "Energy +10\nWit +20\nRushing in Blind hint +3\nBond +5",
-      "Bottom Option": "Speed +5\nWit +25\nReckless hint +1\nBond +5"
+      "Top Option": "Energy +10\nWit +20\nNo Looking Back hint +3\nBond +5",
+      "Bottom Option": "Speed +5\nWit +25\nReckless Charge hint +1\nBond +5"
     }
   },
   {
     "EventName": "ハートを懸けた対決",
     "EventOptions": {
-      "": "Speed +20\nWit +30\nReckless hint +3\nBond +5\nSpeed +10\nWit +20\nReckless hint +2\nBond +5"
+      "": "Speed +20\nWit +30\nReckless Charge hint +3\nBond +5\nSpeed +10\nWit +20\nReckless Charge hint +2\nBond +5"
     }
   },
   {
@@ -5903,7 +5903,7 @@
     "EventName": "孤高の休日",
     "EventOptions": {
       "Top Option": "Energy +10\nSpeed +20\nBond +5",
-      "Bottom Option": "Speed +15\nOverflowing Passion hint +1\nBond +5"
+      "Bottom Option": "Speed +15\nUnrestrained Passion hint +1\nBond +5"
     }
   },
   {
@@ -5959,7 +5959,7 @@
   {
     "EventName": "忠誠の足跡を辿って",
     "EventOptions": {
-      "Top Option": "Wit +15\nMighty Leap hint +1\nBond +5",
+      "Top Option": "Wit +15\nLeap Forward hint +1\nBond +5",
       "Bottom Option": "Energy +15\nGive Chase hint +1\nBond +5",
       "Option 3": "Energy +10\nMotivation +1\nWit +15\nBond +5"
     }
@@ -5967,7 +5967,7 @@
   {
     "EventName": "忠誠は己が道に",
     "EventOptions": {
-      "Top Option": "Wit +20\nMoonlit Flash hint +1\nLightning Speed hint +1\nBond +5",
+      "Top Option": "Wit +20\nMoonlit Flash hint +1\nFlash Forward hint +1\nBond +5",
       "Bottom Option": "Speed +10\nWit +10\nMoonlit Flash hint +1\nSwift Decision hint +1\nBond +5"
     }
   },
@@ -6019,8 +6019,8 @@
   {
     "EventName": "美しき結実",
     "EventOptions": {
-      "Top Option": "Speed +25\nThousand-Mile Journey hint +1\nHeat Haze hint +1\nBond +5",
-      "Bottom Option": "Essence of Racing・Speed hint +5\nEyes on the Horizon hint +5\nGlittering Star hint +5\nBond +5"
+      "Top Option": "Speed +25\nA Journey in a Step hint +1\nHeat Haze hint +1\nBond +5",
+      "Bottom Option": "Racing Spirit: Speed hint +5\nEyes on the Goal hint +5\nGlittering Star hint +5\nBond +5"
     }
   },
   {
@@ -6172,14 +6172,14 @@
   {
     "EventName": "粋の魅せ方、魂で語れ",
     "EventOptions": {
-      "Top Option": "Stamina +15\nGreat Haste hint +1\nBond +10",
+      "Top Option": "Stamina +15\nHurry Up! hint +1\nBond +10",
       "Bottom Option": "Energy +10\nStamina +10\nPower +10\nBond +10"
     }
   },
   {
     "EventName": "熱き涙の理由",
     "EventOptions": {
-      "": "Motivation +1\nEnergy +10\nStamina +10\nLose Yourself hint +1\nThorough Preparation hint +1\nBond +5"
+      "": "Motivation +1\nEnergy +10\nStamina +10\nClaw Forward hint +1\nThorough Preparation hint +1\nBond +5"
     }
   },
   {
@@ -6221,7 +6221,7 @@
     "EventName": "Look at me",
     "EventOptions": {
       "Top Option": "Energy +20\nPower +5\nSkill Pts +10\nSend It Flying! hint +1\nSmooth Sailing hint +1\nBond +5",
-      "Bottom Option": "With Feelings Aboard hint +5\nEssence of Racing・Stamina hint +5\nBlessing of the Sun hint +5\nBond +5"
+      "Bottom Option": "With Feelings Aboard hint +5\nRacing Spirit: Stamina hint +5\nSun's Blessing hint +5\nBond +5"
     }
   },
   {
@@ -6260,7 +6260,7 @@
   {
     "EventName": "学びを繋げて",
     "EventOptions": {
-      "": "Guts +25\nBlitzing Spirit hint +1\nDetermination Brings Success hint +1\nBond +5"
+      "": "Guts +25\nRampaging Passion hint +1\nDetermination Brings Success hint +1\nBond +5"
     }
   },
   {
@@ -6369,7 +6369,7 @@
   {
     "EventName": "重なる『愛』",
     "EventOptions": {
-      "": "Energy +5\nMotivation +1\nSpeed +15\nSum of Small Efforts hint +1\nLeisurely Dust Bath hint +1\nBond +5"
+      "": "Energy +5\nMotivation +1\nSpeed +15\nSum of Small Efforts hint +1\nDancer in the Dirt hint +1\nBond +5"
     }
   },
   {
@@ -6402,14 +6402,14 @@
     "EventName": "もっとも輝く『魅力』",
     "EventOptions": {
       "Top Option": "Bond +5\nMotivation +1\nGuts +15\nSkill Pts +10",
-      "Bottom Option": "Bond +5\nEnergy +10\nGuts +5\nRushing in Blind hint +1",
+      "Bottom Option": "Bond +5\nEnergy +10\nGuts +5\nNo Looking Back hint +1",
       "Option 3": "Bond +5\nEnergy +5\nGuts +10\nUnshakeable Faith hint +1"
     }
   },
   {
     "EventName": "積み重ねられた『今』",
     "EventOptions": {
-      "": "Guts +25\nAscendance hint +1\nPure Perfection hint +1\nBond +5"
+      "": "Guts +25\nSuperb Gait hint +1\nPure Perfection hint +1\nBond +5"
     }
   },
   {
@@ -6450,7 +6450,7 @@
     "EventName": "この香りが残りますように",
     "EventOptions": {
       "Top Option": "Guts +35\nMasterful Steering hint +2\nOverwhelm hint +1\nBond +5",
-      "Bottom Option": "On the Offensive hint +5\nBlessing of the Ocean hint +5\nForever Healthy hint +5\nBond +5"
+      "Bottom Option": "On the Offensive hint +5\nSea's Blessing hint +5\nForever Healthy hint +5\nBond +5"
     }
   },
   {
@@ -6549,7 +6549,7 @@
     "EventOptions": {
       "Top Option": "Motivation +1\nSpeed +15\nSkill Pts +10\nBond +5",
       "Bottom Option": "Energy +15\nSkill Pts +15\nBond +5",
-      "Option 3": "Speed +15\nDevil-May-Care hint +1\nBond +5"
+      "Option 3": "Speed +15\nScramble hint +1\nBond +5"
     }
   },
   {

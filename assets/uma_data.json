@@ -5302,9 +5302,9 @@
     "UmaImage": "/assets/character_thumbs/103001-rice-shower.png"
   },
   {
-    "UmaKey": "Agnes Tachyon :: Tach-nology",
+    "UmaKey": "Agnes Tachyon :: tach-nology",
     "UmaName": "Agnes Tachyon",
-    "UmaNickname": "Tach-nology",
+    "UmaNickname": "tach-nology",
     "UmaSlug": "103201-agnes-tachyon",
     "UmaId": "103201",
     "UmaServer": "global",
@@ -13933,9 +13933,9 @@
     "UmaImage": "/assets/character_thumbs/100103-special-week.png"
   },
   {
-    "UmaKey": "Gold Ship :: Run! Fun! Watergun!",
+    "UmaKey": "Gold Ship :: RUN! RUIN! LAUNCHER!",
     "UmaName": "Gold Ship",
-    "UmaNickname": "Run! Fun! Watergun!",
+    "UmaNickname": "RUN! RUIN! LAUNCHER!",
     "UmaSlug": "100702-gold-ship",
     "UmaId": "100702",
     "UmaServer": "jp",
@@ -14066,20 +14066,20 @@
     ],
     "UmaEvents": [
       {
-        "EventName": "竜ゴル城にお出迎え",
+        "EventName": "Welcome to Gol-Chateau",
         "EventOptions": {
           "Top Option": "Skill Pts +15",
           "Bottom Option": "Guts +20"
         }
       },
       {
-        "EventName": "海の家（族）",
+        "EventName": "The Beach House (Family)",
         "EventOptions": {
           "": "Speed +10"
         }
       },
       {
-        "EventName": "海産勇者伝説ゴルシ",
+        "EventName": "Golshi, Master of Marine Creatures",
         "EventOptions": {
           "Top Option": "Summer Runner ○ hint +2",
           "Bottom Option": "Power +20"
@@ -14210,20 +14210,20 @@
     ],
     "UmaEvents": [
       {
-        "EventName": "それはきっと、青写真よりも",
+        "EventName": "More than a Photo, a Blueprint",
         "EventOptions": {
           "Top Option": "Wit +20",
           "Bottom Option": "Energy +10"
         }
       },
       {
-        "EventName": "貴方は私の",
+        "EventName": "You're My Trainer",
         "EventOptions": {
           "": "Speed +10\nWit +10\nPlaytime's Over! hint +3\nPower +20\nWit +10"
         }
       },
       {
-        "EventName": "触らぬ者にたたりなしですわ！！",
+        "EventName": "I Won't React to Troublemakers!",
         "EventOptions": {
           "Top Option": "Stamina +20",
           "Bottom Option": "Summer Runner ○ hint +2"
@@ -14233,9 +14233,9 @@
     "UmaImage": "/assets/character_thumbs/101303-mejiro-mcqueen.png"
   },
   {
-    "UmaKey": "Bamboo Memory :: Ambition of the Black Iron",
+    "UmaKey": "Bamboo Memory :: Iron Ambition",
     "UmaName": "Bamboo Memory",
-    "UmaNickname": "Ambition of the Black Iron",
+    "UmaNickname": "Iron Ambition",
     "UmaSlug": "105301-bamboo-memory",
     "UmaId": "105301",
     "UmaServer": "jp",
@@ -14366,21 +14366,21 @@
     ],
     "UmaEvents": [
       {
-        "EventName": "アツい夢をライバルと！",
+        "EventName": "Dreaming Big With My Rivals!",
         "EventOptions": {
           "Top Option": "Power +20",
           "Bottom Option": "Speed +20"
         }
       },
       {
-        "EventName": "夢の背中",
+        "EventName": "Behind the Dream",
         "EventOptions": {
           "Top Option": "Wit +10\nSkill Pts +15",
           "Bottom Option": "Guts +20"
         }
       },
       {
-        "EventName": "シンクロニシティ？",
+        "EventName": "Vibing?",
         "EventOptions": {
           "Top Option": "Stamina +20",
           "Bottom Option": "Power +20"
@@ -14390,9 +14390,9 @@
     "UmaImage": "/assets/character_thumbs/105301-bamboo-memory.png"
   },
   {
-    "UmaKey": "Copano Rickey :: Yin-yang Bagua ☆ Lucky Costume",
+    "UmaKey": "Copano Rickey :: Eightfold☆Fortune",
     "UmaName": "Copano Rickey",
-    "UmaNickname": "Yin-yang Bagua ☆ Lucky Costume",
+    "UmaNickname": "Eightfold☆Fortune",
     "UmaSlug": "109801-copano-rickey",
     "UmaId": "109801",
     "UmaServer": "jp",
@@ -14491,7 +14491,7 @@
         "ObjectiveCondition": ""
       },
       {
-        "ObjectiveName": "Mile Championship Nambu Hai",
+        "ObjectiveName": "M.C. Nambu Hai",
         "Turn": "67",
         "Time": "Senior Year",
         "ObjectiveCondition": ""
@@ -14700,7 +14700,7 @@
       {
         "EventName": "私のファーストライブ",
         "EventOptions": {
-          "": "Speed +10\nWit +10\nAt Full Speed hint +3\nSpeed +5\nAt Full Speed hint +1"
+          "": "Speed +10\nWit +10\nFull Tilt hint +3\nSpeed +5\nFull Tilt hint +1"
         }
       },
       {
@@ -15033,9 +15033,9 @@
     "UmaImage": "/assets/character_thumbs/105002-narita-taishin.png"
   },
   {
-    "UmaKey": "Yukino Bijin :: Cute Sweet Flower of Mutsu",
+    "UmaKey": "Yukino Bijin :: Darl'n Snowflake",
     "UmaName": "Yukino Bijin",
-    "UmaNickname": "Cute Sweet Flower of Mutsu",
+    "UmaNickname": "Darl'n Snowflake",
     "UmaSlug": "102901-yukino-bijin",
     "UmaId": "102901",
     "UmaServer": "jp",
@@ -15196,9 +15196,9 @@
     "UmaImage": "/assets/character_thumbs/102901-yukino-bijin.png"
   },
   {
-    "UmaKey": "Seeking the Pearl :: Rocket ☆ Star",
+    "UmaKey": "Seeking the Pearl :: Rocket☆Star",
     "UmaName": "Seeking the Pearl",
-    "UmaNickname": "Rocket ☆ Star",
+    "UmaNickname": "Rocket☆Star",
     "UmaSlug": "104201-seeking-the-pearl",
     "UmaId": "104201",
     "UmaServer": "jp",
@@ -15365,9 +15365,9 @@
     "UmaImage": "/assets/character_thumbs/104201-seeking-the-pearl.png"
   },
   {
-    "UmaKey": "Agnes Digital :: Agnes♡Jiangshi",
+    "UmaKey": "Agnes Digital :: Fanatic♡Jiangshi",
     "UmaName": "Agnes Digital",
-    "UmaNickname": "Agnes♡Jiangshi",
+    "UmaNickname": "Fanatic♡Jiangshi",
     "UmaSlug": "101902-agnes-digital",
     "UmaId": "101902",
     "UmaServer": "jp",
@@ -15488,7 +15488,7 @@
       {
         "EventName": "ハロウィンカラオケパーリィ",
         "EventOptions": {
-          "Top Option": "Dust Bath ○ hint +2",
+          "Top Option": "Down in the Dirt ○ hint +2",
           "Bottom Option": "Power +20"
         }
       },
@@ -15967,9 +15967,9 @@
     "UmaImage": "/assets/character_thumbs/107801-yamanin-zephyr.png"
   },
   {
-    "UmaKey": "Tamamo Cross :: Ferocious Thunder",
+    "UmaKey": "Tamamo Cross :: Raging Thunder",
     "UmaName": "Tamamo Cross",
-    "UmaNickname": "Ferocious Thunder",
+    "UmaNickname": "Raging Thunder",
     "UmaSlug": "102102-tamamo-cross",
     "UmaId": "102102",
     "UmaServer": "jp",
@@ -16117,9 +16117,9 @@
     "UmaImage": "/assets/character_thumbs/102102-tamamo-cross.png"
   },
   {
-    "UmaKey": "Inari One :: Fields of Gold",
+    "UmaKey": "Inari One :: Golden Dream",
     "UmaName": "Inari One",
-    "UmaNickname": "Fields of Gold",
+    "UmaNickname": "Golden Dream",
     "UmaSlug": "103402-inari-one",
     "UmaId": "103402",
     "UmaServer": "jp",
@@ -16273,9 +16273,9 @@
     "UmaImage": "/assets/character_thumbs/103402-inari-one.png"
   },
   {
-    "UmaKey": "Nakayama Festa :: Dramatic Turnabout",
+    "UmaKey": "Nakayama Festa :: Desperate Measures",
     "UmaName": "Nakayama Festa",
-    "UmaNickname": "Dramatic Turnabout",
+    "UmaNickname": "Desperate Measures",
     "UmaSlug": "104901-nakayama-festa",
     "UmaId": "104901",
     "UmaServer": "jp",
@@ -16593,9 +16593,9 @@
     "UmaImage": "/assets/character_thumbs/110001-wonder-acute.png"
   },
   {
-    "UmaKey": "Vodka :: Unfreezable Firewater",
+    "UmaKey": "Vodka :: Fiery Aqua Vitae",
     "UmaName": "Vodka",
-    "UmaNickname": "Unfreezable Firewater",
+    "UmaNickname": "Fiery Aqua Vitae",
     "UmaSlug": "100802-vodka",
     "UmaId": "100802",
     "UmaServer": "jp",
@@ -16755,9 +16755,9 @@
     "UmaImage": "/assets/character_thumbs/100802-vodka.png"
   },
   {
-    "UmaKey": "Daiwa Scarlet :: Scarlet Nuit Étoilée",
+    "UmaKey": "Daiwa Scarlet :: Nuit Étoilée de Scarlet",
     "UmaName": "Daiwa Scarlet",
-    "UmaNickname": "Scarlet Nuit Étoilée",
+    "UmaNickname": "Nuit Étoilée de Scarlet",
     "UmaSlug": "100902-daiwa-scarlet",
     "UmaId": "100902",
     "UmaServer": "jp",
@@ -17086,9 +17086,9 @@
     "UmaImage": "/assets/character_thumbs/104701-zenno-rob-roy.png"
   },
   {
-    "UmaKey": "Narita Brian :: Hungry Wolf",
+    "UmaKey": "Narita Brian :: Ravenous Wolf",
     "UmaName": "Narita Brian",
-    "UmaNickname": "Hungry Wolf",
+    "UmaNickname": "Ravenous Wolf",
     "UmaSlug": "101602-narita-brian",
     "UmaId": "101602",
     "UmaServer": "jp",
@@ -17278,9 +17278,9 @@
     "UmaImage": "/assets/character_thumbs/101602-narita-brian.png"
   },
   {
-    "UmaKey": "Satono Diamond :: Floral Star・Prosperous Green",
+    "UmaKey": "Satono Diamond :: Jade's Prosperity",
     "UmaName": "Satono Diamond",
-    "UmaNickname": "Floral Star・Prosperous Green",
+    "UmaNickname": "Jade's Prosperity",
     "UmaSlug": "106702-satono-diamond",
     "UmaId": "106702",
     "UmaServer": "jp",
@@ -17439,9 +17439,9 @@
     "UmaImage": "/assets/character_thumbs/106702-satono-diamond.png"
   },
   {
-    "UmaKey": "Kitasan Black :: Jubilant Star・Auspicious Crane",
+    "UmaKey": "Kitasan Black :: Crane's Ambition",
     "UmaName": "Kitasan Black",
-    "UmaNickname": "Jubilant Star・Auspicious Crane",
+    "UmaNickname": "Crane's Ambition",
     "UmaSlug": "106802-kitasan-black",
     "UmaId": "106802",
     "UmaServer": "jp",
@@ -17606,9 +17606,9 @@
     "UmaImage": "/assets/character_thumbs/106802-kitasan-black.png"
   },
   {
-    "UmaKey": "Hokko Tarumae :: Star・Light・Ship",
+    "UmaKey": "Hokko Tarumae :: Starry Lightship",
     "UmaName": "Hokko Tarumae",
-    "UmaNickname": "Star・Light・Ship",
+    "UmaNickname": "Starry Lightship",
     "UmaSlug": "109901-hokko-tarumae",
     "UmaId": "109901",
     "UmaServer": "jp",
@@ -17769,9 +17769,9 @@
     "UmaImage": "/assets/character_thumbs/109901-hokko-tarumae.png"
   },
   {
-    "UmaKey": "Daitaku Helios :: Fun ☆ Fun ☆ Party Night",
+    "UmaKey": "Daitaku Helios :: Fun☆Fun☆Party Night",
     "UmaName": "Daitaku Helios",
-    "UmaNickname": "Fun ☆ Fun ☆ Party Night",
+    "UmaNickname": "Fun☆Fun☆Party Night",
     "UmaSlug": "106501-daitaku-helios",
     "UmaId": "106501",
     "UmaServer": "jp",
@@ -17926,9 +17926,9 @@
     "UmaImage": "/assets/character_thumbs/106501-daitaku-helios.png"
   },
   {
-    "UmaKey": "Mejiro Ryan :: Marguerite・Latte",
+    "UmaKey": "Mejiro Ryan :: Marguerite Latte",
     "UmaName": "Mejiro Ryan",
-    "UmaNickname": "Marguerite・Latte",
+    "UmaNickname": "Marguerite Latte",
     "UmaSlug": "102702-mejiro-ryan",
     "UmaId": "102702",
     "UmaServer": "jp",
@@ -18081,9 +18081,9 @@
     "UmaImage": "/assets/character_thumbs/102702-mejiro-ryan.png"
   },
   {
-    "UmaKey": "Ines Fujin :: MELTY GIFT",
+    "UmaKey": "Ines Fujin :: Melt Your Heart",
     "UmaName": "Ines Fujin",
-    "UmaNickname": "MELTY GIFT",
+    "UmaNickname": "Melt Your Heart",
     "UmaSlug": "103102-ines-fujin",
     "UmaId": "103102",
     "UmaServer": "jp",
@@ -18228,7 +18228,7 @@
       {
         "EventName": "感謝を込めて、晩餐を",
         "EventOptions": {
-          "": "Stamina +20\nSteadfast hint +2"
+          "": "Stamina +20\nFirm Resolve hint +2"
         }
       },
       {
@@ -18550,9 +18550,9 @@
     "UmaImage": "/assets/character_thumbs/105701-mr-cb.png"
   },
   {
-    "UmaKey": "Twin Turbo :: Blast Mode! Turbo Engine",
+    "UmaKey": "Twin Turbo :: Turbo Engine! Full Throttle!",
     "UmaName": "Twin Turbo",
-    "UmaNickname": "Blast Mode! Turbo Engine",
+    "UmaNickname": "Turbo Engine! Full Throttle!",
     "UmaSlug": "106601-twin-turbo",
     "UmaId": "106601",
     "UmaServer": "jp",
@@ -18701,9 +18701,9 @@
     "UmaImage": "/assets/character_thumbs/106601-twin-turbo.png"
   },
   {
-    "UmaKey": "Daiichi Ruby :: Brilliant Red Gemstone",
+    "UmaKey": "Daiichi Ruby :: Opulent Gem",
     "UmaName": "Daiichi Ruby",
-    "UmaNickname": "Brilliant Red Gemstone",
+    "UmaNickname": "Opulent Gem",
     "UmaSlug": "108501-daiichi-ruby",
     "UmaId": "108501",
     "UmaServer": "jp",
@@ -19163,7 +19163,7 @@
       {
         "EventName": "秘密のダンスフロア",
         "EventOptions": {
-          "": "brp 1\nPower +25\nAmbitions hint +2\nbrp 2\nSkill Pts +20"
+          "": "brp 1\nPower +25\nAspire hint +2\nbrp 2\nSkill Pts +20"
         }
       },
       {
@@ -19345,9 +19345,9 @@
     "UmaImage": "/assets/character_thumbs/107102-mejiro-ardan.png"
   },
   {
-    "UmaKey": "Sakura Laurel :: Saisir le Rêve",
+    "UmaKey": "Sakura Laurel :: Saisir le rêve",
     "UmaName": "Sakura Laurel",
-    "UmaNickname": "Saisir le Rêve",
+    "UmaNickname": "Saisir le rêve",
     "UmaSlug": "107601-sakura-laurel",
     "UmaId": "107601",
     "UmaServer": "jp",
@@ -19671,9 +19671,9 @@
     "UmaImage": "/assets/character_thumbs/110501-neo-universe.png"
   },
   {
-    "UmaKey": "Sakura Bakushin O :: Red-Hot Leader",
+    "UmaKey": "Sakura Bakushin O :: Red Hot☆Leader",
     "UmaName": "Sakura Bakushin O",
-    "UmaNickname": "Red-Hot Leader",
+    "UmaNickname": "Red Hot☆Leader",
     "UmaSlug": "104102-sakura-bakushin-o",
     "UmaId": "104102",
     "UmaServer": "jp",
@@ -19994,16 +19994,16 @@
         "EventName": "服に福来たれ！",
         "EventOptions": {
           "Top Option": "Stamina +20",
-          "Bottom Option": "Tooth and Tail hint +2"
+          "Bottom Option": "Latch On hint +2"
         }
       }
     ],
     "UmaImage": "/assets/character_thumbs/106202-matikanetannhauser.png"
   },
   {
-    "UmaKey": "Hishi Miracle :: Miracle Make-up!",
+    "UmaKey": "Hishi Miracle :: Miracle Maker",
     "UmaName": "Hishi Miracle",
-    "UmaNickname": "Miracle Make-up!",
+    "UmaNickname": "Miracle Maker",
     "UmaSlug": "110601-hishi-miracle",
     "UmaId": "110601",
     "UmaServer": "jp",
@@ -20158,9 +20158,9 @@
     "UmaImage": "/assets/character_thumbs/110601-hishi-miracle.png"
   },
   {
-    "UmaKey": "Tanino Gimlet :: Embodiment of Keravnos",
+    "UmaKey": "Tanino Gimlet :: Mantle of Keravnos",
     "UmaName": "Tanino Gimlet",
-    "UmaNickname": "Embodiment of Keravnos",
+    "UmaNickname": "Mantle of Keravnos",
     "UmaSlug": "108401-tanino-gimlet",
     "UmaId": "108401",
     "UmaServer": "jp",
@@ -20638,16 +20638,16 @@
         "EventName": "まったりポテンシャリティ",
         "EventOptions": {
           "Top Option": "Power +20",
-          "Bottom Option": "Ambitions hint +2"
+          "Bottom Option": "Aspire hint +2"
         }
       }
     ],
     "UmaImage": "/assets/character_thumbs/105102-nishino-flower.png"
   },
   {
-    "UmaKey": "Marvelous Sunday :: ☆Sparkling★Dazzling☆Exciting∞Marvelous∞",
+    "UmaKey": "Marvelous Sunday :: ★Super∞Marvel∞Tastic☆",
     "UmaName": "Marvelous Sunday",
-    "UmaNickname": "☆Sparkling★Dazzling☆Exciting∞Marvelous∞",
+    "UmaNickname": "★Super∞Marvel∞Tastic☆",
     "UmaSlug": "105501-marvelous-sunday",
     "UmaId": "105501",
     "UmaServer": "jp",
@@ -21112,9 +21112,9 @@
     "UmaImage": "/assets/character_thumbs/105302-bamboo-memory.png"
   },
   {
-    "UmaKey": "Katsuragi Ace :: Dragon Rising to the Top",
+    "UmaKey": "Katsuragi Ace :: Dragon Rising",
     "UmaName": "Katsuragi Ace",
-    "UmaNickname": "Dragon Rising to the Top",
+    "UmaNickname": "Dragon Rising",
     "UmaSlug": "110401-katsuragi-ace",
     "UmaId": "110401",
     "UmaServer": "jp",
@@ -21438,9 +21438,9 @@
     "UmaImage": "/assets/character_thumbs/107001-sirius-symboli.png"
   },
   {
-    "UmaKey": "Silence Suzuka :: Emerald Among the Waves",
+    "UmaKey": "Silence Suzuka :: Emerald Tidings",
     "UmaName": "Silence Suzuka",
-    "UmaNickname": "Emerald Among the Waves",
+    "UmaNickname": "Emerald Tidings",
     "UmaSlug": "100202-silence-suzuka",
     "UmaId": "100202",
     "UmaServer": "jp",
@@ -22217,7 +22217,7 @@
         "EventName": "原石の願い",
         "EventOptions": {
           "Top Option": "Wit +30",
-          "Bottom Option": "Speed +10\nOn the Move hint +2"
+          "Bottom Option": "Speed +10\nStart the Charge hint +2"
         }
       },
       {
@@ -22572,7 +22572,7 @@
       {
         "EventName": "Streamlined",
         "EventOptions": {
-          "": "Speed +20\nGuts +10\nDevil-May-Care hint +2\nFearless hint +2\nEnergy +20\nSkill Pts +15"
+          "": "Speed +20\nGuts +10\nScramble hint +2\nFearless hint +2\nEnergy +20\nSkill Pts +15"
         }
       }
     ],
@@ -23026,7 +23026,7 @@
       {
         "EventName": "『シン』を射る",
         "EventOptions": {
-          "Top Option": "Speed +10\nAttack Stance hint +1\nSpeed +10",
+          "Top Option": "Speed +10\nOn the Attack hint +1\nSpeed +10",
           "Bottom Option": "Guts +25"
         }
       },
@@ -23040,7 +23040,7 @@
         "EventName": "次代の道標",
         "EventOptions": {
           "Top Option": "Motivation +1\nPower +15",
-          "Bottom Option": "Tooth and Tail hint +2"
+          "Bottom Option": "Latch On hint +2"
         }
       }
     ],
@@ -23642,7 +23642,7 @@
       {
         "EventName": "甘やかされ上手のトクベツ",
         "EventOptions": {
-          "": "brp 1\nStamina +20\nLock On hint +2\nbrp 2\nPower +20\nLock On hint +2\nbrp 3\nWit +20\nLock On hint +2"
+          "": "brp 1\nStamina +20\nLocked On hint +2\nbrp 2\nPower +20\nLocked On hint +2\nbrp 3\nWit +20\nLocked On hint +2"
         }
       },
       {
@@ -24132,7 +24132,7 @@
         "EventName": "スポットライトを、きみに",
         "EventOptions": {
           "Top Option": "Speed +15\nFast-Paced hint +1\nSpeed +10",
-          "Bottom Option": "Guts +15\nSteadfast hint +1\nGuts +10"
+          "Bottom Option": "Guts +15\nFirm Resolve hint +1\nGuts +10"
         }
       }
     ],
@@ -24288,7 +24288,7 @@
       {
         "EventName": "ネイチャ先生の盛り上げ講座",
         "EventOptions": {
-          "": "Speed +3\nStamina +3\nGuts +3\nTooth and Tail hint +1"
+          "": "Speed +3\nStamina +3\nGuts +3\nLatch On hint +1"
         }
       }
     ],
@@ -24777,7 +24777,7 @@
         "EventName": "秘密の“れっすん”！",
         "EventOptions": {
           "Top Option": "Stamina +15\nSkill Pts +15",
-          "Bottom Option": "Speed +10\nHigh Hopes hint +2"
+          "Bottom Option": "Speed +10\nBeating Heart hint +2"
         }
       }
     ],
@@ -25776,8 +25776,8 @@
       {
         "EventName": "っぱらびゅが1番な☆",
         "EventOptions": {
-          "Top Option": "Power +15\nHigh Hopes hint +1",
-          "Bottom Option": "Wit +15\nHigh Hopes hint +1"
+          "Top Option": "Power +15\nBeating Heart hint +1",
+          "Bottom Option": "Wit +15\nBeating Heart hint +1"
         }
       },
       {
@@ -26092,7 +26092,7 @@
       {
         "EventName": "No Border",
         "EventOptions": {
-          "Top Option": "Speed +10\nRazor-Sharp Stride hint +2",
+          "Top Option": "Speed +10\nPedal to the Metal hint +2",
           "Bottom Option": "Guts +15\nSkill Pts +15"
         }
       }
@@ -26726,7 +26726,7 @@
       {
         "EventName": "研究環境の比較考察",
         "EventOptions": {
-          "": "Inquisitive Mind hint +1"
+          "": "Adventurer hint +1"
         }
       }
     ],
@@ -27677,7 +27677,7 @@
       {
         "EventName": "仲良しのアドバイス",
         "EventOptions": {
-          "": "Speed +15\nFaultless hint +1"
+          "": "Speed +15\nAll Set hint +1"
         }
       }
     ],
@@ -28650,7 +28650,7 @@
       {
         "EventName": "ビヨンド・ディメンションズ",
         "EventOptions": {
-          "": "rs +10\nOn the Move hint +1"
+          "": "rs +10\nStart the Charge hint +1"
         }
       },
       {
@@ -29288,7 +29288,7 @@
       {
         "EventName": "世界を揺らす魔法",
         "EventOptions": {
-          "": "Power +15\nGraceful Step hint +1\nSpeed +5"
+          "": "Power +15\nGraceful Gait hint +1\nSpeed +5"
         }
       },
       {
@@ -29607,7 +29607,7 @@
         "EventName": "リニア・リグレッション",
         "EventOptions": {
           "Top Option": "Stamina +5\nPace Chaser Corners ○ hint +1",
-          "Bottom Option": "Wit +5\nFaultless hint +1"
+          "Bottom Option": "Wit +5\nAll Set hint +1"
         }
       }
     ],
@@ -29762,7 +29762,7 @@
       {
         "EventName": "それは前提条件",
         "EventOptions": {
-          "": "Power +20\nBreakthrough Plan hint +3\nMold Breaker hint +3\nEnergy +25\nBreakthrough Plan hint +1\nMold Breaker hint +1"
+          "": "Power +20\nBreakin' Out hint +3\nBreak the Mold hint +3\nEnergy +25\nBreakin' Out hint +1\nBreak the Mold hint +1"
         }
       }
     ],
@@ -30544,7 +30544,7 @@
         "EventName": "迷い断つ白刃",
         "EventOptions": {
           "Top Option": "Motivation +1\nSkill Pts +30",
-          "Bottom Option": "Guts +10\nGreat Haste hint +1"
+          "Bottom Option": "Guts +10\nHurry Up! hint +1"
         }
       }
     ],
@@ -30855,7 +30855,7 @@
       {
         "EventName": "迎春　熱血エース塾！",
         "EventOptions": {
-          "": "brp 1\nSpeed +25\nSkill Pts +15\nbrp 2\nSpeed +10\nEarly Bird hint +1"
+          "": "brp 1\nSpeed +25\nSkill Pts +15\nbrp 2\nSpeed +10\nGoin' First hint +1"
         }
       },
       {
@@ -32582,8 +32582,8 @@
       {
         "EventName": "その足が世界を踏みしめるのならば",
         "EventOptions": {
-          "Top Option": "Guts +5\nOverflowing Passion hint +1",
-          "Bottom Option": "Energy +15\nOverflowing Passion hint +1"
+          "Top Option": "Guts +5\nUnrestrained Passion hint +1",
+          "Bottom Option": "Energy +15\nUnrestrained Passion hint +1"
         }
       },
       {
@@ -32921,15 +32921,15 @@
       {
         "EventName": "あなたといっしょに！",
         "EventOptions": {
-          "": "brp 1\nSpeed +20\nSkill Pts +15\nRiding the Tailwind hint +2\nbrp 2\nPower +20\nSkill Pts +15\nHigh Hopes hint +2\nbrp 3\nEnergy +30\nSkill Pts +45"
+          "": "brp 1\nSpeed +20\nSkill Pts +15\nRiding the Tailwind hint +2\nbrp 2\nPower +20\nSkill Pts +15\nBeating Heart hint +2\nbrp 3\nEnergy +30\nSkill Pts +45"
         }
       },
       {
         "EventName": "繋げ☆みんなのバトントワリング！",
         "EventOptions": {
           "Top Option": "Energy +15",
-          "Bottom Option": "Promising Omen hint +1",
-          "Option 3": "Energy +15\nPromising Omen hint +1"
+          "Bottom Option": "Sunny Sign hint +1",
+          "Option 3": "Energy +15\nSunny Sign hint +1"
         }
       }
     ],
@@ -33037,7 +33037,7 @@
         "ObjectiveCondition": ""
       },
       {
-        "ObjectiveName": "Mile Championship Nambu Hai",
+        "ObjectiveName": "M.C. Nambu Hai",
         "Turn": "67",
         "Time": "Senior Year",
         "ObjectiveCondition": ""
@@ -33085,7 +33085,7 @@
       {
         "EventName": "萌芽に桜は降る",
         "EventOptions": {
-          "": "brp 1\nGuts +10\nDust Bath ○ hint +1\nbrp 2\nWit +10\nGroundwork hint +1\nbrp 3\nEnergy +30\nSkill Pts +45"
+          "": "brp 1\nGuts +10\nDown in the Dirt ○ hint +1\nbrp 2\nWit +10\nGroundwork hint +1\nbrp 3\nEnergy +30\nSkill Pts +45"
         }
       },
       {
@@ -34038,8 +34038,8 @@
       {
         "EventName": "無人島ハプニング！",
         "EventOptions": {
-          "Top Option": "Guts +10\nOn the Move hint +1",
-          "Bottom Option": "Energy +10\nOn the Move hint +1",
+          "Top Option": "Guts +10\nStart the Charge hint +1",
+          "Bottom Option": "Energy +10\nStart the Charge hint +1",
           "Option 3": "Wit +5\nSkill Pts +30"
         }
       },
@@ -35009,7 +35009,7 @@
         "EventName": "夏の誘いに乗って",
         "EventOptions": {
           "Top Option": "Energy +5\nMotivation +1\nSpeed +5",
-          "Bottom Option": "Tooth and Tail hint +1"
+          "Bottom Option": "Latch On hint +1"
         }
       }
     ],
@@ -35344,7 +35344,7 @@
       {
         "EventName": "透明で繊細なこころ",
         "EventOptions": {
-          "": "Guts +10\nWit +10\nAttack Stance hint +1"
+          "": "Guts +10\nWit +10\nOn the Attack hint +1"
         }
       },
       {
@@ -35499,7 +35499,7 @@
       {
         "EventName": "軽やか秋色ミルフィーユ",
         "EventOptions": {
-          "": "Razor-Sharp Stride hint +1"
+          "": "Pedal to the Metal hint +1"
         }
       },
       {
@@ -35590,7 +35590,7 @@
         "ObjectiveCondition": ""
       },
       {
-        "ObjectiveName": "Mile Championship Nambu Hai",
+        "ObjectiveName": "M.C. Nambu Hai",
         "Turn": "43",
         "Time": "Classic Year",
         "ObjectiveCondition": ""
@@ -35620,7 +35620,7 @@
         "ObjectiveCondition": ""
       },
       {
-        "ObjectiveName": "Mile Championship Nambu Hai",
+        "ObjectiveName": "M.C. Nambu Hai",
         "Turn": "67",
         "Time": "Senior Year",
         "ObjectiveCondition": ""
@@ -36134,13 +36134,13 @@
       {
         "EventName": "妖うごめくマーベラスナイト★",
         "EventOptions": {
-          "": "Stamina +5\nRising Passion hint +3\nEnergy +5\nRising Passion hint +1"
+          "": "Stamina +5\nRising Heat hint +3\nEnergy +5\nRising Heat hint +1"
         }
       },
       {
         "EventName": "癒し目覚めろ、マーベラスポット巡り",
         "EventOptions": {
-          "": "Speed +10\nMold Breaker hint +1"
+          "": "Speed +10\nBreak the Mold hint +1"
         }
       }
     ],
@@ -36296,7 +36296,7 @@
       {
         "EventName": "心まで行き届くように",
         "EventOptions": {
-          "Top Option": "Energy +10\nRising Passion hint +2\nEnergy +5\nRising Passion hint +1",
+          "Top Option": "Energy +10\nRising Heat hint +2\nEnergy +5\nRising Heat hint +1",
           "Bottom Option": "Power +15\nGuts +10"
         }
       }
@@ -37763,7 +37763,7 @@
       {
         "EventName": "マネジメント探偵参上",
         "EventOptions": {
-          "Top Option": "Speed +10\nRushing in Blind hint +1",
+          "Top Option": "Speed +10\nNo Looking Back hint +1",
           "Bottom Option": "Wit +10\nUnshakeable Faith hint +1"
         }
       }
@@ -37920,7 +37920,7 @@
         "EventName": "このひと振りに、全てを",
         "EventOptions": {
           "Top Option": "Stamina +10\nFierce Struggle hint +1",
-          "Bottom Option": "Power +10\nOverflowing Passion hint +1"
+          "Bottom Option": "Power +10\nUnrestrained Passion hint +1"
         }
       }
     ],
@@ -40027,7 +40027,7 @@
         "EventName": "たまには、回想劇を",
         "EventOptions": {
           "Top Option": "Energy +10\nMotivation +1",
-          "Bottom Option": "Tooth and Tail hint +1"
+          "Bottom Option": "Latch On hint +1"
         }
       }
     ],
@@ -41148,15 +41148,15 @@
       {
         "EventName": "燃えろ！ラーメンワールド！？",
         "EventOptions": {
-          "Top Option": "hs +20\nTrue Worth hint +1",
-          "Bottom Option": "hs +20\nTrue Worth hint +1",
+          "Top Option": "hs +20\nMy True Strength hint +1",
+          "Bottom Option": "hs +20\nMy True Strength hint +1",
           "Option 3": "Energy +10\nMotivation +1\nSkill Pts +30"
         }
       },
       {
         "EventName": "ウマさにまっすぐ！",
         "EventOptions": {
-          "Top Option": "Energy +20\nFaultless hint +1",
+          "Top Option": "Energy +20\nAll Set hint +1",
           "Bottom Option": "Energy +10\nMotivation +1\nSkill Pts +30"
         }
       },
