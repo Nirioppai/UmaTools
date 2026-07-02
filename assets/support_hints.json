@@ -74064,7 +74064,7 @@
     "SupportId": "30107",
     "SupportName": "Maruzensky (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Speed",
     "SupportEffects": [
       {
@@ -74328,7 +74328,7 @@
     "SupportId": "30108",
     "SupportName": "Nakayama Festa (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Wit",
     "SupportEffects": [
       {
@@ -74615,7 +74615,7 @@
     "SupportId": "30109",
     "SupportName": "Sakura Chiyono O (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Guts",
     "SupportEffects": [
       {
