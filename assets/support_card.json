@@ -6596,8 +6596,8 @@
     "EventName": "覇王と共に歩む道",
     "EventOptions": {
       "Top Option": "Motivation +1\nStamina +20\nGuts +5\nSkill Pts +5\nProfessor of Curvature hint +2\nPathfinder hint +1\nBond +5",
-      "Bottom Option": "Motivation +1\nStamina +20\nSkill Pts +10\nPathfinder hint +1\n曙光 hint +2\nBond +5",
-      "Option 3": "Motivation +1\nSpeed +5\nStamina +20\nSkill Pts +5\nPathfinder hint +1\n悠々自適 hint +2\nBond +5"
+      "Bottom Option": "Motivation +1\nStamina +20\nSkill Pts +10\nPathfinder hint +1\nDawnlight hint +2\nBond +5",
+      "Option 3": "Motivation +1\nSpeed +5\nStamina +20\nSkill Pts +5\nPathfinder hint +1\nCarefree Ease hint +2\nBond +5"
     }
   }
 ]

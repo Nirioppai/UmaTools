@@ -72678,6 +72678,12 @@
     "jpdesc": "レース終盤が迫ったとき前方にいると速度がわずかに上がる＜マイル＞",
     "jpname": "向こう見ず",
     "loc": {
+      "en": {
+        "char_e": [
+          101001,
+          101002
+        ]
+      },
       "ko": {
         "char": [
           106501,
@@ -157504,7 +157510,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "One Bowl, Full Power Delivery!",
     "gene_version": {
       "activation": 1,
       "condition_groups": [
@@ -157557,7 +157563,7 @@
     ],
     "cost": 180,
     "endesc": "",
-    "enname": "",
+    "enname": "Dawnlight",
     "evo": [],
     "iconid": 20012,
     "id": 203641,
@@ -157601,7 +157607,7 @@
     ],
     "cost": 190,
     "endesc": "",
-    "enname": "",
+    "enname": "Carefree Ease",
     "evo": [
       {
         "evos": [
@@ -157652,7 +157658,7 @@
     ],
     "cost": 190,
     "endesc": "",
-    "enname": "",
+    "enname": "Breaktime Pro",
     "iconid": 0,
     "id": 204392,
     "jpdesc": "レース中盤始めの方に持久力をわずかに回復しほんのわずかに前に出る＜中距離/長距離＞",
@@ -157690,7 +157696,7 @@
     ],
     "cost": 180,
     "endesc": "",
-    "enname": "",
+    "enname": "Roused Spirit",
     "iconid": 20011,
     "id": 204472,
     "jpdesc": "最終コーナー前の第3コーナーで前方にいるとわずかに前に出る＜中距離/長距離＞",
@@ -157726,7 +157732,7 @@
     ],
     "cost": 200,
     "endesc": "",
-    "enname": "",
+    "enname": "Premium Helping of Gratitude",
     "evo": [],
     "iconid": 20362,
     "id": 210391,
@@ -157758,7 +157764,7 @@
     ],
     "cost": 200,
     "endesc": "",
-    "enname": "",
+    "enname": "Serving of Gratitude",
     "iconid": 20361,
     "id": 210392,
     "jpdesc": "レース最終盤始めの方でラストスパートの最中なら速度がわずかに上がる",
@@ -157789,7 +157795,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Extra-Firm, Coming Right Up!",
     "evo_cond": [
       [
         [
@@ -157831,7 +157837,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Slow-Crafted Bowl",
     "evo_cond": [
       [
         [
@@ -157870,7 +157876,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Secrets of the Noodle Path",
     "evo_cond": [
       [
         [
@@ -157933,7 +157939,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Exquisite Water Draining",
     "evo_cond": [
       [
         [
@@ -157972,7 +157978,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Secret Flavor Remix!",
     "evo_cond": [
       [
         [
@@ -158018,7 +158024,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Heaping Helping of Cheer",
     "evo_cond": [
       [
         [
@@ -158071,7 +158077,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Steaming Road to Victory",
     "evo_cond": [
       [
         [
@@ -158139,7 +158145,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Now Open for Business!",
     "evo_cond": [
       [
         [
@@ -158201,7 +158207,7 @@
       }
     ],
     "endesc": "",
-    "enname": "",
+    "enname": "Preparation for Triumph",
     "evo_cond": [
       [
         [
