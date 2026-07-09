@@ -3116,7 +3116,7 @@
   {
     "EventName": "Upping the Ante",
     "EventOptions": {
-      "": "brp 1\nSpeed +20\nStamina +20\nWit +20\nSkill Pts +30\nNothing Ventured hint +3\nBond +5\nbrp 2\nSpeed +10\nWit +10\nSkill Pts +20\nNothing Ventured hint +1\nBond +5\nSkill Pts +10\nRisky Business hint +1"
+      "": "brp 1\nSpeed +10\nWit +10\nSkill Pts +20\nNothing Ventured hint +1\nBond +5\nbrp 1\nSkill Pts +10\nNothing Ventured hint +1\nbrp 2\nSpeed +20\nStamina +20\nWit +20\nSkill Pts +30\nRisky Business hint +3\nBond +5\nbrp 2\nSkill Pts +10\nRisky Business hint +3"
     }
   },
   {

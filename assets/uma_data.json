@@ -11545,7 +11545,7 @@
       {
         "EventName": "A Proffered Hand",
         "EventOptions": {
-          "": "Speed +20\nWit +20\nRight-Handed ○ hint +3\nRight-Handed ○ hint +1"
+          "": "brp 1\nSpeed +20\nWit +20\nRight-Handed ○ hint +3\nbrp 2\nRight-Handed ○ hint +1"
         }
       },
       {
