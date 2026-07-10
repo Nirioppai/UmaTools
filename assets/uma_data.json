@@ -41148,8 +41148,8 @@
       {
         "EventName": "燃えろ！ラーメンワールド！？",
         "EventOptions": {
-          "Top Option": "hs +20\nMy True Strength hint +1",
-          "Bottom Option": "hs +20\nMy True Strength hint +1",
+          "Top Option": "hi_s +20\nMy True Strength hint +1",
+          "Bottom Option": "hi_s +20\nMy True Strength hint +1",
           "Option 3": "Energy +10\nMotivation +1\nSkill Pts +30"
         }
       },
@@ -41169,5 +41169,186 @@
       }
     ],
     "UmaImage": "/assets/character_thumbs/107703-narita-top-road.png"
+  },
+  {
+    "UmaKey": "Fine Motion :: 102203-fine-motion",
+    "UmaName": "Fine Motion",
+    "UmaNickname": null,
+    "UmaSlug": "102203-fine-motion",
+    "UmaId": "102203",
+    "UmaServer": "jp",
+    "UmaBaseStars": 3,
+    "UmaBaseStats": {
+      "3★": {
+        "Speed": 91,
+        "Stamina": 85,
+        "Power": 96,
+        "Guts": 85,
+        "Wit": 93
+      },
+      "5★": {
+        "Speed": 111,
+        "Stamina": 104,
+        "Power": 117,
+        "Guts": 104,
+        "Wit": 114
+      },
+      "4★": {
+        "Speed": 101,
+        "Stamina": 95,
+        "Power": 107,
+        "Guts": 95,
+        "Wit": 102
+      }
+    },
+    "UmaStatBonuses": {
+      "Speed": 0,
+      "Stamina": 0,
+      "Power": 10,
+      "Guts": 10,
+      "Wit": 10
+    },
+    "UmaAptitudes": {
+      "Surface": {
+        "Turf": "A",
+        "Dirt": "G"
+      },
+      "Distance": {
+        "Short": "F",
+        "Mile": "A",
+        "Medium": "A",
+        "Long": "C"
+      },
+      "Strategy": {
+        "Front": "D",
+        "Pace": "A",
+        "Late": "E",
+        "End": "C"
+      }
+    },
+    "UmaHeightCm": null,
+    "UmaThreeSizes": {},
+    "UmaObjectives": [
+      {
+        "ObjectiveName": "Junior Make Debut",
+        "Turn": "12",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Earn 3,000 fans",
+        "Turn": "24",
+        "Time": "Junior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Oka Sho",
+        "Turn": "31",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Japanese Oaks",
+        "Turn": "34",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Shuka Sho",
+        "Turn": "44",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Queen Elizabeth II Cup",
+        "Turn": "45",
+        "Time": "Classic Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Osaka Hai",
+        "Turn": "54",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Takarazuka Kinen",
+        "Turn": "60",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Sapporo Kinen",
+        "Turn": "64",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Tenno Sho (Autumn)",
+        "Turn": "68",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Queen Elizabeth II Cup",
+        "Turn": "69",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Mile Championship",
+        "Turn": "70",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "Arima Kinen",
+        "Turn": "72",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Preliminary",
+        "Turn": "74",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Semi-Final",
+        "Turn": "76",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      },
+      {
+        "ObjectiveName": "URA Final",
+        "Turn": "78",
+        "Time": "Senior Year",
+        "ObjectiveCondition": ""
+      }
+    ],
+    "UmaEvents": [
+      {
+        "EventName": "ノーブルな想いは丼の中に",
+        "EventOptions": {
+          "Top Option": "Energy +10\nGuts +10\nGo With the Flow hint +1",
+          "Bottom Option": "Power +20\nGo With the Flow hint +1"
+        }
+      },
+      {
+        "EventName": "翠玉の貴人と忠義なる騎士",
+        "EventOptions": {
+          "Top Option": "Energy +10\nSkill Pts +15",
+          "Bottom Option": "Energy -10\nSkill Pts +45"
+        }
+      },
+      {
+        "EventName": "この特等席を、キミと",
+        "EventOptions": {
+          "Top Option": "Energy +10\nhi_s +10\nlo_s +10\nhi_s +10\nlo_s +10\nhi_s +5\nlo_s +5",
+          "Bottom Option": "Energy +5\nDownhill Speedster hint +1"
+        }
+      }
+    ],
+    "UmaImage": "/assets/character_thumbs/102203-fine-motion.png"
   }
 ]

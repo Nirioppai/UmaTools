@@ -1255,6 +1255,18 @@
     }
   },
   {
+    "EventName": "その走りは線を成す",
+    "EventOptions": {
+      "": "Speed +15\nBond +5"
+    }
+  },
+  {
+    "EventName": "超常のその先へ",
+    "EventOptions": {
+      "": "Motivation +1\nSpeed +15\nSprint Straightaways ○ hint +1\nBond +5"
+    }
+  },
+  {
     "EventName": "Dance in Cleats!",
     "EventOptions": {
       "": "Speed +10\nStamina +10\nSoft Step hint +1"
@@ -3116,7 +3128,7 @@
   {
     "EventName": "Upping the Ante",
     "EventOptions": {
-      "": "brp 1\nSpeed +10\nWit +10\nSkill Pts +20\nNothing Ventured hint +1\nBond +5\nbrp 1\nSkill Pts +10\nNothing Ventured hint +1\nbrp 2\nSpeed +20\nStamina +20\nWit +20\nSkill Pts +30\nRisky Business hint +3\nBond +5\nbrp 2\nSkill Pts +10\nRisky Business hint +3"
+      "": "brp 1\nSpeed +10\nWit +10\nSkill Pts +20\nNothing Ventured hint +1\nBond +5\nbrp 1\nSkill Pts +10\nRisky Business hint +1\nbrp 2\nSpeed +20\nStamina +20\nWit +20\nSkill Pts +30\nNothing Ventured hint +3\nBond +5\nbrp 2\nSkill Pts +10\nRisky Business hint +1"
     }
   },
   {
@@ -6598,6 +6610,25 @@
       "Top Option": "Motivation +1\nStamina +20\nGuts +5\nSkill Pts +5\nProfessor of Curvature hint +2\nPathfinder hint +1\nBond +5",
       "Bottom Option": "Motivation +1\nStamina +20\nSkill Pts +10\nPathfinder hint +1\nDawnlight hint +2\nBond +5",
       "Option 3": "Motivation +1\nSpeed +5\nStamina +20\nSkill Pts +5\nPathfinder hint +1\nCarefree Ease hint +2\nBond +5"
+    }
+  },
+  {
+    "EventName": "【C】カルチャーギャップ",
+    "EventOptions": {
+      "": "Energy +10\nWit +15\nBond +15"
+    }
+  },
+  {
+    "EventName": "【C+】こだわりリレイション",
+    "EventOptions": {
+      "Top Option": "Motivation +1\nWit +10\nSimmering Heat hint +1\nBond +5",
+      "Bottom Option": "Motivation +1\nWit +15\nSkill Pts +10\nBond +5"
+    }
+  },
+  {
+    "EventName": "【??】可変的レアリティ",
+    "EventOptions": {
+      "": "Energy +5\nWit +10\nSkill Pts +10\nBreach hint +1\nLatent Fighting Spirit hint +2\nBond +5"
     }
   }
 ]
