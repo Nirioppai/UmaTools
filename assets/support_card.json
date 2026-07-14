@@ -611,13 +611,13 @@
     }
   },
   {
-    "EventName": "船釣りの後に……",
+    "EventName": "After the Fishing Trip...",
     "EventOptions": {
       "": "Stamina +10\nHesitant Late Surgers hint +1\nBond +5"
     }
   },
   {
-    "EventName": "また船釣りに行こう",
+    "EventName": "Let's Go Fishing Again",
     "EventOptions": {
       "Top Option": "Speed +15\nStamina +15\nBond +5",
       "Bottom Option": "Motivation +1\nSecond Wind hint +1\nBond +15"
@@ -3150,19 +3150,19 @@
     }
   },
   {
-    "EventName": "見えないものは、見なくてもいい",
+    "EventName": "Not All Phenomena Must Be Seen",
     "EventOptions": {
       "": "Energy +20\nMotivation +1\nStamina +5\nBond +5"
     }
   },
   {
-    "EventName": "大きなことは、大きくない",
+    "EventName": "The Big Picture Isn't So Big",
     "EventOptions": {
       "": "Energy +25\nStamina +5\nBond +5"
     }
   },
   {
-    "EventName": "解けないものは、解けないままでいい",
+    "EventName": "Not All Mysteries Must Be Solved",
     "EventOptions": {
       "": "Energy +30\nStamina +5\nOf Calm Mind hint +1\nBond +5"
     }

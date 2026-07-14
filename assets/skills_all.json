@@ -64688,6 +64688,20 @@
     "jpdesc": "小回りのコースが得意になる",
     "jpname": "小回り◎",
     "loc": {
+      "en": {
+        "condition_groups": [
+          {
+            "base_time": -1,
+            "condition": "track_id==10001@track_id==10002@track_id==10004@track_id==10010@track_id==10103@track_id==10104",
+            "effects": [
+              {
+                "type": 5,
+                "value": 600000
+              }
+            ]
+          }
+        ]
+      },
       "ko": {
         "condition_groups": [
           {
@@ -64755,6 +64769,20 @@
     "jpdesc": "小回りのコースが少し得意になる",
     "jpname": "小回り○",
     "loc": {
+      "en": {
+        "condition_groups": [
+          {
+            "base_time": -1,
+            "condition": "track_id==10001@track_id==10002@track_id==10004@track_id==10010@track_id==10103@track_id==10104",
+            "effects": [
+              {
+                "type": 5,
+                "value": 400000
+              }
+            ]
+          }
+        ]
+      },
       "ko": {
         "condition_groups": [
           {
@@ -64840,6 +64868,20 @@
     "jpdesc": "小回りのコースが少し苦手になる",
     "jpname": "小回り×",
     "loc": {
+      "en": {
+        "condition_groups": [
+          {
+            "base_time": -1,
+            "condition": "track_id==10001@track_id==10002@track_id==10004@track_id==10010@track_id==10103@track_id==10104",
+            "effects": [
+              {
+                "type": 5,
+                "value": -400000
+              }
+            ]
+          }
+        ]
+      },
       "ko": {
         "condition_groups": [
           {
