@@ -38943,7 +38943,7 @@
     "SupportId": "20050",
     "SupportName": "Seiun Sky (SR)",
     "SupportRarity": "SR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Wit",
     "SupportEffects": [
       {
@@ -75057,7 +75057,7 @@
     "SupportId": "30110",
     "SupportName": "Manhattan Cafe (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Stamina",
     "SupportEffects": [
       {
