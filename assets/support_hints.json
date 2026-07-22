@@ -15330,7 +15330,7 @@
     "SupportId": "10083",
     "SupportName": "Light Hello (R)",
     "SupportRarity": "R",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Friend",
     "SupportEffects": [
       {
@@ -61956,7 +61956,7 @@
     "SupportId": "30052",
     "SupportName": "Light Hello (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Friend",
     "SupportEffects": [
       {
@@ -72834,7 +72834,7 @@
     "SupportId": "30101",
     "SupportName": "Agnes Tachyon (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Speed",
     "SupportEffects": [
       {
@@ -77673,7 +77673,7 @@
     "SupportId": "30121",
     "SupportName": "Mihono Bourbon (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Speed",
     "SupportEffects": [
       {
