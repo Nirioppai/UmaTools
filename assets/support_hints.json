@@ -75306,7 +75306,7 @@
     "SupportId": "30111",
     "SupportName": "Tokai Teio (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Wit",
     "SupportEffects": [
       {
@@ -75555,7 +75555,7 @@
     "SupportId": "30112",
     "SupportName": "Twin Turbo (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Guts",
     "SupportEffects": [
       {
@@ -75773,7 +75773,7 @@
     "SupportId": "30113",
     "SupportName": "Biwa Hayahide (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Stamina",
     "SupportEffects": [
       {
