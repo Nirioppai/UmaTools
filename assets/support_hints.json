@@ -14588,7 +14588,7 @@
     "SupportId": "10079",
     "SupportName": "Daiichi Ruby (R)",
     "SupportRarity": "R",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Power",
     "SupportEffects": [
       {
@@ -14775,7 +14775,7 @@
     "SupportId": "10080",
     "SupportName": "K.S.Miracle (R)",
     "SupportRarity": "R",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Guts",
     "SupportEffects": [
       {
@@ -39398,7 +39398,7 @@
     "SupportId": "20051",
     "SupportName": "K.S.Miracle (SR)",
     "SupportRarity": "SR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Guts",
     "SupportEffects": [
       {
@@ -76276,7 +76276,7 @@
     "SupportId": "30114",
     "SupportName": "Daiichi Ruby (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Power",
     "SupportEffects": [
       {
