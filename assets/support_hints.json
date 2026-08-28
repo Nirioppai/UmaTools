@@ -15505,7 +15505,7 @@
     "SupportId": "10084",
     "SupportName": "Tanino Gimlet (R)",
     "SupportRarity": "R",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Power",
     "SupportEffects": [
       {
@@ -83915,7 +83915,7 @@
     "SupportId": "30145",
     "SupportName": "Tanino Gimlet (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Power",
     "SupportEffects": [
       {
