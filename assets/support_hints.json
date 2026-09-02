@@ -40271,7 +40271,7 @@
     "SupportId": "20052",
     "SupportName": "Tsurumaru Tsuyoshi (SR)",
     "SupportRarity": "SR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Guts",
     "SupportEffects": [
       {
@@ -77868,7 +77868,7 @@
     "SupportId": "30118",
     "SupportName": "Symboli Kris S (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Stamina",
     "SupportEffects": [
       {
