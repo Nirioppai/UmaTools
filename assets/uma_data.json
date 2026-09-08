@@ -15972,7 +15972,7 @@
     "UmaNickname": "Raging Thunder",
     "UmaSlug": "102102-tamamo-cross",
     "UmaId": "102102",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -16094,21 +16094,21 @@
     ],
     "UmaEvents": [
       {
-        "EventName": "進め！お神輿ガラガラと",
+        "EventName": "A Mighty Mikoshi Procession",
         "EventOptions": {
           "Top Option": "Energy +20\nWit +20",
           "Bottom Option": "Power +10\nSkill Pts +10\nFall Runner ○ hint +2"
         }
       },
       {
-        "EventName": "魂のマヨヒガ",
+        "EventName": "Mystery on the Mountain",
         "EventOptions": {
           "Top Option": "Speed +15",
           "Bottom Option": "Straight Descent hint +2"
         }
       },
       {
-        "EventName": "ツッコめ！プリティ神主",
+        "EventName": "The Quick-Witted Pretty Priest",
         "EventOptions": {
           "": "Stamina +10\nPower +10\nGuts +10\nStamina +10\nPower +10\nStamina +5\nPower +5"
         }
@@ -16122,7 +16122,7 @@
     "UmaNickname": "Golden Dream",
     "UmaSlug": "103402-inari-one",
     "UmaId": "103402",
-    "UmaServer": "jp",
+    "UmaServer": "global",
     "UmaBaseStars": 3,
     "UmaBaseStats": {
       "3★": {
@@ -16250,21 +16250,21 @@
     ],
     "UmaEvents": [
       {
-        "EventName": "昔話も江戸風でい！",
+        "EventName": "Old Tales, Edo Style!",
         "EventOptions": {
           "Top Option": "Energy +20\nPower +20",
           "Bottom Option": "Speed +10\nStamina +10\nFall Runner ○ hint +2"
         }
       },
       {
-        "EventName": "ひと汗かこうぜ、銭湯で！",
+        "EventName": "Sweat It Off at the Bathhouse!",
         "EventOptions": {
           "Top Option": "After-School Stroll hint +2",
           "Bottom Option": "Motivation +1\nSpeed +10"
         }
       },
       {
-        "EventName": "参上！いなせな稲荷神",
+        "EventName": "Inari—God of Class!",
         "EventOptions": {
           "": "Stamina +5\nPower +15"
         }
