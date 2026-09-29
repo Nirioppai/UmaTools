@@ -15685,7 +15685,7 @@
     "SupportId": "10085",
     "SupportName": "Sakura Laurel (R)",
     "SupportRarity": "R",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Stamina",
     "SupportEffects": [
       {
@@ -79265,7 +79265,7 @@
     "SupportId": "30123",
     "SupportName": "Narita Brian (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Power",
     "SupportEffects": [
       {
@@ -79511,7 +79511,7 @@
     "SupportId": "30124",
     "SupportName": "Air Groove (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Wit",
     "SupportEffects": [
       {
@@ -79760,7 +79760,7 @@
     "SupportId": "30125",
     "SupportName": "Sakura Laurel (SSR)",
     "SupportRarity": "SSR",
-    "SupportServer": "jp",
+    "SupportServer": "global",
     "SupportType": "Stamina",
     "SupportEffects": [
       {
@@ -130247,6 +130247,283 @@
       {
         "SkillId": "",
         "Name": "Initial Power bonus",
+        "HintLevel": null
+      }
+    ]
+  },
+  {
+    "SupportSlug": "30318-rice-shower",
+    "SupportId": "30318",
+    "SupportName": "Rice Shower (SSR)",
+    "SupportRarity": "SSR",
+    "SupportServer": "jp",
+    "SupportType": "Guts",
+    "SupportEffects": [
+      {
+        "id": 1,
+        "name": "Friendship Bonus",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          15,
+          15,
+          15,
+          15,
+          20,
+          20
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Mood Effect",
+        "symbol": "percent",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          20,
+          20,
+          20,
+          20,
+          30,
+          30
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Initial Speed",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          15,
+          30
+        ]
+      },
+      {
+        "id": 12,
+        "name": "Initial Guts",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          10,
+          25,
+          25,
+          25
+        ]
+      },
+      {
+        "id": 14,
+        "name": "Initial Friendship Gauge",
+        "symbol": "none",
+        "values": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          25,
+          25,
+          25,
+          25,
+          30
+        ]
+      },
+      {
+        "id": 15,
+        "name": "Race Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          5,
+          5,
+          5,
+          5,
+          5,
+          10
+        ]
+      },
+      {
+        "id": 16,
+        "name": "Fan Bonus",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          10,
+          10,
+          10,
+          10,
+          10,
+          15
+        ]
+      },
+      {
+        "id": 17,
+        "name": "Hint Levels",
+        "symbol": "level",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2
+        ]
+      },
+      {
+        "id": 18,
+        "name": "Hint Frequency",
+        "symbol": "percent",
+        "values": [
+          1,
+          1,
+          1,
+          5,
+          5,
+          20,
+          20,
+          20,
+          20,
+          50,
+          50
+        ]
+      },
+      {
+        "id": 19,
+        "name": "Specialty Priority",
+        "symbol": "none",
+        "values": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          20,
+          20,
+          20,
+          20,
+          35,
+          35
+        ]
+      },
+      {
+        "id": 30,
+        "name": "Skill Point Bonus",
+        "symbol": "none",
+        "values": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "SupportUnique": {
+      "level": 0,
+      "effects": [
+        {
+          "id": 103,
+          "name": "Effect #103",
+          "symbol": "",
+          "value": 4
+        }
+      ]
+    },
+    "SupportImage": "/assets/support_thumbs/30318-rice-shower.png",
+    "SupportHints": [
+      {
+        "SkillId": "200062",
+        "Name": "Kyoto Racecourse ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200562",
+        "Name": "Stamina to Spare",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "200582",
+        "Name": "Prepared to Pass",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201342",
+        "Name": "Straight Descent",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201532",
+        "Name": "Pace Chaser Savvy ○",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201581",
+        "Name": "Highlander",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "201591",
+        "Name": "Uma Stan",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "204332",
+        "Name": "Honest Run",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Speed bonus",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Power bonus",
+        "HintLevel": null
+      },
+      {
+        "SkillId": "",
+        "Name": "Initial Guts bonus",
         "HintLevel": null
       }
     ]
